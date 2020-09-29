@@ -281,32 +281,192 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `Recretary` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: Delete a person**
+**Use case: UC01 - Add a person**  
+
+**MSS**  
+
+1. User requests to add a new contact with the relevant details.
+2. System indicates that the addition is successful.
+
+Use case ends.
+
+**Extensions**:
+
+* 1a. System detects an error in the data.
+  * 1a1. System requests for the correct data.
+  * 1a2. User enters new data.
+  
+  Steps 1a1-1a2 are repeated until the data entered are correct.
+  
+  Use case resumes from step 2.
+
+**Use case: UC02 - Add a meeting and its participants**  
 
 **MSS**
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1. User requests to add a new meeting with the location, title and date.
+2. System requests for the participant lists.
+3. User enters the participant's name (must be one of the contacts).
+4. System indicates that the addition is successful.
+5. User repeats step 3 until all participants are added.
 
-    Use case ends.
+Use case ends.
 
-**Extensions**
+**Extensions**:
+
+* 1a. System detects an error in the data.
+  * 1a1. System requests for the correct data.
+  * 1a2. User enters new data.
+  
+  Steps 1a1-1a2 are repeated until the data entered are correct.
+  
+  Use case resumes from step 2.
+  
+* 3a. Contact is not in System.
+  * 3a1. System requests for the correct contact.
+  * 3a2. User enters new contact name.
+  
+  Steps 3a1-3a2 are repeated until the data entered are correct.
+  
+  Use case resumes from step 4.
+
+**Use case: UC03 - List all contacts or all meetings**  
+
+**MSS**
+
+1. User requests to list all contacts/ meetings
+2. System shows the full list of contacts/ meetings
+
+Use case ends.
+
+**Extensions**:
+
+* 2a. The requested list is empty.
+  
+  Use case ends.
+
+**Use case: UC04 - Edit a contact**  
+
+**MSS**
+
+1. User requests to <ins> list all contacts (UC03)</ins>.
+2. User requests to edit a contact with its index and new details.
+3. System indicates that the update is successful.
+
+Use case ends.
+
+**Extensions**:
 
 * 2a. The list is empty.
 
   Use case ends.
 
-* 3a. The given index is invalid.
+* 2b. User enters a negative integer as index.
+  * 2b1. System indicates the error and requests for a non-negative index as index.
+  * 2b2. User enters the correct index and new details.
+  
+  Steps 2b1-2b2 are repeated until the data entered are correct.  
+  Use case resumes from step 3.
+  
+* 2c. User did not enter new details.
+  * 2c1. System indicates the error and requests for the correct details.
+  * 2c2. User enters the specific index and correct details.
+  
+  Steps 2c1-2c2 are repeated until the data entered are correct.  
+  Use case resumes from step 3.
 
-    * 3a1. AddressBook shows an error message.
+**Use case: UC05 - Edit a meeting**  
 
-      Use case resumes at step 2.
+**MSS**
 
-*{More to be added}*
+1. User requests to <ins> list all meetings (UC03)</ins>.
+2. User requests to edit a meeting with its index and new details.
+3. System indicates that the update is successful.
+
+Use case ends.
+
+**Extensions**:
+
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 2b. User enters a negative integer as index.
+  * 2b1. System indicates the error and requests for a non-negative index as index.
+  * 2b2. User enters the correct index and new details.
+  
+  Steps 2b1-2b2 are repeated until the data entered are correct.  
+  Use case resumes from step 3.
+  
+* 2c. User did not enter new details.
+  * 2c1. System indicates the error and requests for the correct details.
+  * 2c2. User enters the specific index and correct details.
+  
+  Steps 2c1-2c2 are repeated until the data entered are correct.  
+  Use case resumes from step 3.
+ 
+* 2d. User requests to edit participant list.
+  * 2d1. System shows current list of participants. 
+  * 2d2. User enters the index of the participant he/she wants to remove.
+  * 2d3. System shows the updated list of participants.
+  
+  Steps 2d1-2d2 are repeated until the user finishes editing.  
+  Use case resumes from step 3.
+
+**Use case: UC06 - Find a contact or a meeting**  
+
+**MSS**
+
+1. User requests to search for a contact/meeting with a keyword.
+2. System shows the list of contacts/ meetings with matching keywords.
+
+Use case ends.
+
+**Extensions**:
+
+* 1a. No contact/ meeting matched the keyword method.
+  * 1a1. System shows a message indicating no matching records were found.
+  Use case ends.
+  
+**Use case: UC07 - Delete a contact or a meeting**  
+
+**MSS**
+
+1. User requests to <ins> list all contacts/ meetings (UC03)</ins>.
+2. User requests to remove a contact/ meeting from the list with its index.
+3. System shows a success message 
+
+Use case ends.
+
+**Extensions**:
+
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 2b. User enters a negative integer as index.
+  * 2a1. System indicates the error and requests for a non-negative index as index.
+  * 2a2. User enters the correct index.
+  
+  Steps 2b1-2b2 are repeated until the data entered are correct.  
+  Use case resumes from step 3.
+
+**Use case: UC08 - Delete all contacts or meetings**  
+
+**MSS**
+
+1.  User requests to delete all contacts/ meetings.
+2.  System indicates that the deletion is successful.
+
+    Use case ends.
+    
+**Extensions**: 
+
+* 1a. No contact/ meeting has been added.
+
+  Use case ends.
 
 ### Non-Functional Requirements
 
