@@ -29,6 +29,15 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Developer
 * Responsibilities: General work and Update contacts implementation to contain new class Company
 
+### Liu Chuyue
+
+<img src="images/ramenmen.png" width="200px">
+
+[[github](http://github.com/ramenmen)] [[portfolio](team/liu-chuyue.md)]
+
+* Role: Developer
+* Responsibilities: General work and Implementing new Meeting class
+
 ### Adithya Narayan Rangarajan Sreenivasan
 
 <img src="images/adithyanarayan.png" width="200px">
@@ -39,7 +48,6 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Responsibilities: UI and Frontend
 * In charge of `UI`
 * JavaFX expert
-
 
 ### Jean Doe
 
