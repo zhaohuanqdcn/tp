@@ -473,8 +473,10 @@ Use case ends.
 1.  Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
 2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-*{More to be added}*
+4.  Should be portable. The executable must be one-click run.
+5.  The data must be saved onto the hard disk and must be transferrable. In case of unexpected shutdown, the data must be preserved. The data should be human readable.
+6.  Each new update should be backwords-compatable with the data from the previous versions so that it will be easy for users to port over.
+7.  The app must speeden the workflow of the secretary and not be of hinderance.  
 
 ### Glossary
 
