@@ -3,6 +3,7 @@ layout: page
 title: User Guide
 ---
 
+
 Recretary is a **desktop app for managing contacts and meetings, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, Recretary can get your contact management tasks done faster than traditional GUI apps.
 
 * First Run
@@ -10,9 +11,9 @@ Recretary is a **desktop app for managing contacts and meetings, optimized for u
     * Contact & Meeting Management
         * Adding a person/ meeting : `add <contact | meeting>`
         * Listing all persons/ meetings: `list <contact | meeting>` 
-        * Editing a person/ meeting: edit `<contact | meeting>` 
-        * Locating persons/ meetings: find `<contact | meeting>` 
-        * Deleting a person/ meeting: delete `<contact | meeting>`
+        * Editing a person/ meeting: `edit <contact | meeting>` 
+        * Locating persons/ meetings: `find <contact | meeting>` 
+        * Deleting a person/ meeting: `delete <contact | meeting>`
     * General
         * Clearing all entries : `clear`
         * Viewing help : `help`
@@ -183,10 +184,10 @@ _{explain the feature here}_
 
 Action | Format, Examples
 --------|------------------
-**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+**Add** | `add contact n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS c/COMPANY [r/COMPANY_ROLE] [t/TAG]…` <br> e.g., `add contact n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd a/XYZ Company r/manager t/friend t/colleague` <br> `add meeting d/DATETIME dur/DURATION t/TITLE [l/LOCATION]` <br> e.g., `add meeting d/2020-12-31 14:00 dur/60 t/abc company meeting l/John street, block 123, #01-01`
 **Clear** | `clear`
-**Delete** | `delete INDEX`<br> e.g., `delete 3`
-**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
-**Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
-**List** | `list`
+**Delete** | `delete contact INDEX`<br> e.g., `delete contact 3` <br> `delete meeting INDEX`<br> e.g., `delete meeting 5`
+**Edit** | `edit contact INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [c/COMPANY] [r/COMPANY_ROLE] [t/TAG]…`<br> e.g.,`edit contact 2 n/James Lee e/jameslee@example.com` <br> `edit meeting INDEX [d/DATETIME] [dur/DURATION] [t/TITLE] [l/LOCATION]`<br> e.g.,`edit contact 1 dur/90 l/COM2 LT17`
+**Find** | `find contact KEYWORD [MORE_KEYWORDS]`<br> e.g., `find contact James Jake` <br> `find meeting KEYWORD [MORE_KEYWORDS]`<br> e.g., `find meeting recretary stakeholders`
+**List** | `list contact` <br> `list meeting`
 **Help** | `help`
