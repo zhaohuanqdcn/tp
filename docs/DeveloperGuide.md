@@ -234,15 +234,34 @@ _{Explain here how the data archiving feature will be implemented}_
 
 ### Product scope
 
-**Target user profile**:
+* **Target user profile**:
+    * Potential Users (who prefer CLI/typing):
+        * Coders
+        * Authors/Bloggers/Journalists
+        * **Personal Secretaries**
+    * Potential Users (who need address book):
+        * Business managers
+        * **Personal Secretaries**
+        * HR admins
+        * Salespersons
+    
+    * Common in both: 
+        * **Executive Personal Secretary**
+    * Job Focus: 
+        * Arrange conference calls and meetings
+        * Manage clients
+        * Send email correspondence
+        * Make travel arrangements
+    
+* **Value proposition**: 
+    * Minimise the workload
+    * Easier to manage
+    * Automate monotonous and repetitive tasks
+    * Decrease human errors
+    * Reduce typos and spelling mistakes
+    * Optimise meeting timings and location
+    * Reminders for important tasks/events
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing to mouse interactions
-* is reasonably comfortable using CLI apps
-
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
 
 
 ### User stories
