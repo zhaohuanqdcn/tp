@@ -33,10 +33,21 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 <img src="images/ramenmen.png" width="200px">
 
-[[github](http://github.com/ramenmen)] [[portfolio](team/ramenmen.md)]
+[[github](http://github.com/ramenmen)] [[portfolio](team/liu-chuyue.md)]
 
 * Role: Developer
 * Responsibilities: General work and Implementing new Meeting class
+
+### Adithya Narayan Rangarajan Sreenivasan
+
+<img src="images/adithyanarayan.png" width="200px">
+
+[[github](http://github.com/AdithyaNarayan)] [[portfolio](team/adi.md)]
+
+* Role: Developer
+* Responsibilities: UI and Frontend
+* In charge of `UI`
+* JavaFX expert
 
 ### Jean Doe
 
@@ -48,12 +59,22 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Developer
 * Responsibilities: Dev Ops + Threading
 
-### James Doe
+### Tan Xuan Zhi
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/tan-xuan-zhi.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](https://github.com/xxzz-tt)]
+[[portfolio](team/tan-xuan-zhi.md)]
+
+* Role: Developer
+* Responsibilities: Implement commands relating to model class Meeting
+
+### Zhao Huan
+
+<img src="images/zhaohuanqdcn.png" width="200px">
+
+[[github](http://github.com/zhaohuanqdcn)]
+[[portfolio](team/zhao-huan.md)]
 
 * Role: Developer
 * Responsibilities: UI
