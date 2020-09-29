@@ -242,7 +242,7 @@ Deletes the meeting at the specified `INDEX`.
 Examples:
 * Use `list meeting` to check the index of the meeting to be deleted, followed by `delete meeting 2` to delete the 2nd meeting in the address book.
 
-### Contact & Meeting management
+### General
 #### Clearing all entries : `clear`
 
 Clears all entries from the address book.
