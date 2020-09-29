@@ -270,14 +270,56 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 | Priority | As a …​                                    | I want to …​                     | So that I can…​                                                        |
 | -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
-| `* * *`  | new user                                   | see usage instructions         | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person               |                                                                        |
-| `* * *`  | user                                       | delete a person                | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name          | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details   | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name           | locate a person easily                                                 |
+| `*`  |    meeting planner | update existing meetings | make sure the details are up to date.| 
+| `*`  |    meeting planner | delete specified meetings if they are cancelled.| |
+| `*`  |    meeting planner | view all upcoming meetings in a specific order.| |
+| `*`  |    meeting planner | add a meeting to the schedule.| |
+| `*`  |    frequent user | search for a certain contact I am looking for| |
+| `*`  |    frequent user | view a list of all my contacts at any time.| |
+| `*`  |    frequent user | create new contact in my contact list.| |
+| `*`  |    first-time user | enter my and my employer's details| |
+| `*`  |    meeting planner | search for meetings with some criteria.| |
+| `*`  |    frequent meeting planner | receive reminders from the app that to remind my employer for an upcoming meeting | make sure my employer can be on time for their meetings.| 
+| `*`  |    frequent meeting planner | attach a location and time of the meeting as additional information| |
+| `*`  |     expert user | delete some unwanted contacts in my contact list.| |
+| `*`  |    frequent user | update each of my contacts whenever there is a change in their particulars/ details.||
+| `* *`  |    frequent user | easily reschedule agenda items if plans change.| |
+| `* *`  |     expert user | edit my agenda list to add or delete some details.| |
+| `* *`  |    copy typist | get my notes automatically corrected for spelling/grammar mistakes.| |
+| `* *`  |    frequent meeting planner | plan a route based on meeting locations and times.| |
+| `* *`  |    first time user | find the list of all features that the app has | know what specific task can I complete by using this app.| 
+| `* *`  |    user | see a list of tasks that requires the most priority | pay attention to them first.| 
+| `* *`  |    regular user | sync/export contacts/calendar| |
+| `* *`  |    frequent user | receive reminders for tasks that are due soon  |  complete them in time.| 
+| `* *`  |    frequent meeting planner | assimilate a map in the app to keep track of all frequently visited locations  |  plan the travel routine wisely that takes time taken to travel from one place to another place into consideration.| 
+| `* *`  |    frequent meeting planner | send emails directly from the app by choosing the necessary recipients from the contact list.| |
+| `* *`  |    relatively new user | input slightly variated input that the app can understand and interpret  |  learn while doing.| 
+| `* *`  |    first time user | import existing calendar/agendas/locations |  save my time on data migration.| 
+| `* *`  |    first time user | learn how to use the app  |  actually use the app to solve the tasks that I have.| 
+| `* *`  |    frequent user | auto-fill the necessary details into a pre-defined template and batch send emails  |  save the time taken to individually send emails for the meeting.| 
+| `* *`  |     expert user | create shortcuts for certain tasks |  save time on frequently performed tasks.| 
+| `* *`  |    new or returning user | sync my tasks from other platforms to the task list |  save time instead of entering them manually.| 
+| `* *`  |    long-time user | archive unused data | I am not distracted by irrelevant or old items.| 
+| `* *`  |    user ready to start using the app | clear all current data |  get rid of data I added when experimenting with the app.| 
+| `* *`  |    busy user | see my daily tasks at the start of the day  |  better organize my time.| 
+| `* *`  |    frequent user | add tasks to my task list.| |
+| `* *`  |    frequent user | view a list of all the tasks I have to accomplish and their deadlines | I am up to date with my work.| 
+| `* *`  |    frequent user | search for tasks by name or deadline in the task list.| |
+| `* *`  |    frequent user | delete tasks from my task list.| |
+| `* *`  |    frequent user | update the details of a task in my task list.| |
+| `* *`  |    relatively new user | be reminded of the key features  |  speed up my workflows.| 
+| `* *`  |    frequent user | use an email template to send personalised emails to notify other companies for a meeting | save time on crafting the email one-by-one.| 
+| `* *`  |    meeting planner | resolve meetings conflict | make sure no two meetings will happen at the same time.| 
+| `* *`  |    meeting planner | give priority to certain meetings | make sure these important meetings will take place under the best possible circumstances.| 
+| `* *`  |    frequent user | use built-in shortcuts  |  accelerate my workflow.| 
+| `* *`  |    frequent meeting planner | import and export the existing calendar  |  save time on entering this information manually.| 
+| `* *`  |    relatively new user | be prompted to change my invalid input  |  get it correctly from then on.| 
+| `* * *`  |    copy typist | transcribe/type a document into a note | save them for future use.| 
+| `* * *`  |    busy user | see a weekly digest on weekend | have a sense of what happened during the week.| 
+| `* * *`  |    receiver of meeting emails | see my meetings automatically fetched and updated from the email | I don't have to manually create a meeting when it is proposed by a third-party.| 
+| `* * *`  |    potential user exploring the app | see the app populated with sample data,  |  easily see how the app will look like when it is in use.| 
 
-*{More to be added}*
+
 
 ### Use cases
 
