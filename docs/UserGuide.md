@@ -242,26 +242,22 @@ Deletes the meeting at the specified `INDEX`.
 Examples:
 * Use `list meeting` to check the index of the meeting to be deleted, followed by `delete meeting 2` to delete the 2nd meeting in the address book.
 
-
-### Clearing all entries : `clear`
+### Contact & Meeting management
+#### Clearing all entries : `clear`
 
 Clears all entries from the address book.
 
 Format: `clear`
 
-### Exiting the program : `exit`
+#### Exiting the program : `exit`
 
 Exits the program.
 
 Format: `exit`
 
-### Saving the data
+#### Saving the data
 
-AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
-
-### Archiving data files `[coming in v2.0]`
-
-_{explain the feature here}_
+Recretary data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
 --------------------------------------------------------------------------------------------------------------------
 
