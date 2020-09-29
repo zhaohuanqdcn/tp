@@ -29,14 +29,14 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Developer
 * Responsibilities: General work and Update contacts implementation to contain new class Company
 
-### Johnny Doe
+### Liu Chuyue
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/ramenmen.png" width="200px">
 
-[[github](http://github.com/johndoe)] [[portfolio](team/johndoe.md)]
+[[github](http://github.com/ramenmen)] [[portfolio](team/ramenmen.md)]
 
 * Role: Developer
-* Responsibilities: Data
+* Responsibilities: General work and Implementing new Meeting class
 
 ### Jean Doe
 
