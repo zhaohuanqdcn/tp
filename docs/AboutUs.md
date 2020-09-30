@@ -50,7 +50,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ### Tan Xuan Zhi
 
-<img src="images/tan-xuan-zhi.png" width="200px">
+<img src="images/xxzz-tt.png" width="200px">
 
 [[github](https://github.com/xxzz-tt)]
 [[portfolio](team/tan-xuan-zhi.md)]
