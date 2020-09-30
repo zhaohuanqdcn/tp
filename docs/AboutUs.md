@@ -57,4 +57,4 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 [[portfolio](team/zhao-huan.md)]
 
 * Role: Developer
-* Responsibilities: UI
+* Responsibilities: Implement commands relating to model class Meeting and Implement meeting list 
