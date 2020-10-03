@@ -10,7 +10,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
-import seedu.address.model.person.Company;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
@@ -94,15 +93,6 @@ public class ParserUtil {
             throw new ParseException(Email.MESSAGE_CONSTRAINTS);
         }
         return new Email(trimmedEmail);
-    }
-
-    public static Company parseCompany(String company) throws ParseException {
-        requireNonNull(company);
-        String trimmedCompany = company.trim();
-        if(!Company.isValidCompany(trimmedCompany)) {
-            throw new ParseException(Company.MESSAGE_CONSTRAINTS);
-        }
-        return new Company(trimmedCompany);
     }
 
     /**

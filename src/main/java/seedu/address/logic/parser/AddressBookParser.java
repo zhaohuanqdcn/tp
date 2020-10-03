@@ -26,7 +26,7 @@ public class AddressBookParser {
      * Used for initial separation of command word and args.
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-    private static final String GENERAL_ADD_COMMAND = "add";
+
     /**
      * Parses user input into command for execution.
      *
@@ -42,13 +42,10 @@ public class AddressBookParser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
-
         switch (commandWord) {
-        case GENERAL_ADD_COMMAND:
-            String[] processedInput = decomposeInput(arguments);
-            if(processedInput[0].equals(AddCommand.COMMAND_WORD)) {
-                return new AddCommandParser().parse(" " + processedInput[1]);
-            }
+
+        case AddCommand.COMMAND_WORD:
+            return new AddCommandParser().parse(arguments);
 
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
@@ -74,10 +71,6 @@ public class AddressBookParser {
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
-    }
-
-    private String[] decomposeInput(String addInput) {
-        return  addInput.trim().split(" ",2);
     }
 
 }
