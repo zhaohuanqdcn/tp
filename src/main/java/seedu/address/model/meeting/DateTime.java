@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Meeting's date and time.
@@ -12,11 +11,11 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class DateTime {
 
-    public static final String MESSAGE_CONSTRAINTS = "The date and time should be of the format dd/mm/yy hhmm. " +
-            "For example, 12/3/20 1545";
+    public static final String MESSAGE_CONSTRAINTS = "The date and time should be of the format dd/mm/yy hhmm. "
+            + "For example, 12/3/20 1545";
 
-    public static DateTimeFormatter dateInputFormat = DateTimeFormatter.ofPattern("d/M/yy HHmm");
-    public static DateTimeFormatter dateOutputFormat = DateTimeFormatter.ofPattern("dd MMM yyyy h.mma");
+    private static DateTimeFormatter dateInputFormat = DateTimeFormatter.ofPattern("d/M/yy HHmm");
+    private static DateTimeFormatter dateOutputFormat = DateTimeFormatter.ofPattern("dd MMM yyyy h.mma");
 
     public final LocalDateTime value;
 
@@ -28,6 +27,14 @@ public class DateTime {
     public DateTime(LocalDateTime dateTime) {
         requireNonNull(dateTime);
         value = dateTime;
+    }
+
+    public static DateTimeFormatter getDateInputFormat() {
+        return dateInputFormat;
+    }
+
+    public static DateTimeFormatter getDateOutputFormat() {
+        return dateOutputFormat;
     }
 
     @Override

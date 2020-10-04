@@ -2,7 +2,6 @@ package seedu.address.model.meeting;
 
 import java.util.Objects;
 
-import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 

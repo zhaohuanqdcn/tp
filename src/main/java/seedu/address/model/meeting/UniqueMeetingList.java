@@ -1,24 +1,23 @@
 package seedu.address.model.meeting;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
-import java.util.Iterator;
-import java.util.List;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.meeting.exceptions.DuplicateMeetingException;
 import seedu.address.model.meeting.exceptions.MeetingNotFoundException;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
+
+import java.util.Iterator;
+import java.util.List;
+
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * A list of meetings that enforces uniqueness between its elements and does not allow nulls.
- * A meeting is considered unique by comparing using {@code Meeting#isSameMeeting(Meeting)}. As such, adding and updating of
- * meetings uses Meeting#isSameMeeting(Meeting) for equality so as to ensure that the meeting being added or updated is
- * unique in terms of identity in the UniqueMeetingList. However, the removal of a meeting uses Meeting#equals(Object) so
- * as to ensure that the meeting with exactly the same fields will be removed.
+ * A meeting is considered unique by comparing using {@code Meeting#isSameMeeting(Meeting)}.
+ * As such, adding and updating of meetings uses Meeting#isSameMeeting(Meeting) for equality so as to ensure that
+ * the meeting being added or updated is unique in terms of identity in the UniqueMeetingList. However,
+ * the removal of a meeting uses Meeting#equals(Object) so as to ensure that the meeting with exactly
+ * the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *
