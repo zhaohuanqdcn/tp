@@ -14,6 +14,7 @@ import seedu.address.model.person.Company;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.role.CompanyRole;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -126,6 +127,15 @@ public class ParserUtil {
         return new Tag(trimmedTag);
     }
 
+    public static CompanyRole parseCompanyRole(String companyRole) throws ParseException {
+        requireNonNull(companyRole);
+        String trimmedCompanyRole = companyRole.trim();
+        if (!CompanyRole.isValidCompanyRoleName(trimmedCompanyRole)) {
+            throw new ParseException(CompanyRole.MESSAGE_CONSTRAINTS);
+        }
+        return new CompanyRole(trimmedCompanyRole);
+    }
+
     /**
      * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
      */
@@ -137,4 +147,14 @@ public class ParserUtil {
         }
         return tagSet;
     }
+
+    public static Set<CompanyRole> parseCompanyRoles(Collection<String> companyRoles) throws ParseException {
+        requireNonNull(companyRoles);
+        final Set<CompanyRole> companyRoleSet = new HashSet<>();
+        for (String companyRoleName : companyRoles) {
+            companyRoleSet.add(parseCompanyRole(companyRoleName));
+        }
+        return companyRoleSet;
+    }
+
 }

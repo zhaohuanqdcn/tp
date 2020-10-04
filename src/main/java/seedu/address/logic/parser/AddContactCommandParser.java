@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY_ROLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -19,6 +20,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.role.CompanyRole;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -34,7 +36,7 @@ public class AddContactCommandParser implements Parser<AddContactCommand> {
     public AddContactCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_COMPANY,
-                        PREFIX_ADDRESS, PREFIX_TAG);
+                        PREFIX_ADDRESS, PREFIX_TAG, PREFIX_COMPANY_ROLE);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_COMPANY, PREFIX_PHONE, PREFIX_EMAIL)
                 || !argMultimap.getPreamble().isEmpty()) {
@@ -47,8 +49,9 @@ public class AddContactCommandParser implements Parser<AddContactCommand> {
         Company company = ParserUtil.parseCompany(argMultimap.getValue(PREFIX_COMPANY).get());
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        Set<CompanyRole> companyRoleList = ParserUtil.parseCompanyRoles(argMultimap.getAllValues(PREFIX_COMPANY_ROLE));
 
-        Person person = new Person(name, phone, email, company, address, tagList);
+        Person person = new Person(name, phone, email, company, address, tagList, companyRoleList);
 
         return new AddContactCommand(person);
     }
