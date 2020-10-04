@@ -96,10 +96,16 @@ public class ParserUtil {
         return new Email(trimmedEmail);
     }
 
+    /**
+     * Parses a {@code String company} into an {@code Company}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code String company} is invalid.
+     */
     public static Company parseCompany(String company) throws ParseException {
         requireNonNull(company);
         String trimmedCompany = company.trim();
-        if(!Company.isValidCompany(trimmedCompany)) {
+        if (!Company.isValidCompany(trimmedCompany)) {
             throw new ParseException(Company.MESSAGE_CONSTRAINTS);
         }
         return new Company(trimmedCompany);

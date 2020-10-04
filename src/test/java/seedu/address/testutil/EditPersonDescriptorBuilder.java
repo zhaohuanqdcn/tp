@@ -57,6 +57,9 @@ public class EditPersonDescriptorBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Company} of the {@code EditPersonDescriptor} that we are building.
+     */
     public EditPersonDescriptorBuilder withCompany(String company) {
         descriptor.setCompany(new Company(company));
         return this;
