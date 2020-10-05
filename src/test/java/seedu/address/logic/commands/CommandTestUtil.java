@@ -10,6 +10,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -44,11 +45,17 @@ public class CommandTestUtil {
     public static final String VALID_TITLE_ROUNDTABLE = "Bob Choo";
     public static final Duration VALID_DURATION_DISCUSSION = new Duration(1, 20);
     public static final Duration VALID_DURATION_ROUNDTABLE = new Duration(2, 20);
-    public static final LocalDateTime VALID_DATETIME_DISCUSSION = LocalDateTime.parse("12/2/12 1201");
-    public static final LocalDateTime VALID_DATETIME_ROUNDTABLE = LocalDateTime.parse("12/2/12 1101");
+    public static final LocalDateTime VALID_DATETIME_DISCUSSION = LocalDateTime.parse("12/2/12 1201",
+            DateTimeFormatter.ofPattern("d/M/yy HHmm"));
+    public static final LocalDateTime VALID_DATETIME_ROUNDTABLE = LocalDateTime.parse("12/2/12 1101",
+            DateTimeFormatter.ofPattern("d/M/yy HHmm"));
     public static final String VALID_LOCATION_DISCUSSION = "Block 312, Amy Street 1";
     public static final String VALID_LOCATION_ROUNDTABLE = "Block 123, Bobby Street 3";
     public static final Person VALID_PARTICIPANT_ALICE = new PersonBuilder().withName("Alice Pauline")
+            .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
+            .withPhone("94351253")
+            .withTags("friends").build();
+    public static final Person VALID_PARTICIPANT_BOB = new PersonBuilder().withName("Bob Pauline")
             .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
             .withPhone("94351253")
             .withTags("friends").build();

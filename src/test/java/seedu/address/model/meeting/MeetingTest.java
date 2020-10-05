@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DATETIME_ROUNDTABLE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DURATION_ROUNDTABLE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_LOCATION_ROUNDTABLE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PARTICIPANT_ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PARTICIPANT_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_ROUNDTABLE;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalMeetings.DISCUSSION;
@@ -42,7 +42,7 @@ public class MeetingTest {
         // same title, same dateTime, different attributes -> returns true
         editedDiscussion = new MeetingBuilder(DISCUSSION).withDuration(VALID_DURATION_ROUNDTABLE)
                 .withLocation(VALID_LOCATION_ROUNDTABLE)
-                .withParticipants(VALID_PARTICIPANT_ALICE).build();
+                .withParticipants(VALID_PARTICIPANT_BOB).build();
         assertTrue(DISCUSSION.isSameMeeting(editedDiscussion));
     }
 
@@ -81,7 +81,7 @@ public class MeetingTest {
         assertFalse(DISCUSSION.equals(editedDiscussion));
 
         // different participants -> returns false
-        editedDiscussion = new MeetingBuilder(DISCUSSION).withParticipants(VALID_PARTICIPANT_ALICE).build();
+        editedDiscussion = new MeetingBuilder(DISCUSSION).withParticipants(VALID_PARTICIPANT_BOB).build();
         assertFalse(DISCUSSION.equals(editedDiscussion));
     }
 }
