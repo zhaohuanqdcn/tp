@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.role.CompanyRole;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -21,19 +22,24 @@ public class Person {
     private final Email email;
 
     // Data fields
+    private final Company company;
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
+    private final Set<CompanyRole> companyRoles = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Person(Name name, Phone phone, Email email, Company company, Address address, Set<Tag> tags,
+                  Set<CompanyRole> companyRoles) {
+        requireAllNonNull(name, phone, email, company, address, tags, companyRoles);
         this.name = name;
         this.phone = phone;
         this.email = email;
+        this.company = company;
         this.address = address;
         this.tags.addAll(tags);
+        this.companyRoles.addAll(companyRoles);
     }
 
     public Name getName() {
@@ -52,12 +58,24 @@ public class Person {
         return address;
     }
 
+    public Company getCompany() {
+        return company;
+    }
+
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    /**
+     * Returns an immutable company role set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Set<CompanyRole> getCompanyRoles() {
+        return Collections.unmodifiableSet(companyRoles);
     }
 
     /**
@@ -93,13 +111,15 @@ public class Person {
                 && otherPerson.getPhone().equals(getPhone())
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())
-                && otherPerson.getTags().equals(getTags());
+                && otherPerson.getTags().equals(getTags())
+                && otherPerson.getCompany().equals(getCompany())
+                && otherPerson.getCompanyRoles().equals(getCompanyRoles());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, address, tags, company, companyRoles);
     }
 
     @Override
@@ -110,10 +130,14 @@ public class Person {
                 .append(getPhone())
                 .append(" Email: ")
                 .append(getEmail())
+                .append(" Company: ")
+                .append(getCompany())
                 .append(" Address: ")
                 .append(getAddress())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
+        builder.append(" Company roles: ");
+        getCompanyRoles().forEach(builder::append);
         return builder.toString();
     }
 

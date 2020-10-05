@@ -41,7 +41,7 @@ Recretary is a **desktop app for managing contacts and meetings, optimized for u
 
    * **`list meeting`** : Lists all meetings.
 
-   * **`add contact`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 c/ABC PTE LTD` : Adds a contact named `John Doe` to the Address Book.
+   * **`add_contact`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 c/ABC PTE LTD` : Adds a contact named `John Doe` to the Address Book.
 
    * **`delete contact`**`3` : Deletes the 3rd contact shown in the current list.
 
@@ -90,15 +90,15 @@ Format: `add <contact | meeting>`
 
 Adds a person to the address book.
  
-Format: `add contact n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS c/COMPANY [r/COMPANY_ROLE] [t/TAG]…​`
+Format: `add_contact n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS c/COMPANY [r/COMPANY_ROLE] [t/TAG]…​`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 A person can have any number of tags (including 0)
 </div>
 
 Examples:
-* `add contact n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 c/ABC Holdings Pte. Ltd`
-* `add contact n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Mansion p/1234567 r/CEO c/DEF Company`
+* `add_contact n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 c/ABC Holdings Pte. Ltd`
+* `add_contact n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Mansion p/1234567 r/CEO c/DEF Company`
 
 Adds a meeting into the meeting schedule 
  
@@ -272,7 +272,7 @@ Recretary data are saved in the hard disk automatically after any command that c
 
 Action | Format, Examples
 --------|------------------
-**Add** | `add contact n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS c/COMPANY [r/COMPANY_ROLE] [t/TAG]…` <br> e.g., `add contact n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd a/XYZ Company r/manager t/friend t/colleague` <br> `add meeting d/DATETIME dur/DURATION t/TITLE [l/LOCATION]` <br> e.g., `add meeting d/2020-12-31 14:00 dur/60 t/abc company meeting l/John street, block 123, #01-01`
+**Add** | `add_contact n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS c/COMPANY [r/COMPANY_ROLE] [t/TAG]…` <br> e.g., `add_contact n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd a/XYZ Company r/manager t/friend t/colleague` <br> `add meeting d/DATETIME dur/DURATION t/TITLE [l/LOCATION]` <br> e.g., `add meeting d/2020-12-31 14:00 dur/60 t/abc company meeting l/John street, block 123, #01-01`
 **Clear** | `clear`
 **Delete** | `delete contact INDEX`<br> e.g., `delete contact 3` <br> `delete meeting INDEX`<br> e.g., `delete meeting 5`
 **Edit** | `edit contact INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [c/COMPANY] [r/COMPANY_ROLE] [t/TAG]…`<br> e.g.,`edit contact 2 n/James Lee e/jameslee@example.com` <br> `edit meeting INDEX [d/DATETIME] [dur/DURATION] [t/TITLE] [l/LOCATION]`<br> e.g.,`edit contact 1 dur/90 l/COM2 LT17`

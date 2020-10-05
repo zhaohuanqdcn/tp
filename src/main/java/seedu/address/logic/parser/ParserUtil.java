@@ -10,9 +10,11 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
+import seedu.address.model.person.Company;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.role.CompanyRole;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -96,6 +98,21 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String company} into an {@code Company}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code String company} is invalid.
+     */
+    public static Company parseCompany(String company) throws ParseException {
+        requireNonNull(company);
+        String trimmedCompany = company.trim();
+        if (!Company.isValidCompany(trimmedCompany)) {
+            throw new ParseException(Company.MESSAGE_CONSTRAINTS);
+        }
+        return new Company(trimmedCompany);
+    }
+
+    /**
      * Parses a {@code String tag} into a {@code Tag}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -111,6 +128,21 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String companyRole} into a {@code CompanyRole}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code companyRole} is invalid.
+     */
+    public static CompanyRole parseCompanyRole(String companyRole) throws ParseException {
+        requireNonNull(companyRole);
+        String trimmedCompanyRole = companyRole.trim();
+        if (!CompanyRole.isValidCompanyRoleName(trimmedCompanyRole)) {
+            throw new ParseException(CompanyRole.MESSAGE_CONSTRAINTS);
+        }
+        return new CompanyRole(trimmedCompanyRole);
+    }
+
+    /**
      * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
      */
     public static Set<Tag> parseTags(Collection<String> tags) throws ParseException {
@@ -121,4 +153,17 @@ public class ParserUtil {
         }
         return tagSet;
     }
+
+    /**
+     * Parses {@code Collection<String> companyRoles} into a {@code Set<CompanyRole>}.
+     */
+    public static Set<CompanyRole> parseCompanyRoles(Collection<String> companyRoles) throws ParseException {
+        requireNonNull(companyRoles);
+        final Set<CompanyRole> companyRoleSet = new HashSet<>();
+        for (String companyRoleName : companyRoles) {
+            companyRoleSet.add(parseCompanyRole(companyRoleName));
+        }
+        return companyRoleSet;
+    }
+
 }
