@@ -1,13 +1,16 @@
 package seedu.address.testutil;
 
-import seedu.address.model.meeting.*;
-import seedu.address.model.meeting.Title;
-import seedu.address.model.person.Person;
-import seedu.address.model.util.SampleDataUtil;
-
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
+
+import seedu.address.model.meeting.DateTime;
+import seedu.address.model.meeting.Duration;
+import seedu.address.model.meeting.Location;
+import seedu.address.model.meeting.Meeting;
+import seedu.address.model.meeting.Title;
+import seedu.address.model.person.Person;
+import seedu.address.model.util.SampleDataUtil;
 
 /**
  * A utility class to help with building Meeting objects.
@@ -18,7 +21,8 @@ public class MeetingBuilder {
     public static final long DEFAULT_HOURS = 1;
     public static final long DEFAULT_MINUTES = 30;
     public static final String DEFAULT_LOCATION = "123, Jurong West Ave 6, #08-111";
-    public static final LocalDateTime DEFAULT_DATETIME = LocalDateTime.parse("12/2/12 1201", DateTime.dateInputFormat);
+    public static final LocalDateTime DEFAULT_DATETIME = LocalDateTime
+            .parse("12/2/12 1201", DateTime.getDateInputFormat());
 
     private Title title;
     private DateTime dateTime;

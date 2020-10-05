@@ -10,7 +10,6 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.testutil.MeetingBuilder;
-import seedu.address.testutil.PersonBuilder;
 
 public class TitleContainsKeywordsPredicateTest {
 
@@ -26,7 +25,8 @@ public class TitleContainsKeywordsPredicateTest {
         assertTrue(firstPredicate.equals(firstPredicate));
 
         // same values -> returns true
-        TitleContainsKeywordsPredicate firstPredicateCopy = new TitleContainsKeywordsPredicate(firstPredicateKeywordList);
+        TitleContainsKeywordsPredicate firstPredicateCopy =
+                new TitleContainsKeywordsPredicate(firstPredicateKeywordList);
         assertTrue(firstPredicate.equals(firstPredicateCopy));
 
         // different types -> returns false
@@ -42,7 +42,8 @@ public class TitleContainsKeywordsPredicateTest {
     @Test
     public void test_titleContainsKeywords_returnsTrue() {
         // One keyword
-        TitleContainsKeywordsPredicate predicate = new TitleContainsKeywordsPredicate(Collections.singletonList("Alice"));
+        TitleContainsKeywordsPredicate predicate =
+                new TitleContainsKeywordsPredicate(Collections.singletonList("Alice"));
         assertTrue(predicate.test(new MeetingBuilder().withTitle("Alice Bob").build()));
 
         // Multiple keywords

@@ -8,7 +8,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.ALICE;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -19,13 +18,10 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
-import seedu.address.model.meeting.DateTime;
 import seedu.address.model.meeting.Duration;
-import seedu.address.model.meeting.Meeting;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
-import seedu.address.testutil.MeetingBuilder;
 import seedu.address.testutil.PersonBuilder;
 
 /**
@@ -46,8 +42,8 @@ public class CommandTestUtil {
 
     public static final String VALID_TITLE_DISCUSSION = "Amy Bee";
     public static final String VALID_TITLE_ROUNDTABLE = "Bob Choo";
-    public static final Duration VALID_DURATION_DISCUSSION = new Duration(1,20);
-    public static final Duration VALID_DURATION_ROUNDTABLE = new Duration(2,20);
+    public static final Duration VALID_DURATION_DISCUSSION = new Duration(1, 20);
+    public static final Duration VALID_DURATION_ROUNDTABLE = new Duration(2, 20);
     public static final LocalDateTime VALID_DATETIME_DISCUSSION = LocalDateTime.parse("12/2/12 1201");
     public static final LocalDateTime VALID_DATETIME_ROUNDTABLE = LocalDateTime.parse("12/2/12 1101");
     public static final String VALID_LOCATION_DISCUSSION = "Block 312, Amy Street 1";
