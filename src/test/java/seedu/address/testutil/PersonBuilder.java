@@ -9,6 +9,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.role.CompanyRole;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -21,7 +22,7 @@ public class PersonBuilder {
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
-    public static final String DEFAULT_COMPANY = "KFCC";
+    public static final String DEFAULT_COMPANY = "Google";
 
     private Name name;
     private Phone phone;
@@ -29,6 +30,7 @@ public class PersonBuilder {
     private Address address;
     private Company company;
     private Set<Tag> tags;
+    private Set<CompanyRole> roles;
 
     /**
      * Creates a {@code PersonBuilder} with the default details.
@@ -40,6 +42,7 @@ public class PersonBuilder {
         address = new Address(DEFAULT_ADDRESS);
         company = new Company(DEFAULT_COMPANY);
         tags = new HashSet<>();
+        roles = new HashSet<>();
     }
 
     /**
@@ -52,6 +55,7 @@ public class PersonBuilder {
         address = personToCopy.getAddress();
         company = personToCopy.getCompany();
         tags = new HashSet<>(personToCopy.getTags());
+        roles = new HashSet<>(personToCopy.getCompanyRoles());
     }
 
     /**
@@ -67,6 +71,14 @@ public class PersonBuilder {
      */
     public PersonBuilder withTags(String ... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
+        return this;
+    }
+
+    /**
+     * Parses the {@code roles} into a {@code Set<CompanyRole>} and set it to the {@code Person} that we are building.
+     */
+    public PersonBuilder withRoles(String ... roles) {
+        this.roles = SampleDataUtil.getCompanyRoleSet(roles);
         return this;
     }
 
@@ -103,7 +115,7 @@ public class PersonBuilder {
     }
 
     public Person build() {
-        return new Person(name, phone, email, company, address, tags);
+        return new Person(name, phone, email, company, address, tags, roles);
     }
 
 }

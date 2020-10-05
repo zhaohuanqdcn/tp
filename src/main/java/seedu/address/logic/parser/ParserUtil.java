@@ -127,6 +127,12 @@ public class ParserUtil {
         return new Tag(trimmedTag);
     }
 
+    /**
+     * Parses a {@code String companyRole} into a {@code CompanyRole}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code companyRole} is invalid.
+     */
     public static CompanyRole parseCompanyRole(String companyRole) throws ParseException {
         requireNonNull(companyRole);
         String trimmedCompanyRole = companyRole.trim();
@@ -148,6 +154,9 @@ public class ParserUtil {
         return tagSet;
     }
 
+    /**
+     * Parses {@code Collection<String> companyRoles} into a {@code Set<CompanyRole>}.
+     */
     public static Set<CompanyRole> parseCompanyRoles(Collection<String> companyRoles) throws ParseException {
         requireNonNull(companyRoles);
         final Set<CompanyRole> companyRoleSet = new HashSet<>();
