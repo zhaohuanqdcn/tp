@@ -2,11 +2,11 @@ package seedu.address.model.meeting;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_LOCATION_ROUNDTABLE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DATETIME_ROUNDTABLE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_ROUNDTABLE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DURATION_ROUNDTABLE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PARTICIPANT_ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_LOCATION_ROUNDTABLE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PARTICIPANT_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_ROUNDTABLE;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalMeetings.DISCUSSION;
 import static seedu.address.testutil.TypicalMeetings.ROUNDTABLE;
@@ -40,16 +40,17 @@ public class MeetingTest {
         assertFalse(DISCUSSION.isSameMeeting(editedDiscussion));
 
         // same title, same dateTime, different attributes -> returns true
-        editedDiscussion = new MeetingBuilder(DISCUSSION).withDuration(VALID_DURATION_ROUNDTABLE).withLocation(VALID_LOCATION_ROUNDTABLE)
-                .withParticipants(VALID_PARTICIPANT_ALICE).build();
+        editedDiscussion = new MeetingBuilder(DISCUSSION).withDuration(VALID_DURATION_ROUNDTABLE)
+                .withLocation(VALID_LOCATION_ROUNDTABLE)
+                .withParticipants(VALID_PARTICIPANT_BOB).build();
         assertTrue(DISCUSSION.isSameMeeting(editedDiscussion));
     }
 
     @Test
     public void equals() {
         // same values -> returns true
-        Meeting DiscussionCopy = new MeetingBuilder(DISCUSSION).build();
-        assertTrue(DISCUSSION.equals(DiscussionCopy));
+        Meeting discussionCopy = new MeetingBuilder(DISCUSSION).build();
+        assertTrue(DISCUSSION.equals(discussionCopy));
 
         // same object -> returns true
         assertTrue(DISCUSSION.equals(DISCUSSION));
@@ -80,7 +81,7 @@ public class MeetingTest {
         assertFalse(DISCUSSION.equals(editedDiscussion));
 
         // different participants -> returns false
-        editedDiscussion = new MeetingBuilder(DISCUSSION).withParticipants(VALID_PARTICIPANT_ALICE).build();
+        editedDiscussion = new MeetingBuilder(DISCUSSION).withParticipants(VALID_PARTICIPANT_BOB).build();
         assertFalse(DISCUSSION.equals(editedDiscussion));
     }
 }

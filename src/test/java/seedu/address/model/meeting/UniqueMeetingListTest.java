@@ -21,150 +21,150 @@ import seedu.address.testutil.MeetingBuilder;
 
 public class UniqueMeetingListTest {
 
-    private final UniqueMeetingList UniqueMeetingList = new UniqueMeetingList();
+    private final UniqueMeetingList uniqueMeetingList = new UniqueMeetingList();
 
     @Test
     public void contains_nullMeeting_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> UniqueMeetingList.contains(null));
+        assertThrows(NullPointerException.class, () -> uniqueMeetingList.contains(null));
     }
 
     @Test
     public void contains_meetingNotInList_returnsFalse() {
-        assertFalse(UniqueMeetingList.contains(DISCUSSION));
+        assertFalse(uniqueMeetingList.contains(DISCUSSION));
     }
 
     @Test
     public void contains_meetingInList_returnsTrue() {
-        UniqueMeetingList.add(DISCUSSION);
-        assertTrue(UniqueMeetingList.contains(DISCUSSION));
+        uniqueMeetingList.add(DISCUSSION);
+        assertTrue(uniqueMeetingList.contains(DISCUSSION));
     }
 
     @Test
     public void contains_meetingWithSameIdentityFieldsInList_returnsTrue() {
-        UniqueMeetingList.add(DISCUSSION);
+        uniqueMeetingList.add(DISCUSSION);
         Meeting editedDiscussion = new MeetingBuilder(DISCUSSION).withLocation(VALID_LOCATION_ROUNDTABLE)
                 .withParticipants(VALID_PARTICIPANT_ALICE).build();
-        assertTrue(UniqueMeetingList.contains(editedDiscussion));
+        assertTrue(uniqueMeetingList.contains(editedDiscussion));
     }
 
     @Test
     public void add_nullMeeting_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> UniqueMeetingList.add(null));
+        assertThrows(NullPointerException.class, () -> uniqueMeetingList.add(null));
     }
 
     @Test
     public void add_duplicateMeeting_throwsDuplicateMeetingException() {
-        UniqueMeetingList.add(DISCUSSION);
-        assertThrows(DuplicateMeetingException.class, () -> UniqueMeetingList.add(DISCUSSION));
+        uniqueMeetingList.add(DISCUSSION);
+        assertThrows(DuplicateMeetingException.class, () -> uniqueMeetingList.add(DISCUSSION));
     }
 
     @Test
     public void setMeeting_nullTargetMeeting_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> UniqueMeetingList.setMeeting(null, DISCUSSION));
+        assertThrows(NullPointerException.class, () -> uniqueMeetingList.setMeeting(null, DISCUSSION));
     }
 
     @Test
     public void setMeeting_nullEditedMeeting_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> UniqueMeetingList.setMeeting(DISCUSSION, null));
+        assertThrows(NullPointerException.class, () -> uniqueMeetingList.setMeeting(DISCUSSION, null));
     }
 
     @Test
     public void setMeeting_targetMeetingNotInList_throwsMeetingNotFoundException() {
-        assertThrows(MeetingNotFoundException.class, () -> UniqueMeetingList.setMeeting(DISCUSSION, DISCUSSION));
+        assertThrows(MeetingNotFoundException.class, () -> uniqueMeetingList.setMeeting(DISCUSSION, DISCUSSION));
     }
 
     @Test
     public void setMeeting_editedMeetingIsSameMeeting_success() {
-        UniqueMeetingList.add(DISCUSSION);
-        UniqueMeetingList.setMeeting(DISCUSSION, DISCUSSION);
+        uniqueMeetingList.add(DISCUSSION);
+        uniqueMeetingList.setMeeting(DISCUSSION, DISCUSSION);
         UniqueMeetingList expectedUniqueMeetingList = new UniqueMeetingList();
         expectedUniqueMeetingList.add(DISCUSSION);
-        assertEquals(expectedUniqueMeetingList, UniqueMeetingList);
+        assertEquals(expectedUniqueMeetingList, uniqueMeetingList);
     }
 
     @Test
     public void setMeeting_editedMeetingHasSameIdentity_success() {
-        UniqueMeetingList.add(DISCUSSION);
+        uniqueMeetingList.add(DISCUSSION);
         Meeting editedDiscussion = new MeetingBuilder(DISCUSSION).withLocation(VALID_LOCATION_ROUNDTABLE)
                 .withParticipants(VALID_PARTICIPANT_ALICE).build();
-        UniqueMeetingList.setMeeting(DISCUSSION, editedDiscussion);
+        uniqueMeetingList.setMeeting(DISCUSSION, editedDiscussion);
         UniqueMeetingList expectedUniqueMeetingList = new UniqueMeetingList();
         expectedUniqueMeetingList.add(editedDiscussion);
-        assertEquals(expectedUniqueMeetingList, UniqueMeetingList);
+        assertEquals(expectedUniqueMeetingList, uniqueMeetingList);
     }
 
     @Test
     public void setMeeting_editedMeetingHasDifferentIdentity_success() {
-        UniqueMeetingList.add(DISCUSSION);
-        UniqueMeetingList.setMeeting(DISCUSSION, ROUNDTABLE);
+        uniqueMeetingList.add(DISCUSSION);
+        uniqueMeetingList.setMeeting(DISCUSSION, ROUNDTABLE);
         UniqueMeetingList expectedUniqueMeetingList = new UniqueMeetingList();
         expectedUniqueMeetingList.add(ROUNDTABLE);
-        assertEquals(expectedUniqueMeetingList, UniqueMeetingList);
+        assertEquals(expectedUniqueMeetingList, uniqueMeetingList);
     }
 
     @Test
     public void setMeeting_editedMeetingHasNonUniqueIdentity_throwsDuplicateMeetingException() {
-        UniqueMeetingList.add(DISCUSSION);
-        UniqueMeetingList.add(ROUNDTABLE);
-        assertThrows(DuplicateMeetingException.class, () -> UniqueMeetingList.setMeeting(DISCUSSION, ROUNDTABLE));
+        uniqueMeetingList.add(DISCUSSION);
+        uniqueMeetingList.add(ROUNDTABLE);
+        assertThrows(DuplicateMeetingException.class, () -> uniqueMeetingList.setMeeting(DISCUSSION, ROUNDTABLE));
     }
 
     @Test
     public void remove_nullMeeting_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> UniqueMeetingList.remove(null));
+        assertThrows(NullPointerException.class, () -> uniqueMeetingList.remove(null));
     }
 
     @Test
     public void remove_meetingDoesNotExist_throwsMeetingNotFoundException() {
-        assertThrows(MeetingNotFoundException.class, () -> UniqueMeetingList.remove(DISCUSSION));
+        assertThrows(MeetingNotFoundException.class, () -> uniqueMeetingList.remove(DISCUSSION));
     }
 
     @Test
     public void remove_existingMeeting_removesMeeting() {
-        UniqueMeetingList.add(DISCUSSION);
-        UniqueMeetingList.remove(DISCUSSION);
+        uniqueMeetingList.add(DISCUSSION);
+        uniqueMeetingList.remove(DISCUSSION);
         UniqueMeetingList expectedUniqueMeetingList = new UniqueMeetingList();
-        assertEquals(expectedUniqueMeetingList, UniqueMeetingList);
+        assertEquals(expectedUniqueMeetingList, uniqueMeetingList);
     }
 
     @Test
     public void setMeetings_nullUniqueMeetingList_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> UniqueMeetingList.setMeetings((UniqueMeetingList) null));
+        assertThrows(NullPointerException.class, () -> uniqueMeetingList.setMeetings((UniqueMeetingList) null));
     }
 
     @Test
-    public void setMeetings_UniqueMeetingList_replacesOwnListWithProvidedUniqueMeetingList() {
-        UniqueMeetingList.add(DISCUSSION);
+    public void setMeetings_uniqueMeetingList_replacesOwnListWithProvidedUniqueMeetingList() {
+        uniqueMeetingList.add(DISCUSSION);
         UniqueMeetingList expectedUniqueMeetingList = new UniqueMeetingList();
         expectedUniqueMeetingList.add(ROUNDTABLE);
-        UniqueMeetingList.setMeetings(expectedUniqueMeetingList);
-        assertEquals(expectedUniqueMeetingList, UniqueMeetingList);
+        uniqueMeetingList.setMeetings(expectedUniqueMeetingList);
+        assertEquals(expectedUniqueMeetingList, uniqueMeetingList);
     }
 
     @Test
     public void setMeetings_nullList_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> UniqueMeetingList.setMeetings((List<Meeting>) null));
+        assertThrows(NullPointerException.class, () -> uniqueMeetingList.setMeetings((List<Meeting>) null));
     }
 
     @Test
     public void setMeetings_list_replacesOwnListWithProvidedList() {
-        UniqueMeetingList.add(DISCUSSION);
+        uniqueMeetingList.add(DISCUSSION);
         List<Meeting> meetingList = Collections.singletonList(ROUNDTABLE);
-        UniqueMeetingList.setMeetings(meetingList);
+        uniqueMeetingList.setMeetings(meetingList);
         UniqueMeetingList expectedUniqueMeetingList = new UniqueMeetingList();
         expectedUniqueMeetingList.add(ROUNDTABLE);
-        assertEquals(expectedUniqueMeetingList, UniqueMeetingList);
+        assertEquals(expectedUniqueMeetingList, uniqueMeetingList);
     }
 
     @Test
     public void setMeetings_listWithDuplicateMeetings_throwsDuplicateMeetingException() {
         List<Meeting> listWithDuplicateMeetings = Arrays.asList(DISCUSSION, DISCUSSION);
-        assertThrows(DuplicateMeetingException.class, () -> UniqueMeetingList.setMeetings(listWithDuplicateMeetings));
+        assertThrows(DuplicateMeetingException.class, () -> uniqueMeetingList.setMeetings(listWithDuplicateMeetings));
     }
 
     @Test
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, ()
-            -> UniqueMeetingList.asUnmodifiableObservableList().remove(0));
+            -> uniqueMeetingList.asUnmodifiableObservableList().remove(0));
     }
 }
