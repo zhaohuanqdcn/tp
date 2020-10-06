@@ -18,11 +18,11 @@ public class DurationTest {
     public void isValidDuration() {
 
         // invalid minutes
-        assertFalse(Duration.isValidDuration(Duration.MAX_MINUTES + 1)); // minutes is more than the max minutes
+        assertFalse(Duration.isValidDuration(1, Duration.MAX_MINUTES + 1)); // minutes is more than the max minutes
 
         // valid minutes - less than or equal to max minutes
-        assertTrue(Duration.isValidDuration(0));
-        assertTrue(Duration.isValidDuration(29));
-        assertTrue(Duration.isValidDuration(Duration.MAX_MINUTES));
+        assertTrue(Duration.isValidDuration(1, 0));
+        assertTrue(Duration.isValidDuration(1, 29));
+        assertTrue(Duration.isValidDuration(1, Duration.MAX_MINUTES));
     }
 }
