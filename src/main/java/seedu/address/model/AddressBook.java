@@ -5,6 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.meeting.Meeting;
+import seedu.address.model.meeting.UniqueMeetingList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 
@@ -15,6 +17,7 @@ import seedu.address.model.person.UniquePersonList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
+    private final UniqueMeetingList meetings;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -25,6 +28,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
+        meetings = new UniqueMeetingList();
     }
 
     public AddressBook() {}
@@ -45,6 +49,14 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setPersons(List<Person> persons) {
         this.persons.setPersons(persons);
+    }
+
+    /**
+     * Replaces the contents of the meeting list with {@code meetings}.
+     * {@code meetings} must not contain duplicate meetings.
+     */
+    public void setMeetings(List<Meeting> meetings) {
+        this.meetings.setMeetings(meetings);
     }
 
     /**
@@ -93,17 +105,60 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.remove(key);
     }
 
+    //// meeting-level operations
+
+    /**
+     * Returns true if a meeting with the same identity as {@code meeting} exists in the address book.
+     */
+    public boolean hasMeetings(Meeting meeting) {
+        requireNonNull(meeting);
+        return meetings.contains(meeting);
+    }
+
+    /**
+     * Adds a meeting to the address book.
+     * The meeting must not already exist in the address book.
+     */
+    public void addMeeting(Meeting m) {
+        meetings.add(m);
+    }
+
+    /**
+     * Replaces the given meeting {@code target} in the list with {@code editedMeeting}.
+     * {@code target} must exist in the address book.
+     * The meeting identity of {@code editedMeeting} must not be the same as another existing meeting in the address book.
+     */
+    public void setMeetings(Meeting target, Meeting editedMeeting) {
+        requireNonNull(editedMeeting);
+
+        meetings.setMeeting(target, editedMeeting);
+    }
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeMeeting(Meeting key) {
+        meetings.remove(key);
+    }
+
     //// util methods
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
+        return persons.asUnmodifiableObservableList().size() + " persons\n" 
+                + meetings.asUnmodifiableObservableList().size() + " meetings";
         // TODO: refine later
     }
 
     @Override
     public ObservableList<Person> getPersonList() {
         return persons.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Meeting> getMeetingList() {
+        return meetings.asUnmodifiableObservableList();
     }
 
     @Override
