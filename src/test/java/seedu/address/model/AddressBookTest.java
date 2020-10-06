@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalMeetings.DISCUSSION;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
@@ -82,6 +83,22 @@ public class AddressBookTest {
     @Test
     public void getPersonList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> addressBook.getPersonList().remove(0));
+    }
+
+    @Test
+    public void addMeeting_nullMeeting_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> addressBook.addMeeting(null));
+    }
+
+    @Test
+    public void hasMeeting_validMeeting_returnsTrue() {
+        addressBook.addMeeting(DISCUSSION);
+        assertTrue(addressBook.hasMeeting(DISCUSSION));
+    }
+
+    @Test
+    public void getMeetingList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> addressBook.getMeetingList().remove(0));
     }
 
     /**

@@ -276,7 +276,7 @@ Action | Format, Examples
 **Add** | `add_contact n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS c/COMPANY [r/COMPANY_ROLE] [t/TAG]…` <br> e.g., `add_contact n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd a/XYZ Company r/manager t/friend t/colleague` <br> `add_meeting d/DATETIME dur/DURATION t/TITLE [l/LOCATION]` <br> e.g., `add_meeting d/2020-12-31 14:00 dur/60 t/abc company meeting l/John street, block 123, #01-01`
 **Clear** | `clear`
 **Delete** | `delete_contact INDEX`<br> e.g., `delete contact 3` <br> `delete_meeting INDEX`<br> e.g., `delete_meeting 5`
-**Edit** | `edit_contact INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [c/COMPANY] [r/COMPANY_ROLE] [t/TAG]…`<br> e.g.,`edit_contact 2 n/James Lee e/jameslee@example.com` <br> `edit_meeting INDEX [d/DATETIME] [dur/DURATION] [t/TITLE] [l/LOCATION]`<br> e.g.,`edit contact 1 dur/90 l/COM2 LT17`
+**Edit** | `edit_contact INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [c/COMPANY] [r/COMPANY_ROLE] [t/TAG]…`<br> e.g.,`edit_contact 2 n/James Lee e/jameslee@example.com` <br> `edit_meeting INDEX [d/DATETIME] [dur/DURATION] [t/TITLE] [l/LOCATION]`<br> e.g.,`edit_contact 1 dur/90 l/COM2 LT17`
 **Find** | `find_contact KEYWORD [MORE_KEYWORDS]`<br> e.g., `find_contact James Jake` <br> `find_meeting KEYWORD [MORE_KEYWORDS]`<br> e.g., `find_meeting recretary stakeholders`
 **List** | `list_contact` <br> `list_meeting`
 **Help** | `help`
