@@ -40,7 +40,7 @@ public class DataContainsKeywordsPredicateTest {
     }
 
     @Test
-    public void test_DataContainsKeywords_returnsTrue() {
+    public void test_dataContainsKeywords_returnsTrue() {
         // One keyword
         DataContainsKeywordsPredicate predicate =
                 new DataContainsKeywordsPredicate(Collections.singletonList("Alice"));
@@ -60,7 +60,7 @@ public class DataContainsKeywordsPredicateTest {
     }
 
     @Test
-    public void test_titleDoesNotContainKeywords_returnsFalse() {
+    public void test_dataDoesNotContainKeywords_returnsFalse() {
         // Zero keywords
         DataContainsKeywordsPredicate predicate = new DataContainsKeywordsPredicate(Collections.emptyList());
         assertFalse(predicate.test(new MeetingBuilder().withTitle("Alice").build()));
@@ -68,9 +68,5 @@ public class DataContainsKeywordsPredicateTest {
         // Non-matching keyword
         predicate = new DataContainsKeywordsPredicate(Arrays.asList("Carol"));
         assertFalse(predicate.test(new MeetingBuilder().withTitle("Alice Bob").build()));
-
-        // Keywords match location, but does not match name
-        predicate = new DataContainsKeywordsPredicate(Arrays.asList("Main", "Street"));
-        assertFalse(predicate.test(new MeetingBuilder().withTitle("Alice").withLocation("Main Street").build()));
     }
 }

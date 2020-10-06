@@ -12,7 +12,6 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.meeting.DateTime;
 import seedu.address.model.meeting.Duration;
 import seedu.address.model.meeting.Meeting;
-import seedu.address.model.person.Person;
 
 /**
  * A utility class containing a list of {@code Meeting} objects to be used in tests.
@@ -29,6 +28,9 @@ public class TypicalMeetings {
             .withDateTime(LocalDateTime.parse("12/1/12 1221", DateTime.getDateInputFormat()))
             .withDuration(new Duration(1, 30))
             .withParticipants(ALICE, BOB).build();
+
+    private TypicalMeetings() {} // prevents instantiation
+
     /**
      * Returns an {@code AddressBook} with all the typical meetings.
      */
@@ -39,8 +41,6 @@ public class TypicalMeetings {
         }
         return ab;
     }
-
-    private TypicalMeetings() {} // prevents instantiation
 
     public static List<Meeting> getTypicalMeetings() {
         return new ArrayList<>(Arrays.asList(DISCUSSION, ROUNDTABLE));
