@@ -126,6 +126,26 @@ public class AddContactCommandTest {
         }
 
         @Override
+        public boolean hasMeeting(Meeting meeting) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteMeeting(Meeting target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addMeeting(Meeting meeting) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setMeeting(Meeting target, Meeting editedMeeting) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasPerson(Person person) {
             throw new AssertionError("This method should not be called.");
         }
