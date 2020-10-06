@@ -26,7 +26,7 @@ public class Duration {
      */
     public Duration(long hours, long minutes) {
         requireAllNonNull(hours, minutes);
-        checkArgument(isValidDuration(minutes), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidDuration(hours, minutes), MESSAGE_CONSTRAINTS);
         this.hours = hours;
         this.minutes = minutes;
     }
@@ -34,7 +34,7 @@ public class Duration {
     /**
      * Returns true if a given number of minutes is valid.
      */
-    public static boolean isValidDuration(long minutes) {
+    public static boolean isValidDuration(long hours, long minutes) {
         return minutes <= MAX_MINUTES;
     }
 

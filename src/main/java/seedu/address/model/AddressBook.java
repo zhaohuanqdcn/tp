@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Objects;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.meeting.Meeting;
@@ -66,6 +67,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
+        setMeetings(newData.getMeetingList());
     }
 
     //// person-level operations
@@ -110,7 +112,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Returns true if a meeting with the same identity as {@code meeting} exists in the address book.
      */
-    public boolean hasMeetings(Meeting meeting) {
+    public boolean hasMeeting(Meeting meeting) {
         requireNonNull(meeting);
         return meetings.contains(meeting);
     }
@@ -126,9 +128,10 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Replaces the given meeting {@code target} in the list with {@code editedMeeting}.
      * {@code target} must exist in the address book.
-     * The meeting identity of {@code editedMeeting} must not be the same as another existing meeting in the address book.
+     * The meeting identity of {@code editedMeeting} must not be the same as
+     * another existing meeting in the address book.
      */
-    public void setMeetings(Meeting target, Meeting editedMeeting) {
+    public void setMeeting(Meeting target, Meeting editedMeeting) {
         requireNonNull(editedMeeting);
 
         meetings.setMeeting(target, editedMeeting);
@@ -165,11 +168,12 @@ public class AddressBook implements ReadOnlyAddressBook {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons));
+                && persons.equals(((AddressBook) other).persons)
+                && meetings.equals(((AddressBook) other).meetings));
     }
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        return Objects.hash(persons, meetings);
     }
 }
