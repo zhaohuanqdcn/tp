@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import seedu.address.model.AddressBook;
 import seedu.address.model.meeting.DateTime;
 import seedu.address.model.meeting.Duration;
 import seedu.address.model.meeting.Meeting;
@@ -29,6 +30,17 @@ public class TypicalMeetings {
             .withParticipants(ALICE, BOB).build();
 
     private TypicalMeetings() {} // prevents instantiation
+
+    /**
+     * Returns an {@code AddressBook} with all the typical meetings.
+     */
+    public static AddressBook getTypicalAddressBook() {
+        AddressBook ab = new AddressBook();
+        for (Meeting meeting : getTypicalMeetings()) {
+            ab.addMeeting(meeting);
+        }
+        return ab;
+    }
 
     public static List<Meeting> getTypicalMeetings() {
         return new ArrayList<>(Arrays.asList(DISCUSSION, ROUNDTABLE));
