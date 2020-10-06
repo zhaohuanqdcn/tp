@@ -12,5 +12,7 @@
     "email": "pauline@example.com",
     "company" : "KFC",
     "address": "4th street"
-  } ]
+  } ],
+  "meetings": []
+
 }
