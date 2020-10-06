@@ -8,9 +8,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import seedu.address.model.AddressBook;
 import seedu.address.model.meeting.DateTime;
 import seedu.address.model.meeting.Duration;
 import seedu.address.model.meeting.Meeting;
+import seedu.address.model.person.Person;
 
 /**
  * A utility class containing a list of {@code Meeting} objects to be used in tests.
@@ -27,6 +29,16 @@ public class TypicalMeetings {
             .withDateTime(LocalDateTime.parse("12/1/12 1221", DateTime.getDateInputFormat()))
             .withDuration(new Duration(1, 30))
             .withParticipants(ALICE, BOB).build();
+    /**
+     * Returns an {@code AddressBook} with all the typical meetings.
+     */
+    public static AddressBook getTypicalAddressBook() {
+        AddressBook ab = new AddressBook();
+        for (Meeting meeting : getTypicalMeetings()) {
+            ab.addMeeting(meeting);
+        }
+        return ab;
+    }
 
     private TypicalMeetings() {} // prevents instantiation
 
