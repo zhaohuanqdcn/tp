@@ -49,10 +49,11 @@ public class MeetingCard extends UiPart<Region> {
         super(FXML);
         this.meeting = meeting;
         id.setText(displayedIndex + ". ");
-        id.setText(displayedIndex + ". ");
         title.setText(meeting.getTitle().value);
         datetime.setText(meeting.getDateTime().value.toString());
         duration.setText(meeting.getDuration().toString());
+        loc.setText(meeting.getLocation().toString());
+
 
         meeting.getParticipants().stream()
                 .sorted(Comparator.comparing(participant -> participant.getName().toString()))
