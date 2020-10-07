@@ -18,8 +18,8 @@ Recretary is a **desktop app for managing contacts and meetings, optimized for u
         * Clearing all entries : `clear`
         * Viewing help : `help`
         * Exiting the program : `exit`
-        * FAQ
-    * Command summary
+* FAQ
+* Command summary
   
     
 
@@ -73,16 +73,9 @@ Recretary is a **desktop app for managing contacts and meetings, optimized for u
 
 </div>
 
-### Viewing help : `help`
-
-Shows a message explaning how to access the help page.
-
-![help message](images/helpMessage.png)
-
-Format: `help`
 
 ### Contact & Meeting management
-#### Adding a person: `add`
+#### Adding a person / meeting: `add`
 
 Adds a person or meeting to the address book.
 
@@ -92,7 +85,9 @@ Adds a person to the address book.
  
 Format: `add_contact n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS c/COMPANY [r/COMPANY_ROLE] [t/TAG]…​`
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+<div markdown="span" class="alert alert-primary">:bulb: 
+
+**Tip:**
 A person can have any number of tags (including 0)
 </div>
 
@@ -117,14 +112,16 @@ Recretary: `added John doe, def company to participants list.`
 `Enter the next participant’s name, or type end/ to finish inputting participants.`  
 User: `end/`
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+<div markdown="span" class="alert alert-primary">:bulb: 
+
+**Tip:**
 Only people in your contacts can be added as participants.
 </div>
 
 Examples:
 * `add meeting d/2020-12-31 14:00 dur/00 60 t/abc company meeting l/John street, block 123, #01-01`
 
-### Listing all persons : `list`
+#### Listing all persons / meetings: `list`
 
 Format: `list_contact | list_meeting`
 
@@ -137,7 +134,7 @@ Shows a list of all meetings in the address book.
 Format: `list_meeting`
 
 
-### Editing an item : `edit`
+#### Editing a person / meeting: `edit`
 
 Edits an existing person in the address book.
 
@@ -186,7 +183,7 @@ Examples:
 * `edit meeting 1 d/10-11-2020 14:00 l/clementi` Edits the datetime and location of the 1st meeting to be 
 `10/11/2020 1400` and `clementi` respectively.
 
-### Locating persons by name: `find`
+#### Locating persons / meetings: `find`
 
 Finds persons whose names contain any of the given keywords.
 
@@ -210,7 +207,7 @@ Examples:
 * `find_meeting abc def` returns `abc meeting`, `def meeting`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
 
-### Deleting a person : `delete`
+#### Deleting a person / meeting: `delete`
 
 Deletes the specified person from the address book.
 
@@ -225,7 +222,7 @@ Format: `delete_contact | delete_meeting INDEX`
 Deletes the specified person from the address book. 
  
 Format: `delete_contact INDEX`
-`
+
 * Deletes the person at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
 * The index **must be a positive integer** 1, 2, 3, …​
@@ -241,23 +238,32 @@ Deletes the meeting at the specified `INDEX`.
 * The index **must be a positive integer** 1, 2, 3, …​  
 
 Examples:
-* Use `list_meeting` to check the index of the meeting to be deleted, followed by `delete meeting 2` to delete the 2nd meeting in the address book.
+* Use `list_meeting` to check the index of the meeting to be deleted, followed by `delete_meeting 2` to delete the 2nd meeting in the address book.
 
-## General 
+### General 
 
-### Clearing all entries : `clear`
+#### Clearing all entries : `clear`
 
 Clears all entries from the address book.
 
 Format: `clear`
 
-### Exiting the program : `exit`
+#### Viewing help : `help`
+
+Shows a message explaning how to access the help page.
+
+![help message](images/helpMessage.png)
+
+Format: `help`
+
+
+#### Exiting the program : `exit`
 
 Exits the program.
 
 Format: `exit`
 
-### Saving the data
+#### Saving the data
 
 Recretary data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
@@ -274,7 +280,7 @@ Recretary data are saved in the hard disk automatically after any command that c
 
 Action | Format, Examples
 --------|------------------
-**Add** | `add_contact n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS c/COMPANY [r/COMPANY_ROLE] [t/TAG]…` <br> e.g., `add_contact n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd a/XYZ Company r/manager t/friend t/colleague` <br> `add_meeting d/DATETIME dur/DURATION t/TITLE [l/LOCATION]` <br> e.g., `add_meeting d/2020-12-31 14:00 dur/01 00 t/abc company meeting l/John street, block 123, #01-01`
+**Add** | `add_contact n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS c/COMPANY [r/COMPANY_ROLE] [t/TAG]…` <br> e.g., `add_contact n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd a/XYZ Company r/manager t/friend` <br> `add_meeting d/DATETIME dur/DURATION t/TITLE [l/LOCATION]` <br> e.g., `add_meeting d/2020-12-31 14:00 dur/01 00 t/abc company meeting l/John street, block 123, #01-01`
 **Delete** | `delete_contact INDEX`<br> e.g., `delete_contact 3` <br> `delete_meeting INDEX`<br> e.g., `delete_meeting 5`
 **Edit** | `edit_contact INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [c/COMPANY] [r/COMPANY_ROLE] [t/TAG]…`<br> e.g.,`edit_contact 2 n/James Lee e/jameslee@example.com` <br> `edit_meeting INDEX [d/DATETIME] [dur/DURATION] [t/TITLE] [l/LOCATION]`<br> e.g.,`edit_contact 1 dur/01 30 l/COM2 LT17`
 **Find** | `find_contact KEYWORD [MORE_KEYWORDS]`<br> e.g., `find_contact James Jake` <br> `find_meeting KEYWORD [MORE_KEYWORDS]`<br> e.g., `find_meeting recretary stakeholders`
