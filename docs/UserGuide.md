@@ -9,11 +9,11 @@ Recretary is a **desktop app for managing contacts and meetings, optimized for u
 * First Run
 * Features
     * Contact & Meeting Management
-        * Adding a person/ meeting : `add_contact | add_meeting>`
-        * Listing all persons/ meetings: `list_contact | list_meeting>` 
-        * Editing a person/ meeting: `edit_contact | edit_meeting>` 
-        * Locating persons/ meetings: `find_contact | find_meeting>` 
-        * Deleting a person/ meeting: `delete_contact | delete_meeting>`
+        * Adding a person/ meeting : `add_contact | add_meeting`
+        * Listing all persons/ meetings: `list_contact | list_meeting` 
+        * Editing a person/ meeting: `edit_contact | edit_meeting` 
+        * Locating persons/ meetings: `find_contact | find_meeting` 
+        * Deleting a person/ meeting: `delete_contact | delete_meeting`
     * General
         * Clearing all entries : `clear`
         * Viewing help : `help`
@@ -103,29 +103,30 @@ Examples:
 Adds a meeting into the meeting schedule 
  
 Format: `add_meeting d/DATETIME dur/DURATION t/TITLE [l/LOCATION]`
+where duration is of format `HH mm`
 
 Add participants into the meeting with this format:  
 E.g.  
-`Recretary: Enter the next participant’s name, or type end/ to finish inputting participants.`  
-`User: john doe`  
-`Recretary: Here is a list of your contacts that match ‘john doe’`  
+Recretary: `Enter the next participant’s name, or type end/ to finish inputting participants.`  
+User: `john doe`  
+Recretary: `Here is a list of your contacts that match ‘john doe’`  
 <code> &nbsp; 1. John doe, abc company </code>  
 <code> &nbsp; 2. John doe, def company </code>  
-`User: 2`  
-`Recretary: added John doe, def company to participants list.`  
+User: `2`  
+Recretary: `added John doe, def company to participants list.`  
 `Enter the next participant’s name, or type end/ to finish inputting participants.`  
-`User: end/`
+User: `end/`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 Only people in your contacts can be added as participants.
 </div>
 
 Examples:
-* add meeting d/2020-12-31 14:00 dur/60 t/abc company meeting l/John street, block 123, #01-01
+* `add meeting d/2020-12-31 14:00 dur/00 60 t/abc company meeting l/John street, block 123, #01-01`
 
 ### Listing all persons : `list`
 
-Format: `list_contact | list_meeting>`
+Format: `list_contact | list_meeting`
 
 Shows a list of all persons in the address book.
 
@@ -140,7 +141,7 @@ Format: `list_meeting`
 
 Edits an existing person in the address book.
 
-Format: `edit_contact | edit_meeting>
+Format: `edit_contact | edit_meeting`
 
 Edits an existing person in the address book.
  
@@ -165,15 +166,15 @@ Format: `edit_meeting INDEX [d/DATETIME] [t/TITLE] [l/LOCATION] [p/]...`
 
 Edit participants in a meeting with this format:  
 E.g.   
-`Recretary: Here is the current list of participants.`  
+Recretary: `Here is the current list of participants.`  
 <code> &nbsp; 1. John doe, abc company </code>  
 <code> &nbsp; 2. John doe, def company </code>  
 `Enter the next participant’s index to delete, or type end/ to finish removing participants.`  
-`User: 1`  
-`Recretary: Here is the current list of participants.`  
+User: `1`  
+Recretary: `Here is the current list of participants.` 
 <code> &nbsp; 1. John doe, def company </code>  
 `Enter the next participant’s index to delete, or type end/ to finish removing participants.`  
-`User: end/`  
+User: `end/`  
 
 * Edits the meeting at the specified `INDEX`. The index refers to the index number shown in the displayed meeting list. 
 The index **must be a positive integer** 1, 2, 3, …​
@@ -213,7 +214,7 @@ Examples:
 
 Deletes the specified person from the address book.
 
-Format: `delete_contact | delete_meeting <INDEX | all>
+Format: `delete_contact | delete_meeting <INDEX | all> `
 
 Format: `delete_contact | delete_meeting all`
  
@@ -223,7 +224,7 @@ Format: `delete_contact | delete_meeting INDEX`
 
 Deletes the specified person from the address book. 
  
-Format: delete_contact INDEX
+Format: `delete_contact INDEX`
 `
 * Deletes the person at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
@@ -273,10 +274,11 @@ Recretary data are saved in the hard disk automatically after any command that c
 
 Action | Format, Examples
 --------|------------------
-**Add** | `add_contact n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS c/COMPANY [r/COMPANY_ROLE] [t/TAG]…` <br> e.g., `add_contact n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd a/XYZ Company r/manager t/friend t/colleague` <br> `add_meeting d/DATETIME dur/DURATION t/TITLE [l/LOCATION]` <br> e.g., `add_meeting d/2020-12-31 14:00 dur/60 t/abc company meeting l/John street, block 123, #01-01`
-**Clear** | `clear`
-**Delete** | `delete_contact INDEX`<br> e.g., `delete contact 3` <br> `delete_meeting INDEX`<br> e.g., `delete_meeting 5`
-**Edit** | `edit_contact INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [c/COMPANY] [r/COMPANY_ROLE] [t/TAG]…`<br> e.g.,`edit_contact 2 n/James Lee e/jameslee@example.com` <br> `edit_meeting INDEX [d/DATETIME] [dur/DURATION] [t/TITLE] [l/LOCATION]`<br> e.g.,`edit_contact 1 dur/90 l/COM2 LT17`
+**Add** | `add_contact n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS c/COMPANY [r/COMPANY_ROLE] [t/TAG]…` <br> e.g., `add_contact n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd a/XYZ Company r/manager t/friend t/colleague` <br> `add_meeting d/DATETIME dur/DURATION t/TITLE [l/LOCATION]` <br> e.g., `add_meeting d/2020-12-31 14:00 dur/01 00 t/abc company meeting l/John street, block 123, #01-01`
+**Delete** | `delete_contact INDEX`<br> e.g., `delete_contact 3` <br> `delete_meeting INDEX`<br> e.g., `delete_meeting 5`
+**Edit** | `edit_contact INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [c/COMPANY] [r/COMPANY_ROLE] [t/TAG]…`<br> e.g.,`edit_contact 2 n/James Lee e/jameslee@example.com` <br> `edit_meeting INDEX [d/DATETIME] [dur/DURATION] [t/TITLE] [l/LOCATION]`<br> e.g.,`edit_contact 1 dur/01 30 l/COM2 LT17`
 **Find** | `find_contact KEYWORD [MORE_KEYWORDS]`<br> e.g., `find_contact James Jake` <br> `find_meeting KEYWORD [MORE_KEYWORDS]`<br> e.g., `find_meeting recretary stakeholders`
 **List** | `list_contact` <br> `list_meeting`
 **Help** | `help`
+**Exit** | `exit`
+**Clear** | `clear`
