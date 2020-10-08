@@ -121,12 +121,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasMeeting(Meeting meeting) {
-        requireNonNull(meeting);
-        return addressBook.hasMeeting(meeting);
-    }
-
-    @Override
     public void deletePerson(Person target) {
         addressBook.removePerson(target);
     }
@@ -135,12 +129,6 @@ public class ModelManager implements Model {
     public void addPerson(Person person) {
         addressBook.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-    }
-
-    @Override
-    public void addMeeting(Meeting meeting) {
-        addressBook.addMeeting(meeting);
-        updateFilteredMeetingList(PREDICATE_SHOW_ALL_MEETINGS);
     }
 
     @Override

@@ -1,20 +1,17 @@
 package seedu.address.logic.parser;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.AddMeetingCommand;
-import seedu.address.logic.commands.AddParticipantCommand;
-import seedu.address.logic.commands.DeleteContactCommand;
-import seedu.address.logic.commands.FindContactCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import java.util.Arrays;
 import java.util.stream.Stream;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.AddMeetingCommand;
+import seedu.address.logic.commands.AddParticipantCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.NameContainsKeywordsPredicate;
 
 public class AddParticipantCommandParser {
 
@@ -31,7 +28,8 @@ public class AddParticipantCommandParser {
 
             if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_INDEX)
                     || !argMultimap.getPreamble().isEmpty()) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddMeetingCommand.MESSAGE_USAGE));
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        AddMeetingCommand.MESSAGE_USAGE));
             }
 
             String name = argMultimap.getValue(PREFIX_NAME).get();

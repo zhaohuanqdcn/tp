@@ -29,6 +29,11 @@ public class DateTime {
         value = dateTime;
     }
 
+    /**
+     * Constructs an {@code DateTime}.
+     *
+     * @param dateTime A valid date and time.
+     */
     public DateTime(String dateTime) {
         requireNonNull(dateTime);
         value = LocalDateTime.parse(dateTime, dateInputFormat);

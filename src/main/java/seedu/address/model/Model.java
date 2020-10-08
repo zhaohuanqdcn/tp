@@ -85,11 +85,6 @@ public interface Model {
     boolean hasPerson(Person person);
 
     /**
-     * Returns true if a meeting with the same details as {@code meeting} exists in the schedule.
-     */
-    boolean hasMeeting(Meeting meeting);
-
-    /**
      * Deletes the given person.
      * The person must exist in the address book.
      */
@@ -100,13 +95,6 @@ public interface Model {
      * {@code person} must not already exist in the address book.
      */
     void addPerson(Person person);
-
-    /**
-     * Adds the given meeting.
-     * {@code meeting} must not already exist in the schedule
-     * .
-     */
-    void addMeeting(Meeting meeting);
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
