@@ -14,4 +14,11 @@ public class CliSyntax {
     public static final Prefix PREFIX_COMPANY = new Prefix("c/");
     public static final Prefix PREFIX_COMPANY_ROLE = new Prefix("r/");
 
+    public static final Prefix PREFIX_DATETIME = new Prefix("d/");
+    public static final Prefix PREFIX_DURATION = new Prefix("dur/");
+    public static final Prefix PREFIX_TITLE = new Prefix("t/");
+    public static final Prefix PREFIX_LOCATION = new Prefix("l/");
+    public static final Prefix PREFIX_PARTICIPANTS = new Prefix("part/");
+
+    public static final Prefix PREFIX_INDEX = new Prefix("i/");
 }
