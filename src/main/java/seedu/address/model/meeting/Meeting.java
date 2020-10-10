@@ -88,6 +88,10 @@ public class Meeting {
                 && (otherMeeting.getDateTime().equals(getDateTime()));
     }
 
+    public void addParticipant(Person person) {
+        this.participants.add(person);
+    }
+
     /**
      * Returns true if both meetings have the same identity and data fields.
      * This defines a stronger notion of equality between two meetings.

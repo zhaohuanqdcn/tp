@@ -8,7 +8,7 @@ import java.util.Objects;
 
 /**
  * Represents a Meeting's duration.
- * Guarantees: immutable; is valid as declared in {@link #isValidDuration(long)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidDuration(long, long)}
  */
 public class Duration {
 

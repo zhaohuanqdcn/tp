@@ -97,20 +97,17 @@ Examples:
 
 Adds a meeting into the meeting schedule 
  
-Format: `add_meeting d/DATETIME dur/DURATION t/TITLE [l/LOCATION]`
+Format: `add_meeting d/DATETIME dur/DURATION t/TITLE l/LOCATION`
 where duration is of format `HH mm`
 
 Add participants into the meeting with this format:  
 E.g.  
-Recretary: `Enter the next participant’s name, or type end/ to finish inputting participants.`  
-User: `john doe`  
+Recretary: `Find the next participant’s name.`  
+User: `find john`  
 Recretary: `Here is a list of your contacts that match ‘john doe’`  
 <code> &nbsp; 1. John doe, abc company </code>  
-<code> &nbsp; 2. John doe, def company </code>  
-User: `2`  
-Recretary: `added John doe, def company to participants list.`  
-`Enter the next participant’s name, or type end/ to finish inputting participants.`  
-User: `end/`
+<code> &nbsp; 2. John lee, def company </code>  
+User: `add_part n/john i/2`  
 
 <div markdown="span" class="alert alert-primary">:bulb: 
 
