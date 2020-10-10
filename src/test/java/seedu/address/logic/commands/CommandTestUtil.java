@@ -2,12 +2,7 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.*;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.time.LocalDateTime;
@@ -157,7 +152,7 @@ public class CommandTestUtil {
     }
 
     /**
-     * Updates {@code model}'s filtered list to show only the person at the given {@code targetIndex} in the
+     * Updates {@code model}'s filtered list to show only the meeting at the given {@code targetIndex} in the
      * {@code model}'s address book.
      */
     public static void showMeetingAtIndex(Model model, Index targetIndex) {
