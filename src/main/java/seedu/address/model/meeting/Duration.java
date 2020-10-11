@@ -1,5 +1,6 @@
 package seedu.address.model.meeting;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -26,6 +27,16 @@ public class Duration {
      */
     public Duration(long hours, long minutes) {
         requireAllNonNull(hours, minutes);
+        checkArgument(isValidDuration(hours, minutes), MESSAGE_CONSTRAINTS);
+        this.hours = hours;
+        this.minutes = minutes;
+    }
+
+    public Duration(String duration) {
+        requireNonNull(duration);
+        String[] dur = duration.split(" ");
+        Long hours = Long.parseLong(dur[0]);
+        Long minutes = Long.parseLong(dur[1]);
         checkArgument(isValidDuration(hours, minutes), MESSAGE_CONSTRAINTS);
         this.hours = hours;
         this.minutes = minutes;

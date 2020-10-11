@@ -20,7 +20,6 @@ import seedu.address.model.meeting.Duration;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.meeting.Location;
 import seedu.address.model.meeting.Title;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 

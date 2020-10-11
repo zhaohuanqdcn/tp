@@ -21,11 +21,14 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.meeting.DataContainsKeywordsPredicate;
+import seedu.address.model.meeting.DateTime;
 import seedu.address.model.meeting.Duration;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.testutil.EditMeetingDescriptorBuilder;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.MeetingBuilder;
 import seedu.address.testutil.PersonBuilder;
 
 /**
@@ -90,6 +93,7 @@ public class CommandTestUtil {
 
     public static final EditContactCommand.EditPersonDescriptor DESC_AMY;
     public static final EditContactCommand.EditPersonDescriptor DESC_BOB;
+    public static final EditMeetingCommand.EditMeetingDescriptor DESC_DISCUSSION;
 
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
@@ -98,6 +102,12 @@ public class CommandTestUtil {
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).withCompany(VALID_COMPANY_BOB).build();
+
+        DESC_DISCUSSION = new EditMeetingDescriptorBuilder().withTitle("disscussion")
+                .withLocation("123, Jurong West Ave 6, #08-111")
+                .withDateTime("12/2/12 1201")
+                .withDuration(new Duration(1, 20))
+                .build();
     }
 
     /**
