@@ -156,19 +156,23 @@ Examples:
 
 Edits an existing meeting in the meeting schedule.
  
-Format: `edit_meeting INDEX [d/DATETIME] [t/TITLE] [l/LOCATION] [p/]...`
+Format: `edit_meeting INDEX [d/DATETIME] [t/TITLE] [l/LOCATION] [add_part/ (name) INDEX] [del_part P_INDEX]...`
 
-Edit participants in a meeting with this format:  
+Add new participant in this format:
+Recretary: `Find the next participant’s name.`  
+User: `find john`  
+Recretary: `Here is a list of your contacts that match ‘john doe’`  
+<code> &nbsp; 1. John doe, abc company </code>  
+<code> &nbsp; 2. John lee, def company </code>  
+User: `edit_meeting INDEX add_part/ john 1`
+  
+Delete participants in a meeting with this format:  
 E.g.   
 Recretary: `Here is the current list of participants.`  
 <code> &nbsp; 1. John doe, abc company </code>  
 <code> &nbsp; 2. John doe, def company </code>  
-`Enter the next participant’s index to delete, or type end/ to finish removing participants.`  
-User: `1`  
-Recretary: `Here is the current list of participants.` 
-<code> &nbsp; 1. John doe, def company </code>  
-`Enter the next participant’s index to delete, or type end/ to finish removing participants.`  
-User: `end/`  
+`Enter the next participant’s index to delete`  
+User: `edit_meeting INDEX del_part/ 1`   
 
 * Edits the meeting at the specified `INDEX`. The index refers to the index number shown in the displayed meeting list. 
 The index **must be a positive integer** 1, 2, 3, …​
