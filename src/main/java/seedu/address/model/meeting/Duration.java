@@ -21,7 +21,6 @@ public class Duration {
 
     /**
      * Constructs a {@code Duration}.
-     *
      * @param hours The number of hours.
      * @param minutes The number of minutes.
      */
@@ -32,6 +31,10 @@ public class Duration {
         this.minutes = minutes;
     }
 
+    /**
+     * Constructs a {@code Duration}.
+     * @param duration string of hours and minutes in the form of HH mm.
+     */
     public Duration(String duration) {
         requireNonNull(duration);
         String[] dur = duration.split(" ");

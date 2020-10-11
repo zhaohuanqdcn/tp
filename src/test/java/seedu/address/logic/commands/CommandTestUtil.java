@@ -21,14 +21,12 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.meeting.DataContainsKeywordsPredicate;
-import seedu.address.model.meeting.DateTime;
 import seedu.address.model.meeting.Duration;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditMeetingDescriptorBuilder;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
-import seedu.address.testutil.MeetingBuilder;
 import seedu.address.testutil.PersonBuilder;
 
 /**

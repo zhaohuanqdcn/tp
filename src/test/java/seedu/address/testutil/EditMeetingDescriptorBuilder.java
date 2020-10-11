@@ -3,8 +3,8 @@ package seedu.address.testutil;
 import seedu.address.logic.commands.EditMeetingCommand;
 import seedu.address.model.meeting.DateTime;
 import seedu.address.model.meeting.Duration;
-import seedu.address.model.meeting.Meeting;
 import seedu.address.model.meeting.Location;
+import seedu.address.model.meeting.Meeting;
 import seedu.address.model.meeting.Title;
 
 public class EditMeetingDescriptorBuilder {
