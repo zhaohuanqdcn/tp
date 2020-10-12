@@ -8,17 +8,17 @@ import seedu.address.model.Model;
 /**
  * Clears the address book.
  */
-public class ClearContactCommand extends Command {
+public class ClearMeetingCommand extends Command {
 
-    public static final String COMMAND_WORD = "clear_contact";
-    public static final String MESSAGE_SUCCESS = "Contacts have been cleared!";
+    public static final String COMMAND_WORD = "clear_meeting";
+    public static final String MESSAGE_SUCCESS = "Meetings has been cleared!";
 
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
         AddressBook ab = new AddressBook();
-        ab.setMeetings(model.getFilteredMeetingList());
+        ab.setPersons(model.getFilteredPersonList());
         model.setAddressBook(ab);
         return new CommandResult(MESSAGE_SUCCESS);
     }
