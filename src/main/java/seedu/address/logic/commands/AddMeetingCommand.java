@@ -1,10 +1,10 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_PARTICIPANTS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PARTICIPANTS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -21,14 +21,14 @@ public class AddMeetingCommand extends Command {
             + PREFIX_DATETIME + "DATETIME "
             + PREFIX_DURATION + "DURATION "
             + PREFIX_LOCATION + "LOCATION "
-            + "[" + PREFIX_PARTICIPANTS + "PARTICIPANTS]..."
+            + "[" + PREFIX_ADD_PARTICIPANTS + "PARTICIPANTS]..."
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TITLE + "v1.3 discussion "
             + PREFIX_DATETIME + "2020-12-31 14:00 "
             + PREFIX_DURATION + "60 "
             + PREFIX_LOCATION + "Cool spot "
-            + PREFIX_PARTICIPANTS + "Tom "
-            + PREFIX_PARTICIPANTS + "Jerry ";
+            + PREFIX_ADD_PARTICIPANTS + "Tom "
+            + PREFIX_ADD_PARTICIPANTS + "Jerry ";
 
     public static final String MESSAGE_SUCCESS = "New meeting added: %1$s \n "
             + "Add participants by finding their name, and key in their index on the list";
