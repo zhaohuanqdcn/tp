@@ -44,6 +44,6 @@ public class TypicalMeetings {
     }
 
     public static List<Meeting> getTypicalMeetings() {
-        return new ArrayList<>(Arrays.asList(DISCUSSION));
+        return new ArrayList<>(Arrays.asList(DISCUSSION, ROUNDTABLE));
     }
 }
