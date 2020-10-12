@@ -251,21 +251,23 @@ Examples:
 
 #### Adding a participant into a meeting: `add_part`
 
-Adds a participant with the specified `INDEX` in the currently viewable contact list into the last added meeting.
+Adds a participant with the specified `CONTACT_INDEX` in the currently viewable contact list into the meeting with the specified `MEETING_INDEX`.
 
-Format: `add_part i/<INDEX>`
+Format: `add_part ci/CONTACT_INDEX mi/MEETING_INDEX`
 
 <div markdown="span" class="alert alert-primary">:bulb:
 
 **Tip:**
 Run a `find_contact` command before running an `add_part` to narrow the contact list so that you can easily add a contact instead of scrolling through the whole list!
 
+Run a `find_meeting` command before running an `add_part` to narrow the meeting list so that you can easily add a meeting instead of scrolling through the whole list!
+
 </div>
 
 Examples:
 
--   `add_part i/1` adds the first contact in the whole list to the latest meeting.
--   `find_contact alice` followed by `add_part i/1` adds the first contact of the `find_contact` command's result into the latest meeting.
+-   `add_part ci/1 mi/3` adds the first contact in the whole list to the 3rd meeting.
+-   `find_contact alice` followed by `add_part ci/1 mi/2` adds the first contact of the `find_contact` command's result into the 2nd meeting.
 
 ### General
 
