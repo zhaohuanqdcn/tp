@@ -193,29 +193,6 @@ public class EditMeetingCommand extends Command {
         }
 
         /**
-         * Remove a participant from the list using the index.
-         * @param index
-         */
-        public void deletePerson(Index index) {
-            List<Person> personList = new ArrayList<>(this.persons);
-            personList.remove(index.getZeroBased());
-            this.persons = new HashSet<>(personList);
-        }
-
-        /**
-         * Add a participant into the meeting.
-         * @param predicate
-         * @param index
-         */
-        public void addPerson(NameContainsKeywordsPredicate predicate, Index index) {
-            model.updateFilteredPersonList(predicate);
-            List<Person> filteredPersonList = model.getFilteredPersonList();
-
-            Person personToAdd = filteredPersonList.get(index.getZeroBased());
-            this.persons.add(personToAdd);
-        }
-
-        /**
          * Sets {@code tags} to this object's {@code tags}.
          * A defensive copy of {@code tags} is used internally.
          */

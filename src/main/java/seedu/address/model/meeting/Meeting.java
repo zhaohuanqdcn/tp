@@ -2,11 +2,9 @@ package seedu.address.model.meeting;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.person.Person;
 
 /**
@@ -90,6 +88,13 @@ public class Meeting {
 
     public void addParticipant(Person person) {
         this.participants.add(person);
+    }
+
+    public void delParticipant(Index index) {
+        List<Person> personList = new ArrayList<>(this.participants);
+        int length = this.participants.size();
+        Person personToDelete = personList.get(length - 1 - index.getZeroBased());
+        this.participants.remove(personToDelete);
     }
 
     /**
