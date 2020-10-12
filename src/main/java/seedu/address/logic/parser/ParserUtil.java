@@ -171,7 +171,7 @@ public class ParserUtil {
         requireNonNull(dateTime);
         String trimmedDate = dateTime.trim();
         if (!DateTime.isValidDateTime(trimmedDate)) {
-            throw new ParseException(Title.MESSAGE_CONSTRAINTS);
+            throw new ParseException(DateTime.MESSAGE_CONSTRAINTS);
         }
         return new DateTime(trimmedDate);
     }

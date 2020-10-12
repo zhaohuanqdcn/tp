@@ -1,17 +1,14 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTACT_INDEX;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MEETING_INDEX;
 
-import java.util.Arrays;
 import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.AddMeetingCommand;
 import seedu.address.logic.commands.AddParticipantCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
 
 public class AddParticipantCommandParser {
 
@@ -24,20 +21,18 @@ public class AddParticipantCommandParser {
 
         try {
             ArgumentMultimap argMultimap =
-                    ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_INDEX);
+                    ArgumentTokenizer.tokenize(args, PREFIX_CONTACT_INDEX, PREFIX_MEETING_INDEX);
 
-            if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_INDEX)
+            if (!arePrefixesPresent(argMultimap, PREFIX_CONTACT_INDEX)
                     || !argMultimap.getPreamble().isEmpty()) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                        AddMeetingCommand.MESSAGE_USAGE));
+                        AddParticipantCommand.MESSAGE_USAGE));
             }
 
-            String name = argMultimap.getValue(PREFIX_NAME).get();
-            Index index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).get());
+            Index participantIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_CONTACT_INDEX).get());
+            Index meetingIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_MEETING_INDEX).get());
 
-            String[] nameKeywords = name.split("\\s+");
-
-            return new AddParticipantCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)), index);
+            return new AddParticipantCommand(participantIndex, meetingIndex);
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddParticipantCommand.MESSAGE_USAGE), pe);

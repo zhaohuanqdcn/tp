@@ -21,5 +21,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_ADD_PARTICIPANTS = new Prefix("add_part/");
     public static final Prefix PREFIX_DELETE_PARTICIPANTS = new Prefix("del_part/");
 
-    public static final Prefix PREFIX_INDEX = new Prefix("i/");
+    public static final Prefix PREFIX_CONTACT_INDEX = new Prefix("ci/");
+    public static final Prefix PREFIX_MEETING_INDEX = new Prefix("mi/");
 }
