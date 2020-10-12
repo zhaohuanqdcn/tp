@@ -22,6 +22,7 @@ public class TypicalMeetings {
             .withLocation("123, Jurong West Ave 6, #08-111")
             .withDateTime(LocalDateTime.parse("12/2/12 1201", DateTime.getDateInputFormat()))
             .withDuration(new Duration(1, 20))
+            .withParticipants(ALICE, BOB)
             .build();
     public static final Meeting ROUNDTABLE = new MeetingBuilder().withTitle("Benson Meier")
             .withLocation("311, Clementi Ave 2, #02-25")
@@ -43,6 +44,6 @@ public class TypicalMeetings {
     }
 
     public static List<Meeting> getTypicalMeetings() {
-        return new ArrayList<>(Arrays.asList(DISCUSSION, ROUNDTABLE));
+        return new ArrayList<>(Arrays.asList(DISCUSSION));
     }
 }

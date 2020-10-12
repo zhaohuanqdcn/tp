@@ -1,19 +1,17 @@
 package seedu.address.logic.commands;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
-import seedu.address.model.meeting.Meeting;
-import seedu.address.model.person.Person;
-
-import java.util.List;
-import java.util.Set;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTACT_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEETING_INDEX;
 
-public class DeleteParticipantCommand extends Command{
+import java.util.List;
+
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Model;
+import seedu.address.model.meeting.Meeting;
+
+public class DeleteParticipantCommand extends Command {
 
     public static final String COMMAND_WORD = "delete_part";
 
@@ -33,7 +31,7 @@ public class DeleteParticipantCommand extends Command{
     /**
      * Creates an AddContactCommand to add the specified {@code Person}
      */
-    public DeleteParticipantCommand(Index participantIndex, Index meetingIndex) {
+    public DeleteParticipantCommand (Index participantIndex, Index meetingIndex) {
         this.participantIndex = participantIndex;
         this.meetingIndex = meetingIndex;
     }
