@@ -288,12 +288,15 @@ Recretary data are saved in the hard disk automatically after any command that c
 
 Action | Format, Examples
 --------|------------------
+**Help** | `help`
+**Exit** | `exit`
+Contact
 **Add** | `add_contact n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS c/COMPANY [r/COMPANY_ROLE] [t/TAG]…` <br> e.g., `add_contact n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd a/XYZ Company r/manager t/friend` <br> `add_meeting d/DATETIME dur/DURATION title/TITLE l/LOCATION` <br> e.g., `add_meeting d/31/12/20 1400 dur/01 00 title/xyz meeting l/John street, block 1, #01-01`
 **Delete** | `delete_contact INDEX`<br> e.g., `delete_contact 3` <br> `delete_meeting INDEX`<br> e.g., `delete_meeting 5`
 **Edit** | `edit_contact INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [c/COMPANY] [r/COMPANY_ROLE] [t/TAG]…`<br> e.g.,`edit_contact 2 n/James Lee e/jameslee@example.com` <br> `edit_meeting INDEX [d/DATETIME] [dur/DURATION] [t/TITLE] [l/LOCATION]`<br> e.g.,`edit_contact 1 dur/01 30 l/COM2 LT17`
 **Find** | `find_contact KEYWORD [MORE_KEYWORDS]`<br> e.g., `find_contact James Jake` <br> `find_meeting KEYWORD [MORE_KEYWORDS]`<br> e.g., `find_meeting recretary stakeholders`
 **List** | `list_contact` <br> `list_meeting`
 **Clear** | `clear_contact` <br> `clear_meeting`
-**Help** | `help`
-**Exit** | `exit`
+Meeting
+
 
