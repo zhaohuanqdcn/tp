@@ -26,16 +26,6 @@ public class DateTime {
      *
      * @param dateTime A valid date and time.
      */
-    public DateTime(LocalDateTime dateTime) {
-        requireNonNull(dateTime);
-        value = dateTime;
-    }
-
-    /**
-     * Constructs an {@code DateTime}.
-     *
-     * @param dateTime A valid date and time.
-     */
     public DateTime(String dateTime) {
         requireNonNull(dateTime);
         checkArgument(isValidDateTime(dateTime), MESSAGE_CONSTRAINTS);
