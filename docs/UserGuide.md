@@ -243,7 +243,7 @@ Format: `find_meeting KEYWORD [MORE_KEYWORDS]`
 
 -   The search is case-insensitive. e.g `discuss` will match `Discuss`
 -   The order of the keywords does not matter. e.g. `Shareholder Meeting` will match `Meeting Shareholder`
--   Only the title is searched.
+-   All fields (title, participants etc) are searched.
 -   Only full words will be matched e.g. `Team` will not match `Teams`
 -   Meetings matching at least one keyword will be returned (i.e. `OR` search).
     e.g. `Shareholder Meeting` will return `Shareholder Chat`, `Team Meeting`
