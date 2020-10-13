@@ -1,6 +1,5 @@
 package seedu.address.storage;
 
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -104,15 +103,13 @@ class JsonAdaptedMeeting {
                     DateTime.class.getSimpleName()));
         }
 
-        LocalDateTime dateTimeParsed;
+        final DateTime modelDateTime;
 
         try {
-            dateTimeParsed = LocalDateTime.parse(dateTime, dateTimeFormat);
+            modelDateTime = new DateTime(dateTime);
         } catch (DateTimeParseException e) {
             throw new IllegalValueException(String.format(PARSE_ERROR_MESSAGE_FORMAT, DateTime.class.getSimpleName()));
         }
-
-        final DateTime modelDateTime = new DateTime(dateTimeParsed);
 
         if (location == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,

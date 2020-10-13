@@ -1,6 +1,5 @@
 package seedu.address.testutil;
 
-import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,8 +20,7 @@ public class MeetingBuilder {
     public static final long DEFAULT_HOURS = 1;
     public static final long DEFAULT_MINUTES = 30;
     public static final String DEFAULT_LOCATION = "123, Jurong West Ave 6, #08-111";
-    public static final LocalDateTime DEFAULT_DATETIME = LocalDateTime
-            .parse("12/2/12 1201", DateTime.getDateInputFormat());
+    public static final String DEFAULT_DATETIME = "12/2/12 1201";
 
     private Title title;
     private DateTime dateTime;
@@ -87,7 +85,7 @@ public class MeetingBuilder {
     /**
      * Sets the {@code DateTime} of the {@code Meeting} that we are building.
      */
-    public MeetingBuilder withDateTime(LocalDateTime dateTime) {
+    public MeetingBuilder withDateTime(String dateTime) {
         this.dateTime = new DateTime(dateTime);
         return this;
     }
