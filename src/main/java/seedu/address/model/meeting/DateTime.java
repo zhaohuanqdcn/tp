@@ -1,9 +1,11 @@
 package seedu.address.model.meeting;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * Represents a Meeting's date and time.
@@ -11,7 +13,7 @@ import java.time.format.DateTimeFormatter;
  */
 public class DateTime {
 
-    public static final String MESSAGE_CONSTRAINTS = "The date and time should be of the format dd/mm/yy hhmm. "
+    public static final String MESSAGE_CONSTRAINTS = "The date and time should be of the format d/M/yy HHmm. "
             + "For example, 12/3/20 1545";
 
     private static DateTimeFormatter dateInputFormat = DateTimeFormatter.ofPattern("d/M/yy HHmm");
@@ -36,6 +38,7 @@ public class DateTime {
      */
     public DateTime(String dateTime) {
         requireNonNull(dateTime);
+        checkArgument(isValidDateTime(dateTime), MESSAGE_CONSTRAINTS);
         value = LocalDateTime.parse(dateTime, dateInputFormat);
     }
 
@@ -43,8 +46,16 @@ public class DateTime {
      * Return true if string can be formatted to a LocalDateTime object
      */
     public static boolean isValidDateTime(String dateTime) {
-        LocalDateTime toCheck = LocalDateTime.parse(dateTime, dateInputFormat);
-        return toCheck instanceof LocalDateTime;
+        boolean isValidFormat = false;
+        try {
+            LocalDateTime toCheck = LocalDateTime.parse(dateTime, dateInputFormat);
+            if (dateTime.equals(toCheck.format(dateInputFormat))) {
+                isValidFormat = true;
+            }
+        } catch (DateTimeParseException e) {
+            e.printStackTrace();
+        }
+        return isValidFormat;
     }
 
     public static DateTimeFormatter getDateInputFormat() {
