@@ -9,16 +9,6 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
-### John Doe
-
-<img src="images/johndoe.png" width="200px">
-
-[[homepage](http://www.comp.nus.edu.sg/~damithch)]
-[[github](https://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
-
-* Role: Project Advisor
-
 ### Koh Zhe Hao
 
 <img src="images/koh-zhe-hao.png" width="200px">
@@ -28,6 +18,15 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 * Role: Developer
 * Responsibilities: General work and Update contacts implementation to contain new class Company
+
+### Liu Chuyue
+
+<img src="images/ramenmen.png" width="200px">
+
+[[github](http://github.com/ramenmen)] [[portfolio](team/liu-chuyue.md)]
+
+* Role: Developer
+* Responsibilities: General work and Implementing new Meeting class
 
 ### Adithya Narayan Rangarajan Sreenivasan
 
@@ -40,26 +39,15 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * In charge of `UI`
 * JavaFX expert
 
+### Tan Xuan Zhi
 
-### Jean Doe
+<img src="images/xxzz-tt.png" width="200px">
 
-<img src="images/johndoe.png" width="200px">
-
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
-
-* Role: Developer
-* Responsibilities: Dev Ops + Threading
-
-### James Doe
-
-<img src="images/johndoe.png" width="200px">
-
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](https://github.com/xxzz-tt)]
+[[portfolio](team/tan-xuan-zhi.md)]
 
 * Role: Developer
-* Responsibilities: UI
+* Responsibilities: Implement commands relating to model class Meeting
 
 ### Zhao Huan
 
@@ -69,4 +57,4 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 [[portfolio](team/zhao-huan.md)]
 
 * Role: Developer
-* Responsibilities: UI
+* Responsibilities: Update Model and Implement commands relating to Meeting

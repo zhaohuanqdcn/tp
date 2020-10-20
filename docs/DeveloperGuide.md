@@ -90,7 +90,9 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 
 ![Interactions Inside the Logic Component for the `delete 1` Command](images/DeleteSequenceDiagram.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+<div markdown="span" class="alert alert-info"> 
+
+:information_source: **Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 </div>
 
 ### Model component
@@ -107,7 +109,9 @@ The `Model`,
 * does not depend on any of the other three components.
 
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Person` references. This allows `AddressBook` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object.<br>
+<div markdown="span" class="alert alert-info">
+
+:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Person` references. This allows `AddressBook` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object.<br>
 ![BetterModelClassDiagram](images/BetterModelClassDiagram.png)
 
 </div>
@@ -159,7 +163,9 @@ Step 3. The user executes `add n/David …​` to add a new person. The `add` co
 
 ![UndoRedoState2](images/UndoRedoState2.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+<div markdown="span" class="alert alert-info">
+
+:information_source: **Note:** If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
 
 </div>
 
@@ -167,7 +173,9 @@ Step 4. The user now decides that adding the person was a mistake, and decides t
 
 ![UndoRedoState3](images/UndoRedoState3.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index 0, pointing to the initial AddressBook state, then there are no previous AddressBook states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather
+<div markdown="span" class="alert alert-info">
+
+:information_source: **Note:** If the `currentStatePointer` is at index 0, pointing to the initial AddressBook state, then there are no previous AddressBook states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather
 than attempting to perform the undo.
 
 </div>
@@ -176,13 +184,17 @@ The following sequence diagram shows how the undo operation works:
 
 ![UndoSequenceDiagram](images/UndoSequenceDiagram.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+<div markdown="span" class="alert alert-info">
+
+:information_source: **Note:** The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 </div>
 
 The `redo` command does the opposite — it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone AddressBook states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+<div markdown="span" class="alert alert-info">
+
+:information_source: **Note:** If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone AddressBook states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
 </div>
 
@@ -213,11 +225,150 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 _{more aspects and alternatives to be added}_
 
+### Add meeting feature
+
+#### Implementation
+
+The add meeting mechanism is facilitated by `AddMeetingCommand`. It extends `Command`.
+
+* `AddMeetingCommand#execute()` —  Add a new meeting in the model if it is valid and not a duplicate.
+
+This operation is exposed in the `Model` interface as `Model#addMeeting()`.
+
+The following sequence diagram shows how the add meeting operation works:
+
+![AddMeetingSequenceDiagram](images/AddMeetingSequenceDiagram.png)
+
+<div markdown="span" class="alert alert-info">
+
+:information_source: **Note:** The lifeline for `AddMeetingCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
+
+#### Design consideration:
+
+##### Aspect: How add meeting executes
+
+* Consistent workflow with other commands
+
+_{more aspects and alternatives to be added}_
+
+### Edit meeting feature
+
+#### Implementation
+
+The edit meeting mechanism is facilitated by `EditMeetingCommand`. It extends `Command`.
+
+* `EditMeetingCommand#execute()` —  Edit a new meeting in the model if it is valid and not a duplicate.
+
+This operation is exposed in the `Model` interface as `Model#setMeeting()`, `Model#getFilteredMeetingList()` and `Model#getFilteredMeetingList()`.
+
+The following sequence diagram shows how the edit meeting operation works:
+
+![EditMeetingSequenceDiagram](images/EditMeetingSequenceDiagram.png)
+
+<div markdown="span" class="alert alert-info">
+
+:information_source: **Note:** The lifeline for `EditMeetingCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
+
+#### Design consideration:
+
+##### Aspect: How add meeting executes
+
+* Consistent workflow with other commands
+
+_{more aspects and alternatives to be added}_
+
 ### \[Proposed\] Data archiving
 
 _{Explain here how the data archiving feature will be implemented}_
 
+### Meeting Class
 
+#### Implementation
+
+The Meetings class and meeting details classes are adapted from the code for Persons and person details. The Meeting class contains two methods that are not present in the Person class:
+
+* `addParticipant(Person person)` — Adds person as a participant of the meeting.
+* `delParticipant(Index index)` — Deletes the participant at index from the meeting's list of participants.
+
+Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+
+![UndoRedoState0](images/UndoRedoState0.png)
+
+Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+
+![UndoRedoState1](images/UndoRedoState1.png)
+
+Step 3. The user executes `add n/David …​` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+
+![UndoRedoState2](images/UndoRedoState2.png)
+
+<div markdown="span" class="alert alert-info">
+
+:information_source: **Note:** If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+
+</div>
+
+Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+
+![UndoRedoState3](images/UndoRedoState3.png)
+
+<div markdown="span" class="alert alert-info">
+
+:information_source: **Note:** If the `currentStatePointer` is at index 0, pointing to the initial AddressBook state, then there are no previous AddressBook states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather
+than attempting to perform the undo.
+
+</div>
+
+The following sequence diagram shows how the undo operation works:
+
+![UndoSequenceDiagram](images/UndoSequenceDiagram.png)
+
+<div markdown="span" class="alert alert-info">
+
+:information_source: **Note:** The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
+
+The `redo` command does the opposite — it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+
+<div markdown="span" class="alert alert-info">
+
+:information_source: **Note:** If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone AddressBook states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+
+</div>
+
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+
+![UndoRedoState4](images/UndoRedoState4.png)
+
+Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
+
+![UndoRedoState5](images/UndoRedoState5.png)
+
+The following activity diagram summarizes what happens when a user executes a new command:
+
+![CommitActivityDiagram](images/CommitActivityDiagram.png)
+
+#### Design consideration:
+
+##### Aspect: How undo & redo executes
+
+* **Alternative 1 (current choice):** Saves the entire address book.
+  * Pros: Easy to implement.
+  * Cons: May have performance issues in terms of memory usage.
+
+* **Alternative 2:** Individual command knows how to undo/redo by
+  itself.
+  * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+  * Cons: We must ensure that the implementation of each individual command are correct.
+
+_{more aspects and alternatives to be added}_
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
@@ -270,14 +421,56 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 | Priority | As a …​                                    | I want to …​                     | So that I can…​                                                        |
 | -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
-| `* * *`  | new user                                   | see usage instructions         | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person               |                                                                        |
-| `* * *`  | user                                       | delete a person                | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name          | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details   | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name           | locate a person easily                                                 |
+| `*`  |    meeting planner | update existing meetings | make sure the details are up to date.| 
+| `*`  |    meeting planner | delete specified meetings if they are cancelled.| |
+| `*`  |    meeting planner | view all upcoming meetings in a specific order.| |
+| `*`  |    meeting planner | add a meeting to the schedule.| |
+| `*`  |    frequent user | search for a certain contact I am looking for| |
+| `*`  |    frequent user | view a list of all my contacts at any time.| |
+| `*`  |    frequent user | create new contact in my contact list.| |
+| `*`  |    first-time user | enter my and my employer's details| |
+| `*`  |    meeting planner | search for meetings with some criteria.| |
+| `*`  |    frequent meeting planner | receive reminders from the app that to remind my employer for an upcoming meeting | make sure my employer can be on time for their meetings.| 
+| `*`  |    frequent meeting planner | attach a location and time of the meeting as additional information| |
+| `*`  |     expert user | delete some unwanted contacts in my contact list.| |
+| `*`  |    frequent user | update each of my contacts whenever there is a change in their particulars/ details.||
+| `* *`  |    frequent user | easily reschedule agenda items if plans change.| |
+| `* *`  |     expert user | edit my agenda list to add or delete some details.| |
+| `* *`  |    copy typist | get my notes automatically corrected for spelling/grammar mistakes.| |
+| `* *`  |    frequent meeting planner | plan a route based on meeting locations and times.| |
+| `* *`  |    first time user | find the list of all features that the app has | know what specific task can I complete by using this app.| 
+| `* *`  |    user | see a list of tasks that requires the most priority | pay attention to them first.| 
+| `* *`  |    regular user | sync/export contacts/calendar| |
+| `* *`  |    frequent user | receive reminders for tasks that are due soon  |  complete them in time.| 
+| `* *`  |    frequent meeting planner | assimilate a map in the app to keep track of all frequently visited locations  |  plan the travel routine wisely that takes time taken to travel from one place to another place into consideration.| 
+| `* *`  |    frequent meeting planner | send emails directly from the app by choosing the necessary recipients from the contact list.| |
+| `* *`  |    relatively new user | input slightly variated input that the app can understand and interpret  |  learn while doing.| 
+| `* *`  |    first time user | import existing calendar/agendas/locations |  save my time on data migration.| 
+| `* *`  |    first time user | learn how to use the app  |  actually use the app to solve the tasks that I have.| 
+| `* *`  |    frequent user | auto-fill the necessary details into a pre-defined template and batch send emails  |  save the time taken to individually send emails for the meeting.| 
+| `* *`  |     expert user | create shortcuts for certain tasks |  save time on frequently performed tasks.| 
+| `* *`  |    new or returning user | sync my tasks from other platforms to the task list |  save time instead of entering them manually.| 
+| `* *`  |    long-time user | archive unused data | I am not distracted by irrelevant or old items.| 
+| `* *`  |    user ready to start using the app | clear all current data |  get rid of data I added when experimenting with the app.| 
+| `* *`  |    busy user | see my daily tasks at the start of the day  |  better organize my time.| 
+| `* *`  |    frequent user | add tasks to my task list.| |
+| `* *`  |    frequent user | view a list of all the tasks I have to accomplish and their deadlines | I am up to date with my work.| 
+| `* *`  |    frequent user | search for tasks by name or deadline in the task list.| |
+| `* *`  |    frequent user | delete tasks from my task list.| |
+| `* *`  |    frequent user | update the details of a task in my task list.| |
+| `* *`  |    relatively new user | be reminded of the key features  |  speed up my workflows.| 
+| `* *`  |    frequent user | use an email template to send personalised emails to notify other companies for a meeting | save time on crafting the email one-by-one.| 
+| `* *`  |    meeting planner | resolve meetings conflict | make sure no two meetings will happen at the same time.| 
+| `* *`  |    meeting planner | give priority to certain meetings | make sure these important meetings will take place under the best possible circumstances.| 
+| `* *`  |    frequent user | use built-in shortcuts  |  accelerate my workflow.| 
+| `* *`  |    frequent meeting planner | import and export the existing calendar  |  save time on entering this information manually.| 
+| `* *`  |    relatively new user | be prompted to change my invalid input  |  get it correctly from then on.| 
+| `* * *`  |    copy typist | transcribe/type a document into a note | save them for future use.| 
+| `* * *`  |    busy user | see a weekly digest on weekend | have a sense of what happened during the week.| 
+| `* * *`  |    receiver of meeting emails | see my meetings automatically fetched and updated from the email | I don't have to manually create a meeting when it is proposed by a third-party.| 
+| `* * *`  |    potential user exploring the app | see the app populated with sample data,  |  easily see how the app will look like when it is in use.| 
 
-*{More to be added}*
+
 
 ### Use cases
 
@@ -470,7 +663,7 @@ Use case ends.
 
 ### Non-Functional Requirements
 
-1.  Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
+1.  Should work on any mainstream OS as long as it has Java `11` or above installed.
 2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 4.  Should be portable. The executable must be one-click run.
@@ -480,8 +673,14 @@ Use case ends.
 
 ### Glossary
 
+* **API**: Application Programming Interface
+* **UML**: Unified Modeling Language
+* **CLI**: Command Line Interface
+* **GUI**: Graphic User Interface
+* **MSS**: Main Success Scenario (aka Main Flow of Events)
+* **Java FX**: Standard GUI library for Java SE
 * **Mainstream OS**: Windows, Linux, Unix, OS-X
-* **Private contact detail**: A contact detail that is not meant to be shared with others
+
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -489,7 +688,9 @@ Use case ends.
 
 Given below are instructions to test the app manually.
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** These instructions only provide a starting point for testers to work on;
+<div markdown="span" class="alert alert-info">
+
+:information_source: **Note:** These instructions only provide a starting point for testers to work on;
 testers are expected to do more *exploratory* testing.
 
 </div>

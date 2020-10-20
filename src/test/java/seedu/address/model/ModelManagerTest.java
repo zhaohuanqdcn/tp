@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalMeetings.DISCUSSION;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 
@@ -70,6 +71,27 @@ public class ModelManagerTest {
         Path path = Paths.get("address/book/file/path");
         modelManager.setAddressBookFilePath(path);
         assertEquals(path, modelManager.getAddressBookFilePath());
+    }
+
+    @Test
+    public void hasMeeting_nullMeeting_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.hasMeeting(null));
+    }
+
+    @Test
+    public void hasMeeting_meetingNotInAddressBook_returnsFalse() {
+        assertFalse(modelManager.hasMeeting(DISCUSSION));
+    }
+
+    @Test
+    public void hasMeeting_personInAddressBook_returnsTrue() {
+        modelManager.addMeeting(DISCUSSION);
+        assertTrue(modelManager.hasMeeting(DISCUSSION));
+    }
+
+    @Test
+    public void getFilteredMeetingList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredMeetingList().remove(0));
     }
 
     @Test
