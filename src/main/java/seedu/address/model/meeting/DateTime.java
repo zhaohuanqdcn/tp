@@ -63,7 +63,7 @@ public class DateTime {
 
     @Override
     public boolean equals(Object other) {
-        assert value != null:"value of this DateTime is null";
+        assert value != null : "value of this DateTime is null";
         return other == this // short circuit if same object
                 || (other instanceof DateTime // instanceof handles nulls
                 && value.equals(((DateTime) other).value)); // state check
@@ -71,7 +71,7 @@ public class DateTime {
 
     @Override
     public int hashCode() {
-        assert value != null:"value of DateTime is null";
+        assert value != null : "value of DateTime is null";
         return value.hashCode();
     }
 

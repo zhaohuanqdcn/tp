@@ -44,7 +44,7 @@ public class Location {
 
     @Override
     public boolean equals(Object other) {
-        assert value != null:"value of Location is null";
+        assert value != null : "value of Location is null";
         return other == this // short circuit if same object
                 || (other instanceof Location // instanceof handles nulls
                 && value.equals(((Location) other).value)); // state check
@@ -52,7 +52,7 @@ public class Location {
 
     @Override
     public int hashCode() {
-        assert value != null:"value of Location is null";
+        assert value != null : "value of Location is null";
         return value.hashCode();
     }
 
