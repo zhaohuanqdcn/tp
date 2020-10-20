@@ -126,6 +126,13 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Sorts all the existing meetings in the address book according to date and time.
+     */
+    public void sortMeeting() {
+        meetings.sort();
+    }
+
+    /**
      * Replaces the given meeting {@code target} in the list with {@code editedMeeting}.
      * {@code target} must exist in the address book.
      * The meeting identity of {@code editedMeeting} must not be the same as

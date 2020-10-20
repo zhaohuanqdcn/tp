@@ -3,6 +3,8 @@ package seedu.address.model.meeting;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -48,6 +50,19 @@ public class UniqueMeetingList implements Iterable<Meeting> {
             throw new DuplicateMeetingException();
         }
         internalList.add(toAdd);
+    }
+
+    public void sort() {
+        Comparator<Meeting> meetingComparator = (meetingOne, meetingTwo) -> {
+            LocalDateTime dateTimeOne = meetingOne.getDateTime().value;
+            LocalDateTime dateTimeTwo = meetingTwo.getDateTime().value;
+            if (dateTimeOne.equals(dateTimeTwo)) {
+                return meetingOne.getTitle().value.compareTo(meetingTwo.getTitle().value);
+            } else {
+                return dateTimeOne.compareTo(dateTimeTwo);
+            }
+        };
+        internalList.sort(meetingComparator);
     }
 
     /**
@@ -105,6 +120,7 @@ public class UniqueMeetingList implements Iterable<Meeting> {
     public ObservableList<Meeting> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
     }
+
 
     @Override
     public Iterator<Meeting> iterator() {
