@@ -225,6 +225,62 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 _{more aspects and alternatives to be added}_
 
+### Add meeting feature
+
+#### Implementation
+
+The add meeting mechanism is facilitated by `AddMeetingCommand`. It extends `Command`.
+
+* `AddMeetingCommand#execute()` —  Add a new meeting in the model if it is valid and not a duplicate.
+
+This operation is exposed in the `Model` interface as `Model#addMeeting()`.
+
+The following sequence diagram shows how the add meeting operation works:
+
+![AddMeetingSequenceDiagram](images/AddMeetingSequenceDiagram.png)
+
+<div markdown="span" class="alert alert-info">
+
+:information_source: **Note:** The lifeline for `AddMeetingCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
+
+#### Design consideration:
+
+##### Aspect: How add meeting executes
+
+* Consistent workflow with other commands
+
+_{more aspects and alternatives to be added}_
+
+### Edit meeting feature
+
+#### Implementation
+
+The edit meeting mechanism is facilitated by `EditMeetingCommand`. It extends `Command`.
+
+* `EditMeetingCommand#execute()` —  Edit a new meeting in the model if it is valid and not a duplicate.
+
+This operation is exposed in the `Model` interface as `Model#setMeeting()`, `Model#getFilteredMeetingList()` and `Model#getFilteredMeetingList()`.
+
+The following sequence diagram shows how the edit meeting operation works:
+
+![EditMeetingSequenceDiagram](images/EditMeetingSequenceDiagram.png)
+
+<div markdown="span" class="alert alert-info">
+
+:information_source: **Note:** The lifeline for `EditMeetingCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
+
+#### Design consideration:
+
+##### Aspect: How add meeting executes
+
+* Consistent workflow with other commands
+
+_{more aspects and alternatives to be added}_
+
 ### Meeting Class
 
 #### Implementation
@@ -240,48 +296,14 @@ The Meetings class and meeting details classes are adapted from the code for Per
 * `addParticipant(Person person)` — Adds person as a participant of the meeting.
 * `delParticipant(Index index)` — Deletes the participant at index from the meeting's list of participants.
 
-Given below is an example usage scenario for delParticipant.
 
-Step 0. Initial state of the meeting list.
+The following sequence diagram shows how the delete participant operation works:
 
-![DelPartStep0](images/DelPartStep0.png)
-
-Step 1. The user executes `delete_part ci/1 mi/1` command.
-
-![DelPartStep1](images/DelPartStep1.png)
-
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
-
-![UndoRedoState1](images/UndoRedoState1.png)
-
-Step 3. The user executes `add n/David …​` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-![UndoRedoState2](images/UndoRedoState2.png)
+![DelPartSequenceDiagram](images/DelPartSequenceDiagram.png)
 
 <div markdown="span" class="alert alert-info">
 
-:information_source: **Note:** If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
-
-</div>
-
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-![UndoRedoState3](images/UndoRedoState3.png)
-
-<div markdown="span" class="alert alert-info">
-
-:information_source: **Note:** If the `currentStatePointer` is at index 0, pointing to the initial AddressBook state, then there are no previous AddressBook states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather
-than attempting to perform the undo.
-
-</div>
-
-The following sequence diagram shows how the undo operation works:
-
-![UndoSequenceDiagram](images/UndoSequenceDiagram.png)
-
-<div markdown="span" class="alert alert-info">
-
-:information_source: **Note:** The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+:information_source: **Note:** The lifeline for `DeleteParticipantCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 </div>
 
