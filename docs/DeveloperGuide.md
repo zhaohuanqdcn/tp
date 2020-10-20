@@ -238,11 +238,15 @@ The Meetings class and meeting details classes are adapted from the code for Per
 * `addParticipant(Person person)` — Adds person as a participant of the meeting.
 * `delParticipant(Index index)` — Deletes the participant at index from the meeting's list of participants.
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+Given below is an example usage scenario for delParticipant.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 0. Initial state of the meeting list.
 
-![UndoRedoState0](images/UndoRedoState0.png)
+![DelPartStep0](images/DelPartStep0.png)
+
+Step 1. The user executes `delete_part ci/1 mi/1` command.
+
+![DelPartStep1](images/DelPartStep1.png)
 
 Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
 
