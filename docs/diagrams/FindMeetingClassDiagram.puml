@@ -1,0 +1,26 @@
+@startuml
+!include style.puml
+show members
+skinparam arrowThickness 1.1
+skinparam arrowColor #000000
+skinparam classBackgroundColor #00CC00
+skinparam classAttributeIconSize 0
+
+Interface Predicate <<Interface>>
+
+Class Command {
+    {method} execute(Model)
+}
+Class DataContainsKeywordsPredicate {
+    {field} List<String> keywords
+}
+Class FindMeetingCommand
+Class Model
+
+FindMeetingCommand : execute(Model)
+
+FindMeetingCommand o-right-> "1" DataContainsKeywordsPredicate
+Command .left. Model
+Command -down-|> FindMeetingCommand
+Predicate .down.|> DataContainsKeywordsPredicate
+@enduml
