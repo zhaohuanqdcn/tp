@@ -281,10 +281,6 @@ The following sequence diagram shows how the edit meeting operation works:
 
 _{more aspects and alternatives to be added}_
 
-### \[Proposed\] Data archiving
-
-_{Explain here how the data archiving feature will be implemented}_
-
 ### Meetings Feature
 
 #### Implementation
