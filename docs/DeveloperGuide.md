@@ -321,7 +321,9 @@ The given sequence diagram illustrates the flow of a usual find meeting executio
 
 #### Implementation
 
-The Meetings class and meeting details classes are adapted from the code for Persons and person details. The Meeting class contains two methods that are not present in the Person class:
+The Meetings class and meeting details classes are adapted from the code for Persons and person details.
+
+<<<<<<< HEAD
 
 -   `addParticipant(Person person)` — Adds person as a participant of the meeting.
 -   `delParticipant(Index index)` — Deletes the participant at index from the meeting's list of participants.
@@ -336,67 +338,54 @@ Step 2. The user executes `delete 5` command to delete the 5th person in the add
 
 ![UndoRedoState1](images/UndoRedoState1.png)
 
-Step 3. The user executes `add n/David …​` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+# Step 3. The user executes `add n/David …​` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
 
-![UndoRedoState2](images/UndoRedoState2.png)
+The following is the Class Diagram for the meetings feature.
 
-<div markdown="span" class="alert alert-info">
+> > > > > > > 0aae644f01c917bdc4aec07263ec01c976d2b684
 
-:information_source: **Note:** If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+![MeetingClassDiag](images/MeetingClassDiag.png)
 
-</div>
+The Meetings class and meeting details classes are adapted from the code for Persons and person details. The Meeting class contains two methods that are not present in the Person class:
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+-   `addParticipant(Person person)` — Adds person as a participant of the meeting.
+-   `delParticipant(Index index)` — Deletes the participant at index from the meeting's list of participants.
 
-![UndoRedoState3](images/UndoRedoState3.png)
+The following sequence diagram shows how the delete participant operation works:
 
-<div markdown="span" class="alert alert-info">
-
-:information_source: **Note:** If the `currentStatePointer` is at index 0, pointing to the initial AddressBook state, then there are no previous AddressBook states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather
-than attempting to perform the undo.
-
-</div>
-
-The following sequence diagram shows how the undo operation works:
-
-![UndoSequenceDiagram](images/UndoSequenceDiagram.png)
+![DelPartSequenceDiagram](images/DelPartSequenceDiagram.png)
 
 <div markdown="span" class="alert alert-info">
 
-:information_source: **Note:** The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+:information_source: **Note:** The lifeline for `DeleteParticipantCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 </div>
 
-The `redo` command does the opposite — it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `addParticipant` command does the opposite with a similar sequence — it calls `Meeting#addParticipant(person)`.
 
-<div markdown="span" class="alert alert-info">
+The following activity diagram summarizes what happens when a user executes a delete participant command:
 
-:information_source: **Note:** If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone AddressBook states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-</div>
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-![UndoRedoState4](images/UndoRedoState4.png)
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
-
-![UndoRedoState5](images/UndoRedoState5.png)
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-![CommitActivityDiagram](images/CommitActivityDiagram.png)
+![ParticipantActivityDiagram](images/ParticipantActivityDiagram.png)
 
 #### Design consideration:
+
+<<<<<<< HEAD
 
 ##### Aspect: How undo & redo executes
 
 -   **Alternative 1 (current choice):** Saves the entire address book.
 
-    -   Pros: Easy to implement.
-    -   Cons: May have performance issues in terms of memory usage.
+        -   Pros: Easy to implement.
+        -   Cons: May have performance issues in terms of memory usage.
 
--   **Alternative 2:** Individual command knows how to undo/redo by
+    =======
+
+##### Aspect: How add & delete participants executes
+
+-   Consistent workflow with other commands
+    > > > > > > > 0aae644f01c917bdc4aec07263ec01c976d2b684
+
+*   **Alternative 2:** Individual command knows how to undo/redo by
     itself.
     -   Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
     -   Cons: We must ensure that the implementation of each individual command are correct.
