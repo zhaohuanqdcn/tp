@@ -323,8 +323,6 @@ The given sequence diagram illustrates the flow of a usual find meeting executio
 
 The Meetings class and meeting details classes are adapted from the code for Persons and person details.
 
-<<<<<<< HEAD
-
 -   `addParticipant(Person person)` — Adds person as a participant of the meeting.
 -   `delParticipant(Index index)` — Deletes the participant at index from the meeting's list of participants.
 
@@ -341,8 +339,6 @@ Step 2. The user executes `delete 5` command to delete the 5th person in the add
 # Step 3. The user executes `add n/David …​` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
 
 The following is the Class Diagram for the meetings feature.
-
-> > > > > > > 0aae644f01c917bdc4aec07263ec01c976d2b684
 
 ![MeetingClassDiag](images/MeetingClassDiag.png)
 
@@ -369,8 +365,6 @@ The following activity diagram summarizes what happens when a user executes a de
 
 #### Design consideration:
 
-<<<<<<< HEAD
-
 ##### Aspect: How undo & redo executes
 
 -   **Alternative 1 (current choice):** Saves the entire address book.
@@ -383,7 +377,6 @@ The following activity diagram summarizes what happens when a user executes a de
 ##### Aspect: How add & delete participants executes
 
 -   Consistent workflow with other commands
-    > > > > > > > 0aae644f01c917bdc4aec07263ec01c976d2b684
 
 *   **Alternative 2:** Individual command knows how to undo/redo by
     itself.
