@@ -285,11 +285,17 @@ _{more aspects and alternatives to be added}_
 
 _{Explain here how the data archiving feature will be implemented}_
 
-### Meeting Class
+### Meetings Feature
 
 #### Implementation
 
-The Meetings class and meeting details classes are adapted from the code for Persons and person details. The Meeting class contains two methods that are not present in the Person class:
+The Meetings class and meeting details classes are adapted from the code for Persons and person details. 
+
+The following is the Class Diagram for the meetings feature.
+
+![MeetingClassDiag](images/MeetingClassDiag.png)
+
+The Meeting class contains two methods that are not present in the Person class:
 
 * `addParticipant(Person person)` — Adds person as a participant of the meeting.
 * `delParticipant(Index index)` — Deletes the participant at index from the meeting's list of participants.
