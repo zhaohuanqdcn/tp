@@ -38,8 +38,8 @@ public class Duration {
     public Duration(String duration) {
         requireNonNull(duration);
         String[] dur = duration.split(" ");
-        Long hours = Long.parseLong(dur[0]);
-        Long minutes = Long.parseLong(dur[1]);
+        long hours = Long.parseLong(dur[0]);
+        long minutes = Long.parseLong(dur[1]);
         checkArgument(isValidDuration(hours, minutes), MESSAGE_CONSTRAINTS);
         this.hours = hours;
         this.minutes = minutes;

@@ -24,6 +24,7 @@ public class AddParticipantCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New participant added to meeting: %1$s";
     public static final String MESSAGE_NO_MEETING = "This meeting does not exist!";
+    public static final String MESSAGE_NO_CONTACT = "This contact does not exist!";
 
     private final Index participantIndex;
     private final Index meetingIndex;
@@ -40,6 +41,10 @@ public class AddParticipantCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Person> filteredPersonList = model.getFilteredPersonList();
+
+        if (participantIndex.getZeroBased() >= filteredPersonList.size()) {
+            throw new CommandException(MESSAGE_NO_CONTACT);
+        }
 
         Person personToAdd = filteredPersonList.get(participantIndex.getZeroBased());
 
