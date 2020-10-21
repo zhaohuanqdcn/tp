@@ -281,34 +281,6 @@ The following sequence diagram shows how the edit meeting operation works:
 
 _{more aspects and alternatives to be added}_
 
-### Edit meeting feature
-
-#### Implementation
-
-The edit meeting mechanism is facilitated by `EditMeetingCommand`. It extends `Command`.
-
--   `EditMeetingCommand#execute()` —  Edit a new meeting in the model if it is valid and not a duplicate.
-
-This operation is exposed in the `Model` interface as `Model#setMeeting()`, `Model#getFilteredMeetingList()` and `Model#getFilteredMeetingList()`.
-
-The following sequence diagram shows how the edit meeting operation works:
-
-![EditMeetingSequenceDiagram](images/EditMeetingSequenceDiagram.png)
-
-<div markdown="span" class="alert alert-info">
-
-:information_source: **Note:** The lifeline for `EditMeetingCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-</div>
-
-#### Design consideration:
-
-##### Aspect: How add meeting executes
-
--   Consistent workflow with other commands
-
-_{more aspects and alternatives to be added}_
-
 ### Find meeting feature
 
 #### Implementation
