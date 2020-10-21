@@ -225,11 +225,101 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 _{more aspects and alternatives to be added}_
 
-### \[Proposed\] Data archiving
+### Add meeting feature
 
-_{Explain here how the data archiving feature will be implemented}_
+#### Implementation
+
+The add meeting mechanism is facilitated by `AddMeetingCommand`. It extends `Command`.
+
+* `AddMeetingCommand#execute()` —  Add a new meeting in the model if it is valid and not a duplicate.
+
+This operation is exposed in the `Model` interface as `Model#addMeeting()`.
+
+The following sequence diagram shows how the add meeting operation works:
+
+![AddMeetingSequenceDiagram](images/AddMeetingSequenceDiagram.png)
+
+<div markdown="span" class="alert alert-info">
+
+:information_source: **Note:** The lifeline for `AddMeetingCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
+
+#### Design consideration:
+
+##### Aspect: How add meeting executes
+
+* Consistent workflow with other commands
+
+_{more aspects and alternatives to be added}_
+
+### Edit meeting feature
+
+#### Implementation
+
+The edit meeting mechanism is facilitated by `EditMeetingCommand`. It extends `Command`.
+
+* `EditMeetingCommand#execute()` —  Edit a new meeting in the model if it is valid and not a duplicate.
+
+This operation is exposed in the `Model` interface as `Model#setMeeting()`, `Model#getFilteredMeetingList()` and `Model#getFilteredMeetingList()`.
+
+The following sequence diagram shows how the edit meeting operation works:
+
+![EditMeetingSequenceDiagram](images/EditMeetingSequenceDiagram.png)
+
+<div markdown="span" class="alert alert-info">
+
+:information_source: **Note:** The lifeline for `EditMeetingCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
+
+#### Design consideration:
+
+##### Aspect: How add meeting executes
+
+* Consistent workflow with other commands
+
+_{more aspects and alternatives to be added}_
+
+### Meeting Class
+
+#### Implementation
+
+The Meetings class and meeting details classes are adapted from the code for Persons and person details.
+
+The following is the Class Diagram for the meetings feature.
+
+![MeetingClassDiag](images/MeetingClassDiag.png)
+
+The Meetings class and meeting details classes are adapted from the code for Persons and person details. The Meeting class contains two methods that are not present in the Person class:
+
+* `addParticipant(Person person)` — Adds person as a participant of the meeting.
+* `delParticipant(Index index)` — Deletes the participant at index from the meeting's list of participants.
 
 
+The following sequence diagram shows how the delete participant operation works:
+
+![DelPartSequenceDiagram](images/DelPartSequenceDiagram.png)
+
+<div markdown="span" class="alert alert-info">
+
+:information_source: **Note:** The lifeline for `DeleteParticipantCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
+
+The `addParticipant` command does the opposite with a similar sequence — it calls `Meeting#addParticipant(person)`.
+
+The following activity diagram summarizes what happens when a user executes a delete participant command:
+
+![ParticipantActivityDiagram](images/ParticipantActivityDiagram.png)
+
+#### Design consideration:
+
+##### Aspect: How add & delete participants executes
+
+* Consistent workflow with other commands
+
+_{more aspects and alternatives to be added}_
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**

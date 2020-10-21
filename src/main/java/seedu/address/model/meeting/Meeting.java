@@ -97,11 +97,12 @@ public class Meeting {
 
     /**
      * Delete a participant from the set based on its index.
-     * @param index
+     * @param index Index of the participant to be deleted.
      */
     public void delParticipant(Index index) {
         List<Person> personList = new ArrayList<>(this.participants);
         int length = this.participants.size();
+        assert length > index.getZeroBased() : "index is invalid";
         Person personToDelete = personList.get(length - 1 - index.getZeroBased());
         this.participants.remove(personToDelete);
     }
