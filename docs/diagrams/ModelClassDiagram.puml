@@ -21,13 +21,30 @@ Class Address
 Class Email
 Class Name
 Class Phone
+Class Company
 Class UniquePersonList
+}
+
+Package Meeting {
+Class UniqueMeetingList
+Class DateTime
+Class Duration
+Class Location
+Class Title
+Class Meeting
 }
 
 Package Tag {
 Class Tag
 }
+
+Package Role {
+Class CompanyRole
 }
+}
+
+
+
 
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
@@ -46,11 +63,24 @@ Person *--> Name
 Person *--> Phone
 Person *--> Email
 Person *--> Address
+Person *--> Company
 Person *--> "*" Tag
+Person *--> "*" CompanyRole
+
+AddressBook *--> "1" UniqueMeetingList
+UniqueMeetingList o--> "*" Meeting
+Meeting o-->  Person
+Meeting *--> DateTime
+Meeting *--> Duration
+Meeting *--> Location
+Meeting *--> Title
+
+
 
 Name -[hidden]right-> Phone
 Phone -[hidden]right-> Address
 Address -[hidden]right-> Email
 
-ModelManager -->"1" Person : filtered list
+ModelManager -->"1" Person : filteredPersons
+ModelManager -->"1" Meeting : filteredMeetings
 @enduml
