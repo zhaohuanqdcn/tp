@@ -21,11 +21,16 @@ Class Address
 Class Email
 Class Name
 Class Phone
+Class Company
 Class UniquePersonList
 }
 
 Package Tag {
 Class Tag
+}
+
+Package Role {
+Class CompanyRole
 }
 
 Package Meeting {
@@ -37,6 +42,9 @@ Class Title
 Class UniqueMeetingList
 }
 }
+
+
+
 
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
@@ -55,7 +63,9 @@ Person *--> Name
 Person *--> Phone
 Person *--> Email
 Person *--> Address
+Person *--> Company
 Person *--> "*" Tag
+Person *--> "*" CompanyRole
 
 Name -[hidden]right-> Phone
 Phone -[hidden]right-> Address
