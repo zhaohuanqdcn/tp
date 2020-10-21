@@ -3,7 +3,7 @@ layout: page
 title: Developer Guide
 ---
 
--   Table of Contents
+*   Table of Contents
     {:toc}
 
 ---
@@ -30,22 +30,22 @@ The **_Architecture Diagram_** given above explains the high-level design of the
 
 **`Main`** has two classes called [`Main`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/Main.java) and [`MainApp`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/MainApp.java). It is responsible for,
 
--   At app launch: Initializes the components in the correct sequence, and connects them up with each other.
--   At shut down: Shuts down the components and invokes cleanup methods where necessary.
+*   At app launch: Initializes the components in the correct sequence, and connects them up with each other.
+*   At shut down: Shuts down the components and invokes cleanup methods where necessary.
 
 [**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
 
 The rest of the App consists of four components.
 
--   [**`UI`**](#ui-component): The UI of the App.
--   [**`Logic`**](#logic-component): The command executor.
--   [**`Model`**](#model-component): Holds the data of the App in memory.
--   [**`Storage`**](#storage-component): Reads data from, and writes data to, the hard disk.
+*   [**`UI`**](#ui-component): The UI of the App.
+*   [**`Logic`**](#logic-component): The command executor.
+*   [**`Model`**](#model-component): Holds the data of the App in memory.
+*   [**`Storage`**](#storage-component): Reads data from, and writes data to, the hard disk.
 
 Each of the four components,
 
--   defines its _API_ in an `interface` with the same name as the Component.
--   exposes its functionality using a concrete `{Component Name}Manager` class (which implements the corresponding API `interface` mentioned in the previous point.
+*   defines its _API_ in an `interface` with the same name as the Component.
+*   exposes its functionality using a concrete `{Component Name}Manager` class (which implements the corresponding API `interface` mentioned in the previous point.
 
 For example, the `Logic` component (see the class diagram given below) defines its API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class which implements the `Logic` interface.
 
@@ -72,8 +72,8 @@ The `UI` component uses JavaFx UI framework. The layout of these UI parts are de
 
 The `UI` component,
 
--   Executes user commands using the `Logic` component.
--   Listens for changes to `Model` data so that the UI can be updated with the modified data.
+*   Executes user commands using the `Logic` component.
+*   Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
 ### Logic component
 
@@ -106,10 +106,10 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 
 The `Model`,
 
--   stores a `UserPref` object that represents the user’s preferences.
--   stores the address book data.
--   exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
--   does not depend on any of the other three components.
+*   stores a `UserPref` object that represents the user’s preferences.
+*   stores the address book data.
+*   exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+*   does not depend on any of the other three components.
 
 <div markdown="span" class="alert alert-info">
 
@@ -126,8 +126,8 @@ The `Model`,
 
 The `Storage` component,
 
--   can save `UserPref` objects in json format and read it back.
--   can save the address book data in json format and read it back.
+*   can save `UserPref` objects in json format and read it back.
+*   can save the address book data in json format and read it back.
 
 ### Common classes
 
@@ -145,9 +145,9 @@ This section describes some noteworthy details on how certain features are imple
 
 The proposed undo/redo mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
 
--   `VersionedAddressBook#commit()` — Saves the current address book state in its history.
--   `VersionedAddressBook#undo()` — Restores the previous address book state from its history.
--   `VersionedAddressBook#redo()` — Restores a previously undone address book state from its history.
+*   `VersionedAddressBook#commit()` — Saves the current address book state in its history.
+*   `VersionedAddressBook#undo()` — Restores the previous address book state from its history.
+*   `VersionedAddressBook#redo()` — Restores a previously undone address book state from its history.
 
 These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
 
@@ -216,15 +216,15 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 ##### Aspect: How undo & redo executes
 
--   **Alternative 1 (current choice):** Saves the entire address book.
+*   **Alternative 1 (current choice):** Saves the entire address book.
 
-    -   Pros: Easy to implement.
-    -   Cons: May have performance issues in terms of memory usage.
+    *   Pros: Easy to implement.
+    *   Cons: May have performance issues in terms of memory usage.
 
--   **Alternative 2:** Individual command knows how to undo/redo by
+*   **Alternative 2:** Individual command knows how to undo/redo by
     itself.
-    -   Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-    -   Cons: We must ensure that the implementation of each individual command are correct.
+    *   Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+    *   Cons: We must ensure that the implementation of each individual command are correct.
 
 _{more aspects and alternatives to be added}_
 
@@ -234,7 +234,7 @@ _{more aspects and alternatives to be added}_
 
 The add meeting mechanism is facilitated by `AddMeetingCommand`. It extends `Command`.
 
--   `AddMeetingCommand#execute()` —  Add a new meeting in the model if it is valid and not a duplicate.
+*   `AddMeetingCommand#execute()` —  Add a new meeting in the model if it is valid and not a duplicate.
 
 This operation is exposed in the `Model` interface as `Model#addMeeting()`.
 
@@ -252,7 +252,7 @@ The following sequence diagram shows how the add meeting operation works:
 
 ##### Aspect: How add meeting executes
 
--   Consistent workflow with other commands
+*   Consistent workflow with other commands
 
 _{more aspects and alternatives to be added}_
 
@@ -262,7 +262,7 @@ _{more aspects and alternatives to be added}_
 
 The edit meeting mechanism is facilitated by `EditMeetingCommand`. It extends `Command`.
 
--   `EditMeetingCommand#execute()` —  Edit a new meeting in the model if it is valid and not a duplicate.
+*   `EditMeetingCommand#execute()` —  Edit a new meeting in the model if it is valid and not a duplicate.
 
 This operation is exposed in the `Model` interface as `Model#setMeeting()`, `Model#getFilteredMeetingList()` and `Model#getFilteredMeetingList()`.
 
@@ -280,7 +280,7 @@ The following sequence diagram shows how the edit meeting operation works:
 
 ##### Aspect: How add meeting executes
 
--   Consistent workflow with other commands
+*   Consistent workflow with other commands
 
 _{more aspects and alternatives to be added}_
 
@@ -290,7 +290,7 @@ _{more aspects and alternatives to be added}_
 
 The find meeting mechanism is facilitated by `FindMeetingCommand`. It extends `Command`.
 
--   `FindMeetingCommand#execute()` —  Finds meeting where the data of meeting matches given keywords.
+*   `FindMeetingCommand#execute()` —  Finds meeting where the data of meeting matches given keywords.
 
 Given below is the high-level class diagram based on `FindMeetingCommand` and its direct dependencies.
 
@@ -310,12 +310,12 @@ The given sequence diagram illustrates the flow of a usual find meeting executio
 
 ##### Aspect: Keyword matching Title or Data?
 
--   Initially, mimicing the functionality of `FindContactCommand`, the find meeting only matched the keywords to the title. However, it made more sense to match other attributes like participant names, location and time since it would be easy to pinpoint which meetings take place where through a single find command.
--   Hence, the predicate matching logic was tweaked in order to accomodate other attributes to make the feature more robust.
+*   Initially, mimicing the functionality of `FindContactCommand`, the find meeting only matched the keywords to the title. However, it made more sense to match other attributes like participant names, location and time since it would be easy to pinpoint which meetings take place where through a single find command.
+*   Hence, the predicate matching logic was tweaked in order to accomodate other attributes to make the feature more robust.
 
 ##### \[Proposed\] DateTime matching using different formats
 
--   Currently, DateTime finding is carried out using string matching. It would be more natural to match through DateTime comparison. This would make sure that different date formats like "November" and "Nov" both match the meeting.
+*   Currently, DateTime finding is carried out using string matching. It would be more natural to match through DateTime comparison. This would make sure that different date formats like "November" and "Nov" both match the meeting.
 
 ### Meeting Class
 
@@ -323,8 +323,8 @@ The given sequence diagram illustrates the flow of a usual find meeting executio
 
 The Meetings class and meeting details classes are adapted from the code for Persons and person details.
 
--   `addParticipant(Person person)` — Adds person as a participant of the meeting.
--   `delParticipant(Index index)` — Deletes the participant at index from the meeting's list of participants.
+*   `addParticipant(Person person)` — Adds person as a participant of the meeting.
+*   `delParticipant(Index index)` — Deletes the participant at index from the meeting's list of participants.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
@@ -344,8 +344,8 @@ The following is the Class Diagram for the meetings feature.
 
 The Meetings class and meeting details classes are adapted from the code for Persons and person details. The Meeting class contains two methods that are not present in the Person class:
 
--   `addParticipant(Person person)` — Adds person as a participant of the meeting.
--   `delParticipant(Index index)` — Deletes the participant at index from the meeting's list of participants.
+*   `addParticipant(Person person)` — Adds person as a participant of the meeting.
+*   `delParticipant(Index index)` — Deletes the participant at index from the meeting's list of participants.
 
 The following sequence diagram shows how the delete participant operation works:
 
@@ -367,31 +367,31 @@ The following activity diagram summarizes what happens when a user executes a de
 
 ##### Aspect: How undo & redo executes
 
--   **Alternative 1 (current choice):** Saves the entire address book.
+*   **Alternative 1 (current choice):** Saves the entire address book.
 
-        -   Pros: Easy to implement.
-        -   Cons: May have performance issues in terms of memory usage.
+        *   Pros: Easy to implement.
+        *   Cons: May have performance issues in terms of memory usage.
 
     =======
 
 ##### Aspect: How add & delete participants executes
 
--   Consistent workflow with other commands
+*   Consistent workflow with other commands
 
 *   **Alternative 2:** Individual command knows how to undo/redo by
     itself.
-    -   Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-    -   Cons: We must ensure that the implementation of each individual command are correct.
+    *   Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+    *   Cons: We must ensure that the implementation of each individual command are correct.
 
 ## _{more aspects and alternatives to be added}_
 
 ## **Documentation, logging, testing, configuration, dev-ops**
 
--   [Documentation guide](Documentation.md)
--   [Testing guide](Testing.md)
--   [Logging guide](Logging.md)
--   [Configuration guide](Configuration.md)
--   [DevOps guide](DevOps.md)
+*   [Documentation guide](Documentation.md)
+*   [Testing guide](Testing.md)
+*   [Logging guide](Logging.md)
+*   [Configuration guide](Configuration.md)
+*   [DevOps guide](DevOps.md)
 
 ---
 
@@ -399,35 +399,35 @@ The following activity diagram summarizes what happens when a user executes a de
 
 ### Product scope
 
--   **Target user profile**:
+*   **Target user profile**:
 
-    -   Potential Users (who prefer CLI/typing):
-        -   Coders
-        -   Authors/Bloggers/Journalists
-        -   **Personal Secretaries**
-    -   Potential Users (who need address book):
+    *   Potential Users (who prefer CLI/typing):
+        *   Coders
+        *   Authors/Bloggers/Journalists
+        *   **Personal Secretaries**
+    *   Potential Users (who need address book):
 
-        -   Business managers
-        -   **Personal Secretaries**
-        -   HR admins
-        -   Salespersons
+        *   Business managers
+        *   **Personal Secretaries**
+        *   HR admins
+        *   Salespersons
 
-    -   Common in both:
-        -   **Executive Personal Secretary**
-    -   Job Focus:
-        -   Arrange conference calls and meetings
-        -   Manage clients
-        -   Send email correspondence
-        -   Make travel arrangements
+    *   Common in both:
+        *   **Executive Personal Secretary**
+    *   Job Focus:
+        *   Arrange conference calls and meetings
+        *   Manage clients
+        *   Send email correspondence
+        *   Make travel arrangements
 
--   **Value proposition**:
-    -   Minimise the workload
-    -   Easier to manage
-    -   Automate monotonous and repetitive tasks
-    -   Decrease human errors
-    -   Reduce typos and spelling mistakes
-    -   Optimise meeting timings and location
-    -   Reminders for important tasks/events
+*   **Value proposition**:
+    *   Minimise the workload
+    *   Easier to manage
+    *   Automate monotonous and repetitive tasks
+    *   Decrease human errors
+    *   Reduce typos and spelling mistakes
+    *   Optimise meeting timings and location
+    *   Reminders for important tasks/events
 
 ### User stories
 
@@ -499,10 +499,10 @@ Use case ends.
 
 **Extensions**:
 
--   1a. System detects an error in the data.
+*   1a. System detects an error in the data.
 
-    -   1a1. System requests for the correct data.
-    -   1a2. User enters new data.
+    *   1a1. System requests for the correct data.
+    *   1a2. User enters new data.
 
     Steps 1a1-1a2 are repeated until the data entered are correct.
 
@@ -522,19 +522,19 @@ Use case ends.
 
 **Extensions**:
 
--   1a. System detects an error in the data.
+*   1a. System detects an error in the data.
 
-    -   1a1. System requests for the correct data.
-    -   1a2. User enters new data.
+    *   1a1. System requests for the correct data.
+    *   1a2. User enters new data.
 
     Steps 1a1-1a2 are repeated until the data entered are correct.
 
     Use case resumes from step 2.
 
--   3a. Contact is not in System.
+*   3a. Contact is not in System.
 
-    -   3a1. System requests for the correct contact.
-    -   3a2. User enters new contact name.
+    *   3a1. System requests for the correct contact.
+    *   3a2. User enters new contact name.
 
     Steps 3a1-3a2 are repeated until the data entered are correct.
 
@@ -551,7 +551,7 @@ Use case ends.
 
 **Extensions**:
 
--   2a. The requested list is empty.
+*   2a. The requested list is empty.
 
     Use case ends.
 
@@ -567,22 +567,22 @@ Use case ends.
 
 **Extensions**:
 
--   2a. The list is empty.
+*   2a. The list is empty.
 
     Use case ends.
 
--   2b. User enters a negative integer as index.
+*   2b. User enters a negative integer as index.
 
-    -   2b1. System indicates the error and requests for a non-negative index as index.
-    -   2b2. User enters the correct index and new details.
+    *   2b1. System indicates the error and requests for a non-negative index as index.
+    *   2b2. User enters the correct index and new details.
 
     Steps 2b1-2b2 are repeated until the data entered are correct.  
     Use case resumes from step 3.
 
--   2c. User did not enter new details.
+*   2c. User did not enter new details.
 
-    -   2c1. System indicates the error and requests for the correct details.
-    -   2c2. User enters the specific index and correct details.
+    *   2c1. System indicates the error and requests for the correct details.
+    *   2c2. User enters the specific index and correct details.
 
     Steps 2c1-2c2 are repeated until the data entered are correct.  
     Use case resumes from step 3.
@@ -599,31 +599,31 @@ Use case ends.
 
 **Extensions**:
 
--   2a. The list is empty.
+*   2a. The list is empty.
 
     Use case ends.
 
--   2b. User enters a negative integer as index.
+*   2b. User enters a negative integer as index.
 
-    -   2b1. System indicates the error and requests for a non-negative index as index.
-    -   2b2. User enters the correct index and new details.
+    *   2b1. System indicates the error and requests for a non-negative index as index.
+    *   2b2. User enters the correct index and new details.
 
     Steps 2b1-2b2 are repeated until the data entered are correct.  
     Use case resumes from step 3.
 
--   2c. User did not enter new details.
+*   2c. User did not enter new details.
 
-    -   2c1. System indicates the error and requests for the correct details.
-    -   2c2. User enters the specific index and correct details.
+    *   2c1. System indicates the error and requests for the correct details.
+    *   2c2. User enters the specific index and correct details.
 
     Steps 2c1-2c2 are repeated until the data entered are correct.  
     Use case resumes from step 3.
 
--   2d. User requests to edit participant list.
+*   2d. User requests to edit participant list.
 
-    -   2d1. System shows current list of participants.
-    -   2d2. User enters the index of the participant he/she wants to remove.
-    -   2d3. System shows the updated list of participants.
+    *   2d1. System shows current list of participants.
+    *   2d2. User enters the index of the participant he/she wants to remove.
+    *   2d3. System shows the updated list of participants.
 
     Steps 2d1-2d2 are repeated until the user finishes editing.  
     Use case resumes from step 3.
@@ -639,8 +639,8 @@ Use case ends.
 
 **Extensions**:
 
--   1a. No contact/ meeting matched the keyword method.
-    -   1a1. System shows a message indicating no matching records were found.
+*   1a. No contact/ meeting matched the keyword method.
+    *   1a1. System shows a message indicating no matching records were found.
         Use case ends.
 
 **Use case: UC07 - Delete a contact or a meeting**
@@ -655,14 +655,14 @@ Use case ends.
 
 **Extensions**:
 
--   2a. The list is empty.
+*   2a. The list is empty.
 
     Use case ends.
 
--   2b. User enters a negative integer as index.
+*   2b. User enters a negative integer as index.
 
-    -   2a1. System indicates the error and requests for a non-negative index as index.
-    -   2a2. User enters the correct index.
+    *   2a1. System indicates the error and requests for a non-negative index as index.
+    *   2a2. User enters the correct index.
 
     Steps 2b1-2b2 are repeated until the data entered are correct.  
     Use case resumes from step 3.
@@ -678,7 +678,7 @@ Use case ends.
 
 **Extensions**:
 
--   1a. No contact/ meeting has been added.
+*   1a. No contact/ meeting has been added.
 
     Use case ends.
 
@@ -694,13 +694,13 @@ Use case ends.
 
 ### Glossary
 
--   **API**: Application Programming Interface
--   **UML**: Unified Modeling Language
--   **CLI**: Command Line Interface
--   **GUI**: Graphic User Interface
--   **MSS**: Main Success Scenario (aka Main Flow of Events)
--   **Java FX**: Standard GUI library for Java SE
--   **Mainstream OS**: Windows, Linux, Unix, OS-X
+*   **API**: Application Programming Interface
+*   **UML**: Unified Modeling Language
+*   **CLI**: Command Line Interface
+*   **GUI**: Graphic User Interface
+*   **MSS**: Main Success Scenario (aka Main Flow of Events)
+*   **Java FX**: Standard GUI library for Java SE
+*   **Mainstream OS**: Windows, Linux, Unix, OS-X
 
 ---
 
