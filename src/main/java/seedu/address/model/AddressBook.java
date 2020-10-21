@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import static java.util.Objects.isNull;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
@@ -122,6 +123,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * The meeting must not already exist in the address book.
      */
     public void addMeeting(Meeting m) {
+        assert !isNull(m);
         meetings.add(m);
     }
 
@@ -142,6 +144,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code key} must exist in the address book.
      */
     public void removeMeeting(Meeting key) {
+        assert !isNull(key);
         meetings.remove(key);
     }
 
