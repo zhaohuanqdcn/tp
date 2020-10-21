@@ -2,10 +2,9 @@
 !include style.puml
 show members
 skinparam arrowThickness 1.1
-skinparam arrowColor #000000
-skinparam classBackgroundColor #00CC00
-skinparam classAttributeIconSize 0
-
+skinparam arrowColor LOGIC_COLOR_T4
+skinparam classBackgroundColor LOGIC_COLOR
+skinparam classAttributeFontColor #FFFFFF
 Interface Predicate <<Interface>>
 
 Class Command {
@@ -15,7 +14,7 @@ Class DataContainsKeywordsPredicate {
     {field} List<String> keywords
 }
 Class FindMeetingCommand
-Class Model
+Class Model MODEL_COLOR_T4
 
 FindMeetingCommand : execute(Model)
 
