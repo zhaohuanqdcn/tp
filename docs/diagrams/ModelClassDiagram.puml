@@ -27,12 +27,21 @@ Class UniquePersonList
 Package Tag {
 Class Tag
 }
+
+Package Meeting {
+Class Meeting
+Class DateTime
+Class Duration
+Class Location
+Class Title
+Class UniqueMeetingList
+}
 }
 
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
-AddressBook .up.|> ReadOnlyAddressBook
+AddressBook .right.|> ReadOnlyAddressBook
 
 ModelManager .up.|> Model
 Model .right.> ObservableList
@@ -53,4 +62,21 @@ Phone -[hidden]right-> Address
 Address -[hidden]right-> Email
 
 ModelManager -->"1" Person : filtered list
+
+AddressBook *--> "1" UniqueMeetingList
+UniqueMeetingList o--> "*" Meeting
+Meeting *--> Title
+Meeting *--> Location
+Meeting *--> DateTime
+Meeting *--> Duration
+
+Title -[hidden]right-> DateTime
+DateTime -[hidden]right-> Duration
+Duration -[hidden]right-> Location
+Address -[hidden]right-> Email
+
+Meeting *-left-> "*" Person
+
+ModelManager -->"1" Meeting : filtered list
+
 @enduml
