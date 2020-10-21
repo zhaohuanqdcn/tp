@@ -2,17 +2,16 @@
 layout: page
 title: Developer Guide
 ---
+* Table of Contents
+{:toc}
 
-*   Table of Contents
-    {:toc}
-
----
+--------------------------------------------------------------------------------------------------------------------
 
 ## **Setting up, getting started**
 
 Refer to the guide [_Setting up and getting started_](SettingUp.md).
 
----
+--------------------------------------------------------------------------------------------------------------------
 
 ## **Design**
 
@@ -20,7 +19,7 @@ Refer to the guide [_Setting up and getting started_](SettingUp.md).
 
 <img src="images/ArchitectureDiagram.png" width="450" />
 
-The **_Architecture Diagram_** given above explains the high-level design of the App. Given below is a quick overview of each component.
+The ***Architecture Diagram*** given above explains the high-level design of the App. Given below is a quick overview of each component.
 
 <div markdown="span" class="alert alert-primary">
 
@@ -29,23 +28,22 @@ The **_Architecture Diagram_** given above explains the high-level design of the
 </div>
 
 **`Main`** has two classes called [`Main`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/Main.java) and [`MainApp`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/MainApp.java). It is responsible for,
-
-*   At app launch: Initializes the components in the correct sequence, and connects them up with each other.
-*   At shut down: Shuts down the components and invokes cleanup methods where necessary.
+* At app launch: Initializes the components in the correct sequence, and connects them up with each other.
+* At shut down: Shuts down the components and invokes cleanup methods where necessary.
 
 [**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
 
 The rest of the App consists of four components.
 
-*   [**`UI`**](#ui-component): The UI of the App.
-*   [**`Logic`**](#logic-component): The command executor.
-*   [**`Model`**](#model-component): Holds the data of the App in memory.
-*   [**`Storage`**](#storage-component): Reads data from, and writes data to, the hard disk.
+* [**`UI`**](#ui-component): The UI of the App.
+* [**`Logic`**](#logic-component): The command executor.
+* [**`Model`**](#model-component): Holds the data of the App in memory.
+* [**`Storage`**](#storage-component): Reads data from, and writes data to, the hard disk.
 
 Each of the four components,
 
-*   defines its _API_ in an `interface` with the same name as the Component.
-*   exposes its functionality using a concrete `{Component Name}Manager` class (which implements the corresponding API `interface` mentioned in the previous point.
+* defines its *API* in an `interface` with the same name as the Component.
+* exposes its functionality using a concrete `{Component Name}Manager` class (which implements the corresponding API `interface` mentioned in the previous point.
 
 For example, the `Logic` component (see the class diagram given below) defines its API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class which implements the `Logic` interface.
 
@@ -53,7 +51,7 @@ For example, the `Logic` component (see the class diagram given below) defines i
 
 **How the architecture components interact with each other**
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
 
 <img src="images/ArchitectureSequenceDiagram.png" width="574" />
 
@@ -72,8 +70,8 @@ The `UI` component uses JavaFx UI framework. The layout of these UI parts are de
 
 The `UI` component,
 
-*   Executes user commands using the `Logic` component.
-*   Listens for changes to `Model` data so that the UI can be updated with the modified data.
+* Executes user commands using the `Logic` component.
+* Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
 ### Logic component
 
@@ -92,10 +90,9 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 
 ![Interactions Inside the Logic Component for the `delete 1` Command](images/DeleteSequenceDiagram.png)
 
-<div markdown="span" class="alert alert-info">
+<div markdown="span" class="alert alert-info"> 
 
 :information_source: **Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
 </div>
 
 ### Model component
@@ -106,10 +103,11 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 
 The `Model`,
 
-*   stores a `UserPref` object that represents the user’s preferences.
-*   stores the address book data.
-*   exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-*   does not depend on any of the other three components.
+* stores a `UserPref` object that represents the user’s preferences.
+* stores the address book data.
+* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* does not depend on any of the other three components.
+
 
 <div markdown="span" class="alert alert-info">
 
@@ -118,6 +116,7 @@ The `Model`,
 
 </div>
 
+
 ### Storage component
 
 ![Structure of the Storage Component](images/StorageClassDiagram.png)
@@ -125,15 +124,14 @@ The `Model`,
 **API** : [`Storage.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/storage/Storage.java)
 
 The `Storage` component,
-
-*   can save `UserPref` objects in json format and read it back.
-*   can save the address book data in json format and read it back.
+* can save `UserPref` objects in json format and read it back.
+* can save the address book data in json format and read it back.
 
 ### Common classes
 
 Classes used by multiple components are in the `seedu.addressbook.commons` package.
 
----
+--------------------------------------------------------------------------------------------------------------------
 
 ## **Implementation**
 
@@ -145,9 +143,9 @@ This section describes some noteworthy details on how certain features are imple
 
 The proposed undo/redo mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
 
-*   `VersionedAddressBook#commit()` — Saves the current address book state in its history.
-*   `VersionedAddressBook#undo()` — Restores the previous address book state from its history.
-*   `VersionedAddressBook#redo()` — Restores a previously undone address book state from its history.
+* `VersionedAddressBook#commit()` — Saves the current address book state in its history.
+* `VersionedAddressBook#undo()` — Restores the previous address book state from its history.
+* `VersionedAddressBook#redo()` — Restores a previously undone address book state from its history.
 
 These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
 
@@ -216,15 +214,14 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 ##### Aspect: How undo & redo executes
 
-*   **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 (current choice):** Saves the entire address book.
+  * Pros: Easy to implement.
+  * Cons: May have performance issues in terms of memory usage.
 
-    *   Pros: Easy to implement.
-    *   Cons: May have performance issues in terms of memory usage.
-
-*   **Alternative 2:** Individual command knows how to undo/redo by
-    itself.
-    *   Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-    *   Cons: We must ensure that the implementation of each individual command are correct.
+* **Alternative 2:** Individual command knows how to undo/redo by
+  itself.
+  * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+  * Cons: We must ensure that the implementation of each individual command are correct.
 
 _{more aspects and alternatives to be added}_
 
@@ -234,7 +231,7 @@ _{more aspects and alternatives to be added}_
 
 The add meeting mechanism is facilitated by `AddMeetingCommand`. It extends `Command`.
 
-*   `AddMeetingCommand#execute()` —  Add a new meeting in the model if it is valid and not a duplicate.
+* `AddMeetingCommand#execute()` —  Add a new meeting in the model if it is valid and not a duplicate.
 
 This operation is exposed in the `Model` interface as `Model#addMeeting()`.
 
@@ -252,7 +249,7 @@ The following sequence diagram shows how the add meeting operation works:
 
 ##### Aspect: How add meeting executes
 
-*   Consistent workflow with other commands
+* Consistent workflow with other commands
 
 _{more aspects and alternatives to be added}_
 
@@ -262,7 +259,7 @@ _{more aspects and alternatives to be added}_
 
 The edit meeting mechanism is facilitated by `EditMeetingCommand`. It extends `Command`.
 
-*   `EditMeetingCommand#execute()` —  Edit a new meeting in the model if it is valid and not a duplicate.
+* `EditMeetingCommand#execute()` —  Edit a new meeting in the model if it is valid and not a duplicate.
 
 This operation is exposed in the `Model` interface as `Model#setMeeting()`, `Model#getFilteredMeetingList()` and `Model#getFilteredMeetingList()`.
 
@@ -280,7 +277,7 @@ The following sequence diagram shows how the edit meeting operation works:
 
 ##### Aspect: How add meeting executes
 
-*   Consistent workflow with other commands
+* Consistent workflow with other commands
 
 _{more aspects and alternatives to be added}_
 
@@ -290,7 +287,7 @@ _{more aspects and alternatives to be added}_
 
 The find meeting mechanism is facilitated by `FindMeetingCommand`. It extends `Command`.
 
-*   `FindMeetingCommand#execute()` —  Finds meeting where the data of meeting matches given keywords.
+-   `FindMeetingCommand#execute()` —  Finds meeting where the data of meeting matches given keywords.
 
 Given below is the high-level class diagram based on `FindMeetingCommand` and its direct dependencies.
 
@@ -323,29 +320,15 @@ The given sequence diagram illustrates the flow of a usual find meeting executio
 
 The Meetings class and meeting details classes are adapted from the code for Persons and person details.
 
-*   `addParticipant(Person person)` — Adds person as a participant of the meeting.
-*   `delParticipant(Index index)` — Deletes the participant at index from the meeting's list of participants.
-
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
-
-![UndoRedoState0](images/UndoRedoState0.png)
-
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
-
-![UndoRedoState1](images/UndoRedoState1.png)
-
-# Step 3. The user executes `add n/David …​` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
 The following is the Class Diagram for the meetings feature.
 
 ![MeetingClassDiag](images/MeetingClassDiag.png)
 
 The Meetings class and meeting details classes are adapted from the code for Persons and person details. The Meeting class contains two methods that are not present in the Person class:
 
-*   `addParticipant(Person person)` — Adds person as a participant of the meeting.
-*   `delParticipant(Index index)` — Deletes the participant at index from the meeting's list of participants.
+* `addParticipant(Person person)` — Adds person as a participant of the meeting.
+* `delParticipant(Index index)` — Deletes the participant at index from the meeting's list of participants.
+
 
 The following sequence diagram shows how the delete participant operation works:
 
@@ -365,132 +348,121 @@ The following activity diagram summarizes what happens when a user executes a de
 
 #### Design consideration:
 
-##### Aspect: How undo & redo executes
-
-*   **Alternative 1 (current choice):** Saves the entire address book.
-
-        *   Pros: Easy to implement.
-        *   Cons: May have performance issues in terms of memory usage.
-
-    =======
-
 ##### Aspect: How add & delete participants executes
 
-*   Consistent workflow with other commands
+* Consistent workflow with other commands
 
-*   **Alternative 2:** Individual command knows how to undo/redo by
-    itself.
-    *   Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-    *   Cons: We must ensure that the implementation of each individual command are correct.
-
-## _{more aspects and alternatives to be added}_
+_{more aspects and alternatives to be added}_
+--------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
 
-*   [Documentation guide](Documentation.md)
-*   [Testing guide](Testing.md)
-*   [Logging guide](Logging.md)
-*   [Configuration guide](Configuration.md)
-*   [DevOps guide](DevOps.md)
+* [Documentation guide](Documentation.md)
+* [Testing guide](Testing.md)
+* [Logging guide](Logging.md)
+* [Configuration guide](Configuration.md)
+* [DevOps guide](DevOps.md)
 
----
+--------------------------------------------------------------------------------------------------------------------
 
 ## **Appendix: Requirements**
 
 ### Product scope
 
-*   **Target user profile**:
+* **Target user profile**:
+    * Potential Users (who prefer CLI/typing):
+        * Coders
+        * Authors/Bloggers/Journalists
+        * **Personal Secretaries**
+    * Potential Users (who need address book):
+        * Business managers
+        * **Personal Secretaries**
+        * HR admins
+        * Salespersons
+    
+    * Common in both: 
+        * **Executive Personal Secretary**
+    * Job Focus: 
+        * Arrange conference calls and meetings
+        * Manage clients
+        * Send email correspondence
+        * Make travel arrangements
+    
+* **Value proposition**: 
+    * Minimise the workload
+    * Easier to manage
+    * Automate monotonous and repetitive tasks
+    * Decrease human errors
+    * Reduce typos and spelling mistakes
+    * Optimise meeting timings and location
+    * Reminders for important tasks/events
 
-    *   Potential Users (who prefer CLI/typing):
-        *   Coders
-        *   Authors/Bloggers/Journalists
-        *   **Personal Secretaries**
-    *   Potential Users (who need address book):
 
-        *   Business managers
-        *   **Personal Secretaries**
-        *   HR admins
-        *   Salespersons
-
-    *   Common in both:
-        *   **Executive Personal Secretary**
-    *   Job Focus:
-        *   Arrange conference calls and meetings
-        *   Manage clients
-        *   Send email correspondence
-        *   Make travel arrangements
-
-*   **Value proposition**:
-    *   Minimise the workload
-    *   Easier to manage
-    *   Automate monotonous and repetitive tasks
-    *   Decrease human errors
-    *   Reduce typos and spelling mistakes
-    *   Optimise meeting timings and location
-    *   Reminders for important tasks/events
 
 ### User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                           | I want to …​                                                                                  | So that I can…​                                                                                                    |
-| -------- | --------------------------------- | --------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
-| `*`      | meeting planner                   | update existing meetings                                                                      | make sure the details are up to date.                                                                              |
-| `*`      | meeting planner                   | delete specified meetings if they are cancelled.                                              |                                                                                                                    |
-| `*`      | meeting planner                   | view all upcoming meetings in a specific order.                                               |                                                                                                                    |
-| `*`      | meeting planner                   | add a meeting to the schedule.                                                                |                                                                                                                    |
-| `*`      | frequent user                     | search for a certain contact I am looking for                                                 |                                                                                                                    |
-| `*`      | frequent user                     | view a list of all my contacts at any time.                                                   |                                                                                                                    |
-| `*`      | frequent user                     | create new contact in my contact list.                                                        |                                                                                                                    |
-| `*`      | first-time user                   | enter my and my employer's details                                                            |                                                                                                                    |
-| `*`      | meeting planner                   | search for meetings with some criteria.                                                       |                                                                                                                    |
-| `*`      | frequent meeting planner          | receive reminders from the app that to remind my employer for an upcoming meeting             | make sure my employer can be on time for their meetings.                                                           |
-| `*`      | frequent meeting planner          | attach a location and time of the meeting as additional information                           |                                                                                                                    |
-| `*`      | expert user                       | delete some unwanted contacts in my contact list.                                             |                                                                                                                    |
-| `*`      | frequent user                     | update each of my contacts whenever there is a change in their particulars/ details.          |                                                                                                                    |
-| `* *`    | frequent user                     | easily reschedule agenda items if plans change.                                               |                                                                                                                    |
-| `* *`    | expert user                       | edit my agenda list to add or delete some details.                                            |                                                                                                                    |
-| `* *`    | copy typist                       | get my notes automatically corrected for spelling/grammar mistakes.                           |                                                                                                                    |
-| `* *`    | frequent meeting planner          | plan a route based on meeting locations and times.                                            |                                                                                                                    |
-| `* *`    | first time user                   | find the list of all features that the app has                                                | know what specific task can I complete by using this app.                                                          |
-| `* *`    | user                              | see a list of tasks that requires the most priority                                           | pay attention to them first.                                                                                       |
-| `* *`    | regular user                      | sync/export contacts/calendar                                                                 |                                                                                                                    |
-| `* *`    | frequent user                     | receive reminders for tasks that are due soon                                                 | complete them in time.                                                                                             |
-| `* *`    | frequent meeting planner          | assimilate a map in the app to keep track of all frequently visited locations                 | plan the travel routine wisely that takes time taken to travel from one place to another place into consideration. |
-| `* *`    | frequent meeting planner          | send emails directly from the app by choosing the necessary recipients from the contact list. |                                                                                                                    |
-| `* *`    | relatively new user               | input slightly variated input that the app can understand and interpret                       | learn while doing.                                                                                                 |
-| `* *`    | first time user                   | import existing calendar/agendas/locations                                                    | save my time on data migration.                                                                                    |
-| `* *`    | first time user                   | learn how to use the app                                                                      | actually use the app to solve the tasks that I have.                                                               |
-| `* *`    | frequent user                     | auto-fill the necessary details into a pre-defined template and batch send emails             | save the time taken to individually send emails for the meeting.                                                   |
-| `* *`    | expert user                       | create shortcuts for certain tasks                                                            | save time on frequently performed tasks.                                                                           |
-| `* *`    | new or returning user             | sync my tasks from other platforms to the task list                                           | save time instead of entering them manually.                                                                       |
-| `* *`    | long-time user                    | archive unused data                                                                           | I am not distracted by irrelevant or old items.                                                                    |
-| `* *`    | user ready to start using the app | clear all current data                                                                        | get rid of data I added when experimenting with the app.                                                           |
-| `* *`    | busy user                         | see my daily tasks at the start of the day                                                    | better organize my time.                                                                                           |
-| `* *`    | frequent user                     | add tasks to my task list.                                                                    |                                                                                                                    |
-| `* *`    | frequent user                     | view a list of all the tasks I have to accomplish and their deadlines                         | I am up to date with my work.                                                                                      |
-| `* *`    | frequent user                     | search for tasks by name or deadline in the task list.                                        |                                                                                                                    |
-| `* *`    | frequent user                     | delete tasks from my task list.                                                               |                                                                                                                    |
-| `* *`    | frequent user                     | update the details of a task in my task list.                                                 |                                                                                                                    |
-| `* *`    | relatively new user               | be reminded of the key features                                                               | speed up my workflows.                                                                                             |
-| `* *`    | frequent user                     | use an email template to send personalised emails to notify other companies for a meeting     | save time on crafting the email one-by-one.                                                                        |
-| `* *`    | meeting planner                   | resolve meetings conflict                                                                     | make sure no two meetings will happen at the same time.                                                            |
-| `* *`    | meeting planner                   | give priority to certain meetings                                                             | make sure these important meetings will take place under the best possible circumstances.                          |
-| `* *`    | frequent user                     | use built-in shortcuts                                                                        | accelerate my workflow.                                                                                            |
-| `* *`    | frequent meeting planner          | import and export the existing calendar                                                       | save time on entering this information manually.                                                                   |
-| `* *`    | relatively new user               | be prompted to change my invalid input                                                        | get it correctly from then on.                                                                                     |
-| `* * *`  | copy typist                       | transcribe/type a document into a note                                                        | save them for future use.                                                                                          |
-| `* * *`  | busy user                         | see a weekly digest on weekend                                                                | have a sense of what happened during the week.                                                                     |
-| `* * *`  | receiver of meeting emails        | see my meetings automatically fetched and updated from the email                              | I don't have to manually create a meeting when it is proposed by a third-party.                                    |
-| `* * *`  | potential user exploring the app  | see the app populated with sample data,                                                       | easily see how the app will look like when it is in use.                                                           |
+| Priority | As a …​                                    | I want to …​                     | So that I can…​                                                        |
+| -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
+| `*`  |    meeting planner | update existing meetings | make sure the details are up to date.| 
+| `*`  |    meeting planner | delete specified meetings if they are cancelled.| |
+| `*`  |    meeting planner | view all upcoming meetings in a specific order.| |
+| `*`  |    meeting planner | add a meeting to the schedule.| |
+| `*`  |    frequent user | search for a certain contact I am looking for| |
+| `*`  |    frequent user | view a list of all my contacts at any time.| |
+| `*`  |    frequent user | create new contact in my contact list.| |
+| `*`  |    first-time user | enter my and my employer's details| |
+| `*`  |    meeting planner | search for meetings with some criteria.| |
+| `*`  |    frequent meeting planner | receive reminders from the app that to remind my employer for an upcoming meeting | make sure my employer can be on time for their meetings.| 
+| `*`  |    frequent meeting planner | attach a location and time of the meeting as additional information| |
+| `*`  |     expert user | delete some unwanted contacts in my contact list.| |
+| `*`  |    frequent user | update each of my contacts whenever there is a change in their particulars/ details.||
+| `* *`  |    frequent user | easily reschedule agenda items if plans change.| |
+| `* *`  |     expert user | edit my agenda list to add or delete some details.| |
+| `* *`  |    copy typist | get my notes automatically corrected for spelling/grammar mistakes.| |
+| `* *`  |    frequent meeting planner | plan a route based on meeting locations and times.| |
+| `* *`  |    first time user | find the list of all features that the app has | know what specific task can I complete by using this app.| 
+| `* *`  |    user | see a list of tasks that requires the most priority | pay attention to them first.| 
+| `* *`  |    regular user | sync/export contacts/calendar| |
+| `* *`  |    frequent user | receive reminders for tasks that are due soon  |  complete them in time.| 
+| `* *`  |    frequent meeting planner | assimilate a map in the app to keep track of all frequently visited locations  |  plan the travel routine wisely that takes time taken to travel from one place to another place into consideration.| 
+| `* *`  |    frequent meeting planner | send emails directly from the app by choosing the necessary recipients from the contact list.| |
+| `* *`  |    relatively new user | input slightly variated input that the app can understand and interpret  |  learn while doing.| 
+| `* *`  |    first time user | import existing calendar/agendas/locations |  save my time on data migration.| 
+| `* *`  |    first time user | learn how to use the app  |  actually use the app to solve the tasks that I have.| 
+| `* *`  |    frequent user | auto-fill the necessary details into a pre-defined template and batch send emails  |  save the time taken to individually send emails for the meeting.| 
+| `* *`  |     expert user | create shortcuts for certain tasks |  save time on frequently performed tasks.| 
+| `* *`  |    new or returning user | sync my tasks from other platforms to the task list |  save time instead of entering them manually.| 
+| `* *`  |    long-time user | archive unused data | I am not distracted by irrelevant or old items.| 
+| `* *`  |    user ready to start using the app | clear all current data |  get rid of data I added when experimenting with the app.| 
+| `* *`  |    busy user | see my daily tasks at the start of the day  |  better organize my time.| 
+| `* *`  |    frequent user | add tasks to my task list.| |
+| `* *`  |    frequent user | view a list of all the tasks I have to accomplish and their deadlines | I am up to date with my work.| 
+| `* *`  |    frequent user | search for tasks by name or deadline in the task list.| |
+| `* *`  |    frequent user | delete tasks from my task list.| |
+| `* *`  |    frequent user | update the details of a task in my task list.| |
+| `* *`  |    relatively new user | be reminded of the key features  |  speed up my workflows.| 
+| `* *`  |    frequent user | use an email template to send personalised emails to notify other companies for a meeting | save time on crafting the email one-by-one.| 
+| `* *`  |    meeting planner | resolve meetings conflict | make sure no two meetings will happen at the same time.| 
+| `* *`  |    meeting planner | give priority to certain meetings | make sure these important meetings will take place under the best possible circumstances.| 
+| `* *`  |    frequent user | use built-in shortcuts  |  accelerate my workflow.| 
+| `* *`  |    frequent meeting planner | import and export the existing calendar  |  save time on entering this information manually.| 
+| `* *`  |    relatively new user | be prompted to change my invalid input  |  get it correctly from then on.| 
+| `* * *`  |    copy typist | transcribe/type a document into a note | save them for future use.| 
+| `* * *`  |    busy user | see a weekly digest on weekend | have a sense of what happened during the week.| 
+| `* * *`  |    receiver of meeting emails | see my meetings automatically fetched and updated from the email | I don't have to manually create a meeting when it is proposed by a third-party.| 
+| `* * *`  |    potential user exploring the app | see the app populated with sample data,  |  easily see how the app will look like when it is in use.| 
+
+
 
 ### Use cases
 
 (For all use cases below, the **System** is the `Recretary` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: UC01 - Add a person**
+**Use case: UC01 - Add a person**  
 
-**MSS**
+**MSS**  
 
 1. User requests to add a new contact with the relevant details.
 2. System indicates that the addition is successful.
@@ -499,16 +471,15 @@ Use case ends.
 
 **Extensions**:
 
-*   1a. System detects an error in the data.
+* 1a. System detects an error in the data.
+  * 1a1. System requests for the correct data.
+  * 1a2. User enters new data.
+  
+  Steps 1a1-1a2 are repeated until the data entered are correct.
+  
+  Use case resumes from step 2.
 
-    *   1a1. System requests for the correct data.
-    *   1a2. User enters new data.
-
-    Steps 1a1-1a2 are repeated until the data entered are correct.
-
-    Use case resumes from step 2.
-
-**Use case: UC02 - Add a meeting and its participants**
+**Use case: UC02 - Add a meeting and its participants**  
 
 **MSS**
 
@@ -522,25 +493,23 @@ Use case ends.
 
 **Extensions**:
 
-*   1a. System detects an error in the data.
+* 1a. System detects an error in the data.
+  * 1a1. System requests for the correct data.
+  * 1a2. User enters new data.
+  
+  Steps 1a1-1a2 are repeated until the data entered are correct.
+  
+  Use case resumes from step 2.
+  
+* 3a. Contact is not in System.
+  * 3a1. System requests for the correct contact.
+  * 3a2. User enters new contact name.
+  
+  Steps 3a1-3a2 are repeated until the data entered are correct.
+  
+  Use case resumes from step 4.
 
-    *   1a1. System requests for the correct data.
-    *   1a2. User enters new data.
-
-    Steps 1a1-1a2 are repeated until the data entered are correct.
-
-    Use case resumes from step 2.
-
-*   3a. Contact is not in System.
-
-    *   3a1. System requests for the correct contact.
-    *   3a2. User enters new contact name.
-
-    Steps 3a1-3a2 are repeated until the data entered are correct.
-
-    Use case resumes from step 4.
-
-**Use case: UC03 - List all contacts or all meetings**
+**Use case: UC03 - List all contacts or all meetings**  
 
 **MSS**
 
@@ -551,11 +520,11 @@ Use case ends.
 
 **Extensions**:
 
-*   2a. The requested list is empty.
+* 2a. The requested list is empty.
+  
+  Use case ends.
 
-    Use case ends.
-
-**Use case: UC04 - Edit a contact**
+**Use case: UC04 - Edit a contact**  
 
 **MSS**
 
@@ -567,27 +536,25 @@ Use case ends.
 
 **Extensions**:
 
-*   2a. The list is empty.
+* 2a. The list is empty.
 
-    Use case ends.
+  Use case ends.
 
-*   2b. User enters a negative integer as index.
+* 2b. User enters a negative integer as index.
+  * 2b1. System indicates the error and requests for a non-negative index as index.
+  * 2b2. User enters the correct index and new details.
+  
+  Steps 2b1-2b2 are repeated until the data entered are correct.  
+  Use case resumes from step 3.
+  
+* 2c. User did not enter new details.
+  * 2c1. System indicates the error and requests for the correct details.
+  * 2c2. User enters the specific index and correct details.
+  
+  Steps 2c1-2c2 are repeated until the data entered are correct.  
+  Use case resumes from step 3.
 
-    *   2b1. System indicates the error and requests for a non-negative index as index.
-    *   2b2. User enters the correct index and new details.
-
-    Steps 2b1-2b2 are repeated until the data entered are correct.  
-    Use case resumes from step 3.
-
-*   2c. User did not enter new details.
-
-    *   2c1. System indicates the error and requests for the correct details.
-    *   2c2. User enters the specific index and correct details.
-
-    Steps 2c1-2c2 are repeated until the data entered are correct.  
-    Use case resumes from step 3.
-
-**Use case: UC05 - Edit a meeting**
+**Use case: UC05 - Edit a meeting**  
 
 **MSS**
 
@@ -599,36 +566,33 @@ Use case ends.
 
 **Extensions**:
 
-*   2a. The list is empty.
+* 2a. The list is empty.
 
-    Use case ends.
+  Use case ends.
 
-*   2b. User enters a negative integer as index.
+* 2b. User enters a negative integer as index.
+  * 2b1. System indicates the error and requests for a non-negative index as index.
+  * 2b2. User enters the correct index and new details.
+  
+  Steps 2b1-2b2 are repeated until the data entered are correct.  
+  Use case resumes from step 3.
+  
+* 2c. User did not enter new details.
+  * 2c1. System indicates the error and requests for the correct details.
+  * 2c2. User enters the specific index and correct details.
+  
+  Steps 2c1-2c2 are repeated until the data entered are correct.  
+  Use case resumes from step 3.
+ 
+* 2d. User requests to edit participant list.
+  * 2d1. System shows current list of participants. 
+  * 2d2. User enters the index of the participant he/she wants to remove.
+  * 2d3. System shows the updated list of participants.
+  
+  Steps 2d1-2d2 are repeated until the user finishes editing.  
+  Use case resumes from step 3.
 
-    *   2b1. System indicates the error and requests for a non-negative index as index.
-    *   2b2. User enters the correct index and new details.
-
-    Steps 2b1-2b2 are repeated until the data entered are correct.  
-    Use case resumes from step 3.
-
-*   2c. User did not enter new details.
-
-    *   2c1. System indicates the error and requests for the correct details.
-    *   2c2. User enters the specific index and correct details.
-
-    Steps 2c1-2c2 are repeated until the data entered are correct.  
-    Use case resumes from step 3.
-
-*   2d. User requests to edit participant list.
-
-    *   2d1. System shows current list of participants.
-    *   2d2. User enters the index of the participant he/she wants to remove.
-    *   2d3. System shows the updated list of participants.
-
-    Steps 2d1-2d2 are repeated until the user finishes editing.  
-    Use case resumes from step 3.
-
-**Use case: UC06 - Find a contact or a meeting**
+**Use case: UC06 - Find a contact or a meeting**  
 
 **MSS**
 
@@ -639,35 +603,34 @@ Use case ends.
 
 **Extensions**:
 
-*   1a. No contact/ meeting matched the keyword method.
-    *   1a1. System shows a message indicating no matching records were found.
-        Use case ends.
-
-**Use case: UC07 - Delete a contact or a meeting**
+* 1a. No contact/ meeting matched the keyword method.
+  * 1a1. System shows a message indicating no matching records were found.
+  Use case ends.
+  
+**Use case: UC07 - Delete a contact or a meeting**  
 
 **MSS**
 
 1. User requests to <ins> list all contacts/ meetings (UC03)</ins>.
 2. User requests to remove a contact/ meeting from the list with its index.
-3. System shows a success message
+3. System shows a success message 
 
 Use case ends.
 
 **Extensions**:
 
-*   2a. The list is empty.
+* 2a. The list is empty.
 
-    Use case ends.
+  Use case ends.
 
-*   2b. User enters a negative integer as index.
+* 2b. User enters a negative integer as index.
+  * 2a1. System indicates the error and requests for a non-negative index as index.
+  * 2a2. User enters the correct index.
+  
+  Steps 2b1-2b2 are repeated until the data entered are correct.  
+  Use case resumes from step 3.
 
-    *   2a1. System indicates the error and requests for a non-negative index as index.
-    *   2a2. User enters the correct index.
-
-    Steps 2b1-2b2 are repeated until the data entered are correct.  
-    Use case resumes from step 3.
-
-**Use case: UC08 - Delete all contacts or meetings**
+**Use case: UC08 - Delete all contacts or meetings**  
 
 **MSS**
 
@@ -675,12 +638,12 @@ Use case ends.
 2.  System indicates that the deletion is successful.
 
     Use case ends.
+    
+**Extensions**: 
 
-**Extensions**:
+* 1a. No contact/ meeting has been added.
 
-*   1a. No contact/ meeting has been added.
-
-    Use case ends.
+  Use case ends.
 
 ### Non-Functional Requirements
 
@@ -690,19 +653,20 @@ Use case ends.
 4.  Should be portable. The executable must be one-click run.
 5.  The data must be saved onto the hard disk and must be transferrable. In case of unexpected shutdown, the data must be preserved. The data should be human readable.
 6.  Each new update should be backwords-compatable with the data from the previous versions so that it will be easy for users to port over.
-7.  The app must speeden the workflow of the secretary and not be of hinderance.
+7.  The app must speeden the workflow of the secretary and not be of hinderance.  
 
 ### Glossary
 
-*   **API**: Application Programming Interface
-*   **UML**: Unified Modeling Language
-*   **CLI**: Command Line Interface
-*   **GUI**: Graphic User Interface
-*   **MSS**: Main Success Scenario (aka Main Flow of Events)
-*   **Java FX**: Standard GUI library for Java SE
-*   **Mainstream OS**: Windows, Linux, Unix, OS-X
+* **API**: Application Programming Interface
+* **UML**: Unified Modeling Language
+* **CLI**: Command Line Interface
+* **GUI**: Graphic User Interface
+* **MSS**: Main Success Scenario (aka Main Flow of Events)
+* **Java FX**: Standard GUI library for Java SE
+* **Mainstream OS**: Windows, Linux, Unix, OS-X
 
----
+
+--------------------------------------------------------------------------------------------------------------------
 
 ## **Appendix: Instructions for manual testing**
 
@@ -710,8 +674,8 @@ Given below are instructions to test the app manually.
 
 <div markdown="span" class="alert alert-info">
 
-:information*source: **Note:** These instructions only provide a starting point for testers to work on;
-testers are expected to do more \_exploratory* testing.
+:information_source: **Note:** These instructions only provide a starting point for testers to work on;
+testers are expected to do more *exploratory* testing.
 
 </div>
 
@@ -719,15 +683,15 @@ testers are expected to do more \_exploratory* testing.
 
 1. Initial launch
 
-    1. Download the jar file and copy into an empty folder
+   1. Download the jar file and copy into an empty folder
 
-    1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
 1. Saving window preferences
 
-    1. Resize the window to an optimum size. Move the window to a different location. Close the window.
+   1. Resize the window to an optimum size. Move the window to a different location. Close the window.
 
-    1. Re-launch the app by double-clicking the jar file.<br>
+   1. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
 1. _{ more test cases …​ }_
@@ -736,16 +700,16 @@ testers are expected to do more \_exploratory* testing.
 
 1. Deleting a person while all persons are being shown
 
-    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 
-    1. Test case: `delete 1`<br>
-       Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   1. Test case: `delete 1`<br>
+      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 
-    1. Test case: `delete 0`<br>
-       Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+   1. Test case: `delete 0`<br>
+      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
 
-    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
-       Expected: Similar to previous.
+   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
+      Expected: Similar to previous.
 
 1. _{ more test cases …​ }_
 
@@ -753,6 +717,6 @@ testers are expected to do more \_exploratory* testing.
 
 1. Dealing with missing/corrupted data files
 
-    1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
 
 1. _{ more test cases …​ }_
