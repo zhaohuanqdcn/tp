@@ -86,8 +86,13 @@ public class AddressBookTest {
     }
 
     @Test
-    public void addMeeting_nullMeeting_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> addressBook.addMeeting(null));
+    public void addMeeting_nullMeeting_throwsAssertionError() {
+        assertThrows(AssertionError.class, () -> addressBook.addMeeting(null));
+    }
+
+    @Test
+    public void removeMeeting_nullMeeting_throwsAssertionError() {
+        assertThrows(AssertionError.class, () -> addressBook.removeMeeting(null));
     }
 
     @Test
