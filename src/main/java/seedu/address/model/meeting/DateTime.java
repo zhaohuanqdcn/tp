@@ -81,4 +81,15 @@ public class DateTime {
         return value.hashCode();
     }
 
+    public String getStartTime() {
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mma");
+        return timeFormatter.format(value);
+    }
+
+    public String getEndTime(Duration duration) {
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mma");
+        return timeFormatter.format(value
+                .plusHours(duration.hours)
+                .plusMinutes(duration.minutes));
+    }
 }

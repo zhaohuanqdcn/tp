@@ -3,14 +3,15 @@ package seedu.address.ui;
 import java.time.LocalDateTime;
 import java.util.logging.Logger;
 
-import javafx.beans.InvalidationListener;
 import javafx.beans.binding.DoubleBinding;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
 import javafx.scene.Node;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollBar;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.shape.Rectangle;
@@ -33,6 +34,7 @@ public class MeetingListPanel extends UiPart<Region> {
     private ListView<Meeting> meetingListView;
 
     private DoubleBinding timelineHeight;
+
     /**
      * Creates a {@code MeetingListPanel} with the given {@code ObservableList} and timeline height.
      */
@@ -43,29 +45,7 @@ public class MeetingListPanel extends UiPart<Region> {
 
         timelineBar.heightProperty().bind(timelineHeight);
 
-        meetingList.addListener((InvalidationListener) observable -> {
-            addPaddingToTimeline();
-        });
-
-        addPaddingToTimeline();
-    }
-
-    public void addPaddingToTimeline() {
-        // inverted as it runs before the update flip
-        boolean isShort = meetingListView
-                .lookupAll(".scroll-bar")
-                .stream()
-                .limit(1)
-                .noneMatch(Node::isVisible);
-
-        System.out.println(isShort);
-
-        if (!isShort) {
-            HBox.setMargin(timelineBar, new Insets(0, 451, 0, 0));
-        } else {
-            HBox.setMargin(timelineBar, new Insets(0, 464.5, 0, 0));
-        }
-
+        HBox.setMargin(timelineBar, new Insets(0, 0, 0, 114));
     }
 
     /**
@@ -85,11 +65,11 @@ public class MeetingListPanel extends UiPart<Region> {
                 this.setStyle("-fx-background-color: transparent");
                 meetingListView.toFront();
             } else {
-                int indexOfNextMeeting = -1;
+                int indexOfNextEarliestMeeting = -1;
 
                 for (Meeting m : meetingListView.getItems()) {
                     if (m.getDateTime().value.isAfter(LocalDateTime.now())) {
-                        indexOfNextMeeting = meetingListView.getItems().indexOf(m);
+                        indexOfNextEarliestMeeting = meetingListView.getItems().indexOf(m);
                         break;
                     }
                 }
@@ -104,8 +84,19 @@ public class MeetingListPanel extends UiPart<Region> {
                             .equals(meeting.getDateTime().getDate());
                 }
 
+                if (getIndex() == meetingListView.getItems().size() - 1) {
+                    boolean isScrollBarVisible = meetingListView
+                            .lookupAll(".scroll-bar")
+                            .stream()
+                            .map(node -> (ScrollBar) node)
+                            .filter(scrollBar -> scrollBar.getOrientation().equals(Orientation.VERTICAL))
+                            .anyMatch(Node::isVisible);
+
+                    logger.info("isScrollBarVisible? " + isScrollBarVisible);
+                }
+
                 setGraphic(new MeetingCard(meeting, getIndex() + 1,
-                        isFirstInDay, indexOfNextMeeting + 1).getRoot());
+                        isFirstInDay, indexOfNextEarliestMeeting + 1).getRoot());
             }
         }
     }

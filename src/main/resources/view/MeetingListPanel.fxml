@@ -10,7 +10,7 @@
     <StackPane>
         <HBox VBox.vgrow="ALWAYS" style="-fx-background-color: black"/>
 
-        <HBox fx:id="timelineWrapper" alignment="BASELINE_RIGHT" VBox.vgrow="NEVER">
+        <HBox fx:id="timelineWrapper" alignment="BASELINE_LEFT" VBox.vgrow="NEVER">
             <Rectangle fx:id="timelineBar" styleClass="timeline-bar" width="24"/>
         </HBox>
 

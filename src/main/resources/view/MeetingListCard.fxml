@@ -11,7 +11,7 @@
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150"/>
         </columnConstraints>
         <HBox fx:id="meetingCell">
-            <VBox fx:id="timelineDetails" HBox.hgrow="ALWAYS">
+            <VBox fx:id="timelineDetails" HBox.hgrow="NEVER" prefWidth="84">
                 <HBox alignment="BASELINE_RIGHT">
                     <Label fx:id="startTime" styleClass="cell_time_label" text="\$datetime"/>
                 </HBox>
@@ -24,14 +24,16 @@
                 </HBox>
             </VBox>
             <HBox fx:id="meetingBarWrapper" alignment="BASELINE_CENTER">
-                <VBox alignment="BASELINE_RIGHT">
+                <VBox alignment="BASELINE_CENTER">
                     <HBox fx:id="currentTimeBarPlaceholder"/>
-                    <Rectangle fx:id="meetingBar" styleClass="meeting-bar" width="24" HBox.hgrow="ALWAYS"/>
+                    <HBox alignment="BASELINE_LEFT">
+                        <Rectangle fx:id="meetingBar" styleClass="meeting-bar" width="24" HBox.hgrow="ALWAYS"/>
+                    </HBox>
                 </VBox>
             </HBox>
-            <VBox>
+            <VBox HBox.hgrow="ALWAYS">
                 <HBox fx:id="datePlaceholder"/>
-                <HBox fx:id="meetingCard" prefWidth="420" styleClass="meeting-card">
+                <HBox fx:id="meetingCard" prefWidth="360" styleClass="meeting-card" VBox.vgrow="ALWAYS">
                     <VBox HBox.hgrow="NEVER">
                         <Label fx:id="title" styleClass="cell_big_label" text="\$title"/>
                         <HBox>

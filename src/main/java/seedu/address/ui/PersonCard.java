@@ -71,6 +71,9 @@ public class PersonCard extends UiPart<Region> {
         id.setText(displayedIndex + "");
 
         String[] names = person.getName().fullName.split(" ", 2);
+
+        assert names.length > 0;
+
         nameBold.setText(names[0]);
         if (names.length > 1) {
             name.setText(names[1]);
@@ -88,7 +91,6 @@ public class PersonCard extends UiPart<Region> {
         person.getCompanyRoles().stream()
                 .sorted(Comparator.comparing(companyRole -> companyRole.companyRoleName))
                 .forEach(companyRole -> roles.getChildren().add(new Label(companyRole.companyRoleName)));
-
 
         companyIcon.setImage(new Image(getClass().getResourceAsStream("/images/work.png")));
         phoneIcon.setImage(new Image(getClass().getResourceAsStream("/images/phone.png")));

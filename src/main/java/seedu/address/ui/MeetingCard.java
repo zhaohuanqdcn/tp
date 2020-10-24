@@ -1,10 +1,9 @@
 package seedu.address.ui;
 
-import java.time.format.DateTimeFormatter;
+import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -13,6 +12,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.meeting.Duration;
 import seedu.address.model.meeting.Meeting;
 
@@ -22,6 +22,8 @@ import seedu.address.model.meeting.Meeting;
 public class MeetingCard extends UiPart<Region> {
 
     private static final String FXML = "MeetingListCard.fxml";
+    private final Logger logger = LogsCenter.getLogger(MeetingCard.class);
+
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -31,7 +33,7 @@ public class MeetingCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final Meeting meeting;
+    private final Meeting meeting;
 
     @FXML
     private HBox meetingCard;
@@ -65,24 +67,19 @@ public class MeetingCard extends UiPart<Region> {
     private HBox currentTimeBarPlaceholder;
 
     /**
-     * Creates a {@code MeetingCard} with the given {@code Meeting}, index to display and timelineBar.
+     * Creates a {@code MeetingCard} with the given {@code Meeting}, index to display,
+     * whether it is the first meeting of the day and index of next earliest meeting.
      */
     public MeetingCard(Meeting meeting, int displayedIndex,
-                       boolean isFirstInDay, int indexOfNextMeeting) {
+                       boolean isFirstInDay, int indexOfNextEarliestMeeting) {
         super(FXML);
         this.meeting = meeting;
         id.setText(displayedIndex + "");
         title.setText(meeting.getTitle().value);
 
-        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mma");
+        startTime.setText(meeting.getDateTime().getStartTime());
 
-        startTime.setText(timeFormatter.format(meeting.getDateTime().value));
-
-        endTime.setText(timeFormatter.format(meeting
-                .getDateTime()
-                .value
-                .plusHours(meeting.getDuration().hours)
-                .plusMinutes(meeting.getDuration().minutes)));
+        endTime.setText(meeting.getDateTime().getEndTime(meeting.getDuration()));
 
         duration.setText(meeting.getDuration().toString());
 
@@ -91,19 +88,23 @@ public class MeetingCard extends UiPart<Region> {
         // sizing according to duration
         setDynamicSize(meeting.getDuration());
 
+        logger.info(timelineDetails.getWidth() + "");
+
         meeting.getParticipants()
                 .forEach(participant -> participants.getChildren().add(new Label(participant.getName().toString())));
 
         locationIcon.setImage(new Image(getClass().getResourceAsStream("/images/location.png")));
         withIcon.setImage(new Image(getClass().getResourceAsStream("/images/with.png")));
 
+        // for optional day headings
         if (isFirstInDay) {
             Label dateLabel = new Label(meeting.getDateTime().getDate());
             dateLabel.setStyle("-fx-text-fill: #CCB9B9");
             datePlaceholder.getChildren().add(dateLabel);
         }
 
-        if (indexOfNextMeeting == displayedIndex) {
+        // for optional green bar
+        if (indexOfNextEarliestMeeting == displayedIndex) {
             Rectangle greenBar = new Rectangle();
             greenBar.setArcHeight(16);
             greenBar.setArcWidth(16);
