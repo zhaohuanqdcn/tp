@@ -52,6 +52,10 @@ public class UniqueMeetingList implements Iterable<Meeting> {
         internalList.add(toAdd);
     }
 
+    /**
+     * Sorts all meetings in the list according to Date and Time.
+     * Tie break by comparing meeting's title in chronological order.
+     */
     public void sort() {
         Comparator<Meeting> meetingComparator = (meetingOne, meetingTwo) -> {
             LocalDateTime dateTimeOne = meetingOne.getDateTime().value;

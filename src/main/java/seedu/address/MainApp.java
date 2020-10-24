@@ -37,9 +37,11 @@ import seedu.address.ui.UiManager;
  */
 public class MainApp extends Application {
 
+
     public static final String FILE_OPS_ERROR_MESSAGE =
             "Could not save sorted data to file at the initialization stage";
-    public static final Version VERSION = new Version(0, 6, 0, true);
+
+    public static final Version VERSION = new Version(1, 2, 0, true);
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
