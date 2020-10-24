@@ -7,7 +7,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE_PARTICIPANTS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_RECURRENCE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
 import seedu.address.commons.core.index.Index;
@@ -25,7 +24,7 @@ public class EditMeetingCommandParser implements Parser<EditMeetingCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_DURATION, PREFIX_DATETIME,
-                        PREFIX_LOCATION, PREFIX_RECURRENCE, PREFIX_ADD_PARTICIPANTS, PREFIX_DELETE_PARTICIPANTS);
+                        PREFIX_LOCATION, PREFIX_ADD_PARTICIPANTS, PREFIX_DELETE_PARTICIPANTS);
 
         Index index;
 
@@ -49,11 +48,7 @@ public class EditMeetingCommandParser implements Parser<EditMeetingCommand> {
         if (argMultimap.getValue(PREFIX_LOCATION).isPresent()) {
             editMeetingDescriptor.setLocation(ParserUtil.parseLocation(argMultimap.getValue(PREFIX_LOCATION).get()));
         }
-
-        if (argMultimap.getValue(PREFIX_RECURRENCE).isPresent()) {
-            editMeetingDescriptor.setRecurrence(ParserUtil.parseRecurrence(argMultimap.getValue(PREFIX_RECURRENCE).get()));
-        }
-
+        
         if (!editMeetingDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditMeetingCommand.MESSAGE_NOT_EDITED);
         }

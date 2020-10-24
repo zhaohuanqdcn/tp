@@ -5,7 +5,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_PARTICIPANTS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_RECURRENCE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_MEETINGS;
 
@@ -43,7 +42,6 @@ public class EditMeetingCommand extends Command {
             + "[" + PREFIX_DURATION + "DURATION] "
             + "[" + PREFIX_DATETIME + "DATETIME] "
             + "[" + PREFIX_LOCATION + "LOCATION] "
-            + "[" + PREFIX_RECURRENCE + "RECURRENCE] "
             + "[" + PREFIX_ADD_PARTICIPANTS + "PARTICIPANTS] \n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_TITLE + "OP2 "
