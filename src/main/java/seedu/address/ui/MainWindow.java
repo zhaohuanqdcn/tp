@@ -155,7 +155,6 @@ public class MainWindow extends UiPart<Stage> {
         personListPanelPlaceholder.maxWidthProperty().bind(halfScreenWidth);
         personListPanelPlaceholder.minWidthProperty().bind(halfScreenWidth);
 
-
     }
 
     /**

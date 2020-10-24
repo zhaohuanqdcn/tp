@@ -26,13 +26,13 @@ public class MeetingListPanel extends UiPart<Region> {
 
     @FXML
     private Rectangle timelineBar;
-
     @FXML
     private HBox timelineWrapper;
 
     @FXML
     private ListView<Meeting> meetingListView;
 
+    private DoubleBinding timelineHeight;
     /**
      * Creates a {@code MeetingListPanel} with the given {@code ObservableList} and timeline height.
      */
@@ -42,36 +42,30 @@ public class MeetingListPanel extends UiPart<Region> {
         meetingListView.setCellFactory(listView -> new MeetingListViewCell());
 
         timelineBar.heightProperty().bind(timelineHeight);
-//        timelineWrapper.toBack();
 
         meetingList.addListener((InvalidationListener) observable -> {
             addPaddingToTimeline();
         });
 
-        addPaddingToTimeline(true);
+        addPaddingToTimeline();
     }
 
-    private void addPaddingToTimeline(boolean flip) {
+    public void addPaddingToTimeline() {
+        // inverted as it runs before the update flip
         boolean isShort = meetingListView
                 .lookupAll(".scroll-bar")
                 .stream()
+                .limit(1)
                 .noneMatch(Node::isVisible);
+
         System.out.println(isShort);
 
-        if (flip) {
-            isShort = !isShort;
-        }
-
-        double padding = 44.5;
         if (!isShort) {
-            padding -= 13.5;
+            HBox.setMargin(timelineBar, new Insets(0, 451, 0, 0));
+        } else {
+            HBox.setMargin(timelineBar, new Insets(0, 464.5, 0, 0));
         }
-        HBox.clearConstraints(timelineBar);
-        HBox.setMargin(timelineBar, new Insets(0, 420 + padding, 0, 0));
 
-    }
-    private void addPaddingToTimeline() {
-        addPaddingToTimeline(false);
     }
 
     /**
@@ -109,8 +103,6 @@ public class MeetingListPanel extends UiPart<Region> {
                             .getDate()
                             .equals(meeting.getDateTime().getDate());
                 }
-
-                addPaddingToTimeline();
 
                 setGraphic(new MeetingCard(meeting, getIndex() + 1,
                         isFirstInDay, indexOfNextMeeting + 1).getRoot());
