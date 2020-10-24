@@ -32,7 +32,8 @@ public class Meeting {
      * Create Meeting with Location and Recurrence.
      * Every field must be present and not null.
      */
-    public Meeting(Title title, Duration duration, DateTime dateTime, Location location, Recurrence recurrence, Set<Person> participants) {
+    public Meeting(Title title, Duration duration, DateTime dateTime,
+                   Location location, Recurrence recurrence, Set<Person> participants) {
         requireAllNonNull(title, duration, dateTime, location, participants, recurrence);
         this.title = title;
         this.duration = duration;
@@ -46,7 +47,8 @@ public class Meeting {
      * Create Meeting without Location.
      * Every field must be present and not null.
      */
-    public Meeting(Title title, Duration duration, DateTime dateTime, Recurrence recurrence, Set<Person> participants) {
+    public Meeting(Title title, Duration duration, DateTime dateTime,
+                   Recurrence recurrence, Set<Person> participants) {
         requireAllNonNull(title, duration, dateTime, participants);
         this.title = title;
         this.duration = duration;
@@ -138,7 +140,7 @@ public class Meeting {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(title, dateTime, duration, location, participants, recurrence);
+        return Objects.hash(title, dateTime, duration, location, recurrence, participants);
     }
 
     @Override

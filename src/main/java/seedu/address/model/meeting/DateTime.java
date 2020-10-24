@@ -3,6 +3,7 @@ package seedu.address.model.meeting;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -32,6 +33,11 @@ public class DateTime {
         value = LocalDateTime.parse(dateTime, dateInputFormat);
     }
 
+    private DateTime(LocalDateTime time) {
+        requireNonNull(time);
+        value = time;
+    }
+
     /**
      * Return true if string can be formatted to a LocalDateTime object
      */
@@ -54,6 +60,21 @@ public class DateTime {
 
     public static DateTimeFormatter getDateOutputFormat() {
         return dateOutputFormat;
+    }
+
+    public DateTime getNextOccurrence(Recurrence recurrence, int index) {
+        assert index >= 0;
+        if (recurrence == Recurrence.NONE || index == 0) {
+            return this;
+        } else {
+            if (recurrence == Recurrence.DAILY) {
+                return new DateTime(value.plusDays(index));
+            } else if (recurrence == Recurrence.WEEKLY) {
+                return new DateTime(value.plusWeeks(index));
+            } else {
+                return new DateTime(value.plusMonths(index));
+            }
+        }
     }
 
     @Override

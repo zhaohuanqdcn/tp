@@ -42,10 +42,13 @@ public class AddMeetingCommandParser implements Parser<AddMeetingCommand> {
         Duration duration = ParserUtil.parseDuration(argMultimap.getValue(PREFIX_DURATION).get());
         Location location = ParserUtil.parseLocation(argMultimap.getValue(PREFIX_LOCATION).get());
         Set<Person> participantList = Collections.emptySet();
-        Recurrence recurrence = ParserUtil.parseRecurrence(argMultimap.getValue(PREFIX_RECURRENCE).get());
-
+        Recurrence recurrence;
+        if (arePrefixesPresent(argMultimap, PREFIX_RECURRENCE)) {
+            recurrence = ParserUtil.parseRecurrence(argMultimap.getValue(PREFIX_RECURRENCE).get());
+        } else {
+            recurrence = Recurrence.NONE;
+        }
         Meeting meeting = new Meeting(title, duration, dateTime, location, recurrence, participantList);
-
         return new AddMeetingCommand(meeting);
     }
 

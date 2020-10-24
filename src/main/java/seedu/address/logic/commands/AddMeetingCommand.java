@@ -5,11 +5,15 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_PARTICIPANTS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RECURRENCE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.meeting.Meeting;
+import seedu.address.model.meeting.Recurrence;
+
+import java.util.Set;
 
 public class AddMeetingCommand extends Command {
 
@@ -26,7 +30,8 @@ public class AddMeetingCommand extends Command {
             + PREFIX_TITLE + "v1.3 discussion "
             + PREFIX_DATETIME + "31/12/20 1400 "
             + PREFIX_DURATION + "1 30 "
-            + PREFIX_LOCATION + "Cool spot";
+            + PREFIX_LOCATION + "Cool spot"
+            + PREFIX_RECURRENCE + "weekly";
 
     public static final String MESSAGE_SUCCESS = "New meeting added: %1$s \n "
             + "Add participants by finding their name, and key in their index on the list";
@@ -50,9 +55,22 @@ public class AddMeetingCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_MEETING);
         }
 
-        model.addMeeting(toAdd);
-        model.sortMeeting();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        if (toAdd.getRecurrence() == Recurrence.NONE) { // no recurrence
+            model.addMeeting(toAdd);
+            model.sortMeeting();
+            return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        } else {
+            for (int i = 0; i < 5; i++) {
+                Meeting next =
+                    new Meeting(toAdd.getTitle(), toAdd.getDuration(),
+                            toAdd.getDateTime().getNextOccurrence(toAdd.getRecurrence(), i),
+                            toAdd.getLocation(), toAdd.getRecurrence(),
+                            Set.copyOf(toAdd.getParticipants()));
+                model.addMeeting(next);
+            }
+            model.sortMeeting();
+            return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        }
     }
 
     @Override
