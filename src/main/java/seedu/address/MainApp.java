@@ -3,6 +3,7 @@ package seedu.address;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javafx.application.Application;
@@ -15,7 +16,6 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -38,7 +38,7 @@ import seedu.address.ui.UiManager;
 public class MainApp extends Application {
 
     public static final String FILE_OPS_ERROR_MESSAGE =
-            "Could not save sorted data to file at the initialization stage: ";
+            "Could not save sorted data to file at the initialization stage";
     public static final Version VERSION = new Version(0, 6, 0, true);
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
@@ -65,6 +65,7 @@ public class MainApp extends Application {
         initLogging(config);
 
         model = initModelManager(storage, userPrefs);
+        //Handle the situation where user manually append information in addressbook
         sortMeeting(model);
         logic = new LogicManager(model, storage);
 
@@ -184,12 +185,13 @@ public class MainApp extends Application {
         }
     }
 
-    private void sortMeeting(Model model) throws CommandException {
+    private void sortMeeting(Model model) throws IOException {
         model.sortMeeting();
         try {
             storage.saveAddressBook(model.getAddressBook());
         } catch (IOException ioe) {
-            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+            logger.log(Level.WARNING, FILE_OPS_ERROR_MESSAGE, ioe);
+            throw ioe;
         }
     }
 }
