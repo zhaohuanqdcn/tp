@@ -18,6 +18,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_DURATION = new Prefix("dur/");
     public static final Prefix PREFIX_TITLE = new Prefix("title/");
     public static final Prefix PREFIX_LOCATION = new Prefix("l/");
+    public static final Prefix PREFIX_RECURRENCE= new Prefix("rec/");
     public static final Prefix PREFIX_ADD_PARTICIPANTS = new Prefix("add_part/");
     public static final Prefix PREFIX_DELETE_PARTICIPANTS = new Prefix("del_part/");
 

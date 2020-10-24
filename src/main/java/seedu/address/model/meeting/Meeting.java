@@ -26,31 +26,34 @@ public class Meeting {
     private final Duration duration;
     private final Location location;
     private final Set<Person> participants = new HashSet<>();
+    private final Recurrence recurrence;
 
     /**
-     * Create Meeting with Location.
+     * Create Meeting with Location and Recurrence.
      * Every field must be present and not null.
      */
-    public Meeting(Title title, Duration duration, DateTime dateTime, Location location, Set<Person> participants) {
-        requireAllNonNull(title, duration, dateTime, location, participants);
+    public Meeting(Title title, Duration duration, DateTime dateTime, Location location, Recurrence recurrence, Set<Person> participants) {
+        requireAllNonNull(title, duration, dateTime, location, participants, recurrence);
         this.title = title;
         this.duration = duration;
         this.dateTime = dateTime;
         this.location = location;
         this.participants.addAll(participants);
+        this.recurrence = recurrence;
     }
 
     /**
      * Create Meeting without Location.
      * Every field must be present and not null.
      */
-    public Meeting(Title title, Duration duration, DateTime dateTime, Set<Person> participants) {
+    public Meeting(Title title, Duration duration, DateTime dateTime, Recurrence recurrence, Set<Person> participants) {
         requireAllNonNull(title, duration, dateTime, participants);
         this.title = title;
         this.duration = duration;
         this.dateTime = dateTime;
         this.location = null;
         this.participants.addAll(participants);
+        this.recurrence = recurrence;
     }
 
     public Title getTitle() {
@@ -68,6 +71,8 @@ public class Meeting {
     public Location getLocation() {
         return location;
     }
+
+    public Recurrence getRecurrence() { return recurrence;}
 
     /**
      * Returns an immutable person set, which throws {@code UnsupportedOperationException}
@@ -126,13 +131,14 @@ public class Meeting {
                 && otherMeeting.getDuration().equals(getDuration())
                 && otherMeeting.getDateTime().equals(getDateTime())
                 && otherMeeting.getLocation().equals(getLocation())
-                && otherMeeting.getParticipants().equals(getParticipants());
+                && otherMeeting.getParticipants().equals(getParticipants())
+                && otherMeeting.getRecurrence() == getRecurrence();
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(title, dateTime, duration, location, participants);
+        return Objects.hash(title, dateTime, duration, location, participants, recurrence);
     }
 
     @Override
@@ -145,6 +151,8 @@ public class Meeting {
                 .append(getDuration())
                 .append(" Location: ")
                 .append(getLocation())
+                .append(" Recurrence: ")
+                .append(getRecurrence())
                 .append(" Participants: ");
         getParticipants().forEach(builder::append);
         return builder.toString();

@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_PARTICIPANTS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RECURRENCE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_MEETINGS;
 
@@ -23,6 +24,7 @@ import seedu.address.model.meeting.DateTime;
 import seedu.address.model.meeting.Duration;
 import seedu.address.model.meeting.Location;
 import seedu.address.model.meeting.Meeting;
+import seedu.address.model.meeting.Recurrence;
 import seedu.address.model.meeting.Title;
 import seedu.address.model.person.Person;
 
@@ -41,6 +43,7 @@ public class EditMeetingCommand extends Command {
             + "[" + PREFIX_DURATION + "DURATION] "
             + "[" + PREFIX_DATETIME + "DATETIME] "
             + "[" + PREFIX_LOCATION + "LOCATION] "
+            + "[" + PREFIX_RECURRENCE + "RECURRENCE] "
             + "[" + PREFIX_ADD_PARTICIPANTS + "PARTICIPANTS] \n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_TITLE + "OP2 "
@@ -99,9 +102,10 @@ public class EditMeetingCommand extends Command {
         DateTime updatedDateTime = editMeetingDescriptor.getDateTime().orElse(meetingToEdit.getDateTime());
         Duration updatedDuration = editMeetingDescriptor.getDuration().orElse(meetingToEdit.getDuration());
         Location updatedLocation = editMeetingDescriptor.getLocation().orElse(meetingToEdit.getLocation());
+        Recurrence updatedRecurrence = editMeetingDescriptor.getRecurrence().orElse(meetingToEdit.getRecurrence());
         Set<Person> updatedPersons = editMeetingDescriptor.getPersons().orElse(meetingToEdit.getParticipants());
 
-        return new Meeting(updatedTitle, updatedDuration, updatedDateTime, updatedLocation, updatedPersons);
+        return new Meeting(updatedTitle, updatedDuration, updatedDateTime, updatedLocation, updatedRecurrence, updatedPersons);
     }
 
     @Override
@@ -132,6 +136,7 @@ public class EditMeetingCommand extends Command {
         private Duration duration;
         private Location location;
         private Set<Person> persons;
+        private Recurrence recurrence;
         private Model model;
 
         public EditMeetingDescriptor() {}
@@ -146,13 +151,14 @@ public class EditMeetingCommand extends Command {
             setDuration(toCopy.duration);
             setLocation(toCopy.location);
             setPersons(toCopy.persons);
+            setRecurrence(toCopy.recurrence);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(title, dateTime, duration, location, persons);
+            return CollectionUtil.isAnyNonNull(title, dateTime, duration, location, persons, recurrence);
         }
 
         public void setModel(Model model) {
@@ -191,6 +197,14 @@ public class EditMeetingCommand extends Command {
             return Optional.ofNullable(location);
         }
 
+        public void setRecurrence(Recurrence recurrence) {
+            this.recurrence = recurrence;
+        }
+
+        public Optional<Recurrence> getRecurrence() {
+            return Optional.ofNullable(recurrence);
+        }
+
         /**
          * Sets {@code tags} to this object's {@code tags}.
          * A defensive copy of {@code tags} is used internally.
@@ -227,6 +241,7 @@ public class EditMeetingCommand extends Command {
                     && getDateTime().equals(e.getDateTime())
                     && getDuration().equals(e.getDuration())
                     && getLocation().equals(e.getLocation())
+                    && getRecurrence() == e.getRecurrence()
                     && getPersons().equals(e.getPersons());
         }
     }
