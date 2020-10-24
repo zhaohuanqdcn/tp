@@ -4,10 +4,13 @@ import java.util.Comparator;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.person.Person;
+
 
 /**
  * An UI component that displays information of a {@code Person}.
@@ -29,6 +32,8 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private HBox cardPane;
     @FXML
+    private Label nameBold;
+    @FXML
     private Label name;
     @FXML
     private Label id;
@@ -45,6 +50,18 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private FlowPane roles;
 
+    @FXML
+    private ImageView profilePicture;
+    @FXML
+    private ImageView companyIcon;
+    @FXML
+    private ImageView phoneIcon;
+    @FXML
+    private ImageView addressIcon;
+    @FXML
+    private ImageView emailIcon;
+
+
     /**
      * Creates a {@code PersonCode} with the given {@code Person} and index to display.
      */
@@ -52,7 +69,15 @@ public class PersonCard extends UiPart<Region> {
         super(FXML);
         this.person = person;
         id.setText(displayedIndex + "");
-        name.setText(person.getName().fullName);
+
+        String[] names = person.getName().fullName.split(" ", 2);
+        nameBold.setText(names[0]);
+        if (names.length > 1) {
+            name.setText(names[1]);
+        } else {
+            name.setText("");
+        }
+
         phone.setText(person.getPhone().value);
         company.setText(person.getCompany().companyName);
         address.setText(person.getAddress().value);
@@ -63,6 +88,14 @@ public class PersonCard extends UiPart<Region> {
         person.getCompanyRoles().stream()
                 .sorted(Comparator.comparing(companyRole -> companyRole.companyRoleName))
                 .forEach(companyRole -> roles.getChildren().add(new Label(companyRole.companyRoleName)));
+
+
+        companyIcon.setImage(new Image(getClass().getResourceAsStream("/images/work.png")));
+        phoneIcon.setImage(new Image(getClass().getResourceAsStream("/images/phone.png")));
+        addressIcon.setImage(new Image(getClass().getResourceAsStream("/images/home.png")));
+        emailIcon.setImage(new Image(getClass().getResourceAsStream("/images/email.png")));
+
+        profilePicture.setImage(new Image(getClass().getResourceAsStream("/images/default_profile.png")));
 
     }
 

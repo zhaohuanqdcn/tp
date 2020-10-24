@@ -2,8 +2,8 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
+import javafx.beans.InvalidationListener;
 import javafx.beans.binding.DoubleBinding;
-import javafx.beans.property.DoubleProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -11,7 +11,9 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -60,6 +62,9 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private SplitPane contentPanelPlaceholder;
 
+    @FXML
+    private Rectangle timelineBar;
+
     /**
      * Creates a {@code MainWindow} with the given {@code Stage} and {@code Logic}.
      */
@@ -90,6 +95,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -125,7 +131,14 @@ public class MainWindow extends UiPart<Stage> {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
-        meetingListPanel = new MeetingListPanel(logic.getFilteredMeetingList());
+        DoubleBinding timelineHeight = getRoot()
+                .heightProperty()
+                .subtract(resultDisplayPlaceholder.heightProperty())
+                .subtract(commandBoxPlaceholder.heightProperty())
+                .subtract(160);
+
+
+        meetingListPanel = new MeetingListPanel(logic.getFilteredMeetingList(), timelineHeight);
         meetingListPanelPlaceholder.getChildren().add(meetingListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -141,6 +154,8 @@ public class MainWindow extends UiPart<Stage> {
 
         personListPanelPlaceholder.maxWidthProperty().bind(halfScreenWidth);
         personListPanelPlaceholder.minWidthProperty().bind(halfScreenWidth);
+
+
     }
 
     /**

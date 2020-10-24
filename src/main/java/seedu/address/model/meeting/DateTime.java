@@ -48,6 +48,12 @@ public class DateTime {
         return isValidFormat;
     }
 
+    public String getDate() {
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("EEEE, d MMMM, uuuu");
+
+        return dateFormatter.format(value);
+    }
+
     public static DateTimeFormatter getDateInputFormat() {
         return dateInputFormat;
     }

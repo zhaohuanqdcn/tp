@@ -16,8 +16,8 @@
 }
 
 .background {
-    -fx-background-color: #000000;
-    background-color: #000000; /* Used in the default.html file */
+    -fx-background-color: transparent;
+    background-color: transparent; /* Used in the default.html file */
 }
 
 .label {
@@ -59,9 +59,9 @@
 }
 
 .table-view {
-    -fx-base: #1d1d1d;
-    -fx-control-inner-background: #1d1d1d;
-    -fx-background-color: #1d1d1d;
+    -fx-base: black;
+    -fx-control-inner-background: black;
+    -fx-background-color: black;
     -fx-table-cell-border-color: transparent;
     -fx-table-header-border-color: transparent;
     -fx-padding: 5;
@@ -72,10 +72,10 @@
 }
 
 .table-view .column-header, .table-view .filler {
-    -fx-size: 35;
+    -fx-size: 35px;
     -fx-border-width: 0 0 1 0;
-    -fx-background-color: transparent;
-    -fx-border-color: transparent transparent derive(-fx-base, 80%) transparent;
+    -fx-background-color: black;
+    -fx-border-color: black;
     -fx-border-insets: 0 10 1 0;
 }
 
@@ -93,7 +93,7 @@
 
 .split-pane:horizontal .split-pane-divider {
     -fx-background-color: black;
-    -fx-border-color: transparent transparent transparent #4d4d4d;
+    -fx-border-color: transparent transparent transparent transparent;
 }
 
 .split-pane {
@@ -105,7 +105,7 @@
 .list-view {
     -fx-background-insets: 0;
     -fx-padding: 12;
-    -fx-background-color: black;
+    -fx-background-color: transparent;
 }
 
 .list-cell {
@@ -115,19 +115,19 @@
 }
 
 .list-cell:filled:even {
-    -fx-background-color: black;
+    -fx-background-color: transparent;
     -fx-padding: 10;
     -fx-background-radius: 24;
 }
 
 .list-cell:filled:odd {
-    -fx-background-color: black;
+    -fx-background-color: transparent;
     -fx-padding: 10;
     -fx-background-radius: 24;
 }
 
 .list-cell:filled:selected {
-    -fx-background-color: black;
+    -fx-background-color: transparent;
     -fx-padding: 10;
     -fx-background-radius: 24;
 }
@@ -145,16 +145,21 @@
 .cell_small_label {
     -fx-font-family: "Inter Regular";
     -fx-font-size: 13px;
-    -fx-text-fill: #010504;
+    -fx-padding: 0 0 0 8;
+    -fx-text-fill: #B1B1C9;
+}
+
+#loc, #phone, #address, #email, #company {
+    -fx-text-fill: #B1B1C9;
 }
 
 .stack-pane {
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: transparent;
 }
 
 .pane-with-border {
-    -fx-background-color: derive(#1d1d1d, 20%);
-    -fx-border-color: derive(#1d1d1d, 10%);
+    -fx-background-color: black;
+    -fx-border-color: black;
     -fx-border-top-width: 1px;
 }
 
@@ -191,17 +196,17 @@
 }
 
 .grid-pane {
-    -fx-background-color: derive(#1d1d1d, 30%);
-    -fx-border-color: derive(#1d1d1d, 30%);
+    -fx-background-color: black;
+    -fx-border-color: black;
     -fx-border-width: 1px;
 }
 
 .grid-pane .stack-pane {
-    -fx-background-color: derive(#1d1d1d, 30%);
+    -fx-background-color: black;
 }
 
 .context-menu {
-    -fx-background-color: derive(#1d1d1d, 50%);
+    -fx-background-color: black;
 }
 
 .context-menu .label {
@@ -209,7 +214,7 @@
 }
 
 .menu-bar {
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: black;
 }
 
 .menu-bar .label {
@@ -273,11 +278,11 @@
 }
 
 .dialog-pane {
-    -fx-background-color: #1d1d1d;
+    -fx-background-color: black;
 }
 
 .dialog-pane > *.button-bar > *.container {
-    -fx-background-color: #1d1d1d;
+    -fx-background-color: black;
 }
 
 .dialog-pane > *.label.content {
@@ -287,7 +292,7 @@
 }
 
 .dialog-pane:header *.header-panel {
-    -fx-background-color: derive(#1d1d1d, 25%);
+    -fx-background-color: black;
 }
 
 .dialog-pane:header *.header-panel *.label {
@@ -352,34 +357,37 @@
 }
 
 #tags {
+    -fx-padding: 4 0 0 0;
     -fx-hgap: 7;
     -fx-vgap: 3;
 }
 
 #tags .label {
     -fx-text-fill: white;
-    -fx-background-color: #3e7b91;
-    -fx-padding: 1 3 1 3;
-    -fx-border-radius: 2;
-    -fx-background-radius: 2;
-    -fx-font-size: 11;
+    -fx-background-color: #C3548B;
+    -fx-padding: 2 8 2 8;
+    -fx-border-radius: 16;
+    -fx-background-radius: 16;
+    -fx-font-size: 12;
 }
 
 #roles {
+    -fx-padding: 4 0 0 0;
     -fx-hgap: 7;
     -fx-vgap: 3;
 }
 
 #roles .label {
     -fx-text-fill: white;
-    -fx-background-color: #7579e7;
-    -fx-padding: 1 3 1 3;
-    -fx-border-radius: 2;
-    -fx-background-radius: 2;
-    -fx-font-size: 11;
+    -fx-background-color: #FFA500;
+    -fx-padding: 2 8 2 8;
+    -fx-border-radius: 16;
+    -fx-background-radius: 16;
+    -fx-font-size: 12;
 }
 
 #participants {
+    -fx-padding: 4 0 0 0;
     -fx-hgap: 7;
     -fx-vgap: 3;
 }
@@ -387,10 +395,10 @@
 #participants .label {
     -fx-text-fill: white;
     -fx-background-color: #7579e7;
-    -fx-padding: 1 3 1 3;
-    -fx-border-radius: 2;
-    -fx-background-radius: 2;
-    -fx-font-size: 11;
+    -fx-padding: 2 8 2 8;
+    -fx-border-radius: 16;
+    -fx-background-radius: 16;
+    -fx-font-size: 12;
 }
 
 .label-column-header {
@@ -415,6 +423,10 @@
     -fx-text-fill: white;
 }
 
+#sendButton:hover {
+    -fx-background-color: #7676FF;
+}
+
 #feedbackResult {
     -fx-background-color: #2C2C3A;
     -fx-padding: 10;
@@ -424,6 +436,10 @@
 #resultDisplay {
     -fx-background-color: transparent;
     -fx-font-family: "Inter Regular";
+}
+
+#feedbackResult .scroll-bar {
+    -fx-background-color: #2C2C3A;
 }
 
 #contentPanelPlaceholder {
@@ -436,12 +452,82 @@
 
 .person-card {
     -fx-background-color: #1C1C22;
-    -fx-padding: 12;
+    -fx-padding: 8;
     -fx-background-radius: 24;
+}
+
+#name {
+    -fx-font-family: "Inter Regular";
+    -fx-font-size: 14pt;
 }
 
 #id {
     -fx-text-fill: #777E7E;
+}
+
+#nameBold {
     -fx-font-family: "Inter Bold";
-    -fx-font-size: 80pt;
+    -fx-font-size: 16pt;
+}
+
+.bg-black {
+    -fx-background-color: black;
+    -fx-border-color: black;
+}
+
+.timeline-bar {
+    -fx-fill: #4646DF;
+    -fx-arc-width: 24;
+    -fx-arc-height: 24;
+}
+
+.meeting-bar {
+     -fx-fill: #C9481E;
+     -fx-arc-width: 24;
+     -fx-arc-height: 24;
+ }
+
+.meeting-card {
+    -fx-background-color: #1C1C22;
+    -fx-padding: 12 8 2 16;
+    -fx-background-radius: 24;
+}
+
+#title {
+    -fx-font-size: 16pt;
+}
+
+.person-index {
+    -fx-text-fill: #777E7E;
+    -fx-font-family: "Inter Bold";
+    -fx-font-size: 76pt;
+}
+
+.meeting-index {
+    -fx-text-fill: #777E7E;
+    -fx-font-family: "Inter Bold";
+    -fx-font-size: 48pt;
+}
+
+#meetingBarWrapper {
+    -fx-padding: 0 8 0 8;
+}
+#timelineDetails {
+    -fx-padding: 12 0 0 0;
+}
+
+#meetingCell {
+    -fx-padding: 8 0 0 0;
+}
+
+.cell_time_label {
+    -fx-font-size: 11pt;
+    -fx-font-family: 'Inter Bold';
+    -fx-text-fill: white;
+}
+
+#duration {
+    -fx-font-size: 8pt;
+    -fx-font-family: 'Inter Bold';
+    -fx-text-fill: #9B9B9B;
 }

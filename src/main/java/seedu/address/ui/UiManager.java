@@ -39,6 +39,8 @@ public class UiManager implements Ui {
 
         //Set the application icon.
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
+        primaryStage.setMaximized(true);
+//        primaryStage.setResizable(false);
 
         try {
             mainWindow = new MainWindow(primaryStage, logic);
@@ -49,6 +51,7 @@ public class UiManager implements Ui {
             logger.severe(StringUtil.getDetails(e));
             showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
         }
+
     }
 
     private Image getImage(String imagePath) {

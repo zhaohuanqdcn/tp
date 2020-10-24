@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.Label?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
 
-<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-  <Label text="Meetings" styleClass="label-column-header" />
-  <ListView fx:id="meetingListView" VBox.vgrow="ALWAYS" />
+<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <Label styleClass="label-column-header" text="Meetings"/>
+    <StackPane>
+        <HBox VBox.vgrow="ALWAYS" style="-fx-background-color: black"/>
+
+        <HBox fx:id="timelineWrapper" alignment="BASELINE_RIGHT" VBox.vgrow="NEVER">
+            <Rectangle fx:id="timelineBar" styleClass="timeline-bar" width="24"/>
+        </HBox>
+
+        <ListView fx:id="meetingListView" VBox.vgrow="ALWAYS"/>
+
+    </StackPane>
 </VBox>

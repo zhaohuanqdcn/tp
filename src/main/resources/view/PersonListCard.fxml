@@ -3,6 +3,7 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.image.ImageView?>
 
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <GridPane HBox.hgrow="ALWAYS" styleClass="person-card">
@@ -12,21 +13,45 @@
 
         <HBox>
             <HBox>
-                <Label text="hefieahxaszda"/>
+                <StackPane>
+                    <ImageView fx:id="profilePicture" fitHeight="64" fitWidth="64"/>
+                </StackPane>
                 <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
                     <padding>
                         <Insets bottom="5" left="15" right="5" top="5"/>
                     </padding>
-                    <Label fx:id="name" styleClass="cell_big_label" text="\$first"/>
-                    <FlowPane fx:id="tags"/>
+                    <HBox spacing="5" alignment="CENTER_LEFT">
+                        <Label fx:id="nameBold" text="\$name" styleClass="cell_big_label">
+                            <minWidth>
+                                <!-- Ensures that the label text is never truncated -->
+                                <Region fx:constant="USE_PREF_SIZE"/>
+                            </minWidth>
+                        </Label>
+                        <Label fx:id="name" text="\$first" styleClass="cell_big_label"/>
+                    </HBox>
                     <FlowPane fx:id="roles"/>
-                    <Label fx:id="phone" styleClass="cell_small_label" text="\$phone"/>
-                    <Label fx:id="address" styleClass="cell_small_label" text="\$address"/>
-                    <Label fx:id="email" styleClass="cell_small_label" text="\$email"/>
-                    <Label fx:id="company" styleClass="cell_small_label" text="\$company"/>
+                    <HBox>
+                        <ImageView fx:id="companyIcon" fitWidth="12" fitHeight="12"/>
+                        <Label fx:id="company" styleClass="cell_small_label" text="\$company"/>
+                    </HBox>
+                    <HBox>
+                        <ImageView fx:id="phoneIcon" fitWidth="12" fitHeight="12"/>
+                        <Label fx:id="phone" styleClass="cell_small_label" text="\$phone"/>
+                    </HBox>
+                    <HBox>
+                        <ImageView fx:id="addressIcon" fitWidth="12" fitHeight="12"/>
+                        <Label fx:id="address" styleClass="cell_small_label" text="\$address"/>
+                    </HBox>
+                    <HBox>
+                        <ImageView fx:id="emailIcon" fitWidth="12" fitHeight="12"/>
+                        <Label fx:id="email" styleClass="cell_small_label" text="\$email"/>
+                    </HBox>
+
+                    <FlowPane fx:id="tags"/>
+
                 </VBox>
             </HBox>
-            <Label fx:id="id" alignment="TOP_LEFT" styleClass="index" text="\$id"/>
+            <Label fx:id="id" alignment="TOP_LEFT" styleClass="person-index" text="\$id"/>
         </HBox>
         <rowConstraints>
             <RowConstraints/>
