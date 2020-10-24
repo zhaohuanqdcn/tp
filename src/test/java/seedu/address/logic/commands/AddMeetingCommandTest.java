@@ -42,6 +42,8 @@ class AddMeetingCommandTest {
         assertEquals(Arrays.asList(validMeeting), modelStub.meetingsAdded);
     }
 
+
+
     @Test
     void testEquals() {
         Meeting party = new MeetingBuilder().withTitle("party").build();
@@ -108,6 +110,11 @@ class AddMeetingCommandTest {
         @Override
         public void setAddressBook(ReadOnlyAddressBook newData) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void sortMeeting() {
+            //do nothing because of stub
         }
 
         @Override
