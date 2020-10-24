@@ -109,6 +109,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void sortMeeting() {
+        addressBook.sortMeeting();
+    }
+
+    @Override
     public void setMeeting(Meeting target, Meeting editedMeeting) {
         requireAllNonNull(target, editedMeeting);
         addressBook.setMeeting(target, editedMeeting);
