@@ -153,6 +153,7 @@ Format: `delete_contact INDEX`
 
 Examples:
 * `delete_contact 2` deletes the 2nd contact in the address book.
+
 * `find_contact Betsy` followed by `delete_contact 1` deletes the 1st contact in the results of the `find` command.
 
 #### Clearing all persons: `clear_contact`
@@ -210,9 +211,9 @@ Format: `list_meeting`
 
 #### Editing a meeting: `edit_meeting`
 
-Edits an existing meeting in the meeting schedule. The `RECURRENCE` field is not modifiable, and the edition of recurring meeting will only edit the specified instance.
+Edits an existing meeting in the meeting schedule. The `RECURRENCE` field is not modifiable, and the edition of recurring meeting will only edit the specified instance. If the title of a recurring meeting is edited, it is no longer considered as an instance of recurrence.
 
-Format: `edit_meeting INDEX [d/DATETIME] [t/TITLE] [l/LOCATION] [del_part P_INDEX]...`
+Format: `edit_meeting INDEX [d/DATETIME] [t/TITLE] [l/LOCATION] [del_part/ P_INDEX]...`
 
 Delete participants in a meeting with this format:  
 E.g.  
@@ -258,16 +259,18 @@ Examples:
 
 #### Deleting a meeting: `delete_meeting`
 
-Deletes the specified item from the address book.
+Deletes the specified item (and its recurrernces) from the address book.
 
-Format: `delete_meeting INDEX`
+Format: `delete_meeting INDEX [rec/RECURRING]`
 
 * Deletes the meeting at the specified `INDEX`.
 * The index refers to the index number shown in the displayed list.
 * The index **must be a positive integer** 1, 2, 3, …​
+* The recurring must be either `true` or `false`.
 
 Examples:
 * `delete_meeting 2` deletes the 2nd meeting in the meeting schedule.
+* `delete_meeting 2 rec/true` deletes the 2nd meeting and all its recurrences in the address book.
 * `find_meeting Shareholder` followed by `delete_meeting 1` deletes the 1st contact in the results of the `find` command.
 
 #### Adding a participant into a meeting: `add_part`
@@ -335,7 +338,7 @@ Action | Format, Examples
 **Exit** | `exit`
 ***Contacts*** |
 **Add** | `add_contact n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS c/COMPANY [r/COMPANY_ROLE] [t/TAG]…` <br> e.g., `add_contact n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd a/XYZ Company r/manager t/friend` 
-**Delete** | `delete_contact INDEX`<br> e.g., `delete_contact 3`
+**Delete** | `delete_contact INDEX` <br> e.g., `delete_contact 3`
 **Edit** | `edit_contact INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [c/COMPANY] [r/COMPANY_ROLE] [t/TAG]…`<br> e.g.,`edit_contact 2 n/James Lee e/jameslee@example.com`
 **Find** | `find_contact KEYWORD [MORE_KEYWORDS]`<br> e.g., `find_contact James Jake`
 **List** | `list_contact`
@@ -343,7 +346,7 @@ Action | Format, Examples
 ***Meetings*** |
 **Add** |`add_meeting d/DATETIME dur/DURATION title/TITLE l/LOCATION [rec/RECURRENCE]` <br> e.g., `add_meeting d/31/12/20 1400 dur/01 00 title/xyz meeting l/John street, block 1, #01-01 rec/weekly`
 **Add Participant** |`add_part ci/[INDEX] mi/[INDEX]`<br> e.g., `add_part ci/1 mi/3`
-**Delete** | `delete_meeting INDEX`<br> e.g., `delete_meeting 5`
+**Delete** | `delete_meeting INDEX [rec/RECURRING]`<br> e.g., `delete_meeting 5 rec/true`
 **Edit** | `edit_meeting INDEX [d/DATETIME] [dur/DURATION] [t/TITLE] [l/LOCATION]`<br> e.g.,`edit_meeting 1 dur/01 30 l/COM2 LT17`
 **Find** | `find_meeting KEYWORD [MORE_KEYWORDS]`<br> e.g., `find_meeting recretary stakeholders`
 **List** | `list_meeting`

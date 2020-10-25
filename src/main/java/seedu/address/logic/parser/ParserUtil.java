@@ -194,6 +194,25 @@ public class ParserUtil {
         return Recurrence.ofNullable(trimmedRecur);
     }
 
+    /**
+     * Parses a {@code String flag} into a {@code boolean}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code flag} is invalid.
+     */
+    public static boolean parseBoolean(String flag) throws ParseException {
+        requireNonNull(flag);
+        String trimmedFlag = flag.toLowerCase().trim();
+        switch (trimmedFlag) {
+        case "true":
+            return true;
+        case "false":
+            return false;
+        default:
+            throw new ParseException("");
+        }
+    }
+
 
     /**
      * Parses a {@code String duration} into a {@code Duration}.
