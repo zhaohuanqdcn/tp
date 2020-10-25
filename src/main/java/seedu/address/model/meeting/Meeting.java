@@ -3,6 +3,7 @@ package seedu.address.model.meeting;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -26,31 +27,36 @@ public class Meeting {
     private final Duration duration;
     private final Location location;
     private final Set<Person> participants = new HashSet<>();
+    private final Recurrence recurrence;
 
     /**
-     * Create Meeting with Location.
+     * Create Meeting with Location and Recurrence.
      * Every field must be present and not null.
      */
-    public Meeting(Title title, Duration duration, DateTime dateTime, Location location, Set<Person> participants) {
-        requireAllNonNull(title, duration, dateTime, location, participants);
+    public Meeting(Title title, Duration duration, DateTime dateTime,
+                   Location location, Recurrence recurrence, Set<Person> participants) {
+        requireAllNonNull(title, duration, dateTime, location, participants, recurrence);
         this.title = title;
         this.duration = duration;
         this.dateTime = dateTime;
         this.location = location;
         this.participants.addAll(participants);
+        this.recurrence = recurrence;
     }
 
     /**
      * Create Meeting without Location.
      * Every field must be present and not null.
      */
-    public Meeting(Title title, Duration duration, DateTime dateTime, Set<Person> participants) {
+    public Meeting(Title title, Duration duration, DateTime dateTime,
+                   Recurrence recurrence, Set<Person> participants) {
         requireAllNonNull(title, duration, dateTime, participants);
         this.title = title;
         this.duration = duration;
         this.dateTime = dateTime;
         this.location = null;
         this.participants.addAll(participants);
+        this.recurrence = recurrence;
     }
 
     public Title getTitle() {
@@ -67,6 +73,42 @@ public class Meeting {
 
     public Location getLocation() {
         return location;
+    }
+
+    public Recurrence getRecurrence() {
+        return recurrence;
+    }
+
+    /**
+     * Get all recurrences as a list
+     */
+    public List<Meeting> getRecurrencesAsList() {
+        if (getRecurrence() == Recurrence.NONE) {
+            return Arrays.asList(this);
+        }
+        List<Meeting> recurrences = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            Meeting next =
+                    new Meeting(getTitle(), getDuration(),
+                            getDateTime().getNextOccurrence(getRecurrence(), i),
+                            getLocation(), getRecurrence(),
+                            Set.copyOf(getParticipants()));
+            recurrences.add(next);
+        }
+        return recurrences;
+    }
+
+    /**
+     * Returns true if both meetings have the same title and recurrence
+     */
+    public boolean isSameRecurringMeeting(Meeting otherMeeting) {
+        if (otherMeeting == this) {
+            return true;
+        }
+
+        return otherMeeting != null
+                && otherMeeting.getTitle().equals(getTitle())
+                && otherMeeting.getRecurrence() == getRecurrence();
     }
 
     /**
@@ -126,13 +168,14 @@ public class Meeting {
                 && otherMeeting.getDuration().equals(getDuration())
                 && otherMeeting.getDateTime().equals(getDateTime())
                 && otherMeeting.getLocation().equals(getLocation())
-                && otherMeeting.getParticipants().equals(getParticipants());
+                && otherMeeting.getParticipants().equals(getParticipants())
+                && otherMeeting.getRecurrence() == getRecurrence();
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(title, dateTime, duration, location, participants);
+        return Objects.hash(title, dateTime, duration, location, recurrence, participants);
     }
 
     @Override
@@ -145,6 +188,8 @@ public class Meeting {
                 .append(getDuration())
                 .append(" Location: ")
                 .append(getLocation())
+                .append(" Recurrence: ")
+                .append(getRecurrence())
                 .append(" Participants: ");
         getParticipants().forEach(builder::append);
         return builder.toString();

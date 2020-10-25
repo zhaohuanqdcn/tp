@@ -16,6 +16,7 @@ import seedu.address.model.meeting.DateTime;
 import seedu.address.model.meeting.Duration;
 import seedu.address.model.meeting.Location;
 import seedu.address.model.meeting.Meeting;
+import seedu.address.model.meeting.Recurrence;
 import seedu.address.model.meeting.Title;
 import seedu.address.model.person.Person;
 
@@ -32,6 +33,7 @@ class JsonAdaptedMeeting {
     private final String duration;
     private final String dateTime;
     private final String location;
+    private final String recurrence;
     private final List<JsonAdaptedPerson> participants = new ArrayList<>();
 
     /**
@@ -39,13 +41,14 @@ class JsonAdaptedMeeting {
      */
     @JsonCreator
     public JsonAdaptedMeeting(@JsonProperty("title") String title, @JsonProperty("duration") String duration,
-            @JsonProperty("dateTime") String dateTime, @JsonProperty("company") String company,
-                    @JsonProperty("location") String location,
+            @JsonProperty("dateTime") String dateTime, @JsonProperty("location") String location,
+                    @JsonProperty("recurrence") String recurrence,
                             @JsonProperty("participants") List<JsonAdaptedPerson> participants) {
         this.title = title;
         this.duration = duration;
         this.dateTime = dateTime;
         this.location = location;
+        this.recurrence = recurrence;
         if (participants != null) {
             this.participants.addAll(participants);
         }
@@ -59,6 +62,7 @@ class JsonAdaptedMeeting {
         duration = source.getDuration().hours + " " + source.getDuration().minutes;
         dateTime = source.getDateTime().value.format(dateTimeFormat);
         location = source.getLocation().value;
+        recurrence = source.getRecurrence().toString();
         participants.addAll(source.getParticipants().stream()
                 .map(JsonAdaptedPerson::new)
                 .collect(Collectors.toList()));
@@ -120,8 +124,20 @@ class JsonAdaptedMeeting {
         }
         final Location modelLocation = new Location(location);
 
+        final Recurrence modelRecurrence;
+        if (recurrence == null) {
+            modelRecurrence = Recurrence.NONE;
+        } else {
+            if (!Recurrence.isValid(recurrence)) {
+                throw new IllegalValueException(Recurrence.MESSAGE_CONSTRAINTS);
+            } else {
+                modelRecurrence = Recurrence.ofNullable(recurrence);
+            }
+        }
+
+
         final Set<Person> modelParticipants = new HashSet<>(meetingParticipants);
-        return new Meeting(modelTitle, modelDuration, modelDateTime, modelLocation, modelParticipants);
+        return new Meeting(modelTitle, modelDuration, modelDateTime, modelLocation, modelRecurrence, modelParticipants);
     }
 
 }

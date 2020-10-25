@@ -66,6 +66,17 @@ public interface Model {
     void deleteMeeting(Meeting target);
 
     /**
+     * Deletes all recurrences of the given meeting.
+     * The meeting must exist in the address book.
+     */
+    void deleteRecurringMeetings(Meeting target);
+
+    /**
+     * Sort all the existing meeting according to date and time.
+     */
+    void sortMeeting();
+
+    /**
      * Adds the given meeting.
      * {@code meeting} must not already exist in the address book.
      */
