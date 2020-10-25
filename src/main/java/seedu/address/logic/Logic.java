@@ -1,8 +1,10 @@
 package seedu.address.logic;
 
 import java.nio.file.Path;
+import java.util.UUID;
 
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -30,6 +32,9 @@ public interface Logic {
      * @see seedu.address.model.Model#getAddressBook()
      */
     ReadOnlyAddressBook getAddressBook();
+
+    /** Returns an unmodifiable view of the map of persons */
+    ObservableMap<UUID, Person> getPersonMap();
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();

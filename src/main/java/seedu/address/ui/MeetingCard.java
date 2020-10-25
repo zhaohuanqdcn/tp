@@ -1,13 +1,18 @@
 package seedu.address.ui;
 
 import java.util.Comparator;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 
+import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.meeting.Meeting;
+import seedu.address.model.person.Person;
 
 /**
  * An UI component that displays information of a {@code Meeting}.
@@ -44,7 +49,7 @@ public class MeetingCard extends UiPart<Region> {
     /**
      * Creates a {@code MeetingCard} with the given {@code Meeting} and index to display.
      */
-    public MeetingCard(Meeting meeting, int displayedIndex) {
+    public MeetingCard(ObservableMap<UUID, Person> persons, Meeting meeting, int displayedIndex) {
         super(FXML);
         this.meeting = meeting;
         id.setText(displayedIndex + ". ");
@@ -54,10 +59,23 @@ public class MeetingCard extends UiPart<Region> {
         loc.setText(meeting.getLocation().toString());
 
 
-        meeting.getParticipants().stream()
+//        meeting.getParticipants().stream()
+//                .sorted(Comparator.comparing(participant -> participant.getName().toString()))
+//                .forEach(participant -> participants.getChildren().add(new Label(participant.getName().toString())));
+
+        Set<Person> parts = this.getPersonParticipants(meeting.getParticipants(), persons);
+        parts.stream()
                 .sorted(Comparator.comparing(participant -> participant.getName().toString()))
                 .forEach(participant -> participants.getChildren().add(new Label(participant.getName().toString())));
 
+    }
+
+    public Set<Person> getPersonParticipants(Set<UUID> uuids, ObservableMap<UUID, Person> persons) {
+        Set<Person> participants = new HashSet<>();
+        for (UUID uuid : uuids) {
+            participants.add(persons.get(uuid));
+        }
+        return participants;
     }
 
     @Override

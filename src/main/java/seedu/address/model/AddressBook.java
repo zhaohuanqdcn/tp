@@ -3,14 +3,16 @@ package seedu.address.model;
 import static java.util.Objects.isNull;
 import static java.util.Objects.requireNonNull;
 
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.meeting.UniqueMeetingList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.person.UniquePersonMap;
 
 /**
  * Wraps all data at the address-book level
@@ -18,7 +20,8 @@ import seedu.address.model.person.UniquePersonList;
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
-    private final UniquePersonList persons;
+//    private final UniquePersonList persons;
+    private final UniquePersonMap persons;
     private final UniqueMeetingList meetings;
 
     /*
@@ -29,7 +32,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      *   among constructors.
      */
     {
-        persons = new UniquePersonList();
+        persons = new UniquePersonMap();
         meetings = new UniqueMeetingList();
     }
 
@@ -49,7 +52,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Replaces the contents of the person list with {@code persons}.
      * {@code persons} must not contain duplicate persons.
      */
-    public void setPersons(List<Person> persons) {
+    public void setPersons(Map<UUID, Person> persons) {
         this.persons.setPersons(persons);
     }
 
@@ -67,7 +70,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
-        setPersons(newData.getPersonList());
+        setPersons(newData.getPersonMap());
         setMeetings(newData.getMeetingList());
     }
 
@@ -152,14 +155,18 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons\n"
+        return persons.asUnmodifiableObservableMap().size() + " persons\n"
                 + meetings.asUnmodifiableObservableList().size() + " meetings";
         // TODO: refine later
     }
 
+    public ObservableMap<UUID, Person> getPersonMap() {
+        return persons.asUnmodifiableObservableMap();
+    }
+
     @Override
     public ObservableList<Person> getPersonList() {
-        return persons.asUnmodifiableObservableList();
+        return FXCollections.observableArrayList(getPersonMap().values());
     }
 
     @Override

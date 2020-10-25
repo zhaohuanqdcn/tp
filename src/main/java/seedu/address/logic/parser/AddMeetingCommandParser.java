@@ -8,6 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
 import java.util.Collections;
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddMeetingCommand;
@@ -17,7 +18,6 @@ import seedu.address.model.meeting.Duration;
 import seedu.address.model.meeting.Location;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.meeting.Title;
-import seedu.address.model.person.Person;
 
 public class AddMeetingCommandParser implements Parser<AddMeetingCommand> {
 
@@ -39,7 +39,7 @@ public class AddMeetingCommandParser implements Parser<AddMeetingCommand> {
         DateTime dateTime = ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_DATETIME).get());
         Duration duration = ParserUtil.parseDuration(argMultimap.getValue(PREFIX_DURATION).get());
         Location location = ParserUtil.parseLocation(argMultimap.getValue(PREFIX_LOCATION).get());
-        Set<Person> participantList = Collections.emptySet();
+        Set<UUID> participantList = Collections.emptySet();
 
         Meeting meeting = new Meeting(title, duration, dateTime, location, participantList);
 

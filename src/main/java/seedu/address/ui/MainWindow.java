@@ -1,7 +1,9 @@
 package seedu.address.ui;
 
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -115,9 +117,10 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+//        personListPanel = new PersonListPanel(FXCollections.observableArrayList(logic.getPersonMap().values())));
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
-        meetingListPanel = new MeetingListPanel(logic.getFilteredMeetingList());
+        meetingListPanel = new MeetingListPanel(logic);
         meetingListPanelPlaceholder.getChildren().add(meetingListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();

@@ -41,6 +41,23 @@ public class Person {
         this.companyRoles.addAll(companyRoles);
     }
 
+    /**
+     * Every field must be present and not null.
+     * Use when UUID is known and needs to keep the same e.g. in edit-related commands
+     */
+    public Person(UUID uuid, Name name, Phone phone, Email email, Company company, Address address, Set<Tag> tags,
+                  Set<CompanyRole> companyRoles) {
+        requireAllNonNull(name, phone, email, company, address, tags, companyRoles);
+        this.uuid = uuid;
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.company = company;
+        this.address = address;
+        this.tags.addAll(tags);
+        this.companyRoles.addAll(companyRoles);
+    }
+
     public UUID getUuid() {
         return uuid;
     }

@@ -2,12 +2,7 @@ package seedu.address.model.meeting;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.person.Person;
@@ -25,13 +20,13 @@ public class Meeting {
     // Data fields
     private final Duration duration;
     private final Location location;
-    private final Set<Person> participants = new HashSet<>();
+    private final Set<UUID> participants = new HashSet<>();
 
     /**
      * Create Meeting with Location.
      * Every field must be present and not null.
      */
-    public Meeting(Title title, Duration duration, DateTime dateTime, Location location, Set<Person> participants) {
+    public Meeting(Title title, Duration duration, DateTime dateTime, Location location, Set<UUID> participants) {
         requireAllNonNull(title, duration, dateTime, location, participants);
         this.title = title;
         this.duration = duration;
@@ -44,7 +39,7 @@ public class Meeting {
      * Create Meeting without Location.
      * Every field must be present and not null.
      */
-    public Meeting(Title title, Duration duration, DateTime dateTime, Set<Person> participants) {
+    public Meeting(Title title, Duration duration, DateTime dateTime, Set<UUID> participants) {
         requireAllNonNull(title, duration, dateTime, participants);
         this.title = title;
         this.duration = duration;
@@ -73,7 +68,7 @@ public class Meeting {
      * Returns an immutable person set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
-    public Set<Person> getParticipants() {
+    public Set<UUID> getParticipants() {
         return Collections.unmodifiableSet(participants);
     }
 
@@ -92,7 +87,7 @@ public class Meeting {
     }
 
     public void addParticipant(Person person) {
-        this.participants.add(person);
+        this.participants.add(person.getUuid());
     }
 
     /**
@@ -100,10 +95,10 @@ public class Meeting {
      * @param index Index of the participant to be deleted.
      */
     public void delParticipant(Index index) {
-        List<Person> personList = new ArrayList<>(this.participants);
+        List<UUID> personList = new ArrayList<>(this.participants);
         int length = this.participants.size();
         assert length > index.getZeroBased() : "index is invalid";
-        Person personToDelete = personList.get(length - 1 - index.getZeroBased());
+        UUID personToDelete = personList.get(length - 1 - index.getZeroBased());
         this.participants.remove(personToDelete);
     }
 
