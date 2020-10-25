@@ -4,6 +4,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RECURRENCE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
 import java.util.Collections;
@@ -16,6 +17,7 @@ import seedu.address.model.meeting.DateTime;
 import seedu.address.model.meeting.Duration;
 import seedu.address.model.meeting.Location;
 import seedu.address.model.meeting.Meeting;
+import seedu.address.model.meeting.Recurrence;
 import seedu.address.model.meeting.Title;
 import seedu.address.model.person.Person;
 
@@ -28,7 +30,8 @@ public class AddMeetingCommandParser implements Parser<AddMeetingCommand> {
      */
     public AddMeetingCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_DATETIME, PREFIX_DURATION, PREFIX_TITLE, PREFIX_LOCATION);
+                ArgumentTokenizer.tokenize(args, PREFIX_DATETIME, PREFIX_DURATION,
+                        PREFIX_TITLE, PREFIX_LOCATION, PREFIX_RECURRENCE);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_DATETIME, PREFIX_DURATION, PREFIX_TITLE, PREFIX_LOCATION)
                 || !argMultimap.getPreamble().isEmpty()) {
@@ -40,9 +43,13 @@ public class AddMeetingCommandParser implements Parser<AddMeetingCommand> {
         Duration duration = ParserUtil.parseDuration(argMultimap.getValue(PREFIX_DURATION).get());
         Location location = ParserUtil.parseLocation(argMultimap.getValue(PREFIX_LOCATION).get());
         Set<Person> participantList = Collections.emptySet();
-
-        Meeting meeting = new Meeting(title, duration, dateTime, location, participantList);
-
+        Recurrence recurrence;
+        if (arePrefixesPresent(argMultimap, PREFIX_RECURRENCE)) {
+            recurrence = ParserUtil.parseRecurrence(argMultimap.getValue(PREFIX_RECURRENCE).get());
+        } else {
+            recurrence = Recurrence.NONE;
+        }
+        Meeting meeting = new Meeting(title, duration, dateTime, location, recurrence, participantList);
         return new AddMeetingCommand(meeting);
     }
 

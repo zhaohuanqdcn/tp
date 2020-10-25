@@ -22,6 +22,7 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.MeetingBuilder;
+import seedu.address.testutil.RecurringMeeting;
 
 class AddMeetingCommandTest {
 
@@ -40,6 +41,18 @@ class AddMeetingCommandTest {
 
         assertEquals(String.format(AddMeetingCommand.MESSAGE_SUCCESS, validMeeting), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validMeeting), modelStub.meetingsAdded);
+    }
+
+    @Test
+    public void execute_meetingWithRecurrence_addSuccessful() throws Exception {
+        AddMeetingCommandTest.ModelStubAcceptingMeetingAdded modelStub =
+                new AddMeetingCommandTest.ModelStubAcceptingMeetingAdded();
+        Meeting validMeeting = new MeetingBuilder().withRecurrence("daily").build();
+
+        CommandResult commandResult = new AddMeetingCommand(validMeeting).execute(modelStub);
+
+        assertEquals(String.format(AddMeetingCommand.MESSAGE_SUCCESS, validMeeting), commandResult.getFeedbackToUser());
+        assertEquals(RecurringMeeting.getRecurrencesAsList(validMeeting), modelStub.meetingsAdded);
     }
 
 

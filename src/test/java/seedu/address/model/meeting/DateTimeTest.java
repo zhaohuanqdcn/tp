@@ -22,6 +22,19 @@ public class DateTimeTest {
     }
 
     @Test
+    public void getNextRecurrence() {
+        DateTime dateTime = new DateTime("30/12/20 1500");
+        DateTime twoDaysLater = new DateTime("1/1/21 1500");
+        DateTime threeWeekLater = new DateTime("20/1/21 1500");
+        DateTime twoMonthLater = new DateTime("28/2/21 1500");
+        assertEquals(dateTime.getNextOccurrence(Recurrence.DAILY, 2), twoDaysLater);
+        assertEquals(dateTime.getNextOccurrence(Recurrence.WEEKLY, 3), threeWeekLater);
+        assertEquals(dateTime.getNextOccurrence(Recurrence.MONTHLY, 2), twoMonthLater);
+        assertEquals(dateTime.getNextOccurrence(Recurrence.MONTHLY, 0), dateTime);
+        assertEquals(dateTime.getNextOccurrence(Recurrence.NONE, 1000), dateTime);
+    }
+
+    @Test
     public void isValidDateTime() {
         // null dateTime
         assertThrows(NullPointerException.class, () -> DateTime.isValidDateTime(null));
