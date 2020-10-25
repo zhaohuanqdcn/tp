@@ -103,7 +103,8 @@ public class EditMeetingCommand extends Command {
         Recurrence updatedRecurrence = editMeetingDescriptor.getRecurrence().orElse(meetingToEdit.getRecurrence());
         Set<Person> updatedPersons = editMeetingDescriptor.getPersons().orElse(meetingToEdit.getParticipants());
 
-        return new Meeting(updatedTitle, updatedDuration, updatedDateTime, updatedLocation, updatedRecurrence, updatedPersons);
+        return new Meeting(updatedTitle, updatedDuration, updatedDateTime,
+                updatedLocation, updatedRecurrence, updatedPersons);
     }
 
     @Override

@@ -8,12 +8,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RECURRENCE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
+import java.util.Set;
+
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.meeting.Recurrence;
-
-import java.util.Set;
 
 public class AddMeetingCommand extends Command {
 

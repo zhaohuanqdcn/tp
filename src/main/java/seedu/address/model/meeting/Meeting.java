@@ -74,7 +74,9 @@ public class Meeting {
         return location;
     }
 
-    public Recurrence getRecurrence() { return recurrence;}
+    public Recurrence getRecurrence() {
+        return recurrence;
+    }
 
     /**
      * Returns an immutable person set, which throws {@code UnsupportedOperationException}

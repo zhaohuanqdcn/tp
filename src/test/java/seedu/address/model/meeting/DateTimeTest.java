@@ -1,5 +1,6 @@
 package seedu.address.model.meeting;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -17,6 +18,19 @@ public class DateTimeTest {
     public void constructor_invalidDateTime_throwsIllegalArgumentException() {
         String invalidDateTime = "1201";
         assertThrows(IllegalArgumentException.class, () -> new DateTime(invalidDateTime));
+    }
+
+    @Test
+    public void getNextRecurrence() {
+        DateTime dateTime = new DateTime("30/12/20 1500");
+        DateTime twoDaysLater = new DateTime("1/1/21 1500");
+        DateTime threeWeekLater = new DateTime("20/1/21 1500");
+        DateTime twoMonthLater = new DateTime("28/2/21 1500");
+        assertEquals(dateTime.getNextOccurrence(Recurrence.DAILY, 2), twoDaysLater);
+        assertEquals(dateTime.getNextOccurrence(Recurrence.WEEKLY, 3), threeWeekLater);
+        assertEquals(dateTime.getNextOccurrence(Recurrence.MONTHLY, 2), twoMonthLater);
+        assertEquals(dateTime.getNextOccurrence(Recurrence.MONTHLY, 0), dateTime);
+        assertEquals(dateTime.getNextOccurrence(Recurrence.NONE, 1000), dateTime);
     }
 
     @Test

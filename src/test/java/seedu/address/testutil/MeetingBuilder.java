@@ -7,6 +7,7 @@ import seedu.address.model.meeting.DateTime;
 import seedu.address.model.meeting.Duration;
 import seedu.address.model.meeting.Location;
 import seedu.address.model.meeting.Meeting;
+import seedu.address.model.meeting.Recurrence;
 import seedu.address.model.meeting.Title;
 import seedu.address.model.person.Person;
 import seedu.address.model.util.SampleDataUtil;
@@ -21,11 +22,13 @@ public class MeetingBuilder {
     public static final long DEFAULT_MINUTES = 30;
     public static final String DEFAULT_LOCATION = "123, Jurong West Ave 6, #08-111";
     public static final String DEFAULT_DATETIME = "12/2/12 1201";
+    public static final String DEFAULT_RECURRENCE = "";
 
     private Title title;
     private DateTime dateTime;
     private Duration duration;
     private Location location;
+    private Recurrence recurrence;
     private Set<Person> participants = new HashSet<>();
 
     /**
@@ -36,6 +39,7 @@ public class MeetingBuilder {
         duration = new Duration(DEFAULT_HOURS, DEFAULT_MINUTES);
         dateTime = new DateTime(DEFAULT_DATETIME);
         location = new Location(DEFAULT_LOCATION);
+        recurrence = Recurrence.ofNullable(DEFAULT_RECURRENCE);
         participants = new HashSet<>();
     }
 
@@ -47,6 +51,7 @@ public class MeetingBuilder {
         duration = meetingToCopy.getDuration();
         dateTime = meetingToCopy.getDateTime();
         location = meetingToCopy.getLocation();
+        recurrence = meetingToCopy.getRecurrence();
         participants = new HashSet<>(meetingToCopy.getParticipants());
     }
 
@@ -90,8 +95,16 @@ public class MeetingBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code DateTime} of the {@code Meeting} that we are building.
+     */
+    public MeetingBuilder withRecurrence(String recurrence) {
+        this.recurrence = Recurrence.ofNullable(recurrence);
+        return this;
+    }
+
     public Meeting build() {
-        return new Meeting(title, duration, dateTime, location, participants);
+        return new Meeting(title, duration, dateTime, location, recurrence, participants);
     }
 
 }
