@@ -1,5 +1,6 @@
 package seedu.address.model.meeting;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DATETIME_ROUNDTABLE;
@@ -11,6 +12,9 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalMeetings.DISCUSSION;
 import static seedu.address.testutil.TypicalMeetings.ROUNDTABLE;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.testutil.MeetingBuilder;
@@ -21,6 +25,29 @@ public class MeetingTest {
     public void asObservableList_modifyList_throwsUnsupportedOperationException() {
         Meeting meeting = new MeetingBuilder().build();
         assertThrows(UnsupportedOperationException.class, () -> meeting.getParticipants().remove(0));
+    }
+
+    @Test
+    public void getAllRecurrence() throws Exception {
+        List<Meeting> expectedList = new ArrayList<>();
+
+        Meeting singleMeeting = new MeetingBuilder().build(); // non-recurring meeting
+        expectedList.add(singleMeeting);
+        assertEquals(singleMeeting.getRecurrencesAsList(), expectedList);
+
+        Meeting dailyMeeting = new MeetingBuilder().withDateTime("30/12/20 1500").withRecurrence("daily").build();
+        Meeting day1 = new MeetingBuilder().withDateTime("30/12/20 1500").withRecurrence("daily").build();
+        Meeting day2 = new MeetingBuilder().withDateTime("31/12/20 1500").withRecurrence("daily").build();
+        Meeting day3 = new MeetingBuilder().withDateTime("1/1/21 1500").withRecurrence("daily").build();
+        Meeting day4 = new MeetingBuilder().withDateTime("2/1/21 1500").withRecurrence("daily").build();
+        Meeting day5 = new MeetingBuilder().withDateTime("3/1/21 1500").withRecurrence("daily").build();
+        expectedList = new ArrayList<>();
+        expectedList.add(day1);
+        expectedList.add(day2);
+        expectedList.add(day3);
+        expectedList.add(day4);
+        expectedList.add(day5);
+        assertEquals(dailyMeeting.getRecurrencesAsList(), expectedList);
     }
 
     @Test

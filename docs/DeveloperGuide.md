@@ -199,7 +199,7 @@ _{more aspects and alternatives to be added}_
 
 The delete meeting mechanism is facilitated by `DeleteMeetingCommand`. It extends `Command`.
 
--   `DeleteMeetingCommand#execute()` —  Deletes the meeting specified by an index.
+-   `DeleteMeetingCommand#execute()` —  Deletes the meeting (and possibly its recurrences) specified by an index.
 
 The flow of a usual delete meeting execution cycle has been illustrated above as an example in [**logic component**](#logic-component):
 
@@ -242,7 +242,7 @@ The given sequence diagram illustrates the flow of a usual find meeting executio
 
 *   Currently, DateTime finding is carried out using string matching. It would be more natural to match through DateTime comparison. This would make sure that different date formats like "November" and "Nov" both match the meeting.
 
-### list meeting feature
+### List meeting feature
 
 #### Implementation
 

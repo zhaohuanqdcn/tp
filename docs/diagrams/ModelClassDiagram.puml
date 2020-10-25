@@ -39,6 +39,7 @@ Class DateTime
 Class Duration
 Class Location
 Class Title
+Class Recurrence
 Class UniqueMeetingList
 }
 }
@@ -79,11 +80,12 @@ Meeting *--> Title
 Meeting *--> Location
 Meeting *--> DateTime
 Meeting *--> Duration
+Meeting *--> Recurrence
+DateTime -right-> Recurrence
 
-Title -[hidden]right-> DateTime
-DateTime -[hidden]right-> Duration
-Duration -[hidden]right-> Location
-Address -[hidden]right-> Email
+Title -[hidden]right-> Location
+Location -[hidden]right-> Duration
+Duration -[hidden]right-> DateTime
 
 Meeting *-left-> "*" Person
 
