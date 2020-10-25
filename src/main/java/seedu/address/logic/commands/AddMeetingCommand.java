@@ -8,12 +8,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RECURRENCE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
-import java.util.Set;
-
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.meeting.Meeting;
-import seedu.address.model.meeting.Recurrence;
 
 public class AddMeetingCommand extends Command {
 
@@ -55,22 +52,11 @@ public class AddMeetingCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_MEETING);
         }
 
-        if (toAdd.getRecurrence() == Recurrence.NONE) { // no recurrence
-            model.addMeeting(toAdd);
-            model.sortMeeting();
-            return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
-        } else {
-            for (int i = 0; i < 5; i++) {
-                Meeting next =
-                    new Meeting(toAdd.getTitle(), toAdd.getDuration(),
-                            toAdd.getDateTime().getNextOccurrence(toAdd.getRecurrence(), i),
-                            toAdd.getLocation(), toAdd.getRecurrence(),
-                            Set.copyOf(toAdd.getParticipants()));
-                model.addMeeting(next);
-            }
-            model.sortMeeting();
-            return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        for (Meeting meeting : toAdd.getRecurrencesAsList()) {
+            model.addMeeting(meeting);
         }
+        model.sortMeeting();
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
     @Override

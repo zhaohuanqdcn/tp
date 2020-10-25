@@ -22,7 +22,6 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.MeetingBuilder;
-import seedu.address.testutil.RecurringMeeting;
 
 class AddMeetingCommandTest {
 
@@ -32,7 +31,7 @@ class AddMeetingCommandTest {
     }
 
     @Test
-    public void execute_meetingAcceptedByModel_addSuccessful() throws Exception {
+    public void execute_meetingWithoutRecurrence_addSuccessful() throws Exception {
         AddMeetingCommandTest.ModelStubAcceptingMeetingAdded modelStub =
                 new AddMeetingCommandTest.ModelStubAcceptingMeetingAdded();
         Meeting validMeeting = new MeetingBuilder().build();
@@ -52,7 +51,7 @@ class AddMeetingCommandTest {
         CommandResult commandResult = new AddMeetingCommand(validMeeting).execute(modelStub);
 
         assertEquals(String.format(AddMeetingCommand.MESSAGE_SUCCESS, validMeeting), commandResult.getFeedbackToUser());
-        assertEquals(RecurringMeeting.getRecurrencesAsList(validMeeting), modelStub.meetingsAdded);
+        assertEquals(validMeeting.getRecurrencesAsList(), modelStub.meetingsAdded);
     }
 
 
@@ -142,6 +141,11 @@ class AddMeetingCommandTest {
 
         @Override
         public void deleteMeeting(Meeting target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteRecurringMeetings(Meeting target) {
             throw new AssertionError("This method should not be called.");
         }
 

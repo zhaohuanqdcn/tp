@@ -3,6 +3,7 @@ package seedu.address.model.meeting;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -76,6 +77,38 @@ public class Meeting {
 
     public Recurrence getRecurrence() {
         return recurrence;
+    }
+
+    /**
+     * Get all recurrences as a list
+     */
+    public List<Meeting> getRecurrencesAsList() {
+        if (getRecurrence() == Recurrence.NONE) {
+            return Arrays.asList(this);
+        }
+        List<Meeting> recurrences = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            Meeting next =
+                    new Meeting(getTitle(), getDuration(),
+                            getDateTime().getNextOccurrence(getRecurrence(), i),
+                            getLocation(), getRecurrence(),
+                            Set.copyOf(getParticipants()));
+            recurrences.add(next);
+        }
+        return recurrences;
+    }
+
+    /**
+     * Returns true if both meetings have the same title and recurrence
+     */
+    public boolean isSameRecurringMeeting(Meeting otherMeeting) {
+        if (otherMeeting == this) {
+            return true;
+        }
+
+        return otherMeeting != null
+                && otherMeeting.getTitle().equals(getTitle())
+                && otherMeeting.getRecurrence() == getRecurrence();
     }
 
     /**

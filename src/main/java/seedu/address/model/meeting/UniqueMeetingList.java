@@ -100,6 +100,15 @@ public class UniqueMeetingList implements Iterable<Meeting> {
         }
     }
 
+    /**
+     * Gets all recurrences of a meeting from the list.
+     * The meeting must exist in the list.
+     */
+    public List<Meeting> getRecurringMeetings(Meeting toRemove) {
+        requireNonNull(toRemove);
+        return internalList.filtered(toRemove::isSameRecurringMeeting);
+    }
+
     public void setMeetings(UniqueMeetingList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);

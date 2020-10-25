@@ -155,6 +155,22 @@ public class AddressBook implements ReadOnlyAddressBook {
         meetings.remove(key);
     }
 
+    /**
+     * Removes all recurrences of {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeRecurringMeetings(Meeting key) {
+        assert !isNull(key);
+        List<Meeting> toRemove = meetings.getRecurringMeetings(key);
+        for (Meeting meeting: toRemove) {
+            System.out.println(meeting.toString());
+        }
+        for (Meeting meeting: toRemove) {
+            System.out.println(meeting.toString());
+            meetings.remove(meeting);
+        }
+    }
+
     //// util methods
 
     @Override
