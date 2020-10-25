@@ -6,13 +6,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Region;
-import seedu.address.logic.commands.Command;
+import seedu.address.logic.CommandSession;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * The UI component that is responsible for receiving user command inputs.

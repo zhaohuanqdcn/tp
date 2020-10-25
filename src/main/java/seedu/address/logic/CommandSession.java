@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package seedu.address.logic;
 
 import java.util.ArrayList;
 import java.util.List;
