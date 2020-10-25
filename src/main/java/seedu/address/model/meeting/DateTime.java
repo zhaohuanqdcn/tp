@@ -53,6 +53,12 @@ public class DateTime {
         return isValidFormat;
     }
 
+    public String getDate() {
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("EEEE, d MMMM, uuuu");
+
+        return dateFormatter.format(value);
+    }
+
     public static DateTimeFormatter getDateInputFormat() {
         return dateInputFormat;
     }
@@ -95,4 +101,15 @@ public class DateTime {
         return value.hashCode();
     }
 
+    public String getStartTime() {
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mma");
+        return timeFormatter.format(value);
+    }
+
+    public String getEndTime(Duration duration) {
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mma");
+        return timeFormatter.format(value
+                .plusHours(duration.hours)
+                .plusMinutes(duration.minutes));
+    }
 }
