@@ -10,6 +10,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import seedu.address.model.meeting.exceptions.DuplicateMeetingException;
 import seedu.address.model.meeting.exceptions.MeetingNotFoundException;
 
@@ -104,7 +105,7 @@ public class UniqueMeetingList implements Iterable<Meeting> {
      * Gets all recurrences of a meeting from the list.
      * The meeting must exist in the list.
      */
-    public List<Meeting> getRecurringMeetings(Meeting toRemove) {
+    public FilteredList<Meeting> getRecurringMeetings(Meeting toRemove) {
         requireNonNull(toRemove);
         return internalList.filtered(toRemove::isSameRecurringMeeting);
     }
@@ -144,7 +145,7 @@ public class UniqueMeetingList implements Iterable<Meeting> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof UniqueMeetingList // instanceof handles nulls
-                        && internalList.equals(((UniqueMeetingList) other).internalList));
+                && internalList.equals(((UniqueMeetingList) other).internalList));
     }
 
     @Override

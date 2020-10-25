@@ -3,10 +3,12 @@ package seedu.address.model;
 import static java.util.Objects.isNull;
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.meeting.UniqueMeetingList;
 import seedu.address.model.person.Person;
@@ -161,14 +163,9 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removeRecurringMeetings(Meeting key) {
         assert !isNull(key);
-        List<Meeting> toRemove = meetings.getRecurringMeetings(key);
-        for (Meeting meeting: toRemove) {
-            System.out.println(meeting.toString());
-        }
-        for (Meeting meeting: toRemove) {
-            System.out.println(meeting.toString());
-            meetings.remove(meeting);
-        }
+        FilteredList<Meeting> toRemove = meetings.getRecurringMeetings(key);
+        List<Meeting> toRemoveObjects = new ArrayList<>(toRemove);
+        toRemoveObjects.forEach(meetings::remove);
     }
 
     //// util methods
