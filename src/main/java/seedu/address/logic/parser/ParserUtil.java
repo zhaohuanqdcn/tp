@@ -43,6 +43,19 @@ public class ParserUtil {
     }
 
     /**
+     * Parses {@code hours} in String into an integer and returns it. Leading and trailing whitespaces will be
+     * trimmed.
+     * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
+     */
+    public static int parseHour(String hours) throws ParseException {
+        String trimmedHour = hours.trim();
+        if (!StringUtil.isNonZeroUnsignedInteger(trimmedHour)) {
+            throw new ParseException(MESSAGE_INVALID_INDEX);
+        }
+        return Integer.parseInt(trimmedHour);
+    }
+
+    /**
      * Parses a {@code String name} into a {@code Name}.
      * Leading and trailing whitespaces will be trimmed.
      *
