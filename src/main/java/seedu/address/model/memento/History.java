@@ -1,32 +1,47 @@
 package seedu.address.model.memento;
 
-import java.util.ArrayList;
-import java.util.List;
+import seedu.address.logic.parser.AddressBookParser;
+
+import java.util.Stack;
 
 /**
- * The type History.
+ * History class that stores all the <code>RecretaryStates</code>.
+ * This can be viewed as the Caretaker in the Memento design pattern.
  */
 public class History {
-    private final List<RecretaryState> states = new ArrayList<>();
+    private final Stack<RecretaryState> states = new Stack<>();
 
     /**
-     * Push.
+     * Push a state into the history
      *
      * @param state the state
      */
     public void push(RecretaryState state) {
         assert state != null;
-        states.add(state);
+        if (!state.getCommand().stripLeading().startsWith("undo")) {
+            states.push(state);
+        }
     }
 
     /**
-     * Pop recretary state.
+     * Pop recretary state from history.
      *
-     * @return the recretary state
+     * @return the recretary state that is popped
      */
     public RecretaryState pop() {
-        RecretaryState ret = states.get(states.size() - 1);
-        states.remove(ret);
-        return ret;
+        assert !states.empty();
+        return states.pop();
+    }
+
+    /**
+     * Returns size of history stack
+     */
+    public int getSize() {
+        return states.size();
+    }
+
+    @Override
+    public String toString() {
+        return "HistoryStack{\n" + "state: " +  states + "\n}";
     }
 }

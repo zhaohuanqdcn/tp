@@ -18,7 +18,7 @@ import seedu.address.model.meeting.Meeting;
 
 class DeleteParticipantCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), stateManager, history);
 
     @Test
     public void execute_validIndex_success() {
@@ -28,7 +28,7 @@ class DeleteParticipantCommandTest {
 
         String expectedMessage = String.format(DeleteParticipantCommand.MESSAGE_SUCCESS, meeting);
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), stateManager, history);
 
         expectedModel.deleteMeeting(meeting);
         meeting.delParticipant(INDEX_FIRST_PERSON);

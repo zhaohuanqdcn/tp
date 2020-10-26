@@ -12,6 +12,8 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.meeting.Meeting;
+import seedu.address.model.memento.History;
+import seedu.address.model.memento.StateManager;
 import seedu.address.model.person.Person;
 
 /**
@@ -25,23 +27,28 @@ public class ModelManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Meeting> filteredMeetings;
 
+    private final StateManager stateManager;
+    private final History history;
+
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs, StateManager stateManager, History history) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(addressBook, userPrefs, stateManager, history);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
+        this.stateManager = stateManager;
+        this.history = history;
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredMeetings = new FilteredList<>(this.addressBook.getMeetingList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new AddressBook(), new UserPrefs(), new StateManager(), new History());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -72,6 +79,17 @@ public class ModelManager implements Model {
     public Path getAddressBookFilePath() {
         return userPrefs.getAddressBookFilePath();
     }
+
+    @Override
+    public StateManager getStateManager() {
+        return stateManager;
+    }
+
+    @Override
+    public History getHistory() {
+        return history;
+    }
+
 
     @Override
     public void setAddressBookFilePath(Path addressBookFilePath) {

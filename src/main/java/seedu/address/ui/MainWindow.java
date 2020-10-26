@@ -1,6 +1,8 @@
 package seedu.address.ui;
 
+import java.util.ArrayList;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import javafx.beans.binding.DoubleBinding;
 import javafx.event.ActionEvent;
@@ -20,6 +22,11 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.meeting.Meeting;
+import seedu.address.model.memento.History;
+import seedu.address.model.memento.RecretaryState;
+import seedu.address.model.memento.StateManager;
+import seedu.address.model.person.Person;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -34,6 +41,8 @@ public class MainWindow extends UiPart<Stage> {
     private final Stage primaryStage;
     private final Logic logic;
     private final CommandSession commandSession;
+    private final StateManager stateManager;
+    private final History history;
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
@@ -83,6 +92,10 @@ public class MainWindow extends UiPart<Stage> {
         helpWindow = new HelpWindow();
 
         commandSession = new CommandSession();
+
+        stateManager = logic.getStateManager();
+
+        history = logic.getHistory();
 
     }
 
@@ -212,6 +225,8 @@ public class MainWindow extends UiPart<Stage> {
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
+            saveCurrentState(commandText);
+
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
@@ -226,11 +241,36 @@ public class MainWindow extends UiPart<Stage> {
 
             commandSession.add(commandText);
 
+            history.push(stateManager.createState());
+
             return commandResult;
         } catch (CommandException | ParseException e) {
+
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+
+    private void saveCurrentState(String commandText) {
+        ArrayList<Person> personArrayList = new ArrayList<>();
+        logic
+                .getAddressBook()
+                .getPersonList()
+                .stream()
+                .map(Person::copy)
+                .forEach(personArrayList::add);
+        stateManager.setPersonList(personArrayList);
+
+        ArrayList<Meeting> meetingArrayList = new ArrayList<>();
+        logic
+                .getAddressBook()
+                .getMeetingList()
+                .stream()
+                .map(Meeting::copy)
+                .forEach(meetingArrayList::add);
+        stateManager.setMeetingList(meetingArrayList);
+
+        stateManager.setCommandState(commandText);
     }
 }

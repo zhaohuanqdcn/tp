@@ -13,7 +13,7 @@ import seedu.address.model.meeting.MeetingWithinDaysPredicate;
 
 public class RemindMeetingCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), stateManager, history);
 
     @Test
     public void equals() {

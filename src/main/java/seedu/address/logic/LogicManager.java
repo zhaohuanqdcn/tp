@@ -15,6 +15,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.meeting.Meeting;
+import seedu.address.model.memento.History;
+import seedu.address.model.memento.StateManager;
 import seedu.address.model.person.Person;
 import seedu.address.storage.Storage;
 
@@ -85,5 +87,14 @@ public class LogicManager implements Logic {
         model.setGuiSettings(guiSettings);
     }
 
+    @Override
+    public StateManager getStateManager() {
+        return model.getStateManager();
+    }
+
+    @Override
+    public History getHistory() {
+        return model.getHistory();
+    }
 
 }

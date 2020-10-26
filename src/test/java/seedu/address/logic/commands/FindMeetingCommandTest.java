@@ -23,8 +23,8 @@ import seedu.address.model.meeting.DataContainsKeywordsPredicate;
  * Contains integration tests (interaction with the Model) for {@code FindMeetingCommand}.
  */
 public class FindMeetingCommandTest {
-    private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private final Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), stateManager, history);
+    private final Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs(), stateManager, history);
 
     @Test
     public void equals() {
