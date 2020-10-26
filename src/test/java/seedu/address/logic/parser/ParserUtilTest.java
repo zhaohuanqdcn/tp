@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -28,6 +29,8 @@ public class ParserUtilTest {
     private static final String INVALID_TAG = "#friend";
 
     private static final String VALID_NAME = "Rachel Walker";
+    private static final String VALID_BOOLEAN_1 = "true";
+    private static final String VALID_BOOLEAN_2 = "false";
     private static final String VALID_PHONE = "123456";
     private static final String VALID_ADDRESS = "123 Main Street #0505";
     private static final String VALID_EMAIL = "rachel@example.com";
@@ -78,6 +81,24 @@ public class ParserUtilTest {
         Name expectedName = new Name(VALID_NAME);
         assertEquals(expectedName, ParserUtil.parseName(nameWithWhitespace));
     }
+
+    @Test
+    public void parseBoolean_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseBoolean((String) null));
+    }
+
+    @Test
+    public void parseBoolean_validValue_success() throws ParseException {
+        assertTrue(ParserUtil.parseBoolean(VALID_BOOLEAN_1));
+        assertFalse(ParserUtil.parseBoolean(VALID_BOOLEAN_2));
+    }
+
+    @Test
+    public void parseBoolean_invalidValue_throwParseException() throws ParseException {
+        assertThrows(ParseException.class, () -> ParserUtil.parseBoolean(VALID_NAME));
+        assertThrows(ParseException.class, () -> ParserUtil.parseBoolean(VALID_PHONE));
+    }
+
 
     @Test
     public void parsePhone_null_throwsNullPointerException() {

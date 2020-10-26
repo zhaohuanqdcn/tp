@@ -12,6 +12,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.meeting.DateTime;
 import seedu.address.model.meeting.Duration;
 import seedu.address.model.meeting.Location;
+import seedu.address.model.meeting.Recurrence;
 import seedu.address.model.meeting.Title;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Company;
@@ -39,6 +40,19 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
+    }
+
+    /**
+     * Parses {@code hours} in String into an integer and returns it. Leading and trailing whitespaces will be
+     * trimmed.
+     * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
+     */
+    public static int parseHour(String hours) throws ParseException {
+        String trimmedHour = hours.trim();
+        if (!StringUtil.isNonZeroUnsignedInteger(trimmedHour)) {
+            throw new ParseException(MESSAGE_INVALID_INDEX);
+        }
+        return Integer.parseInt(trimmedHour);
     }
 
     /**
@@ -175,6 +189,43 @@ public class ParserUtil {
         }
         return new DateTime(trimmedDate);
     }
+
+    /**
+     * Parses a {@code String recur} into a {@code Recurrence}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code recur} is invalid.
+     */
+    public static Recurrence parseRecurrence(String recur) throws ParseException {
+        if (recur == null) {
+            return Recurrence.NONE;
+        }
+        String trimmedRecur = recur.toLowerCase().trim();
+        if (!Recurrence.isValid(trimmedRecur)) {
+            throw new ParseException(Recurrence.MESSAGE_CONSTRAINTS);
+        }
+        return Recurrence.ofNullable(trimmedRecur);
+    }
+
+    /**
+     * Parses a {@code String flag} into a {@code boolean}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code flag} is invalid.
+     */
+    public static boolean parseBoolean(String flag) throws ParseException {
+        requireNonNull(flag);
+        String trimmedFlag = flag.toLowerCase().trim();
+        switch (trimmedFlag) {
+        case "true":
+            return true;
+        case "false":
+            return false;
+        default:
+            throw new ParseException("");
+        }
+    }
+
 
     /**
      * Parses a {@code String duration} into a {@code Duration}.

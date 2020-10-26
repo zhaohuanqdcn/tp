@@ -31,7 +31,7 @@ class AddMeetingCommandTest {
     }
 
     @Test
-    public void execute_meetingAcceptedByModel_addSuccessful() throws Exception {
+    public void execute_meetingWithoutRecurrence_addSuccessful() throws Exception {
         AddMeetingCommandTest.ModelStubAcceptingMeetingAdded modelStub =
                 new AddMeetingCommandTest.ModelStubAcceptingMeetingAdded();
         Meeting validMeeting = new MeetingBuilder().build();
@@ -40,6 +40,18 @@ class AddMeetingCommandTest {
 
         assertEquals(String.format(AddMeetingCommand.MESSAGE_SUCCESS, validMeeting), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validMeeting), modelStub.meetingsAdded);
+    }
+
+    @Test
+    public void execute_meetingWithRecurrence_addSuccessful() throws Exception {
+        AddMeetingCommandTest.ModelStubAcceptingMeetingAdded modelStub =
+                new AddMeetingCommandTest.ModelStubAcceptingMeetingAdded();
+        Meeting validMeeting = new MeetingBuilder().withRecurrence("daily").build();
+
+        CommandResult commandResult = new AddMeetingCommand(validMeeting).execute(modelStub);
+
+        assertEquals(String.format(AddMeetingCommand.MESSAGE_SUCCESS, validMeeting), commandResult.getFeedbackToUser());
+        assertEquals(validMeeting.getRecurrencesAsList(), modelStub.meetingsAdded);
     }
 
 
@@ -129,6 +141,11 @@ class AddMeetingCommandTest {
 
         @Override
         public void deleteMeeting(Meeting target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteRecurringMeetings(Meeting target) {
             throw new AssertionError("This method should not be called.");
         }
 

@@ -141,6 +141,11 @@ public class AddContactCommandTest {
         }
 
         @Override
+        public void deleteRecurringMeetings(Meeting target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void addMeeting(Meeting meeting) {
             throw new AssertionError("This method should not be called.");
         }

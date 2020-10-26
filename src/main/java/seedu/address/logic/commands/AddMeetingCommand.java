@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_PARTICIPANTS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RECURRENCE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -26,7 +27,8 @@ public class AddMeetingCommand extends Command {
             + PREFIX_TITLE + "v1.3 discussion "
             + PREFIX_DATETIME + "31/12/20 1400 "
             + PREFIX_DURATION + "1 30 "
-            + PREFIX_LOCATION + "Cool spot";
+            + PREFIX_LOCATION + "Cool spot"
+            + PREFIX_RECURRENCE + "weekly";
 
     public static final String MESSAGE_SUCCESS = "New meeting added: %1$s \n "
             + "Add participants by finding their name, and key in their index on the list";
@@ -50,7 +52,9 @@ public class AddMeetingCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_MEETING);
         }
 
-        model.addMeeting(toAdd);
+        for (Meeting meeting : toAdd.getRecurrencesAsList()) {
+            model.addMeeting(meeting);
+        }
         model.sortMeeting();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
