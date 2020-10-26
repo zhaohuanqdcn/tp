@@ -24,4 +24,6 @@ public class CliSyntax {
 
     public static final Prefix PREFIX_CONTACT_INDEX = new Prefix("ci/");
     public static final Prefix PREFIX_MEETING_INDEX = new Prefix("mi/");
+
+    public static final Prefix PREFIX_USER_PREFERENCE_INTERVAL = new Prefix("i/");
 }
