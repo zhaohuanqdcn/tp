@@ -26,7 +26,7 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final ObservableMap<UUID, Person> persons;
-    private final FilteredList<Person> filteredPersons;
+    private FilteredList<Person> filteredPersons;
     private final FilteredList<Meeting> filteredMeetings;
 
     /**
@@ -41,7 +41,6 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         this.persons = this.addressBook.getPersonMap();
-//        filteredPersons = new FilteredList<>(FXCollections.observableArrayList(this.persons.values()));
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredMeetings = new FilteredList<>(this.addressBook.getMeetingList());
     }
@@ -86,6 +85,11 @@ public class ModelManager implements Model {
     }
 
     //=========== AddressBook ================================================================================
+
+    @Override
+    public void refreshFilteredPersonList() {
+        filteredPersons = new FilteredList<>(FXCollections.observableArrayList(this.persons.values()));
+    }
 
     @Override
     public void setAddressBook(ReadOnlyAddressBook addressBook) {

@@ -117,7 +117,6 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-//        personListPanel = new PersonListPanel(FXCollections.observableArrayList(logic.getPersonMap().values())));
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         meetingListPanel = new MeetingListPanel(logic);

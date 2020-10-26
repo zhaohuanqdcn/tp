@@ -20,7 +20,7 @@ import seedu.address.model.person.UniquePersonMap;
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
-//    private final UniquePersonList persons;
+    private final UniquePersonList personList;
     private final UniquePersonMap persons;
     private final UniqueMeetingList meetings;
 
@@ -32,6 +32,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      *   among constructors.
      */
     {
+        personList = new UniquePersonList();
         persons = new UniquePersonMap();
         meetings = new UniqueMeetingList();
     }
@@ -54,6 +55,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setPersons(Map<UUID, Person> persons) {
         this.persons.setPersons(persons);
+        this.personList.setPersons(new ArrayList<>(persons.values()));
     }
 
     /**
@@ -90,6 +92,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addPerson(Person p) {
         persons.add(p);
+        personList.add(p);
     }
 
     /**
@@ -101,6 +104,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(editedPerson);
 
         persons.setPerson(target, editedPerson);
+        personList.setPerson(target, editedPerson);
     }
 
     /**
@@ -109,6 +113,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removePerson(Person key) {
         persons.remove(key);
+        personList.remove(key);
     }
 
     //// meeting-level operations
@@ -166,7 +171,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public ObservableList<Person> getPersonList() {
-        return FXCollections.observableArrayList(getPersonMap().values());
+       return personList.asUnmodifiableObservableList();
     }
 
     @Override

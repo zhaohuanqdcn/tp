@@ -27,12 +27,6 @@ public class MeetingListPanel extends UiPart<Region> {
     /**
      * Creates a {@code MeetingListPanel} with the given {@code ObservableList}.
      */
-//    public MeetingListPanel(ObservableList<Meeting> meetingList) {
-//        super(FXML);
-//        meetingListView.setItems(meetingList);
-//        meetingListView.setCellFactory(listView -> new MeetingListViewCell());
-//    }
-
     public MeetingListPanel(Logic logic) {
         super(FXML);
         meetingListView.setItems(logic.getFilteredMeetingList());
