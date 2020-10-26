@@ -25,8 +25,10 @@ import seedu.address.model.memento.StateManager;
  * Contains integration tests (interaction with the Model) for {@code FindMeetingCommand}.
  */
 public class FindMeetingCommandTest {
-    private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new StateManager(), new History());
-    private final Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new StateManager(), new History());
+    private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(),
+            new StateManager(), new History());
+    private final Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs(),
+            new StateManager(), new History());
 
     @Test
     public void equals() {

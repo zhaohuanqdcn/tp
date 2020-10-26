@@ -2,7 +2,13 @@ package seedu.address.model.meeting;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.person.Person;
@@ -189,6 +195,11 @@ public class Meeting {
         return builder.toString();
     }
 
+    /**
+     * Copy meeting deeply.
+     *
+     * @return the meeting
+     */
     public Meeting copy() {
         return new Meeting(title.copy(), duration.copy(), dateTime.copy(),
                 location.copy(), recurrence.copy(), Set.copyOf(participants));

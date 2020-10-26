@@ -24,8 +24,10 @@ public class ClearMeetingCommandTest {
 
     @Test
     public void execute_nonEmptyAddressBook_success() {
-        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new StateManager(), new History());
-        Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new StateManager(), new History());
+        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(),
+                new StateManager(), new History());
+        Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs(),
+                new StateManager(), new History());
         expectedModel.setAddressBook(new AddressBook());
 
         assertCommandSuccess(new ClearMeetingCommand(), model, ClearMeetingCommand.MESSAGE_SUCCESS, expectedModel);

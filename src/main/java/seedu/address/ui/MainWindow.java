@@ -2,7 +2,6 @@ package seedu.address.ui;
 
 import java.util.ArrayList;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 import javafx.beans.binding.DoubleBinding;
 import javafx.event.ActionEvent;
@@ -24,7 +23,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.memento.History;
-import seedu.address.model.memento.RecretaryState;
 import seedu.address.model.memento.StateManager;
 import seedu.address.model.person.Person;
 

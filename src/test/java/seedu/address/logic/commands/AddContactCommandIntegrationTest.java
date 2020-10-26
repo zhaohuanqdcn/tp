@@ -31,7 +31,8 @@ public class AddContactCommandIntegrationTest {
     public void execute_newPerson_success() {
         Person validPerson = new PersonBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), new StateManager(), new History());
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(),
+                new StateManager(), new History());
         expectedModel.addPerson(validPerson);
 
         assertCommandSuccess(new AddContactCommand(validPerson), model,

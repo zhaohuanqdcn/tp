@@ -7,7 +7,6 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.address.model.meeting.Meeting;
 import seedu.address.model.role.CompanyRole;
 import seedu.address.model.tag.Tag;
 
@@ -142,6 +141,11 @@ public class Person {
         return builder.toString();
     }
 
+    /**
+     * Copy person deeply.
+     *
+     * @return the person
+     */
     public Person copy() {
         return new Person(name.copy(), phone.copy(), email.copy(), company.copy(), address.copy(), Set.copyOf(tags),
                 Set.copyOf(companyRoles));

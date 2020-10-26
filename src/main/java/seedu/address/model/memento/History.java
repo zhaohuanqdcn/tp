@@ -1,7 +1,5 @@
 package seedu.address.model.memento;
 
-import seedu.address.logic.parser.AddressBookParser;
-
 import java.util.Stack;
 
 /**
@@ -42,6 +40,6 @@ public class History {
 
     @Override
     public String toString() {
-        return "HistoryStack{\n" + "state: " +  states + "\n}";
+        return "HistoryStack{\n" + "state: " + states + "\n}";
     }
 }
