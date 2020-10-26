@@ -28,6 +28,8 @@ import seedu.address.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_HOUR = "Hour is not a postive integer";
+    public static final String MESSAGE_INVALID_INTERVAL = "Interval is not a none negative integer";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -50,9 +52,22 @@ public class ParserUtil {
     public static int parseHour(String hours) throws ParseException {
         String trimmedHour = hours.trim();
         if (!StringUtil.isNonZeroUnsignedInteger(trimmedHour)) {
-            throw new ParseException(MESSAGE_INVALID_INDEX);
+            throw new ParseException(MESSAGE_INVALID_HOUR);
         }
         return Integer.parseInt(trimmedHour);
+    }
+
+    /**
+     * Parses {@code interval} in String into an integer and returns it. Leading and trailing whitespaces will be
+     * trimmed.
+     * @throws ParseException if the specified index is invalid (not none negative integer).
+     */
+    public static int parseInterval(String interval) throws ParseException {
+        String trimmedInterval = interval.trim();
+        if (!StringUtil.isNoneNegativeInteger(trimmedInterval)) {
+            throw new ParseException(MESSAGE_INVALID_INTERVAL);
+        }
+        return Integer.parseInt(trimmedInterval);
     }
 
     /**
