@@ -18,13 +18,15 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.meeting.DataContainsKeywordsPredicate;
+import seedu.address.model.memento.History;
+import seedu.address.model.memento.StateManager;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindMeetingCommand}.
  */
 public class FindMeetingCommandTest {
-    private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), stateManager, history);
-    private final Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs(), stateManager, history);
+    private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new StateManager(), new History());
+    private final Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new StateManager(), new History());
 
     @Test
     public void equals() {
