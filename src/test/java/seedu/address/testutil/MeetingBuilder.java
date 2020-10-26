@@ -2,13 +2,13 @@ package seedu.address.testutil;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 import seedu.address.model.meeting.DateTime;
 import seedu.address.model.meeting.Duration;
 import seedu.address.model.meeting.Location;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.meeting.Title;
-import seedu.address.model.person.Person;
 import seedu.address.model.util.SampleDataUtil;
 
 /**
@@ -26,7 +26,7 @@ public class MeetingBuilder {
     private DateTime dateTime;
     private Duration duration;
     private Location location;
-    private Set<Person> participants = new HashSet<>();
+    private Set<UUID> participants = new HashSet<>();
 
     /**
      * Creates a {@code MeetingBuilder} with the default details.
@@ -61,7 +61,7 @@ public class MeetingBuilder {
     /**
      * Parses the {@code participants} into a {@code Set<Tag>} and set it to the {@code Meeting} that we are building.
      */
-    public MeetingBuilder withParticipants(Person ... participants) {
+    public MeetingBuilder withParticipants(UUID ... participants) {
         this.participants = SampleDataUtil.getParticipantSet(participants);
         return this;
     }

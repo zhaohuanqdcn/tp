@@ -48,8 +48,6 @@ public interface Model {
      */
     void setAddressBookFilePath(Path addressBookFilePath);
 
-    void refreshFilteredPersonList();
-
     /**
      * Replaces address book data with the data in {@code addressBook}.
      */

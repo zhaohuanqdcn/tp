@@ -1,6 +1,10 @@
 package seedu.address.storage;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -36,11 +40,11 @@ class JsonAdaptedPerson {
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
      */
     @JsonCreator
-    public JsonAdaptedPerson(@JsonProperty("uuid") String uuid, @JsonProperty("name") String name, @JsonProperty("phone") String phone,
-            @JsonProperty("email") String email, @JsonProperty("company") String company,
-                    @JsonProperty("address") String address,
-                            @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
-                                     @JsonProperty("roles") List<JsonAdaptedCompanyRole> roles) {
+    public JsonAdaptedPerson(@JsonProperty("uuid") String uuid, @JsonProperty("name") String name,
+        @JsonProperty("phone") String phone, @JsonProperty("email") String email,
+            @JsonProperty("company") String company, @JsonProperty("address") String address,
+                @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
+                    @JsonProperty("roles") List<JsonAdaptedCompanyRole> roles) {
         this.uuid = uuid;
         this.name = name;
         this.phone = phone;
@@ -136,7 +140,8 @@ class JsonAdaptedPerson {
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
         final Set<CompanyRole> modelRoles = new HashSet<>(personCompanyRoles);
-        return new Person(modelUuid, modelName, modelPhone, modelEmail, modelCompany, modelAddress, modelTags, modelRoles);
+        return new Person(modelUuid, modelName, modelPhone, modelEmail,
+                modelCompany, modelAddress, modelTags, modelRoles);
     }
 
 }

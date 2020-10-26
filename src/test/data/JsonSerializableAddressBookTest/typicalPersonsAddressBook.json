@@ -1,6 +1,7 @@
 {
   "_comment": "AddressBook save file which contains the same Person values as in TypicalPersons#getTypicalAddressBook()",
   "persons" : [ {
+    "uuid": "d924efec-24a7-48eb-9b2d-0873a3d2a50a",
     "name" : "Alice Pauline",
     "phone" : "94351253",
     "email" : "alice@example.com",
@@ -9,6 +10,7 @@
     "tagged" : [ "friends" ],
     "roles" : [ "CEO" ]
   }, {
+    "uuid": "da9509e4-3fe0-4962-a3c6-42144251bc93",
     "name" : "Benson Meier",
     "phone" : "98765432",
     "email" : "johnd@example.com",
@@ -17,6 +19,7 @@
     "tagged" : [ "owesMoney", "friends" ],
     "roles" : [ "CEO" ]
   }, {
+    "uuid": "708acdf7-010b-40a6-95a8-dedc7a801c96",
     "name" : "Carl Kurz",
     "phone" : "95352563",
     "email" : "heinz@example.com",
@@ -25,6 +28,7 @@
     "tagged" : [ ],
     "roles" : []
   }, {
+    "uuid": "e2d76129-6dea-49e6-b5d0-6b510542325c",
     "name" : "Daniel Meier",
     "phone" : "87652533",
     "email" : "cornelia@example.com",
@@ -33,6 +37,7 @@
     "tagged" : [ "friends" ],
     "roles" : []
   }, {
+    "uuid": "be57d45d-1129-4e45-bd90-b9833b776566",
     "name" : "Elle Meyer",
     "phone" : "9482224",
     "email" : "werner@example.com",
@@ -41,6 +46,7 @@
     "tagged" : [ ],
     "roles" : []
   }, {
+    "uuid": "c816cca1-ab18-4439-a9b0-1da9e7657c8e",
     "name" : "Fiona Kunz",
     "phone" : "9482427",
     "email" : "lydia@example.com",
@@ -49,6 +55,7 @@
     "tagged" : [ ],
     "roles" : []
   }, {
+    "uuid": "11b1ef45-8170-4c06-8d8e-a87aceb69bc0",
     "name" : "George Best",
     "phone" : "9482442",
     "email" : "anna@example.com",

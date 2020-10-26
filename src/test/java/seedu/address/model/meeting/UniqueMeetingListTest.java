@@ -43,7 +43,7 @@ public class UniqueMeetingListTest {
     public void contains_meetingWithSameIdentityFieldsInList_returnsTrue() {
         uniqueMeetingList.add(DISCUSSION);
         Meeting editedDiscussion = new MeetingBuilder(DISCUSSION).withLocation(VALID_LOCATION_ROUNDTABLE)
-                .withParticipants(VALID_PARTICIPANT_ALICE).build();
+                .withParticipants(VALID_PARTICIPANT_ALICE.getUuid()).build();
         assertTrue(uniqueMeetingList.contains(editedDiscussion));
     }
 
@@ -86,7 +86,7 @@ public class UniqueMeetingListTest {
     public void setMeeting_editedMeetingHasSameIdentity_success() {
         uniqueMeetingList.add(DISCUSSION);
         Meeting editedDiscussion = new MeetingBuilder(DISCUSSION).withLocation(VALID_LOCATION_ROUNDTABLE)
-                .withParticipants(VALID_PARTICIPANT_ALICE).build();
+                .withParticipants(VALID_PARTICIPANT_ALICE.getUuid()).build();
         uniqueMeetingList.setMeeting(DISCUSSION, editedDiscussion);
         UniqueMeetingList expectedUniqueMeetingList = new UniqueMeetingList();
         expectedUniqueMeetingList.add(editedDiscussion);

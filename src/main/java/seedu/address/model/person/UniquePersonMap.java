@@ -3,10 +3,13 @@ package seedu.address.model.person;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
@@ -33,8 +36,7 @@ public class UniquePersonMap implements Iterable<Person> {
      */
     public boolean contains(Person toCheck) {
         requireNonNull(toCheck);
-//        return internalList.values().stream().anyMatch(toCheck::isSamePerson);
-        return internalMap.containsValue(toCheck);
+        return internalMap.values().stream().anyMatch(toCheck::isSamePerson);
     }
 
     /**
@@ -74,7 +76,7 @@ public class UniquePersonMap implements Iterable<Person> {
     public void remove(Person toRemove) {
         requireNonNull(toRemove);
 
-        internalMap.remove(toRemove.getUuid(), toRemove);
+        internalMap.remove(toRemove);
         if (!internalMap.containsValue(toRemove)) {
             throw new PersonNotFoundException();
         }

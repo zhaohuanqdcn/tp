@@ -3,9 +3,12 @@ package seedu.address.model;
 import static java.util.Objects.isNull;
 import static java.util.Objects.requireNonNull;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.UUID;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import seedu.address.model.meeting.Meeting;
@@ -56,6 +59,10 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void setPersons(Map<UUID, Person> persons) {
         this.persons.setPersons(persons);
         this.personList.setPersons(new ArrayList<>(persons.values()));
+    }
+
+    public void setPersonList(List<Person> persons) {
+        this.personList.setPersons(persons);
     }
 
     /**
@@ -171,7 +178,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public ObservableList<Person> getPersonList() {
-       return personList.asUnmodifiableObservableList();
+        return personList.asUnmodifiableObservableList();
     }
 
     @Override
@@ -184,6 +191,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
                 && persons.equals(((AddressBook) other).persons)
+                && personList.equals(((AddressBook) other).personList)
                 && meetings.equals(((AddressBook) other).meetings));
     }
 

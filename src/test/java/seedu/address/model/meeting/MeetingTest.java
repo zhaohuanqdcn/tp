@@ -42,7 +42,7 @@ public class MeetingTest {
         // same title, same dateTime, different attributes -> returns true
         editedDiscussion = new MeetingBuilder(DISCUSSION).withDuration(VALID_DURATION_ROUNDTABLE)
                 .withLocation(VALID_LOCATION_ROUNDTABLE)
-                .withParticipants(VALID_PARTICIPANT_BOB).build();
+                .withParticipants(VALID_PARTICIPANT_BOB.getUuid()).build();
         assertTrue(DISCUSSION.isSameMeeting(editedDiscussion));
     }
 
@@ -81,7 +81,7 @@ public class MeetingTest {
         assertFalse(DISCUSSION.equals(editedDiscussion));
 
         // different participants -> returns false
-        editedDiscussion = new MeetingBuilder(DISCUSSION).withParticipants(VALID_PARTICIPANT_BOB).build();
+        editedDiscussion = new MeetingBuilder(DISCUSSION).withParticipants(VALID_PARTICIPANT_BOB.getUuid()).build();
         assertFalse(DISCUSSION.equals(editedDiscussion));
     }
 }

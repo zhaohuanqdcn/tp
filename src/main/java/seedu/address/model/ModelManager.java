@@ -4,11 +4,10 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.util.*;
+import java.util.UUID;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.collections.transformation.FilteredList;
@@ -85,11 +84,6 @@ public class ModelManager implements Model {
     }
 
     //=========== AddressBook ================================================================================
-
-    @Override
-    public void refreshFilteredPersonList() {
-        filteredPersons = new FilteredList<>(FXCollections.observableArrayList(this.persons.values()));
-    }
 
     @Override
     public void setAddressBook(ReadOnlyAddressBook addressBook) {
@@ -197,6 +191,7 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
+                && persons.equals(other.persons)
                 && filteredPersons.equals(other.filteredPersons)
                 && filteredMeetings.equals(other.filteredMeetings);
     }

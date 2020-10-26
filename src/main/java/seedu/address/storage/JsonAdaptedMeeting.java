@@ -2,7 +2,11 @@ package seedu.address.storage;
 
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -14,7 +18,6 @@ import seedu.address.model.meeting.Duration;
 import seedu.address.model.meeting.Location;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.meeting.Title;
-import seedu.address.model.person.Person;
 
 /**
  * Jackson-friendly version of {@link Meeting}.
@@ -66,10 +69,6 @@ class JsonAdaptedMeeting {
      * @throws IllegalValueException if there were any data constraints violated in the adapted meeting.
      */
     public Meeting toModelType() throws IllegalValueException {
-//        final List<Person> meetingParticipants = new ArrayList<>();
-//        for (JsonAdaptedPerson person : participants) {
-//            meetingParticipants.add(person.toModelType());
-//        }
 
         if (title == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Title.class.getSimpleName()));

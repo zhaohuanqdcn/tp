@@ -1,10 +1,7 @@
 package seedu.address.ui;
 
-import java.util.UUID;
 import java.util.logging.Logger;
 
-import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -12,7 +9,6 @@ import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.model.meeting.Meeting;
-import seedu.address.model.person.Person;
 
 /**
  * Panel containing the list of meetings.
@@ -30,7 +26,7 @@ public class MeetingListPanel extends UiPart<Region> {
     public MeetingListPanel(Logic logic) {
         super(FXML);
         meetingListView.setItems(logic.getFilteredMeetingList());
-        meetingListView.setCellFactory(listView -> new MeetingListViewCell(logic.getPersonMap()));
+        meetingListView.setCellFactory(listView -> new MeetingListViewCell(logic));
     }
 
     /**
@@ -38,10 +34,10 @@ public class MeetingListPanel extends UiPart<Region> {
      */
     class MeetingListViewCell extends ListCell<Meeting> {
 
-        private final ObservableMap<UUID, Person> persons;
+        private final Logic logic;
 
-        public MeetingListViewCell(ObservableMap<UUID, Person> persons) {
-            this.persons = persons;
+        public MeetingListViewCell(Logic logic) {
+            this.logic = logic;
         }
         @Override
         protected void updateItem(Meeting meeting, boolean empty) {
@@ -51,7 +47,7 @@ public class MeetingListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new MeetingCard(persons, meeting, getIndex() + 1).getRoot());
+                setGraphic(new MeetingCard(logic, meeting, getIndex() + 1).getRoot());
             }
         }
     }
