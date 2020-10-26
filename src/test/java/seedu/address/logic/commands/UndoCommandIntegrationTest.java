@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 public class UndoCommandIntegrationTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new StateManager(), new History());
+    private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new StateManager(), new History());
 
     @Test
     void undo_singleCommand_previousState() throws CommandException {
@@ -42,7 +42,7 @@ public class UndoCommandIntegrationTest {
         CommandResult result = new UndoCommand().execute(model);
         assertEquals(String.format(UndoCommand.MESSAGE_UNDO_SUCCESS, "add") ,result.getFeedbackToUser());
 
-        person = new PersonBuilder().build();
+        person = new PersonBuilder().withEmail("abc@gmail.com").withName("Adi").build();
         new AddContactCommand(person).execute(model);
         model.getHistory().push(new RecretaryState("add2", new ArrayList<>(Collections.singletonList(person)), new ArrayList<>()));
 
