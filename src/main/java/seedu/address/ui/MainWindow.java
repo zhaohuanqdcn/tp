@@ -15,6 +15,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.CommandSession;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -30,8 +31,9 @@ public class MainWindow extends UiPart<Stage> {
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
-    private Stage primaryStage;
-    private Logic logic;
+    private final Stage primaryStage;
+    private final Logic logic;
+    private final CommandSession commandSession;
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
@@ -80,6 +82,7 @@ public class MainWindow extends UiPart<Stage> {
 
         helpWindow = new HelpWindow();
 
+        commandSession = new CommandSession();
 
     }
 
@@ -135,7 +138,6 @@ public class MainWindow extends UiPart<Stage> {
                 .subtract(commandBoxPlaceholder.heightProperty())
                 .subtract(160);
 
-
         meetingListPanel = new MeetingListPanel(logic.getFilteredMeetingList(), timelineHeight);
         meetingListPanelPlaceholder.getChildren().add(meetingListPanel.getRoot());
 
@@ -145,7 +147,7 @@ public class MainWindow extends UiPart<Stage> {
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand);
+        CommandBox commandBox = new CommandBox(this::executeCommand, commandSession);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         DoubleBinding halfScreenWidth = contentPanelPlaceholder.widthProperty().multiply(0.5);
@@ -221,6 +223,8 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isExit()) {
                 handleExit();
             }
+
+            commandSession.add(commandText);
 
             return commandResult;
         } catch (CommandException | ParseException e) {
