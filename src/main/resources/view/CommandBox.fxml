@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.StackPane?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<StackPane styleClass="stack-pane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-  <TextField fx:id="commandTextField" onAction="#handleCommandEntered" promptText="Enter command here..."/>
+<StackPane styleClass="command-box" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <TextField fx:id="commandTextField" onAction="#handleCommandEntered" promptText="Enter command here..." style=""/>
+    <Button fx:id="sendButton" alignment="TOP_LEFT" text="Send" StackPane.alignment="CENTER_RIGHT">
+        <StackPane.margin>
+            <Insets right="20.0"/>
+        </StackPane.margin>
+    </Button>
 </StackPane>
-

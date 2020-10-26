@@ -3,11 +3,14 @@ package seedu.address.model.meeting;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import seedu.address.model.meeting.exceptions.DuplicateMeetingException;
 import seedu.address.model.meeting.exceptions.MeetingNotFoundException;
 
@@ -51,6 +54,23 @@ public class UniqueMeetingList implements Iterable<Meeting> {
     }
 
     /**
+     * Sorts all meetings in the list according to Date and Time.
+     * Tie break by comparing meeting's title in chronological order.
+     */
+    public void sort() {
+        Comparator<Meeting> meetingComparator = (meetingOne, meetingTwo) -> {
+            LocalDateTime dateTimeOne = meetingOne.getDateTime().value;
+            LocalDateTime dateTimeTwo = meetingTwo.getDateTime().value;
+            if (dateTimeOne.equals(dateTimeTwo)) {
+                return meetingOne.getTitle().value.compareTo(meetingTwo.getTitle().value);
+            } else {
+                return dateTimeOne.compareTo(dateTimeTwo);
+            }
+        };
+        internalList.sort(meetingComparator);
+    }
+
+    /**
      * Replaces the meeting {@code target} in the list with {@code editedMeeting}.
      * {@code target} must exist in the list.
      * The meeting identity of {@code editedMeeting} must not be the same as another existing meeting in the list.
@@ -81,6 +101,15 @@ public class UniqueMeetingList implements Iterable<Meeting> {
         }
     }
 
+    /**
+     * Gets all recurrences of a meeting from the list.
+     * The meeting must exist in the list.
+     */
+    public FilteredList<Meeting> getRecurringMeetings(Meeting toRemove) {
+        requireNonNull(toRemove);
+        return internalList.filtered(toRemove::isSameRecurringMeeting);
+    }
+
     public void setMeetings(UniqueMeetingList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
@@ -106,6 +135,7 @@ public class UniqueMeetingList implements Iterable<Meeting> {
         return internalUnmodifiableList;
     }
 
+
     @Override
     public Iterator<Meeting> iterator() {
         return internalList.iterator();
@@ -115,7 +145,7 @@ public class UniqueMeetingList implements Iterable<Meeting> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof UniqueMeetingList // instanceof handles nulls
-                        && internalList.equals(((UniqueMeetingList) other).internalList));
+                && internalList.equals(((UniqueMeetingList) other).internalList));
     }
 
     @Override

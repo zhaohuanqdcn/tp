@@ -107,9 +107,19 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void deleteRecurringMeetings(Meeting target) {
+        addressBook.removeRecurringMeetings(target);
+    }
+
+    @Override
     public void addMeeting(Meeting meeting) {
         addressBook.addMeeting(meeting);
         updateFilteredMeetingList(PREDICATE_SHOW_ALL_MEETINGS);
+    }
+
+    @Override
+    public void sortMeeting() {
+        addressBook.sortMeeting();
     }
 
     @Override

@@ -11,6 +11,7 @@ import java.util.UUID;
 
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
+import javafx.collections.transformation.FilteredList;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.meeting.UniqueMeetingList;
 import seedu.address.model.person.Person;
@@ -143,6 +144,13 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Sorts all the existing meetings in the address book according to date and time.
+     */
+    public void sortMeeting() {
+        meetings.sort();
+    }
+
+    /**
      * Replaces the given meeting {@code target} in the list with {@code editedMeeting}.
      * {@code target} must exist in the address book.
      * The meeting identity of {@code editedMeeting} must not be the same as
@@ -161,6 +169,17 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void removeMeeting(Meeting key) {
         assert !isNull(key);
         meetings.remove(key);
+    }
+
+    /**
+     * Removes all recurrences of {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeRecurringMeetings(Meeting key) {
+        assert !isNull(key);
+        FilteredList<Meeting> toRemove = meetings.getRecurringMeetings(key);
+        List<Meeting> toRemoveObjects = new ArrayList<>(toRemove);
+        toRemoveObjects.forEach(meetings::remove);
     }
 
     //// util methods
