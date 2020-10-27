@@ -45,4 +45,7 @@ public enum Recurrence {
                 : "";
     }
 
+    public Recurrence copy() {
+        return this;
+    }
 }

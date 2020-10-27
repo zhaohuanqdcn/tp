@@ -141,4 +141,13 @@ public class Person {
         return builder.toString();
     }
 
+    /**
+     * Copy person deeply.
+     *
+     * @return the person
+     */
+    public Person copy() {
+        return new Person(name.copy(), phone.copy(), email.copy(), company.copy(), address.copy(), Set.copyOf(tags),
+                Set.copyOf(companyRoles));
+    }
 }

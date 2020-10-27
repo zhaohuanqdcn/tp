@@ -58,4 +58,7 @@ public class Title {
         return value.hashCode();
     }
 
+    public Title copy() {
+        return new Title(value);
+    }
 }

@@ -112,4 +112,8 @@ public class DateTime {
                 .plusHours(duration.hours)
                 .plusMinutes(duration.minutes));
     }
+
+    public DateTime copy() {
+        return new DateTime(value);
+    }
 }

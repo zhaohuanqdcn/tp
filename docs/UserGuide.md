@@ -24,6 +24,7 @@ Recretary is a **desktop app for managing contacts and meetings, optimized for u
         -   Clearing all entries: `clear_meeting`
     -   General
         -   Viewing help : `help`
+        -   Undo : `undo`
         -   Exiting the program : `exit`
 -   FAQ
 -   Command summary
@@ -308,7 +309,18 @@ Shows a message explaining how to access the help page.
 
 ![help message](images/helpMessage.png)
 
-Format: `help`
+#### Undo : `undo`
+
+Undoes the previous command or previous `n` commands based on the given index.
+
+
+<div markdown="block" class="alert alert-info">
+
+**:information_source: Notes about the undo command:**<br>
+`undo` command is purposefully left out of the history and is hence not undoable. This is because you can undo previous commands before the undo to prevent being stuck in an undo loop. 
+</div>
+
+Format: `undo [INDEX]`
 
 #### Exiting the program : `exit`
 

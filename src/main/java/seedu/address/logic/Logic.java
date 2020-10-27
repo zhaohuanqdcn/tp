@@ -9,6 +9,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.meeting.Meeting;
+import seedu.address.model.memento.History;
+import seedu.address.model.memento.StateManager;
 import seedu.address.model.person.Person;
 
 /**
@@ -51,4 +53,14 @@ public interface Logic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    /**
+     * Returns the state manager of the current app.
+     */
+    StateManager getStateManager();
+
+    /**
+     * Returns the history of states of the current app.
+     */
+    History getHistory();
 }

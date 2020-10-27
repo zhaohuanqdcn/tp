@@ -25,6 +25,7 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListContactCommand;
 import seedu.address.logic.commands.ListMeetingCommand;
 import seedu.address.logic.commands.RemindMeetingCommand;
+import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -107,7 +108,8 @@ public class AddressBookParser {
 
         case ClearMeetingCommand.COMMAND_WORD:
             return new ClearMeetingCommand();
-
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommandParser().parse(arguments);
         // Edit user preference command
         case EditUserPrefCommand.COMMAND_WORD:
             return new EditUserPrefCommandParser().parse(arguments);
