@@ -16,7 +16,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
-
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.meeting.Duration;
 import seedu.address.model.meeting.Meeting;

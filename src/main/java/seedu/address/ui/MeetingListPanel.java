@@ -1,13 +1,12 @@
 package seedu.address.ui;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 import java.util.logging.Logger;
 
+import javafx.beans.binding.DoubleBinding;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
-import java.time.LocalDateTime;
-
-import javafx.beans.binding.DoubleBinding;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
