@@ -2,12 +2,17 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.memento.RecretaryState;
+import seedu.address.model.person.Person;
 
 /**
  * Undoes a given number of commands which is 1 by default.
@@ -56,7 +61,12 @@ public class UndoCommand extends Command {
         toPrint.append(stateToRestore.getCommand());
 
         AddressBook ab = new AddressBook();
-        ab.setPersons(stateToRestore.getPersonList());
+
+        Map<UUID, Person> personMap = new HashMap<>();
+        for (Person person : stateToRestore.getPersonList()) {
+            personMap.put(person.getUuid(), person);
+        }
+        ab.setPersons(personMap);
         ab.setMeetings(stateToRestore.getMeetingList());
         model.setAddressBook(ab);
 

@@ -4,10 +4,12 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.UUID;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -24,7 +26,8 @@ public class ModelManager implements Model {
 
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
+    private final ObservableMap<UUID, Person> persons;
+    private FilteredList<Person> filteredPersons;
     private final FilteredList<Meeting> filteredMeetings;
 
     private final StateManager stateManager;
@@ -42,6 +45,8 @@ public class ModelManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
+
+        this.persons = this.addressBook.getPersonMap();
         this.stateManager = stateManager;
         this.history = history;
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
@@ -179,6 +184,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableMap<UUID, Person> getPersonMap() {
+        return persons;
+    }
+
+    @Override
     public ObservableList<Meeting> getFilteredMeetingList() {
         return filteredMeetings;
     }
@@ -193,6 +203,18 @@ public class ModelManager implements Model {
     public void updateFilteredMeetingList(Predicate<Meeting> predicate) {
         requireNonNull(predicate);
         filteredMeetings.setPredicate(predicate);
+    }
+
+    @Override
+    public void reattachDependentMeetings(Person editedPerson) {
+        for (Meeting meeting : getAddressBook().getMeetingList()) {
+            meeting.getParticipants()
+                    .forEach(uuid -> {
+                        if (uuid.equals(editedPerson.getUuid())) {
+                            setMeeting(meeting, meeting.copy());
+                        }
+                    });
+        }
     }
 
     @Override
@@ -211,6 +233,7 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
+                && persons.equals(other.persons)
                 && filteredPersons.equals(other.filteredPersons)
                 && filteredMeetings.equals(other.filteredMeetings);
     }

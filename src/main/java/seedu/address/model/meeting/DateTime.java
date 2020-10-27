@@ -48,7 +48,7 @@ public class DateTime {
                 isValidFormat = true;
             }
         } catch (DateTimeParseException e) {
-            e.printStackTrace();
+            throw e;
         }
         return isValidFormat;
     }

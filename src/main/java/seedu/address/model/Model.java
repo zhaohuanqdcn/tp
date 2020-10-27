@@ -1,9 +1,11 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.UUID;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.memento.History;
@@ -116,6 +118,9 @@ public interface Model {
      */
     void setPerson(Person target, Person editedPerson);
 
+    /** Returns an unmodified view of the person map */
+    ObservableMap<UUID, Person> getPersonMap();
+
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
 
@@ -134,6 +139,7 @@ public interface Model {
      */
     void updateFilteredMeetingList(Predicate<Meeting> predicate);
 
+    void reattachDependentMeetings(Person editedPerson);
     /**
      * Returns the state manager of the current app.
      */

@@ -2,6 +2,7 @@ package seedu.address.model.util;
 
 import java.util.Arrays;
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
@@ -75,7 +76,7 @@ public class SampleDataUtil {
     /**
      * Returns a persons set containing the list of persons given.
      */
-    public static Set<Person> getParticipantSet(Person... persons) {
+    public static Set<UUID> getParticipantSet(UUID... persons) {
         return Arrays.stream(persons)
                 .collect(Collectors.toSet());
     }

@@ -1,10 +1,12 @@
 package seedu.address.ui;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 import java.util.logging.Logger;
 
 import javafx.beans.binding.DoubleBinding;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
@@ -17,6 +19,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.shape.Rectangle;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.meeting.Meeting;
+import seedu.address.model.person.Person;
 
 /**
  * Panel containing the list of meetings.
@@ -38,10 +41,11 @@ public class MeetingListPanel extends UiPart<Region> {
     /**
      * Creates a {@code MeetingListPanel} with the given {@code ObservableList} and timeline height.
      */
-    public MeetingListPanel(ObservableList<Meeting> meetingList, DoubleBinding timelineHeight) {
+    public MeetingListPanel(ObservableList<Meeting> meetingList, ObservableMap<UUID, Person> personMap,
+                            DoubleBinding timelineHeight) {
         super(FXML);
         meetingListView.setItems(meetingList);
-        meetingListView.setCellFactory(listView -> new MeetingListViewCell());
+        meetingListView.setCellFactory(listView -> new MeetingListViewCell(personMap));
 
         timelineBar.heightProperty().bind(timelineHeight);
 
@@ -52,6 +56,12 @@ public class MeetingListPanel extends UiPart<Region> {
      * Custom {@code ListCell} that displays the graphics of a {@code Meeting} using a {@code MeetingCard}.
      */
     class MeetingListViewCell extends ListCell<Meeting> {
+
+        private final ObservableMap<UUID, Person> personMap;
+
+        public MeetingListViewCell(ObservableMap<UUID, Person> personMap) {
+            this.personMap = personMap;
+        }
         @Override
         protected void updateItem(Meeting meeting, boolean empty) {
             super.updateItem(meeting, empty);
@@ -95,7 +105,7 @@ public class MeetingListPanel extends UiPart<Region> {
                     logger.info("isScrollBarVisible? " + isScrollBarVisible);
                 }
 
-                setGraphic(new MeetingCard(meeting, getIndex() + 1,
+                setGraphic(new MeetingCard(personMap, meeting, getIndex() + 1,
                         isFirstInDay, indexOfNextEarliestMeeting + 1).getRoot());
             }
         }
