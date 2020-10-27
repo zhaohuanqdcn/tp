@@ -1,11 +1,15 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.UUID;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.meeting.Meeting;
+import seedu.address.model.memento.History;
+import seedu.address.model.memento.StateManager;
 import seedu.address.model.person.Person;
 
 /**
@@ -66,6 +70,17 @@ public interface Model {
     void deleteMeeting(Meeting target);
 
     /**
+     * Deletes all recurrences of the given meeting.
+     * The meeting must exist in the address book.
+     */
+    void deleteRecurringMeetings(Meeting target);
+
+    /**
+     * Sort all the existing meeting according to date and time.
+     */
+    void sortMeeting();
+
+    /**
      * Adds the given meeting.
      * {@code meeting} must not already exist in the address book.
      */
@@ -103,6 +118,9 @@ public interface Model {
      */
     void setPerson(Person target, Person editedPerson);
 
+    /** Returns an unmodified view of the person map */
+    ObservableMap<UUID, Person> getPersonMap();
+
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
 
@@ -120,4 +138,15 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredMeetingList(Predicate<Meeting> predicate);
+
+    void reattachDependentMeetings(Person editedPerson);
+    /**
+     * Returns the state manager of the current app.
+     */
+    StateManager getStateManager();
+
+    /**
+     * Returns the history of states of the current app.
+     */
+    History getHistory();
 }

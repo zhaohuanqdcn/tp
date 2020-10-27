@@ -21,7 +21,8 @@ public class Duration {
 
     /**
      * Constructs a {@code Duration}.
-     * @param hours The number of hours.
+     *
+     * @param hours   The number of hours.
      * @param minutes The number of minutes.
      */
     public Duration(long hours, long minutes) {
@@ -33,6 +34,7 @@ public class Duration {
 
     /**
      * Constructs a {@code Duration}.
+     *
      * @param duration string of hours and minutes in the form of HH mm.
      */
     public Duration(String duration) {
@@ -62,11 +64,14 @@ public class Duration {
 
     @Override
     public String toString() {
-        String temp = hours + "hours";
+        String temp = "";
+        if (hours != 0) {
+            temp = hours + "hrs";
+        }
         if (minutes == 0) {
             return temp;
         } else {
-            return temp + " " + minutes + "minutes";
+            return temp + " " + minutes + "mins";
         }
     }
 
@@ -82,4 +87,7 @@ public class Duration {
         return Objects.hash(hours, minutes);
     }
 
+    public Duration copy() {
+        return new Duration(hours, minutes);
+    }
 }

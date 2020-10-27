@@ -26,7 +26,8 @@ public class Company {
      * Returns true if a given string is a valid name.
      */
     public static boolean isValidCompany(String test) {
-        return test.trim().length() > 0;
+        int companyNameLength = test.trim().length();
+        return companyNameLength > 0 && companyNameLength <= 160;
     }
 
 
@@ -47,4 +48,7 @@ public class Company {
         return companyName.hashCode();
     }
 
+    public Company copy() {
+        return new Company(companyName);
+    }
 }

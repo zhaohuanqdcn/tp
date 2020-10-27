@@ -32,6 +32,11 @@ public class DateTime {
         value = LocalDateTime.parse(dateTime, dateInputFormat);
     }
 
+    private DateTime(LocalDateTime time) {
+        requireNonNull(time);
+        value = time;
+    }
+
     /**
      * Return true if string can be formatted to a LocalDateTime object
      */
@@ -43,12 +48,18 @@ public class DateTime {
                 isValidFormat = true;
             }
         } catch (DateTimeParseException e) {
-            e.printStackTrace();
+            throw e;
         }
         return isValidFormat;
     }
 
-    public DateTimeFormatter getDateInputFormat() {
+    public String getDate() {
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("EEEE, d MMMM, uuuu");
+
+        return dateFormatter.format(value);
+    }
+
+    public static DateTimeFormatter getDateInputFormat() {
         return dateInputFormat;
     }
 
@@ -58,6 +69,21 @@ public class DateTime {
 
     public LocalDateTime getValue() {
         return value;
+    }
+  
+    public DateTime getNextOccurrence(Recurrence recurrence, int index) {
+        assert index >= 0;
+        if (recurrence == Recurrence.NONE || index == 0) {
+            return this;
+        } else {
+            if (recurrence == Recurrence.DAILY) {
+                return new DateTime(value.plusDays(index));
+            } else if (recurrence == Recurrence.WEEKLY) {
+                return new DateTime(value.plusWeeks(index));
+            } else {
+                return new DateTime(value.plusMonths(index));
+            }
+        }
     }
 
     @Override
@@ -79,4 +105,19 @@ public class DateTime {
         return value.hashCode();
     }
 
+    public String getStartTime() {
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mma");
+        return timeFormatter.format(value);
+    }
+
+    public String getEndTime(Duration duration) {
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mma");
+        return timeFormatter.format(value
+                .plusHours(duration.hours)
+                .plusMinutes(duration.minutes));
+    }
+
+    public DateTime copy() {
+        return new DateTime(value);
+    }
 }

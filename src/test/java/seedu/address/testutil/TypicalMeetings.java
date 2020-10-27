@@ -20,13 +20,13 @@ public class TypicalMeetings {
             .withLocation("123, Jurong West Ave 6, #08-111")
             .withDateTime("12/2/12 1201")
             .withDuration(new Duration(1, 20))
-            .withParticipants(ALICE, BOB)
+            .withParticipants(ALICE.getUuid(), BOB.getUuid())
             .build();
     public static final Meeting ROUNDTABLE = new MeetingBuilder().withTitle("Benson Meier")
             .withLocation("311, Clementi Ave 2, #02-25")
             .withDateTime("12/1/12 1221")
             .withDuration(new Duration(1, 30))
-            .withParticipants(ALICE, BOB).build();
+            .withParticipants(ALICE.getUuid(), BOB.getUuid()).build();
 
     private TypicalMeetings() {} // prevents instantiation
 

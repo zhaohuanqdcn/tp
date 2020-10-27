@@ -27,6 +27,17 @@ public class DeleteMeetingCommandParserTest {
     }
 
     @Test
+    public void parse_validArgsWithValidRec_returnsDeleteCommand() {
+        assertParseSuccess(parser, "1 rec/true", new DeleteMeetingCommand(INDEX_FIRST_PERSON, true));
+    }
+
+    @Test
+    public void parse_validArgsWithInvalidRec_returnsDeleteCommand() {
+        assertParseFailure(parser, "1 rec/invalid", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                DeleteMeetingCommand.MESSAGE_USAGE));
+    }
+
+    @Test
     public void parse_invalidArgs_throwsParseException() {
         assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 DeleteMeetingCommand.MESSAGE_USAGE));

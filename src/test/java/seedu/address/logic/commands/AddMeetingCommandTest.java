@@ -9,17 +9,21 @@ import static seedu.address.testutil.Assert.assertThrows;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.UUID;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.meeting.Meeting;
+import seedu.address.model.memento.History;
+import seedu.address.model.memento.StateManager;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.MeetingBuilder;
 
@@ -31,7 +35,7 @@ class AddMeetingCommandTest {
     }
 
     @Test
-    public void execute_meetingAcceptedByModel_addSuccessful() throws Exception {
+    public void execute_meetingWithoutRecurrence_addSuccessful() throws Exception {
         AddMeetingCommandTest.ModelStubAcceptingMeetingAdded modelStub =
                 new AddMeetingCommandTest.ModelStubAcceptingMeetingAdded();
         Meeting validMeeting = new MeetingBuilder().build();
@@ -41,6 +45,20 @@ class AddMeetingCommandTest {
         assertEquals(String.format(AddMeetingCommand.MESSAGE_SUCCESS, validMeeting), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validMeeting), modelStub.meetingsAdded);
     }
+
+    @Test
+    public void execute_meetingWithRecurrence_addSuccessful() throws Exception {
+        AddMeetingCommandTest.ModelStubAcceptingMeetingAdded modelStub =
+                new AddMeetingCommandTest.ModelStubAcceptingMeetingAdded();
+        Meeting validMeeting = new MeetingBuilder().withRecurrence("daily").build();
+
+        CommandResult commandResult = new AddMeetingCommand(validMeeting).execute(modelStub);
+
+        assertEquals(String.format(AddMeetingCommand.MESSAGE_SUCCESS, validMeeting), commandResult.getFeedbackToUser());
+        assertEquals(validMeeting.getRecurrencesAsList(), modelStub.meetingsAdded);
+    }
+
+
 
     @Test
     void testEquals() {
@@ -101,6 +119,11 @@ class AddMeetingCommandTest {
         }
 
         @Override
+        public void reattachDependentMeetings(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void addPerson(Person person) {
             throw new AssertionError("This method should not be called.");
         }
@@ -108,6 +131,11 @@ class AddMeetingCommandTest {
         @Override
         public void setAddressBook(ReadOnlyAddressBook newData) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void sortMeeting() {
+            //do nothing because of stub
         }
 
         @Override
@@ -122,6 +150,11 @@ class AddMeetingCommandTest {
 
         @Override
         public void deleteMeeting(Meeting target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteRecurringMeetings(Meeting target) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -151,6 +184,11 @@ class AddMeetingCommandTest {
         }
 
         @Override
+        public ObservableMap<UUID, Person> getPersonMap() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Person> getFilteredPersonList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -167,6 +205,16 @@ class AddMeetingCommandTest {
 
         @Override
         public void updateFilteredMeetingList(Predicate<Meeting> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public StateManager getStateManager() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public History getHistory() {
             throw new AssertionError("This method should not be called.");
         }
     }

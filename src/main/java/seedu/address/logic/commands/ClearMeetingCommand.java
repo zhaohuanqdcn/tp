@@ -18,7 +18,7 @@ public class ClearMeetingCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         AddressBook ab = new AddressBook();
-        ab.setPersons(model.getFilteredPersonList());
+        ab.setPersons(model.getPersonMap());
         model.setAddressBook(ab);
         return new CommandResult(MESSAGE_SUCCESS);
     }

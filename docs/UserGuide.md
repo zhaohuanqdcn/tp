@@ -24,6 +24,7 @@ Recretary is a **desktop app for managing contacts and meetings, optimized for u
         -   Clearing all entries: `clear_meeting`
     -   General
         -   Viewing help : `help`
+        -   Undo : `undo`
         -   Exiting the program : `exit`
 -   FAQ
 -   Command summary
@@ -153,6 +154,7 @@ Format: `delete_contact INDEX`
 
 Examples:
 * `delete_contact 2` deletes the 2nd contact in the address book.
+
 * `find_contact Betsy` followed by `delete_contact 1` deletes the 1st contact in the results of the `find` command.
 
 #### Clearing all persons: `clear_contact`
@@ -168,7 +170,7 @@ Format: `clear_contact`
 
 Adds a meeting into the meeting schedule.
 
-Format: `add_meeting d/DATETIME dur/DURATION title/TITLE l/LOCATION`
+Format: `add_meeting d/DATETIME dur/DURATION title/TITLE l/LOCATION [rec/RECURRENCE]`
 
 <div markdown="block" class="alert alert-info">
 
@@ -183,6 +185,10 @@ Format: `add_meeting d/DATETIME dur/DURATION title/TITLE l/LOCATION`
     e.g. `dur/1 30`.
     
 -   The number of minutes in `DURATION` cannot exceed `59`.
+
+-   The field `RECURRENCE` can be one of `DAILY`, `WEEKLY` or `MONTHLY`.
+
+-   The number of recurrences added is by default 5, and can be edited in `UserPrefs`.
 
 </div>
 
@@ -206,9 +212,9 @@ Format: `list_meeting`
 
 #### Editing a meeting: `edit_meeting`
 
-Edits an existing meeting in the meeting schedule.
+Edits an existing meeting in the meeting schedule. The `RECURRENCE` field is not modifiable, and the edition of recurring meeting will only edit the specified instance. If the title of a recurring meeting is edited, it is no longer considered as an instance of recurrence.
 
-Format: `edit_meeting INDEX [d/DATETIME] [t/TITLE] [l/LOCATION] [del_part P_INDEX]...`
+Format: `edit_meeting INDEX [d/DATETIME] [t/TITLE] [l/LOCATION] [del_part/ P_INDEX]...`
 
 Delete participants in a meeting with this format:  
 E.g.  
@@ -254,16 +260,18 @@ Examples:
 
 #### Deleting a meeting: `delete_meeting`
 
-Deletes the specified item from the address book.
+Deletes the specified item (and its recurrernces) from the address book.
 
-Format: `delete_meeting INDEX`
+Format: `delete_meeting INDEX [rec/RECURRING]`
 
 * Deletes the meeting at the specified `INDEX`.
 * The index refers to the index number shown in the displayed list.
 * The index **must be a positive integer** 1, 2, 3, …​
+* The recurring must be either `true` or `false`.
 
 Examples:
 * `delete_meeting 2` deletes the 2nd meeting in the meeting schedule.
+* `delete_meeting 2 rec/true` deletes the 2nd meeting and all its recurrences in the address book.
 * `find_meeting Shareholder` followed by `delete_meeting 1` deletes the 1st contact in the results of the `find` command.
 
 #### Adding a participant into a meeting: `add_part`
@@ -301,7 +309,18 @@ Shows a message explaining how to access the help page.
 
 ![help message](images/helpMessage.png)
 
-Format: `help`
+#### Undo : `undo`
+
+Undoes the previous command or previous `n` commands based on the given index.
+
+
+<div markdown="block" class="alert alert-info">
+
+**:information_source: Notes about the undo command:**<br>
+`undo` command is purposefully left out of the history and is hence not undoable. This is because you can undo previous commands before the undo to prevent being stuck in an undo loop. 
+</div>
+
+Format: `undo [INDEX]`
 
 #### Exiting the program : `exit`
 
@@ -326,19 +345,20 @@ Recretary data are saved in the hard disk automatically after any command that c
 
 Action | Format, Examples
 --------|------------------
+***Generals*** |
 **Help** | `help`
 **Exit** | `exit`
-**Contacts**
+***Contacts*** |
 **Add** | `add_contact n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS c/COMPANY [r/COMPANY_ROLE] [t/TAG]…` <br> e.g., `add_contact n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd a/XYZ Company r/manager t/friend` 
-**Delete** | `delete_contact INDEX`<br> e.g., `delete_contact 3`
+**Delete** | `delete_contact INDEX` <br> e.g., `delete_contact 3`
 **Edit** | `edit_contact INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [c/COMPANY] [r/COMPANY_ROLE] [t/TAG]…`<br> e.g.,`edit_contact 2 n/James Lee e/jameslee@example.com`
 **Find** | `find_contact KEYWORD [MORE_KEYWORDS]`<br> e.g., `find_contact James Jake`
 **List** | `list_contact`
 **Clear** | `clear_contact`
-**Meetings**
-**Add** |`add_meeting d/DATETIME dur/DURATION title/TITLE l/LOCATION` <br> e.g., `add_meeting d/31/12/20 1400 dur/01 00 title/xyz meeting l/John street, block 1, #01-01`
+***Meetings*** |
+**Add** |`add_meeting d/DATETIME dur/DURATION title/TITLE l/LOCATION [rec/RECURRENCE]` <br> e.g., `add_meeting d/31/12/20 1400 dur/01 00 title/xyz meeting l/John street, block 1, #01-01 rec/weekly`
 **Add Participant** |`add_part ci/[INDEX] mi/[INDEX]`<br> e.g., `add_part ci/1 mi/3`
-**Delete** | `delete_meeting INDEX`<br> e.g., `delete_meeting 5`
+**Delete** | `delete_meeting INDEX [rec/RECURRING]`<br> e.g., `delete_meeting 5 rec/true`
 **Edit** | `edit_meeting INDEX [d/DATETIME] [dur/DURATION] [t/TITLE] [l/LOCATION]`<br> e.g.,`edit_meeting 1 dur/01 30 l/COM2 LT17`
 **Find** | `find_meeting KEYWORD [MORE_KEYWORDS]`<br> e.g., `find_meeting recretary stakeholders`
 **List** | `list_meeting`

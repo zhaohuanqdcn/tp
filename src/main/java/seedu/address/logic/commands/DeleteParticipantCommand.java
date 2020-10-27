@@ -55,6 +55,7 @@ public class DeleteParticipantCommand extends Command {
         model.deleteMeeting(meeting);
         meeting.delParticipant(participantIndex);
         model.addMeeting(meeting);
+        model.sortMeeting();
         return new CommandResult(String.format(MESSAGE_SUCCESS, meeting));
     }
 

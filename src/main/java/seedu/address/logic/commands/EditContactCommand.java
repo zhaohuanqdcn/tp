@@ -15,6 +15,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -88,6 +89,7 @@ public class EditContactCommand extends Command {
         }
 
         model.setPerson(personToEdit, editedPerson);
+        model.reattachDependentMeetings(editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
     }
@@ -99,6 +101,7 @@ public class EditContactCommand extends Command {
     private static Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
         assert personToEdit != null;
 
+        UUID uuid = personToEdit.getUuid();
         Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
@@ -108,7 +111,7 @@ public class EditContactCommand extends Command {
         Set<CompanyRole> updatedCompanyRoles = editPersonDescriptor.getCompanyRoles()
                 .orElse(personToEdit.getCompanyRoles());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedCompany, updatedAddress, updatedTags,
+        return new Person(uuid, updatedName, updatedPhone, updatedEmail, updatedCompany, updatedAddress, updatedTags,
                 updatedCompanyRoles);
     }
 
