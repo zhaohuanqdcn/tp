@@ -7,8 +7,7 @@ import seedu.address.model.Model;
 import seedu.address.model.meeting.MeetingWithinDaysPredicate;
 
 /**
- * Finds and lists all meetings in address book whose string data contains any of the argument keywords.
- * Keyword matching is case insensitive.
+ * Finds and lists all meetings whose time is within certain hours.
  */
 public class RemindMeetingCommand extends Command {
 
