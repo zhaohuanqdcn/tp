@@ -165,6 +165,11 @@ public class AddContactCommandTest {
         }
 
         @Override
+        public boolean hasConflict(Meeting meeting) {
+            return false;
+        }
+
+        @Override
         public void deletePerson(Person target) {
             throw new AssertionError("This method should not be called.");
         }
