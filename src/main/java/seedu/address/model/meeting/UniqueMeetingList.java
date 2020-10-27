@@ -58,6 +58,9 @@ public class UniqueMeetingList implements Iterable<Meeting> {
         internalList.add(toAdd);
     }
 
+    /**
+     * Checks whether a meeting conflicts with other meetings in the schedule.
+     */
     public boolean checkConflict(Meeting meeting, int interval) {
 
         LocalDate currentMeetingLocalDate = meeting.getDateTime().value.toLocalDate();
@@ -87,7 +90,7 @@ public class UniqueMeetingList implements Iterable<Meeting> {
     }
 
     private int convertLocalTimeToArrayIndex(LocalTime localTime) {
-        return localTime.getHour()*60 + localTime.getMinute();
+        return localTime.getHour() * 60 + localTime.getMinute();
     }
 
     private void fillArray(List<Pair<LocalTime, LocalTime>> pairList, boolean[] dayMinutesArray, int interval) {
@@ -97,20 +100,23 @@ public class UniqueMeetingList implements Iterable<Meeting> {
             int startIndex = convertLocalTimeToArrayIndex(start) - interval;
             int endIndex = convertLocalTimeToArrayIndex(end) + interval;
 
-            for(int i = startIndex; i <= endIndex; i++) {
+            for (int i = startIndex; i <= endIndex; i++) {
                 dayMinutesArray[i] = true;
             }
         }
 
     }
 
+    /**
+     * Checks whether a meeting's start and end time overlap with other meetings
+     */
     public boolean checkMeetingWithArray(boolean[] dayMinutesArray, Meeting meeting) {
         LocalTime start = meeting.getDateTime().value.toLocalTime();
         LocalTime end = start.plusMinutes(meeting.getDuration().hours * 60 + meeting.getDuration().minutes);
         int startIndex = convertLocalTimeToArrayIndex(start);
         int endIndex = convertLocalTimeToArrayIndex(end);
 
-        for(int i = startIndex; i <= endIndex; i++) {
+        for (int i = startIndex; i <= endIndex; i++) {
             if (dayMinutesArray[i]) {
                 return true;
             }
@@ -234,11 +240,14 @@ public class UniqueMeetingList implements Iterable<Meeting> {
     }
 
 
-    public static class Pair<T,R> {
+    public static class Pair<T, R> {
 
         private final T valueOne;
         private final R valueTwo;
 
+        /**
+         * Constructs a 2-tuple that holds any two value
+         */
         public Pair(T valueOne, R valueTwo) {
             requireNonNull(valueOne);
             requireNonNull(valueTwo);
@@ -246,18 +255,25 @@ public class UniqueMeetingList implements Iterable<Meeting> {
             this.valueTwo = valueTwo;
         }
 
-        public T getValueOne() { return valueOne; }
-        public R getValueTwo() { return valueTwo; }
+        public T getValueOne() {
+            return valueOne;
+        }
+
+        public R getValueTwo() {
+            return valueTwo;
+        }
 
         @Override
-        public int hashCode() { return valueOne.hashCode() ^ valueTwo.hashCode(); }
+        public int hashCode() {
+            return valueOne.hashCode() ^ valueTwo.hashCode();
+        }
 
         @Override
         public boolean equals(Object other) {
             return other == this // short circuit if same object
                     || (other instanceof Pair // instanceof handles nulls
-                    && valueOne.equals(((Pair<T, R>) other).getValueOne()) // state check
-                    && valueTwo.equals(((Pair<T, R>) other).getValueTwo()));
+                    && valueOne.equals(((Pair<?, ?>) other).getValueOne()) // state check
+                    && valueTwo.equals(((Pair<?, ?>) other).getValueTwo()));
         }
 
     }

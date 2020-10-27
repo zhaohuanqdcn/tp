@@ -54,7 +54,7 @@ public class AddMeetingCommand extends Command {
 
         // check if all recurrence meetings do not conflict with current schedule, then proceed to add them
         for (Meeting meeting : toAdd.getRecurrencesAsList()) {
-            if(model.hasConflict(meeting)) {
+            if (model.hasConflict(meeting)) {
                 throw new CommandException(MESSAGE_CONFLICT_MEETING);
             }
         }

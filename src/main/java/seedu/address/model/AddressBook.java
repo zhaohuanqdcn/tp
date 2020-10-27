@@ -130,6 +130,9 @@ public class AddressBook implements ReadOnlyAddressBook {
         return meetings.contains(meeting);
     }
 
+    /**
+     * Checks whether a meeting conflicts with other meetings in the schdule
+     */
     public boolean hasConflict(Meeting meeting, int interval) {
         requireNonNull(meeting);
         return meetings.checkConflict(meeting, interval);
