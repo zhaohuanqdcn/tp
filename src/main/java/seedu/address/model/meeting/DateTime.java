@@ -19,7 +19,7 @@ public class DateTime {
     private static DateTimeFormatter dateInputFormat = DateTimeFormatter.ofPattern("d/M/yy HHmm");
     private static DateTimeFormatter dateOutputFormat = DateTimeFormatter.ofPattern("dd MMM yyyy h.mma");
 
-    private final LocalDateTime value;
+    public final LocalDateTime value;
 
     /**
      * Constructs an {@code DateTime}.
