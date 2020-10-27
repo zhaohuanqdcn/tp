@@ -81,22 +81,4 @@ public class DateTimeTest {
 
         assertNotEquals(expected, actual.getDate());
     }
-
-    @Test
-    public void getStartTime_validTime_equal() {
-        String expected = "2:00pm";
-        DateTime actual = new DateTime("30/12/20 1400");
-
-        assertEquals(expected, actual.getStartTime());
-
-        expected = "1:00am";
-        actual = new DateTime("1/1/22 0100");
-
-        assertEquals(expected, actual.getStartTime());
-
-        expected = "11:30pm";
-        actual = new DateTime("1/1/22 2330");
-
-        assertEquals(expected, actual.getStartTime());
-    }
 }
