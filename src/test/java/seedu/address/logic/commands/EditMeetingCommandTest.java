@@ -14,12 +14,15 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.meeting.Meeting;
+import seedu.address.model.memento.History;
+import seedu.address.model.memento.StateManager;
 import seedu.address.testutil.EditMeetingDescriptorBuilder;
 import seedu.address.testutil.MeetingBuilder;
 import seedu.address.testutil.TypicalMeetings;
 
 class EditMeetingCommandTest {
-    private Model model = new ModelManager(TypicalMeetings.getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(TypicalMeetings.getTypicalAddressBook(), new UserPrefs(),
+            new StateManager(), new History());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
@@ -30,7 +33,8 @@ class EditMeetingCommandTest {
 
         String expectedMessage = String.format(EditMeetingCommand.MESSAGE_EDIT_MEETING_SUCCESS, editedMeeting);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(),
+                new StateManager(), new History());
         expectedModel.setMeeting(model.getFilteredMeetingList().get(0), editedMeeting);
         // model is sorted due to the underlying add_meeting command, therefore expectedModel also needs to be sorted
         expectedModel.sortMeeting();

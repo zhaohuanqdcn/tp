@@ -79,4 +79,7 @@ public class Duration {
         return Objects.hash(hours, minutes);
     }
 
+    public Duration copy() {
+        return new Duration(hours, minutes);
+    }
 }
