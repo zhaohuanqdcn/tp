@@ -21,18 +21,36 @@ Class Address
 Class Email
 Class Name
 Class Phone
+Class Company
 Class UniquePersonList
 }
 
 Package Tag {
 Class Tag
 }
+
+Package Role {
+Class CompanyRole
 }
+
+Package Meeting {
+Class Meeting
+Class DateTime
+Class Duration
+Class Location
+Class Title
+Class Recurrence
+Class UniqueMeetingList
+}
+}
+
+
+
 
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
-AddressBook .up.|> ReadOnlyAddressBook
+AddressBook .right.|> ReadOnlyAddressBook
 
 ModelManager .up.|> Model
 Model .right.> ObservableList
@@ -46,11 +64,31 @@ Person *--> Name
 Person *--> Phone
 Person *--> Email
 Person *--> Address
+Person *--> Company
 Person *--> "*" Tag
+Person *--> "*" CompanyRole
 
 Name -[hidden]right-> Phone
 Phone -[hidden]right-> Address
 Address -[hidden]right-> Email
 
 ModelManager -->"1" Person : filtered list
+
+AddressBook *--> "1" UniqueMeetingList
+UniqueMeetingList o--> "*" Meeting
+Meeting *--> Title
+Meeting *--> Location
+Meeting *--> DateTime
+Meeting *--> Duration
+Meeting *--> Recurrence
+DateTime -right-> Recurrence
+
+Title -[hidden]right-> Location
+Location -[hidden]right-> Duration
+Duration -[hidden]right-> DateTime
+
+Meeting *-left-> "*" Person
+
+ModelManager -->"1" Meeting : filtered list
+
 @enduml

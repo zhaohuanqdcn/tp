@@ -50,4 +50,7 @@ public class Phone {
         return value.hashCode();
     }
 
+    public Phone copy() {
+        return new Phone(value);
+    }
 }
