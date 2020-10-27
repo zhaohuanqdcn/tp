@@ -117,6 +117,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removePerson(Person key) {
         persons.remove(key);
+        System.out.println(persons.asUnmodifiableObservableMap());
         personList.remove(key);
     }
 
