@@ -145,6 +145,7 @@ public interface Model {
     void updateFilteredMeetingList(Predicate<Meeting> predicate);
 
     void reattachDependentMeetings(Person editedPerson);
+
     /**
      * Returns the state manager of the current app.
      */

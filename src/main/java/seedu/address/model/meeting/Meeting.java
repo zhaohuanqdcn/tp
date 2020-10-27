@@ -154,6 +154,16 @@ public class Meeting {
     }
 
     /**
+     * Delete a participant from the set based on the person's uuid.
+     * @param person whose uuid is contained in the set.
+     */
+    public void deleteParticipant(Person person) {
+        if (this.participants.contains(person.getUuid())) {
+            this.participants.remove(person.getUuid());
+        }
+    }
+
+    /**
      * Returns true if both meetings have the same identity and data fields.
      * This defines a stronger notion of equality between two meetings.
      */
