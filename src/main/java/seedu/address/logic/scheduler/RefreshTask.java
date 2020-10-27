@@ -7,30 +7,19 @@ import seedu.address.logic.Logic;
 import seedu.address.model.meeting.Meeting;
 
 public class RefreshTask extends ScheduledTask {
-    private final Meeting meeting;
-    private final Scheduler scheduler;
-    private final Logic logic;
-    private final String name;
 
-    /**
-     * constructor for Refresh Task
-     */
     public RefreshTask(Scheduler scheduler, Logic logic, String name) {
-        super();
-        this.scheduler = scheduler;
-        this.logic = logic;
-        this.meeting = this.logic.getFirstFutureMeeting();
-        this.name = name;
+        super(scheduler, logic, name);
     }
 
     @Override
     public Meeting getMeeting() {
-        return this.meeting;
+        return super.meeting;
     }
 
     @Override
     public LocalDateTime getTaskTime() {
-        return this.meeting.getDateTime().value;
+        return super.meeting.getDateTime().value;
     }
 
     @Override
