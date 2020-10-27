@@ -149,7 +149,7 @@ public class MainWindow extends UiPart<Stage> {
                 .subtract(commandBoxPlaceholder.heightProperty())
                 .subtract(160);
 
-        meetingListPanel = new MeetingListPanel(logic.getFilteredMeetingList(), timelineHeight);
+        meetingListPanel = new MeetingListPanel(logic.getFilteredMeetingList(), logic.getPersonMap(), timelineHeight);
         meetingListPanelPlaceholder.getChildren().add(meetingListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();

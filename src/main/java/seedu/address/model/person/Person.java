@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.UUID;
 
 import seedu.address.model.role.CompanyRole;
 import seedu.address.model.tag.Tag;
@@ -17,6 +18,7 @@ import seedu.address.model.tag.Tag;
 public class Person {
 
     // Identity fields
+    private final UUID uuid;
     private final Name name;
     private final Phone phone;
     private final Email email;
@@ -33,6 +35,7 @@ public class Person {
     public Person(Name name, Phone phone, Email email, Company company, Address address, Set<Tag> tags,
                   Set<CompanyRole> companyRoles) {
         requireAllNonNull(name, phone, email, company, address, tags, companyRoles);
+        this.uuid = UUID.randomUUID();
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -40,6 +43,27 @@ public class Person {
         this.address = address;
         this.tags.addAll(tags);
         this.companyRoles.addAll(companyRoles);
+    }
+
+    /**
+     * Every field must be present and not null.
+     * Use when UUID is known and needs to keep the same e.g. in edit-related commands
+     */
+    public Person(UUID uuid, Name name, Phone phone, Email email, Company company, Address address, Set<Tag> tags,
+                  Set<CompanyRole> companyRoles) {
+        requireAllNonNull(name, phone, email, company, address, tags, companyRoles);
+        this.uuid = uuid;
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.company = company;
+        this.address = address;
+        this.tags.addAll(tags);
+        this.companyRoles.addAll(companyRoles);
+    }
+
+    public UUID getUuid() {
+        return uuid;
     }
 
     public Name getName() {

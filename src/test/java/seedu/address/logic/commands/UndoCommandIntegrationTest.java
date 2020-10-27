@@ -27,7 +27,7 @@ public class UndoCommandIntegrationTest {
         Person person = new PersonBuilder().build();
         new AddContactCommand(person).execute(model);
         model.getHistory().push(new RecretaryState("add",
-                new ArrayList<>(Collections.singletonList(person)), new ArrayList<>()));
+             new ArrayList<>(Collections.singletonList(person)), new ArrayList<>()));
 
         CommandResult result = new UndoCommand().execute(model);
         assertEquals(String.format(UndoCommand.MESSAGE_UNDO_SUCCESS, "add"), result.getFeedbackToUser());
@@ -38,7 +38,7 @@ public class UndoCommandIntegrationTest {
         Person person = new PersonBuilder().build();
         new AddContactCommand(person).execute(model);
         model.getHistory().push(new RecretaryState("add",
-                new ArrayList<>(Collections.singletonList(person)), new ArrayList<>()));
+            new ArrayList<>(Collections.singletonList(person)), new ArrayList<>()));
 
         CommandResult result = new UndoCommand().execute(model);
         assertEquals(String.format(UndoCommand.MESSAGE_UNDO_SUCCESS, "add"), result.getFeedbackToUser());
@@ -46,7 +46,7 @@ public class UndoCommandIntegrationTest {
         person = new PersonBuilder().withEmail("abc@gmail.com").withName("Adi").build();
         new AddContactCommand(person).execute(model);
         model.getHistory().push(new RecretaryState("add2",
-                new ArrayList<>(Collections.singletonList(person)), new ArrayList<>()));
+            new ArrayList<>(Collections.singletonList(person)), new ArrayList<>()));
 
         result = new UndoCommand().execute(model);
         assertEquals(String.format(UndoCommand.MESSAGE_UNDO_SUCCESS, "add2"), result.getFeedbackToUser());

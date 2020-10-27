@@ -13,6 +13,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -25,7 +26,6 @@ import seedu.address.model.meeting.Location;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.meeting.Recurrence;
 import seedu.address.model.meeting.Title;
-import seedu.address.model.person.Person;
 
 /**
  * Edits the details of an existing meeting in Recretary.
@@ -110,8 +110,8 @@ public class EditMeetingCommand extends Command {
         DateTime updatedDateTime = editMeetingDescriptor.getDateTime().orElse(meetingToEdit.getDateTime());
         Duration updatedDuration = editMeetingDescriptor.getDuration().orElse(meetingToEdit.getDuration());
         Location updatedLocation = editMeetingDescriptor.getLocation().orElse(meetingToEdit.getLocation());
+        Set<UUID> updatedPersons = editMeetingDescriptor.getPersons().orElse(meetingToEdit.getParticipants());
         Recurrence updatedRecurrence = editMeetingDescriptor.getRecurrence().orElse(meetingToEdit.getRecurrence());
-        Set<Person> updatedPersons = editMeetingDescriptor.getPersons().orElse(meetingToEdit.getParticipants());
 
         return new Meeting(updatedTitle, updatedDuration, updatedDateTime,
                 updatedLocation, updatedRecurrence, updatedPersons);
@@ -144,7 +144,7 @@ public class EditMeetingCommand extends Command {
         private DateTime dateTime;
         private Duration duration;
         private Location location;
-        private Set<Person> persons;
+        private Set<UUID> persons;
         private Recurrence recurrence;
         private Model model;
 
@@ -218,7 +218,7 @@ public class EditMeetingCommand extends Command {
          * Sets {@code tags} to this object's {@code tags}.
          * A defensive copy of {@code tags} is used internally.
          */
-        public void setPersons(Set<Person> persons) {
+        public void setPersons(Set<UUID> persons) {
             this.persons = (persons != null) ? new HashSet<>(persons) : null;
         }
 
@@ -227,7 +227,7 @@ public class EditMeetingCommand extends Command {
          * if modification is attempted.
          * Returns {@code Optional#empty()} if {@code tags} is null.
          */
-        public Optional<Set<Person>> getPersons() {
+        public Optional<Set<UUID>> getPersons() {
             return (persons != null) ? Optional.of(Collections.unmodifiableSet(persons)) : Optional.empty();
         }
 

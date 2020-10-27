@@ -1,10 +1,11 @@
 package seedu.address.model.meeting;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
+
+import java.time.format.DateTimeParseException;
 
 import org.junit.jupiter.api.Test;
 
@@ -18,7 +19,7 @@ public class DateTimeTest {
     @Test
     public void constructor_invalidDateTime_throwsIllegalArgumentException() {
         String invalidDateTime = "1201";
-        assertThrows(IllegalArgumentException.class, () -> new DateTime(invalidDateTime));
+        assertThrows(DateTimeParseException.class, () -> new DateTime(invalidDateTime));
     }
 
     @Test
@@ -40,9 +41,12 @@ public class DateTimeTest {
         assertThrows(NullPointerException.class, () -> DateTime.isValidDateTime(null));
 
         // invalid dateTimes
-        assertFalse(DateTime.isValidDateTime("1/2/2 1111")); // year is not two digits
-        assertFalse(DateTime.isValidDateTime("112342325")); // does not follow format
-        assertFalse(DateTime.isValidDateTime("1/2/10 1160")); // does not follow format
+        assertThrows(DateTimeParseException.class, () ->
+                DateTime.isValidDateTime("1/2/2 1111")); // year is not two digits
+        assertThrows(DateTimeParseException.class, () ->
+                DateTime.isValidDateTime("112342325")); // does not follow format
+        assertThrows(DateTimeParseException.class, () ->
+                DateTime.isValidDateTime("1/2/10 1160")); // does not follow format
 
         // valid dateTimes
         assertTrue(DateTime.isValidDateTime("1/2/10 1300"));
@@ -76,23 +80,5 @@ public class DateTimeTest {
         actual = new DateTime("1/1/22 1400");
 
         assertNotEquals(expected, actual.getDate());
-    }
-
-    @Test
-    public void getStartTime_validTime_equal() {
-        String expected = "2:00PM";
-        DateTime actual = new DateTime("30/12/20 1400");
-
-        assertEquals(expected, actual.getStartTime());
-
-        expected = "1:00AM";
-        actual = new DateTime("1/1/22 0100");
-
-        assertEquals(expected, actual.getStartTime());
-
-        expected = "11:30PM";
-        actual = new DateTime("1/1/22 2330");
-
-        assertEquals(expected, actual.getStartTime());
     }
 }
