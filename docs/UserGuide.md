@@ -22,6 +22,7 @@ Recretary is a **desktop app for managing contacts and meetings, optimized for u
         -   Deleting a meeting: `delete_meeting`
         -   Adding a participant into a meeting: `add_part`
         -   Clearing all entries: `clear_meeting`
+        -  Exporting meetings in .ics format: `export_meeting`
     -   General
         -   Viewing help : `help`
         -   Undo : `undo`
@@ -300,6 +301,12 @@ Clears all meetings from the meeting schedule.
 
 Format: `clear_meeting`
 
+#### Exporting meetings in .ics format : `export_meeting`
+
+Exports all meetings as an iCalendar file that is compatible with other calendar apps such as Google Calendar. By default, the resulting file can be found in the `data` folder. Check the FAQ section to see how to change the save location.
+
+Format: `export_meeting`
+
 
 ### General
 
@@ -338,6 +345,10 @@ Recretary data are saved in the hard disk automatically after any command that c
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Recretary home folder.
+
+**Q**: Where is my Recretary data stored?<br>
+**A**: By default, a  `data` folder will be created in the same folder as the JAR file. After running the app for the first time, you can change the file path by editing preferences.json in the same folder directly. 
+
 
 ---
 
