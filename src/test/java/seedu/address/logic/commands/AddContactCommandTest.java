@@ -123,6 +123,11 @@ public class AddContactCommandTest {
         }
 
         @Override
+        public void sortMeeting() {
+            //do nothing because of stub
+        }
+
+        @Override
         public ReadOnlyAddressBook getAddressBook() {
             throw new AssertionError("This method should not be called.");
         }
@@ -134,6 +139,11 @@ public class AddContactCommandTest {
 
         @Override
         public void deleteMeeting(Meeting target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteRecurringMeetings(Meeting target) {
             throw new AssertionError("This method should not be called.");
         }
 

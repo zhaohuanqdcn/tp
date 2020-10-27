@@ -110,6 +110,27 @@ public class UniqueMeetingListTest {
     }
 
     @Test
+    public void sortMeeting_addMeetingDifferentOrderHasEffect_success() {
+        uniqueMeetingList.add(DISCUSSION);
+        uniqueMeetingList.add(ROUNDTABLE);
+        UniqueMeetingList expectedMeetingList = new UniqueMeetingList();
+        expectedMeetingList.add(ROUNDTABLE);
+        expectedMeetingList.add(DISCUSSION);
+        assertFalse(uniqueMeetingList.equals(expectedMeetingList));
+    }
+
+    @Test
+    public void sortMeeting_sortMeetingAfterAdd_success() {
+        uniqueMeetingList.add(DISCUSSION);
+        uniqueMeetingList.add(ROUNDTABLE);
+        UniqueMeetingList expectedMeetingList = new UniqueMeetingList();
+        expectedMeetingList.add(ROUNDTABLE);
+        expectedMeetingList.add(DISCUSSION);
+        uniqueMeetingList.sort();
+        expectedMeetingList.sort();
+        assertEquals(uniqueMeetingList, expectedMeetingList);
+    }
+
     public void remove_nullMeeting_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueMeetingList.remove(null));
     }
