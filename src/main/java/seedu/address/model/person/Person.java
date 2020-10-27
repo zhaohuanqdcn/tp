@@ -6,7 +6,9 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.UUID;
 
+import seedu.address.model.role.CompanyRole;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -16,24 +18,52 @@ import seedu.address.model.tag.Tag;
 public class Person {
 
     // Identity fields
+    private final UUID uuid;
     private final Name name;
     private final Phone phone;
     private final Email email;
 
     // Data fields
+    private final Company company;
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
+    private final Set<CompanyRole> companyRoles = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Person(Name name, Phone phone, Email email, Company company, Address address, Set<Tag> tags,
+                  Set<CompanyRole> companyRoles) {
+        requireAllNonNull(name, phone, email, company, address, tags, companyRoles);
+        this.uuid = UUID.randomUUID();
         this.name = name;
         this.phone = phone;
         this.email = email;
+        this.company = company;
         this.address = address;
         this.tags.addAll(tags);
+        this.companyRoles.addAll(companyRoles);
+    }
+
+    /**
+     * Every field must be present and not null.
+     * Use when UUID is known and needs to keep the same e.g. in edit-related commands
+     */
+    public Person(UUID uuid, Name name, Phone phone, Email email, Company company, Address address, Set<Tag> tags,
+                  Set<CompanyRole> companyRoles) {
+        requireAllNonNull(name, phone, email, company, address, tags, companyRoles);
+        this.uuid = uuid;
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.company = company;
+        this.address = address;
+        this.tags.addAll(tags);
+        this.companyRoles.addAll(companyRoles);
+    }
+
+    public UUID getUuid() {
+        return uuid;
     }
 
     public Name getName() {
@@ -52,12 +82,24 @@ public class Person {
         return address;
     }
 
+    public Company getCompany() {
+        return company;
+    }
+
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    /**
+     * Returns an immutable company role set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Set<CompanyRole> getCompanyRoles() {
+        return Collections.unmodifiableSet(companyRoles);
     }
 
     /**
@@ -93,13 +135,15 @@ public class Person {
                 && otherPerson.getPhone().equals(getPhone())
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())
-                && otherPerson.getTags().equals(getTags());
+                && otherPerson.getTags().equals(getTags())
+                && otherPerson.getCompany().equals(getCompany())
+                && otherPerson.getCompanyRoles().equals(getCompanyRoles());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, address, tags, company, companyRoles);
     }
 
     @Override
@@ -110,11 +154,24 @@ public class Person {
                 .append(getPhone())
                 .append(" Email: ")
                 .append(getEmail())
+                .append(" Company: ")
+                .append(getCompany())
                 .append(" Address: ")
                 .append(getAddress())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
+        builder.append(" Company roles: ");
+        getCompanyRoles().forEach(builder::append);
         return builder.toString();
     }
 
+    /**
+     * Copy person deeply.
+     *
+     * @return the person
+     */
+    public Person copy() {
+        return new Person(uuid, name.copy(), phone.copy(), email.copy(), company.copy(),
+                address.copy(), Set.copyOf(tags), Set.copyOf(companyRoles));
+    }
 }

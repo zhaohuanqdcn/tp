@@ -9,10 +9,17 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.meeting.DateTime;
+import seedu.address.model.meeting.Duration;
+import seedu.address.model.meeting.Location;
+import seedu.address.model.meeting.Recurrence;
+import seedu.address.model.meeting.Title;
 import seedu.address.model.person.Address;
+import seedu.address.model.person.Company;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.role.CompanyRole;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -21,6 +28,8 @@ import seedu.address.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_HOUR = "Hour is not a postive integer";
+    public static final String MESSAGE_INVALID_INTERVAL = "Interval is not a none negative integer";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -33,6 +42,32 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
+    }
+
+    /**
+     * Parses {@code hours} in String into an integer and returns it. Leading and trailing whitespaces will be
+     * trimmed.
+     * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
+     */
+    public static int parseHour(String hours) throws ParseException {
+        String trimmedHour = hours.trim();
+        if (!StringUtil.isNonZeroUnsignedInteger(trimmedHour)) {
+            throw new ParseException(MESSAGE_INVALID_HOUR);
+        }
+        return Integer.parseInt(trimmedHour);
+    }
+
+    /**
+     * Parses {@code interval} in String into an integer and returns it. Leading and trailing whitespaces will be
+     * trimmed.
+     * @throws ParseException if the specified index is invalid (not none negative integer).
+     */
+    public static int parseInterval(String interval) throws ParseException {
+        String trimmedInterval = interval.trim();
+        if (!StringUtil.isNoneNegativeInteger(trimmedInterval)) {
+            throw new ParseException(MESSAGE_INVALID_INTERVAL);
+        }
+        return Integer.parseInt(trimmedInterval);
     }
 
     /**
@@ -96,6 +131,21 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String company} into an {@code Company}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code String company} is invalid.
+     */
+    public static Company parseCompany(String company) throws ParseException {
+        requireNonNull(company);
+        String trimmedCompany = company.trim();
+        if (!Company.isValidCompany(trimmedCompany)) {
+            throw new ParseException(Company.MESSAGE_CONSTRAINTS);
+        }
+        return new Company(trimmedCompany);
+    }
+
+    /**
      * Parses a {@code String tag} into a {@code Tag}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -111,6 +161,128 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String title} into a {@code Title}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code title} is invalid.
+     */
+    public static Title parseTitle(String title) throws ParseException {
+        requireNonNull(title);
+        String trimmedTitle = title.trim();
+        if (!Title.isValidTitle(trimmedTitle)) {
+            throw new ParseException(Title.MESSAGE_CONSTRAINTS);
+        }
+        return new Title(trimmedTitle);
+    }
+
+    /**
+     * Parses a {@code String location} into a {@code Location}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code location} is invalid.
+     */
+    public static Location parseLocation(String location) throws ParseException {
+        requireNonNull(location);
+        String trimmedLocation = location.trim();
+        if (!Location.isValidLocation(trimmedLocation)) {
+            throw new ParseException(Location.MESSAGE_CONSTRAINTS);
+        }
+        return new Location(trimmedLocation);
+    }
+
+    /**
+     * Parses a {@code String dateTime} into a {@code DateTime}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code dateTime} is invalid.
+     */
+    public static DateTime parseDateTime(String dateTime) throws ParseException {
+        requireNonNull(dateTime);
+        String trimmedDate = dateTime.trim();
+        if (!DateTime.isValidDateTime(trimmedDate)) {
+            throw new ParseException(DateTime.MESSAGE_CONSTRAINTS);
+        }
+        return new DateTime(trimmedDate);
+    }
+
+    /**
+     * Parses a {@code String recur} into a {@code Recurrence}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code recur} is invalid.
+     */
+    public static Recurrence parseRecurrence(String recur) throws ParseException {
+        if (recur == null) {
+            return Recurrence.NONE;
+        }
+        String trimmedRecur = recur.toLowerCase().trim();
+        if (!Recurrence.isValid(trimmedRecur)) {
+            throw new ParseException(Recurrence.MESSAGE_CONSTRAINTS);
+        }
+        return Recurrence.ofNullable(trimmedRecur);
+    }
+
+    /**
+     * Parses a {@code String flag} into a {@code boolean}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code flag} is invalid.
+     */
+    public static boolean parseBoolean(String flag) throws ParseException {
+        requireNonNull(flag);
+        String trimmedFlag = flag.toLowerCase().trim();
+        switch (trimmedFlag) {
+        case "true":
+            return true;
+        case "false":
+            return false;
+        default:
+            throw new ParseException("");
+        }
+    }
+
+
+    /**
+     * Parses a {@code String duration} into a {@code Duration}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code duration} is invalid.
+     */
+    public static Duration parseDuration(String duration) throws ParseException {
+        requireNonNull(duration);
+        String trimmedDuration = duration.trim();
+        Long hour;
+        Long minutes;
+        try {
+            String[] dur = trimmedDuration.split(" ");
+            hour = Long.parseLong(dur[0]);
+            minutes = Long.parseLong(dur[1]);
+        } catch (Exception e) {
+            throw new ParseException(Duration.MESSAGE_CONSTRAINTS);
+        }
+        if (!Duration.isValidDuration(hour, minutes)) {
+            throw new ParseException(Duration.MESSAGE_CONSTRAINTS);
+        }
+
+        return new Duration(hour, minutes);
+    }
+
+    /**
+     * Parses a {@code String companyRole} into a {@code CompanyRole}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code companyRole} is invalid.
+     */
+    public static CompanyRole parseCompanyRole(String companyRole) throws ParseException {
+        requireNonNull(companyRole);
+        String trimmedCompanyRole = companyRole.trim();
+        if (!CompanyRole.isValidCompanyRoleName(trimmedCompanyRole)) {
+            throw new ParseException(CompanyRole.MESSAGE_CONSTRAINTS);
+        }
+        return new CompanyRole(trimmedCompanyRole);
+    }
+
+    /**
      * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
      */
     public static Set<Tag> parseTags(Collection<String> tags) throws ParseException {
@@ -121,4 +293,17 @@ public class ParserUtil {
         }
         return tagSet;
     }
+
+    /**
+     * Parses {@code Collection<String> companyRoles} into a {@code Set<CompanyRole>}.
+     */
+    public static Set<CompanyRole> parseCompanyRoles(Collection<String> companyRoles) throws ParseException {
+        requireNonNull(companyRoles);
+        final Set<CompanyRole> companyRoleSet = new HashSet<>();
+        for (String companyRoleName : companyRoles) {
+            companyRoleSet.add(parseCompanyRole(companyRoleName));
+        }
+        return companyRoleSet;
+    }
+
 }

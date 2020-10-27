@@ -1,0 +1,58 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant "e:EditMeetingCommand" as EditMeetingCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":AddressBook" as AddressBook MODEL_COLOR
+end box
+[-> LogicManager : execute(edit meeting)
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand(edit meeting)
+activate AddressBookParser
+
+create EditMeetingCommand
+AddressBookParser -> EditMeetingCommand
+activate EditMeetingCommand
+
+EditMeetingCommand --> AddressBookParser
+deactivate EditMeetingCommand
+
+AddressBookParser --> LogicManager : e
+deactivate AddressBookParser
+
+LogicManager -> EditMeetingCommand : execute()
+activate EditMeetingCommand
+
+EditMeetingCommand -> Model : getFilteredMeetingList()
+activate Model
+
+Model --> EditMeetingCommand
+deactivate Model
+
+EditMeetingCommand -> Model : setMeeting()
+activate Model
+
+Model -> AddressBook : setMeeting()
+activate AddressBook
+
+AddressBook --> Model :
+deactivate AddressBook
+
+Model --> EditMeetingCommand
+deactivate Model
+
+EditMeetingCommand --> LogicManager : result
+deactivate EditMeetingCommand
+EditMeetingCommand -[hidden]-> LogicManager : result
+destroy EditMeetingCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

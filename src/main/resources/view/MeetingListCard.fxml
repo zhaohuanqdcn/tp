@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+
+<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <GridPane HBox.hgrow="ALWAYS">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150"/>
+        </columnConstraints>
+        <HBox fx:id="meetingCell">
+            <VBox fx:id="timelineDetails" HBox.hgrow="NEVER" prefWidth="84">
+                <HBox alignment="BASELINE_RIGHT">
+                    <Label fx:id="startTime" styleClass="cell_time_label" text="\$datetime"/>
+                </HBox>
+                <HBox alignment="BASELINE_RIGHT">
+                    <Label fx:id="duration" alignment="CENTER_RIGHT" styleClass="cell_small_label" text="\$duration"
+                           textAlignment="RIGHT" HBox.hgrow="ALWAYS"/>
+                </HBox>
+                <HBox alignment="BASELINE_RIGHT">
+                    <Label fx:id="endTime" styleClass="cell_time_label" text="\$datetime"/>
+                </HBox>
+            </VBox>
+            <HBox fx:id="meetingBarWrapper" alignment="BASELINE_CENTER">
+                <VBox alignment="BASELINE_CENTER">
+                    <HBox fx:id="currentTimeBarPlaceholder"/>
+                    <HBox alignment="BASELINE_LEFT">
+                        <Rectangle fx:id="meetingBar" styleClass="meeting-bar" width="24" HBox.hgrow="ALWAYS"/>
+                    </HBox>
+                </VBox>
+            </HBox>
+            <VBox HBox.hgrow="ALWAYS">
+                <HBox fx:id="datePlaceholder"/>
+                <HBox fx:id="meetingCard" prefWidth="360" styleClass="meeting-card" VBox.vgrow="ALWAYS">
+                    <VBox HBox.hgrow="NEVER">
+                        <Label fx:id="title" styleClass="cell_big_label" text="\$title"/>
+                        <HBox>
+                            <ImageView fx:id="locationIcon" fitHeight="12" fitWidth="12"/>
+                            <Label fx:id="loc" styleClass="cell_small_label" text="\$location"/>
+                        </HBox>
+                        <HBox>
+                            <ImageView fx:id="withIcon" fitHeight="8" fitWidth="20"/>
+                            <FlowPane fx:id="participants"/>
+                        </HBox>
+                    </VBox>
+                    <Label fx:id="id" alignment="TOP_RIGHT" styleClass="meeting-index"/>
+                </HBox>
+            </VBox>
+        </HBox>
+        <rowConstraints>
+            <RowConstraints/>
+        </rowConstraints>
+    </GridPane>
+</HBox>

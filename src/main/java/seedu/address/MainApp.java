@@ -3,6 +3,7 @@ package seedu.address;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javafx.application.Application;
@@ -21,8 +22,11 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.memento.History;
+import seedu.address.model.memento.StateManager;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
+import seedu.address.storage.IcsAddressBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
@@ -36,13 +40,18 @@ import seedu.address.ui.UiManager;
  */
 public class MainApp extends Application {
 
-    public static final Version VERSION = new Version(0, 6, 0, true);
+
+    public static final String FILE_OPS_ERROR_MESSAGE =
+            "Could not save sorted data to file at the initialization stage";
+
+    public static final Version VERSION = new Version(1, 2, 0, true);
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
     protected Ui ui;
     protected Logic logic;
     protected Storage storage;
+    protected Storage icsStorage;
     protected Model model;
     protected Config config;
 
@@ -57,13 +66,16 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
+        AddressBookStorage icsMeetingStorage = new IcsAddressBookStorage(userPrefs.getMeetingIcsFilePath());
         storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        icsStorage = new StorageManager(icsMeetingStorage, userPrefsStorage);
 
         initLogging(config);
 
-        model = initModelManager(storage, userPrefs);
-
-        logic = new LogicManager(model, storage);
+        model = initModelManager(storage, userPrefs, new StateManager(), new History());
+        //Handle the situation where user manually append information in addressbook
+        sortMeeting(model);
+        logic = new LogicManager(model, storage, icsStorage);
 
         ui = new UiManager(logic);
     }
@@ -73,7 +85,8 @@ public class MainApp extends Application {
      * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
-    private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
+    private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs,
+                                   StateManager stateManager, History history) {
         Optional<ReadOnlyAddressBook> addressBookOptional;
         ReadOnlyAddressBook initialData;
         try {
@@ -90,7 +103,7 @@ public class MainApp extends Application {
             initialData = new AddressBook();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        return new ModelManager(initialData, userPrefs, stateManager, history);
     }
 
     private void initLogging(Config config) {
@@ -178,6 +191,16 @@ public class MainApp extends Application {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
+        }
+    }
+
+    private void sortMeeting(Model model) throws IOException {
+        model.sortMeeting();
+        try {
+            storage.saveAddressBook(model.getAddressBook());
+        } catch (IOException ioe) {
+            logger.log(Level.WARNING, FILE_OPS_ERROR_MESSAGE, ioe);
+            throw ioe;
         }
     }
 }

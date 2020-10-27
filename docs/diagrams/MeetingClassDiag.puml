@@ -1,0 +1,23 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+AddressBook *-right-> "1" UniqueMeetingList
+<<<<<<< HEAD
+
+UniqueMeetingList o-down-> Meeting
+
+Meeting --> "*" Participant
+
+=======
+UniqueMeetingList o-down-> Meeting
+
+Meeting --> "*" Participant
+>>>>>>> upstream/master
+Meeting *--> Title
+Meeting *--> Duration
+Meeting *--> DateTime
+Meeting *--> Location
+@enduml

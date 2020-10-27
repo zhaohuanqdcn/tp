@@ -4,13 +4,18 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.UUID;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.meeting.Meeting;
+import seedu.address.model.memento.History;
+import seedu.address.model.memento.StateManager;
 import seedu.address.model.person.Person;
 
 /**
@@ -21,24 +26,35 @@ public class ModelManager implements Model {
 
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
+    private final ObservableMap<UUID, Person> persons;
+    private FilteredList<Person> filteredPersons;
+    private final FilteredList<Meeting> filteredMeetings;
+
+    private final StateManager stateManager;
+    private final History history;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs,
+                        StateManager stateManager, History history) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(addressBook, userPrefs, stateManager, history);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
+
+        this.persons = this.addressBook.getPersonMap();
+        this.stateManager = stateManager;
+        this.history = history;
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredMeetings = new FilteredList<>(this.addressBook.getMeetingList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new AddressBook(), new UserPrefs(), new StateManager(), new History());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -71,6 +87,17 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public StateManager getStateManager() {
+        return stateManager;
+    }
+
+    @Override
+    public History getHistory() {
+        return history;
+    }
+
+
+    @Override
     public void setAddressBookFilePath(Path addressBookFilePath) {
         requireNonNull(addressBookFilePath);
         userPrefs.setAddressBookFilePath(addressBookFilePath);
@@ -86,6 +113,45 @@ public class ModelManager implements Model {
     @Override
     public ReadOnlyAddressBook getAddressBook() {
         return addressBook;
+    }
+
+    @Override
+    public boolean hasMeeting(Meeting meeting) {
+        requireNonNull(meeting);
+        return addressBook.hasMeeting(meeting);
+    }
+
+    @Override
+    public boolean hasConflict(Meeting meeting) {
+        requireNonNull(meeting);
+        return addressBook.hasConflict(meeting, userPrefs.getIntervalBetweenMeetings());
+    }
+
+    @Override
+    public void deleteMeeting(Meeting target) {
+        addressBook.removeMeeting(target);
+    }
+
+    @Override
+    public void deleteRecurringMeetings(Meeting target) {
+        addressBook.removeRecurringMeetings(target);
+    }
+
+    @Override
+    public void addMeeting(Meeting meeting) {
+        addressBook.addMeeting(meeting);
+        updateFilteredMeetingList(PREDICATE_SHOW_ALL_MEETINGS);
+    }
+
+    @Override
+    public void sortMeeting() {
+        addressBook.sortMeeting();
+    }
+
+    @Override
+    public void setMeeting(Meeting target, Meeting editedMeeting) {
+        requireAllNonNull(target, editedMeeting);
+        addressBook.setMeeting(target, editedMeeting);
     }
 
     @Override
@@ -124,9 +190,37 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableMap<UUID, Person> getPersonMap() {
+        return persons;
+    }
+
+    @Override
+    public ObservableList<Meeting> getFilteredMeetingList() {
+        return filteredMeetings;
+    }
+
+    @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateFilteredMeetingList(Predicate<Meeting> predicate) {
+        requireNonNull(predicate);
+        filteredMeetings.setPredicate(predicate);
+    }
+
+    @Override
+    public void reattachDependentMeetings(Person editedPerson) {
+        for (Meeting meeting : getAddressBook().getMeetingList()) {
+            meeting.getParticipants()
+                    .forEach(uuid -> {
+                        if (uuid.equals(editedPerson.getUuid())) {
+                            setMeeting(meeting, meeting.copy());
+                        }
+                    });
+        }
     }
 
     @Override
@@ -145,7 +239,9 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons);
+                && persons.equals(other.persons)
+                && filteredPersons.equals(other.filteredPersons)
+                && filteredMeetings.equals(other.filteredMeetings);
     }
 
 }

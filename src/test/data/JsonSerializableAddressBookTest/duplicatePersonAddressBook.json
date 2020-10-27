@@ -1,14 +1,20 @@
 {
   "persons": [ {
+    "uuid": "13e4f10a-2ce5-4fa3-ba34-743af6b87a54",
     "name": "Alice Pauline",
     "phone": "94351253",
     "email": "alice@example.com",
+    "company" : "KFC",
     "address": "123, Jurong West Ave 6, #08-111",
     "tagged": [ "friends" ]
   }, {
+    "uuid": "39e13638-3351-47b3-a92a-8f5af42ca610",
     "name": "Alice Pauline",
     "phone": "94351253",
     "email": "pauline@example.com",
+    "company" : "KFC",
     "address": "4th street"
-  } ]
+  } ],
+  "meetings": []
+
 }

@@ -1,36 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.FlowPane?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Region?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.ImageView?>
 
-<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-  <GridPane HBox.hgrow="ALWAYS">
-    <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
-    </columnConstraints>
-    <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
-      <padding>
-        <Insets top="5" right="5" bottom="5" left="15" />
-      </padding>
-      <HBox spacing="5" alignment="CENTER_LEFT">
-        <Label fx:id="id" styleClass="cell_big_label">
-          <minWidth>
-            <!-- Ensures that the label text is never truncated -->
-            <Region fx:constant="USE_PREF_SIZE" />
-          </minWidth>
-        </Label>
-        <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
-      </HBox>
-      <FlowPane fx:id="tags" />
-      <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
-      <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
-      <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
-    </VBox>
-  </GridPane>
+<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <GridPane HBox.hgrow="ALWAYS" styleClass="person-card">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150"/>
+        </columnConstraints>
+
+        <HBox>
+            <HBox>
+                <StackPane>
+                    <ImageView fx:id="profilePicture" fitHeight="64" fitWidth="64"/>
+                </StackPane>
+                <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
+                    <padding>
+                        <Insets bottom="5" left="15" right="5" top="5"/>
+                    </padding>
+                    <HBox spacing="5" alignment="CENTER_LEFT">
+                        <Label fx:id="nameBold" text="\$name" styleClass="cell_big_label">
+                            <minWidth>
+                                <!-- Ensures that the label text is never truncated -->
+                                <Region fx:constant="USE_PREF_SIZE"/>
+                            </minWidth>
+                        </Label>
+                        <Label fx:id="name" text="\$first" styleClass="cell_big_label"/>
+                    </HBox>
+                    <FlowPane fx:id="roles"/>
+                    <HBox>
+                        <ImageView fx:id="companyIcon" fitWidth="12" fitHeight="12"/>
+                        <Label fx:id="company" styleClass="cell_small_label" text="\$company"/>
+                    </HBox>
+                    <HBox>
+                        <ImageView fx:id="phoneIcon" fitWidth="12" fitHeight="12"/>
+                        <Label fx:id="phone" styleClass="cell_small_label" text="\$phone"/>
+                    </HBox>
+                    <HBox>
+                        <ImageView fx:id="addressIcon" fitWidth="12" fitHeight="12"/>
+                        <Label fx:id="address" styleClass="cell_small_label" text="\$address"/>
+                    </HBox>
+                    <HBox>
+                        <ImageView fx:id="emailIcon" fitWidth="12" fitHeight="12"/>
+                        <Label fx:id="email" styleClass="cell_small_label" text="\$email"/>
+                    </HBox>
+
+                    <FlowPane fx:id="tags"/>
+
+                </VBox>
+            </HBox>
+            <Label fx:id="id" alignment="TOP_LEFT" styleClass="person-index" text="\$id"/>
+        </HBox>
+        <rowConstraints>
+            <RowConstraints/>
+        </rowConstraints>
+    </GridPane>
 </HBox>
