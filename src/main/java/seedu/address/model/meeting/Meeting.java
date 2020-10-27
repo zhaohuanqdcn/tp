@@ -208,4 +208,13 @@ public class Meeting {
         return builder.toString();
     }
 
+    /**
+     * Copy meeting deeply.
+     *
+     * @return the meeting
+     */
+    public Meeting copy() {
+        return new Meeting(title.copy(), duration.copy(), dateTime.copy(),
+                location.copy(), recurrence.copy(), Set.copyOf(participants));
+    }
 }

@@ -64,4 +64,7 @@ public class Email {
         return value.hashCode();
     }
 
+    public Email copy() {
+        return new Email(value);
+    }
 }

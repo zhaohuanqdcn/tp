@@ -48,4 +48,7 @@ public class Company {
         return companyName.hashCode();
     }
 
+    public Company copy() {
+        return new Company(companyName);
+    }
 }
