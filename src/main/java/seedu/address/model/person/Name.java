@@ -56,4 +56,7 @@ public class Name {
         return fullName.hashCode();
     }
 
+    public Name copy() {
+        return new Name(fullName);
+    }
 }
