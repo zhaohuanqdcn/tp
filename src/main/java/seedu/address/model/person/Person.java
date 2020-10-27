@@ -171,7 +171,7 @@ public class Person {
      * @return the person
      */
     public Person copy() {
-        return new Person(uuid, name.copy(), phone.copy(), email.copy(), company.copy(), address.copy(), Set.copyOf(tags),
-                Set.copyOf(companyRoles));
+        return new Person(uuid, name.copy(), phone.copy(), email.copy(), company.copy(),
+                address.copy(), Set.copyOf(tags), Set.copyOf(companyRoles));
     }
 }
