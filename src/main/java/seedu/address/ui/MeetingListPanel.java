@@ -76,7 +76,6 @@ public class MeetingListPanel extends UiPart<Region> {
                 this.setStyle("-fx-background-color: transparent");
                 meetingListView.toFront();
             } else {
-              
                 int indexOfNextEarliestMeeting = -1;
 
                 for (Meeting m : meetingListView.getItems()) {

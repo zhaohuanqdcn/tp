@@ -94,7 +94,6 @@ public class MeetingCard extends UiPart<Region> {
         meeting.getParticipants().stream().forEach(partcipant ->
                 participants.getChildren().add(
                         new Label(personMap.get(partcipant).getName().toString())));
-
     
         // sizing according to duration
         setDynamicSize(meeting.getDuration());
@@ -123,7 +122,7 @@ public class MeetingCard extends UiPart<Region> {
             currentTimeBarPlaceholder.getChildren().add(greenBar);
         }
     }
-  
+
     public Set<Person> getPersonParticipants(Set<UUID> uuids, ObservableMap<UUID, Person> persons) {
         Set<Person> participants = new HashSet<>();
         for (UUID uuid : uuids) {
