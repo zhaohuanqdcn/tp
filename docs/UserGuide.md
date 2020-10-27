@@ -5,7 +5,8 @@ title: User Guide
 
 Recretary is a **desktop app for managing contacts and meetings, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, Recretary can get your contact management tasks done faster than traditional GUI apps.
 
--   First Run
+**Table of Content**
+-   Quick Start
 -   Features
     -   Contact Management
         -   Adding a person: `add_contact`
@@ -22,10 +23,12 @@ Recretary is a **desktop app for managing contacts and meetings, optimized for u
         -   Deleting a meeting: `delete_meeting`
         -   Adding a participant into a meeting: `add_part`
         -   Clearing all entries: `clear_meeting`
+        -   Remind meeting: `remind_meeting`
     -   General
         -   Viewing help : `help`
         -   Undo : `undo`
         -   Exiting the program : `exit`
+        -   Update user preference : `edit_userPref`
 -   FAQ
 -   Command summary
 
@@ -41,7 +44,7 @@ Recretary is a **desktop app for managing contacts and meetings, optimized for u
 1. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.
    ![Ui](images/Ui.png)
 
-1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.
+1. For you to get familiar with the app and to practice, type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.
    Some example commands you can try:
 
     - **`list_contact`** : Lists all contacts.
@@ -140,7 +143,8 @@ Format: `find_contact KEYWORD [MORE_KEYWORDS]`
 Examples:
 
 -   `find_contact John` returns `john chan` and `John Doe`
-    ![result for 'find alex david'](images/findAlexDavidResult.png)
+-   `find_contact bernice david` returns:
+    ![result for 'find bernice david'](images/findBerniceDavidResult.png)
 
 #### Deleting a person: `delete_contact`
 
@@ -168,7 +172,8 @@ Format: `clear_contact`
 
 #### Adding a meeting: `add_meeting`
 
-Adds a meeting into the meeting schedule.
+Adds a meeting into the meeting schedule. The existing list of meetings will be automatically sorted afterwards according to date and time. It also takes meeting interval into consideration and checks for meeting conflict. 
+
 
 Format: `add_meeting d/DATETIME dur/DURATION title/TITLE l/LOCATION [rec/RECURRENCE]`
 
@@ -194,11 +199,11 @@ Format: `add_meeting d/DATETIME dur/DURATION title/TITLE l/LOCATION [rec/RECURRE
 
 Examples:
 
--   `add_meeting title/abc company meeting d/31/12/20 1400 dur/00 60 l/John street, block 123, #01-01`
+-   `add_meeting title/abc company meeting d/31/12/20 1400 dur/00 50 l/John street, block 123, #01-01`
 
 <div markdown="span" class="alert alert-primary">:bulb:
 
-**Tip:**
+**Note:**
 After adding a meeting, add new participants to it with the `add_part` command below.
 Only people in your contacts can be added as participants.
 
@@ -232,7 +237,7 @@ Format: `list_meeting`
 
 #### Editing a meeting: `edit_meeting`
 
-Edits an existing meeting in the meeting schedule. The `RECURRENCE` field is not modifiable, and the edition of recurring meeting will only edit the specified instance. If the title of a recurring meeting is edited, it is no longer considered as an instance of recurrence.
+Edits an existing meeting in the meeting schedule. Similar to adding a meeting, the sorting and conflict detection will also take place automatically. The `RECURRENCE` field is not modifiable, and the edition of recurring meeting will only edit the specified instance. If the title of a recurring meeting is edited, it is no longer considered as an instance of recurrence.
 
 Format: `edit_meeting INDEX [d/DATETIME] [t/TITLE] [l/LOCATION] ...`
 
@@ -314,6 +319,19 @@ Clears all meetings from the meeting schedule.
 
 Format: `clear_meeting`
 
+#### Remind meetings: `remind_meeting`
+
+Find meetings whose occurrences are within the hours specify by the user.
+
+Format: `find_meeting HOUR`
+
+-   HOUR must be a positive integer.
+-   The reference point of time is the time on user's local machine when user entered the command.
+
+Examples:
+
+-   `remind_meeting 48` returns `abc meeting`, `def meeting`<br>
+
 
 ### General
 
@@ -358,6 +376,11 @@ Exits the program.
 
 Format: `exit`
 
+#### Update user preference : `edit_userPref [i/INTERVAL]`
+
+-  Edit user preference according to user input. All fields are optional. However, at least one of the fields must be present.
+-  `[i/INTERVAL]` indicates the interval between meetings
+
 #### Saving the data
 
 Recretary data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
@@ -378,6 +401,8 @@ Action | Format, Examples
 ***Generals*** |
 **Help** | `help`
 **Exit** | `exit`
+**Undo** | `undo`
+**Edit user preference** | `edit_userPref i/10`
 ***Contacts*** |
 **Add** | `add_contact n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS c/COMPANY [r/COMPANY_ROLE] [t/TAG]…` <br> e.g., `add_contact n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd a/XYZ Company r/manager t/friend` 
 **Delete** | `delete_contact INDEX` <br> e.g., `delete_contact 3`
@@ -393,5 +418,6 @@ Action | Format, Examples
 **Find** | `find_meeting KEYWORD [MORE_KEYWORDS]`<br> e.g., `find_meeting recretary stakeholders`
 **List** | `list_meeting`
 **Clear** | `clear_meeting`
+**Remind** | `remind_meeting`
 
 
