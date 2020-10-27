@@ -2,6 +2,7 @@ package seedu.address.model.meeting;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -113,6 +114,14 @@ public class Meeting {
         return otherMeeting != null
                 && otherMeeting.getTitle().equals(getTitle())
                 && otherMeeting.getRecurrence() == getRecurrence();
+    }
+
+    /**
+     * Returns true if the meeting is scheduled with a {@code dateTime} in future.
+     */
+    public boolean isFutureMeeting() {
+        LocalDateTime localDateTime = LocalDateTime.now();
+        return dateTime.value.isAfter(localDateTime);
     }
 
     /**

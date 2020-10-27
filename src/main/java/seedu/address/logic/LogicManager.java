@@ -105,4 +105,14 @@ public class LogicManager implements Logic {
         return model.getHistory();
     }
 
+    @Override
+    public Meeting getFirstFutureMeeting() {
+        return model.getFirstFutureMeeting();
+    }
+
+    @Override
+    public void refreshApplication() {
+        model.refreshApplication();
+    }
+
 }

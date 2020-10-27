@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -108,6 +109,14 @@ public class UniqueMeetingList implements Iterable<Meeting> {
     public FilteredList<Meeting> getRecurringMeetings(Meeting toRemove) {
         requireNonNull(toRemove);
         return internalList.filtered(toRemove::isSameRecurringMeeting);
+    }
+
+    /**
+     * Returns the first future meeting, if any.
+     */
+    public Meeting getFirstFutureMeeting() {
+        Optional<Meeting> first = internalList.stream().filter(Meeting::isFutureMeeting).findFirst();
+        return first.orElse(null);
     }
 
     public void setMeetings(UniqueMeetingList replacement) {

@@ -21,6 +21,8 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.scheduler.RefreshTask;
+import seedu.address.logic.scheduler.Scheduler;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.memento.History;
 import seedu.address.model.memento.StateManager;
@@ -41,6 +43,8 @@ public class MainWindow extends UiPart<Stage> {
     private final CommandSession commandSession;
     private final StateManager stateManager;
     private final History history;
+    private final Scheduler scheduler;
+    private RefreshTask refreshTask;
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
@@ -94,6 +98,12 @@ public class MainWindow extends UiPart<Stage> {
         stateManager = logic.getStateManager();
 
         history = logic.getHistory();
+
+        scheduler = new Scheduler();
+
+        refreshTask = new RefreshTask(scheduler, this.logic, "refresh");
+
+        scheduler.update(refreshTask);
 
     }
 
@@ -241,7 +251,12 @@ public class MainWindow extends UiPart<Stage> {
 
             history.push(stateManager.createState());
 
+            refreshTask = new RefreshTask(scheduler, this.logic, "refresh");
+
+            scheduler.update(refreshTask);
+
             return commandResult;
+
         } catch (CommandException | ParseException e) {
 
             logger.info("Invalid command: " + commandText);
