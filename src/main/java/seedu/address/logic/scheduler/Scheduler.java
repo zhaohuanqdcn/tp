@@ -31,6 +31,7 @@ public class Scheduler {
         Meeting meeting = task.getMeeting();
         if (meeting != null) {
             LocalDateTime time = task.getTaskTime();
+            assert time != null;
             if (nextTask == null || time.isBefore(nextTask)) {
                 scheduleNewTask(task, time);
             }
@@ -50,7 +51,7 @@ public class Scheduler {
         this.nextTask = null;
     }
 
-    private static Date convertToDate(LocalDateTime dateToConvert) {
+    public static Date convertToDate(LocalDateTime dateToConvert) {
         return Timestamp.valueOf(dateToConvert);
     }
 

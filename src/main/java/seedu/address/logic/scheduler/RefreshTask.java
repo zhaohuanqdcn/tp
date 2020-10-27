@@ -7,7 +7,7 @@ import seedu.address.logic.Logic;
 import seedu.address.model.meeting.Meeting;
 
 public class RefreshTask extends ScheduledTask {
-    private Meeting meeting;
+    private final Meeting meeting;
     private final Scheduler scheduler;
     private final Logic logic;
     private final String name;
@@ -35,16 +35,13 @@ public class RefreshTask extends ScheduledTask {
 
     @Override
     public void run() {
-        meeting = logic.getFirstFutureMeeting();
+        // update scheduler
         scheduler.resetNextTaskTime();
         RefreshTask nextRefresh = new RefreshTask(scheduler, logic, name);
         scheduler.update(nextRefresh);
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                logic.refreshApplication();
-            }
-        });
+
+        //update Ui
+        Platform.runLater(logic::refreshApplication);
     }
 
     @Override

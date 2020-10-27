@@ -5,7 +5,9 @@ title: User Guide
 
 Recretary is a **desktop app for managing contacts and meetings, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, Recretary can get your contact management tasks done faster than traditional GUI apps.
 
--   First Run
+## Table of Content
+
+-   Quick Start
 -   Features
     -   Contact Management
         -   Adding a person: `add_contact`
@@ -80,6 +82,8 @@ Recretary is a **desktop app for managing contacts and meetings, optimized for u
 </div>
 
 ### Contact Management
+
+Contact entries in Recretary contain multiple pieces of information: name, phone number, email, address and company. There is also an optional company role and tags that may help you organize your contacts better. Contact information will be displayed on the left-hand-side of the window.
 
 #### Adding a person: `add_contact`
 
@@ -179,6 +183,8 @@ Format: `clear_contact`
 
    
 ### Meeting Management
+
+Meeting entries in Recretary have multiple attributes: date time, duration, title and location. You may declare the recurrence of a meeting to avoid repetitive input, and you may also add contacts as participants of a meeting. All meeting information will be displayed on the right-hand-side of the window, ordered in starting time, with a green bar indicating the next upcoming meeting. When a meeting starts, the green bar will move to the next meeting automatically. 
 
 #### Adding a meeting: `add_meeting`
 
@@ -402,6 +408,7 @@ Action | Format, Examples
 ***Generals*** |
 **Help** | `help`
 **Exit** | `exit`
+**Undo** | `undo`
 ***Contacts*** |
 **Add** | `add_contact n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS c/COMPANY [r/COMPANY_ROLE] [t/TAG]…` <br> e.g., `add_contact n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd a/XYZ Company r/manager t/friend` 
 **Delete** | `delete_contact INDEX` <br> e.g., `delete_contact 3`
