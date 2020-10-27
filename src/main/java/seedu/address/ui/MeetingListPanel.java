@@ -78,7 +78,7 @@ public class MeetingListPanel extends UiPart<Region> {
                 int indexOfNextEarliestMeeting = -1;
 
                 for (Meeting m : meetingListView.getItems()) {
-                    if (m.getDateTime().value.isAfter(LocalDateTime.now())) {
+                    if (m.getDateTime().getValue().isAfter(LocalDateTime.now())) {
                         indexOfNextEarliestMeeting = meetingListView.getItems().indexOf(m);
                         break;
                     }

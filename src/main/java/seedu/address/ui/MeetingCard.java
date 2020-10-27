@@ -130,7 +130,7 @@ public class MeetingCard extends UiPart<Region> {
     }
 
     private void setDynamicSize(Duration duration) {
-        double length = duration.hours * 60 + duration.minutes;
+        double length = duration.getHours() * 60 + duration.getMinutes();
 
         meetingBar.heightProperty().setValue(length);
         length /= 10;

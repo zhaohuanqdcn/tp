@@ -70,7 +70,7 @@ public class DateTime {
     public LocalDateTime getValue() {
         return value;
     }
-  
+
     public DateTime getNextOccurrence(Recurrence recurrence, int index) {
         assert index >= 0;
         if (recurrence == Recurrence.NONE || index == 0) {
@@ -113,8 +113,8 @@ public class DateTime {
     public String getEndTime(Duration duration) {
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mma");
         return timeFormatter.format(value
-                .plusHours(duration.hours)
-                .plusMinutes(duration.minutes));
+                .plusHours(duration.getHours())
+                .plusMinutes(duration.getMinutes()));
     }
 
     public DateTime copy() {

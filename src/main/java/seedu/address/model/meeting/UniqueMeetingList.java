@@ -59,8 +59,8 @@ public class UniqueMeetingList implements Iterable<Meeting> {
      */
     public void sort() {
         Comparator<Meeting> meetingComparator = (meetingOne, meetingTwo) -> {
-            LocalDateTime dateTimeOne = meetingOne.getDateTime().value;
-            LocalDateTime dateTimeTwo = meetingTwo.getDateTime().value;
+            LocalDateTime dateTimeOne = meetingOne.getDateTime().getValue();
+            LocalDateTime dateTimeTwo = meetingTwo.getDateTime().getValue();
             if (dateTimeOne.equals(dateTimeTwo)) {
                 return meetingOne.getTitle().value.compareTo(meetingTwo.getTitle().value);
             } else {
