@@ -45,7 +45,7 @@ class JsonAdaptedMeeting {
             @JsonProperty("dateTime") String dateTime, @JsonProperty("location") String location,
                     @JsonProperty("recurrence") String recurrence,
                             @JsonProperty("participants") List<UUID> participants) {
-      
+
         this.title = title;
         this.duration = duration;
         this.dateTime = dateTime;

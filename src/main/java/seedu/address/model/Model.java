@@ -138,9 +138,8 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredMeetingList(Predicate<Meeting> predicate);
-  
+
     void reattachDependentMeetings(Person editedPerson);
-  
     /**
      * Returns the state manager of the current app.
      */

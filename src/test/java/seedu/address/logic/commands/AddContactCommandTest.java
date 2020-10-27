@@ -203,7 +203,7 @@ public class AddContactCommandTest {
         public void reattachDependentMeetings(Person editedPerson) {
             throw new AssertionError("This method should not be called.");
         }
-  
+
         @Override
         public StateManager getStateManager() {
             throw new AssertionError("This method should not be called.");
