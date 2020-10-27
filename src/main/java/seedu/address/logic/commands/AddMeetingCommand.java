@@ -27,7 +27,7 @@ public class AddMeetingCommand extends Command {
             + PREFIX_TITLE + "v1.3 discussion "
             + PREFIX_DATETIME + "31/12/20 1400 "
             + PREFIX_DURATION + "1 30 "
-            + PREFIX_LOCATION + "Cool spot"
+            + PREFIX_LOCATION + "Cool spot "
             + PREFIX_RECURRENCE + "weekly";
 
     public static final String MESSAGE_SUCCESS = "New meeting added: %1$s \n "

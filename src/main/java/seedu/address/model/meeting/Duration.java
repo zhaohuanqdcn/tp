@@ -54,6 +54,14 @@ public class Duration {
         return minutes <= MAX_MINUTES;
     }
 
+    public long getHours() {
+        return hours;
+    }
+
+    public long getMinutes() {
+        return minutes;
+    }
+
     @Override
     public String toString() {
         String temp = "";
