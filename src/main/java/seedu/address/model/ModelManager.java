@@ -168,6 +168,17 @@ public class ModelManager implements Model {
     @Override
     public void deletePerson(Person target) {
         addressBook.removePerson(target);
+
+        for (Meeting meeting : getAddressBook().getMeetingList()) {
+            meeting.getParticipants()
+                    .forEach(uuid -> {
+                        if (uuid.equals(target.getUuid())) {
+                            Meeting editedMeeting = meeting.copy();
+                            editedMeeting.deleteParticipant(target);
+                            setMeeting(meeting, editedMeeting);
+                        }
+                    });
+        }
     }
 
     @Override

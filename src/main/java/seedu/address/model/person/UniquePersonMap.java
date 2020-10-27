@@ -76,10 +76,11 @@ public class UniquePersonMap implements Iterable<Person> {
     public void remove(Person toRemove) {
         requireNonNull(toRemove);
 
-        internalMap.remove(toRemove);
         if (!internalMap.containsValue(toRemove)) {
             throw new PersonNotFoundException();
         }
+
+        internalMap.remove(toRemove.getUuid(), toRemove);
     }
 
     public void setPersons(UniquePersonMap replacement) {
