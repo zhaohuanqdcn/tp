@@ -28,6 +28,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
+import seedu.address.storage.IcsAddressBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
@@ -47,8 +48,11 @@ public class LogicManagerTest {
         JsonAddressBookStorage addressBookStorage =
                 new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
+        IcsAddressBookStorage icsMeetingStorage =
+                new IcsAddressBookStorage(temporaryFolder.resolve("meetings.ics"));
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
-        logic = new LogicManager(model, storage);
+        StorageManager icsStorage = new StorageManager(icsMeetingStorage, userPrefsStorage);
+        logic = new LogicManager(model, storage, icsStorage);
     }
 
     @Test
@@ -76,8 +80,11 @@ public class LogicManagerTest {
                 new JsonAddressBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
+        IcsAddressBookStorage icsMeetingStorage =
+                new IcsAddressBookStorage(temporaryFolder.resolve("meetings.ics"));
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
-        logic = new LogicManager(model, storage);
+        StorageManager icsStorage = new StorageManager(icsMeetingStorage, userPrefsStorage);
+        logic = new LogicManager(model, storage, icsStorage);
 
         // Execute add command
         String addCommand = AddContactCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY

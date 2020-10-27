@@ -9,6 +9,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.ExportMeetingCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -27,14 +28,16 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
+    private final Storage icsStorage;
     private final AddressBookParser addressBookParser;
 
     /**
      * Constructs a {@code LogicManager} with the given {@code Model} and {@code Storage}.
      */
-    public LogicManager(Model model, Storage storage) {
+    public LogicManager(Model model, Storage storage, Storage icsStorage) {
         this.model = model;
         this.storage = storage;
+        this.icsStorage = icsStorage;
         addressBookParser = new AddressBookParser();
     }
 
@@ -47,6 +50,9 @@ public class LogicManager implements Logic {
         commandResult = command.execute(model);
 
         try {
+            if (command instanceof ExportMeetingCommand) {
+                icsStorage.saveAddressBook(model.getAddressBook());
+            }
             storage.saveAddressBook(model.getAddressBook());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);

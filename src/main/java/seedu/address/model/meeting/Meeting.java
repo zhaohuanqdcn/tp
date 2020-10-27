@@ -102,7 +102,7 @@ public class Meeting {
     public void delParticipant(Index index) {
         List<Person> personList = new ArrayList<>(this.participants);
         int length = this.participants.size();
-        assert length > index.getZeroBased() : "index is invalid";
+        assert length < index.getZeroBased() : "index is invalid";
         Person personToDelete = personList.get(length - 1 - index.getZeroBased());
         this.participants.remove(personToDelete);
     }

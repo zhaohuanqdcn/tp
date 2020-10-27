@@ -16,8 +16,8 @@ public class Duration {
     public static final long MAX_MINUTES = 59;
     public static final String MESSAGE_CONSTRAINTS = "Number of minutes should not be more than " + MAX_MINUTES;
 
-    public final long hours;
-    public final long minutes;
+    private final long hours;
+    private final long minutes;
 
     /**
      * Constructs a {@code Duration}.
@@ -50,6 +50,14 @@ public class Duration {
      */
     public static boolean isValidDuration(long hours, long minutes) {
         return minutes <= MAX_MINUTES;
+    }
+
+    public long getHours() {
+        return hours;
+    }
+
+    public long getMinutes() {
+        return minutes;
     }
 
     @Override

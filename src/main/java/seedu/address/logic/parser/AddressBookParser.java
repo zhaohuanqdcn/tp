@@ -18,6 +18,7 @@ import seedu.address.logic.commands.DeleteParticipantCommand;
 import seedu.address.logic.commands.EditContactCommand;
 import seedu.address.logic.commands.EditMeetingCommand;
 import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.ExportMeetingCommand;
 import seedu.address.logic.commands.FindContactCommand;
 import seedu.address.logic.commands.FindMeetingCommand;
 import seedu.address.logic.commands.HelpCommand;
@@ -102,6 +103,9 @@ public class AddressBookParser {
 
         case ClearMeetingCommand.COMMAND_WORD:
             return new ClearMeetingCommand();
+
+        case ExportMeetingCommand.COMMAND_WORD:
+            return new ExportMeetingCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
