@@ -3,8 +3,6 @@ package seedu.address.model.meeting;
 import java.util.List;
 import java.util.function.Predicate;
 
-import seedu.address.commons.util.StringUtil;
-
 /**
  * Tests that a {@code Meetings}'s {@code data} matches any of the keywords given.
  */
@@ -18,7 +16,19 @@ public class DataContainsKeywordsPredicate implements Predicate<Meeting> {
     @Override
     public boolean test(Meeting meeting) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(meeting.toString(), keyword));
+                .anyMatch(keyword -> {
+                    final StringBuilder builder = new StringBuilder();
+                    builder.append(meeting.getTitle())
+                            .append(meeting.getDateTime())
+                            .append(meeting.getDuration())
+                            .append(meeting.getLocation());
+
+                    meeting.getParticipants().forEach(builder::append);
+                    return builder
+                            .toString()
+                            .toLowerCase()
+                            .contains(keyword.toLowerCase());
+                });
     }
 
     @Override

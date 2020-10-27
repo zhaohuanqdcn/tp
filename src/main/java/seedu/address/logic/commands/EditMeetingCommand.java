@@ -8,12 +8,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_MEETINGS;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -24,9 +24,8 @@ import seedu.address.model.meeting.DateTime;
 import seedu.address.model.meeting.Duration;
 import seedu.address.model.meeting.Location;
 import seedu.address.model.meeting.Meeting;
+import seedu.address.model.meeting.Recurrence;
 import seedu.address.model.meeting.Title;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.model.person.Person;
 
 /**
  * Edits the details of an existing meeting in Recretary.
@@ -51,6 +50,7 @@ public class EditMeetingCommand extends Command {
     public static final String MESSAGE_EDIT_MEETING_SUCCESS = "Edited Meeting: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_MEETING = "This meeting already exists in the address book.";
+    public static final String MESSAGE_CONFLICT_MEETING = "This meeting conflicts with an existing meeting in the list";
 
     private final Index index;
     private final EditMeetingDescriptor editMeetingDescriptor;
@@ -84,7 +84,17 @@ public class EditMeetingCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_MEETING);
         }
 
+        // delete the meeting to simulate the add after deletion logic of edit
+        model.deleteMeeting(meetingToEdit);
+
+        if (model.hasConflict(editedMeeting)) {
+            model.addMeeting(meetingToEdit);
+            throw new CommandException(MESSAGE_CONFLICT_MEETING);
+        }
+
+        model.addMeeting(meetingToEdit);
         model.setMeeting(meetingToEdit, editedMeeting);
+        model.sortMeeting();
         model.updateFilteredMeetingList(PREDICATE_SHOW_ALL_MEETINGS);
         return new CommandResult(String.format(MESSAGE_EDIT_MEETING_SUCCESS, editedMeeting));
     }
@@ -100,9 +110,11 @@ public class EditMeetingCommand extends Command {
         DateTime updatedDateTime = editMeetingDescriptor.getDateTime().orElse(meetingToEdit.getDateTime());
         Duration updatedDuration = editMeetingDescriptor.getDuration().orElse(meetingToEdit.getDuration());
         Location updatedLocation = editMeetingDescriptor.getLocation().orElse(meetingToEdit.getLocation());
-        Set<Person> updatedPersons = editMeetingDescriptor.getPersons().orElse(meetingToEdit.getParticipants());
+        Set<UUID> updatedPersons = editMeetingDescriptor.getPersons().orElse(meetingToEdit.getParticipants());
+        Recurrence updatedRecurrence = editMeetingDescriptor.getRecurrence().orElse(meetingToEdit.getRecurrence());
 
-        return new Meeting(updatedTitle, updatedDuration, updatedDateTime, updatedLocation, updatedPersons);
+        return new Meeting(updatedTitle, updatedDuration, updatedDateTime,
+                updatedLocation, updatedRecurrence, updatedPersons);
     }
 
     @Override
@@ -132,7 +144,8 @@ public class EditMeetingCommand extends Command {
         private DateTime dateTime;
         private Duration duration;
         private Location location;
-        private Set<Person> persons;
+        private Set<UUID> persons;
+        private Recurrence recurrence;
         private Model model;
 
         public EditMeetingDescriptor() {}
@@ -147,13 +160,14 @@ public class EditMeetingCommand extends Command {
             setDuration(toCopy.duration);
             setLocation(toCopy.location);
             setPersons(toCopy.persons);
+            setRecurrence(toCopy.recurrence);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(title, dateTime, duration, location, persons);
+            return CollectionUtil.isAnyNonNull(title, dateTime, duration, location, persons, recurrence);
         }
 
         public void setModel(Model model) {
@@ -192,34 +206,19 @@ public class EditMeetingCommand extends Command {
             return Optional.ofNullable(location);
         }
 
-        /**
-         * Remove a participant from the list using the index.
-         * @param index
-         */
-        public void deletePerson(Index index) {
-            List<Person> personList = new ArrayList<>(this.persons);
-            personList.remove(index.getZeroBased());
-            this.persons = new HashSet<>(personList);
+        public void setRecurrence(Recurrence recurrence) {
+            this.recurrence = recurrence;
         }
 
-        /**
-         * Add a participant into the meeting.
-         * @param predicate
-         * @param index
-         */
-        public void addPerson(NameContainsKeywordsPredicate predicate, Index index) {
-            model.updateFilteredPersonList(predicate);
-            List<Person> filteredPersonList = model.getFilteredPersonList();
-
-            Person personToAdd = filteredPersonList.get(index.getZeroBased());
-            this.persons.add(personToAdd);
+        public Optional<Recurrence> getRecurrence() {
+            return Optional.ofNullable(recurrence);
         }
 
         /**
          * Sets {@code tags} to this object's {@code tags}.
          * A defensive copy of {@code tags} is used internally.
          */
-        public void setPersons(Set<Person> persons) {
+        public void setPersons(Set<UUID> persons) {
             this.persons = (persons != null) ? new HashSet<>(persons) : null;
         }
 
@@ -228,7 +227,7 @@ public class EditMeetingCommand extends Command {
          * if modification is attempted.
          * Returns {@code Optional#empty()} if {@code tags} is null.
          */
-        public Optional<Set<Person>> getPersons() {
+        public Optional<Set<UUID>> getPersons() {
             return (persons != null) ? Optional.of(Collections.unmodifiableSet(persons)) : Optional.empty();
         }
 
@@ -251,6 +250,7 @@ public class EditMeetingCommand extends Command {
                     && getDateTime().equals(e.getDateTime())
                     && getDuration().equals(e.getDuration())
                     && getLocation().equals(e.getLocation())
+                    && getRecurrence() == e.getRecurrence()
                     && getPersons().equals(e.getPersons());
         }
     }

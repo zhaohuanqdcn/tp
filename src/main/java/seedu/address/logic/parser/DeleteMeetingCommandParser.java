@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RECURRENCE;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeleteMeetingCommand;
@@ -17,9 +18,16 @@ public class DeleteMeetingCommandParser implements Parser<DeleteMeetingCommand> 
      * @throws ParseException if the user input does not conform the expected format
      */
     public DeleteMeetingCommand parse(String args) throws ParseException {
+        ArgumentMultimap argMultimap =
+                ArgumentTokenizer.tokenize(args, PREFIX_RECURRENCE);
+        Index index;
+        boolean deleteRecurrence = false;
         try {
-            Index index = ParserUtil.parseIndex(args);
-            return new DeleteMeetingCommand(index);
+            index = ParserUtil.parseIndex(argMultimap.getPreamble());
+            if (argMultimap.getValue(PREFIX_RECURRENCE).isPresent()) {
+                deleteRecurrence = ParserUtil.parseBoolean(argMultimap.getValue(PREFIX_RECURRENCE).get());
+            }
+            return new DeleteMeetingCommand(index, deleteRecurrence);
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteMeetingCommand.MESSAGE_USAGE), pe);

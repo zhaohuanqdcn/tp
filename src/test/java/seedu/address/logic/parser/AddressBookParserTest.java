@@ -22,7 +22,9 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindContactCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListContactCommand;
+import seedu.address.logic.commands.RemindMeetingCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.meeting.MeetingWithinDaysPredicate;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
@@ -74,6 +76,16 @@ public class AddressBookParserTest {
         FindContactCommand command = (FindContactCommand) parser.parseCommand(
                 FindContactCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
         assertEquals(new FindContactCommand(new NameContainsKeywordsPredicate(keywords)), command);
+    }
+
+    @Test
+    public void parseCommand_remind() throws Exception {
+        //any positive integer will work
+        int hour = 10;
+        MeetingWithinDaysPredicate predicate = new MeetingWithinDaysPredicate(hour);
+        RemindMeetingCommand command = (RemindMeetingCommand) parser.parseCommand(
+                RemindMeetingCommand.COMMAND_WORD + " " + hour);
+        assertEquals(new RemindMeetingCommand(predicate), command);
     }
 
     @Test

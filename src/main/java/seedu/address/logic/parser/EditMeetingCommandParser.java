@@ -9,12 +9,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
-import java.util.Arrays;
-
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditMeetingCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
 
 public class EditMeetingCommandParser implements Parser<EditMeetingCommand> {
 
@@ -51,19 +48,6 @@ public class EditMeetingCommandParser implements Parser<EditMeetingCommand> {
         if (argMultimap.getValue(PREFIX_LOCATION).isPresent()) {
             editMeetingDescriptor.setLocation(ParserUtil.parseLocation(argMultimap.getValue(PREFIX_LOCATION).get()));
         }
-
-        if (argMultimap.getValue(PREFIX_DELETE_PARTICIPANTS).isPresent()) {
-            editMeetingDescriptor.deletePerson(
-                    ParserUtil.parseIndex(argMultimap.getValue(PREFIX_DELETE_PARTICIPANTS).get()));
-        }
-
-        if (argMultimap.getValue(PREFIX_ADD_PARTICIPANTS).isPresent()) {
-            String input = argMultimap.getValue(PREFIX_ADD_PARTICIPANTS).get();
-            String[] values = input.split("\\s+");
-            Index targetIndex = ParserUtil.parseIndex(values[1]);
-            editMeetingDescriptor.addPerson(new NameContainsKeywordsPredicate(Arrays.asList(values[0])), targetIndex);
-        }
-
         if (!editMeetingDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditMeetingCommand.MESSAGE_NOT_EDITED);
         }

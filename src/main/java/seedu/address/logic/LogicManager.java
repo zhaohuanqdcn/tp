@@ -2,9 +2,11 @@ package seedu.address.logic;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.UUID;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
@@ -15,6 +17,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.meeting.Meeting;
+import seedu.address.model.memento.History;
+import seedu.address.model.memento.StateManager;
 import seedu.address.model.person.Person;
 import seedu.address.storage.Storage;
 
@@ -48,6 +52,7 @@ public class LogicManager implements Logic {
 
         try {
             storage.saveAddressBook(model.getAddressBook());
+            storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -58,6 +63,11 @@ public class LogicManager implements Logic {
     @Override
     public ReadOnlyAddressBook getAddressBook() {
         return model.getAddressBook();
+    }
+
+    @Override
+    public ObservableMap<UUID, Person> getPersonMap() {
+        return model.getPersonMap();
     }
 
     @Override
@@ -84,4 +94,15 @@ public class LogicManager implements Logic {
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
     }
+
+    @Override
+    public StateManager getStateManager() {
+        return model.getStateManager();
+    }
+
+    @Override
+    public History getHistory() {
+        return model.getHistory();
+    }
+
 }

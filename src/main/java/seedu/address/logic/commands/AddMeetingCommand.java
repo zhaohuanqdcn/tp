@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_PARTICIPANTS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RECURRENCE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -24,15 +25,15 @@ public class AddMeetingCommand extends Command {
             + "[" + PREFIX_ADD_PARTICIPANTS + "PARTICIPANTS]..."
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TITLE + "v1.3 discussion "
-            + PREFIX_DATETIME + "2020-12-31 14:00 "
-            + PREFIX_DURATION + "60 "
-            + PREFIX_LOCATION + "Cool spot "
-            + PREFIX_ADD_PARTICIPANTS + "Tom "
-            + PREFIX_ADD_PARTICIPANTS + "Jerry ";
+            + PREFIX_DATETIME + "31/12/20 1400 "
+            + PREFIX_DURATION + "1 30 "
+            + PREFIX_LOCATION + "Cool spot"
+            + PREFIX_RECURRENCE + "weekly";
 
     public static final String MESSAGE_SUCCESS = "New meeting added: %1$s \n "
             + "Add participants by finding their name, and key in their index on the list";
     public static final String MESSAGE_DUPLICATE_MEETING = "This meeting already exists in the schedule";
+    public static final String MESSAGE_CONFLICT_MEETING = "This meeting conflicts with an existing meeting in the list";
 
     private final Meeting toAdd;
 
@@ -47,12 +48,22 @@ public class AddMeetingCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-
         if (model.hasMeeting(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_MEETING);
         }
 
-        model.addMeeting(toAdd);
+        // check if all recurrence meetings do not conflict with current schedule, then proceed to add them
+        for (Meeting meeting : toAdd.getRecurrencesAsList()) {
+            if (model.hasConflict(meeting)) {
+                throw new CommandException(MESSAGE_CONFLICT_MEETING);
+            }
+        }
+
+        for (Meeting meeting : toAdd.getRecurrencesAsList()) {
+            model.addMeeting(meeting);
+        }
+
+        model.sortMeeting();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

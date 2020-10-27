@@ -46,6 +46,7 @@ public class Title {
 
     @Override
     public boolean equals(Object other) {
+        assert value != null : "value of Title is null";
         return other == this // short circuit if same object
                 || (other instanceof Title // instanceof handles nulls
                 && value.equals(((Title) other).value)); // state check
@@ -53,7 +54,11 @@ public class Title {
 
     @Override
     public int hashCode() {
+        assert value != null : "value of Title is null";
         return value.hashCode();
     }
 
+    public Title copy() {
+        return new Title(value);
+    }
 }

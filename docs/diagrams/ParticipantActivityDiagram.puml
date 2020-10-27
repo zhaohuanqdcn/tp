@@ -1,0 +1,14 @@
+@startuml
+start
+:User executes delete_part command;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([index is valid])
+    :Call delParticipant in Meeting;
+    :Delete participant;
+else ([else])
+endif
+stop
+@enduml
