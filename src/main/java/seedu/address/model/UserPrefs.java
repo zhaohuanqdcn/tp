@@ -15,6 +15,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
     private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
+    private Path meetingIcsFilePath = Paths.get("data" , "meetings.ics");
     //default interval is set to be 0 as it means interval is not considered
     private int intervalBetweenMeetings = 0;
 
@@ -52,6 +53,10 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     public Path getAddressBookFilePath() {
         return addressBookFilePath;
+    }
+
+    public Path getMeetingIcsFilePath() {
+        return meetingIcsFilePath;
     }
 
     public void setAddressBookFilePath(Path addressBookFilePath) {
