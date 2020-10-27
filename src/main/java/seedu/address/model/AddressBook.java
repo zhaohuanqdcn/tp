@@ -108,6 +108,11 @@ public class AddressBook implements ReadOnlyAddressBook {
         return meetings.contains(meeting);
     }
 
+    public boolean hasConflict(Meeting meeting, int interval) {
+        requireNonNull(meeting);
+        return meetings.checkConflict(meeting, interval);
+    }
+
     /**
      * Adds a meeting to the address book.
      * The meeting must not already exist in the address book.

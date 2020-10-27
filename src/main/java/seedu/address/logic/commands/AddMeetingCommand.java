@@ -33,6 +33,7 @@ public class AddMeetingCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New meeting added: %1$s \n "
             + "Add participants by finding their name, and key in their index on the list";
     public static final String MESSAGE_DUPLICATE_MEETING = "This meeting already exists in the schedule";
+    public static final String MESSAGE_CONFLICT_MEETING = "This meeting conflicts with an existing meeting in the list";
 
     private final Meeting toAdd;
 
@@ -51,9 +52,17 @@ public class AddMeetingCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_MEETING);
         }
 
+        // check if all recurrence meetings do not conflict with current schedule, then proceed to add them
+        for (Meeting meeting : toAdd.getRecurrencesAsList()) {
+            if(model.hasConflict(meeting)) {
+                throw new CommandException(MESSAGE_CONFLICT_MEETING);
+            }
+        }
+
         for (Meeting meeting : toAdd.getRecurrencesAsList()) {
             model.addMeeting(meeting);
         }
+
         model.sortMeeting();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }

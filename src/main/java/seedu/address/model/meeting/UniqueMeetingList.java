@@ -3,10 +3,15 @@ package seedu.address.model.meeting;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -51,6 +56,67 @@ public class UniqueMeetingList implements Iterable<Meeting> {
             throw new DuplicateMeetingException();
         }
         internalList.add(toAdd);
+    }
+
+    public boolean checkConflict(Meeting meeting, int interval) {
+
+        LocalDate currentMeetingLocalDate = meeting.getDateTime().value.toLocalDate();
+        Predicate<Meeting> localDatePredicate = x -> x.getDateTime().value.toLocalDate()
+                .equals(currentMeetingLocalDate);
+
+        Function<Meeting, Pair<LocalTime, LocalTime>> meetingToStartEndTimeMapper = x -> {
+            LocalTime start = x.getDateTime().value.toLocalTime();
+            Duration duration = x.getDuration();
+            long totalMinutesOfMeeting = duration.hours * 60 + duration.minutes;
+            LocalTime end = start.plusMinutes(totalMinutesOfMeeting);
+            return new Pair<>(start, end);
+        };
+
+        List<Pair<LocalTime, LocalTime>> startEndList = internalList.stream()
+                                                                    .filter(localDatePredicate)
+                                                                    .map(meetingToStartEndTimeMapper)
+                                                                    .collect(Collectors.toList());
+
+        int totalMinutesinDay = 24 * 60;
+        // each array element represent a minute in a day
+        boolean[] dayMinutesArray = new boolean[totalMinutesinDay];
+
+        fillArray(startEndList, dayMinutesArray, interval);
+
+        return checkMeetingWithArray(dayMinutesArray, meeting);
+    }
+
+    private int convertLocalTimeToArrayIndex(LocalTime localTime) {
+        return localTime.getHour()*60 + localTime.getMinute();
+    }
+
+    private void fillArray(List<Pair<LocalTime, LocalTime>> pairList, boolean[] dayMinutesArray, int interval) {
+        for (Pair<LocalTime, LocalTime> startEndTime : pairList) {
+            LocalTime start = startEndTime.getValueOne();
+            LocalTime end = startEndTime.getValueTwo();
+            int startIndex = convertLocalTimeToArrayIndex(start) - interval;
+            int endIndex = convertLocalTimeToArrayIndex(end) + interval;
+
+            for(int i = startIndex; i <= endIndex; i++) {
+                dayMinutesArray[i] = true;
+            }
+        }
+
+    }
+
+    public boolean checkMeetingWithArray(boolean[] dayMinutesArray, Meeting meeting) {
+        LocalTime start = meeting.getDateTime().value.toLocalTime();
+        LocalTime end = start.plusMinutes(meeting.getDuration().hours * 60 + meeting.getDuration().minutes);
+        int startIndex = convertLocalTimeToArrayIndex(start);
+        int endIndex = convertLocalTimeToArrayIndex(end);
+
+        for(int i = startIndex; i <= endIndex; i++) {
+            if (dayMinutesArray[i]) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -165,5 +231,34 @@ public class UniqueMeetingList implements Iterable<Meeting> {
             }
         }
         return true;
+    }
+
+
+    public static class Pair<T,R> {
+
+        private final T valueOne;
+        private final R valueTwo;
+
+        public Pair(T valueOne, R valueTwo) {
+            requireNonNull(valueOne);
+            requireNonNull(valueTwo);
+            this.valueOne = valueOne;
+            this.valueTwo = valueTwo;
+        }
+
+        public T getValueOne() { return valueOne; }
+        public R getValueTwo() { return valueTwo; }
+
+        @Override
+        public int hashCode() { return valueOne.hashCode() ^ valueTwo.hashCode(); }
+
+        @Override
+        public boolean equals(Object other) {
+            return other == this // short circuit if same object
+                    || (other instanceof Pair // instanceof handles nulls
+                    && valueOne.equals(((Pair<T, R>) other).getValueOne()) // state check
+                    && valueTwo.equals(((Pair<T, R>) other).getValueTwo()));
+        }
+
     }
 }
