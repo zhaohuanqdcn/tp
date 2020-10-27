@@ -187,6 +187,13 @@ public class AddressBook implements ReadOnlyAddressBook {
         toRemoveObjects.forEach(meetings::remove);
     }
 
+    /**
+     * Gets the first future meeting, if any.
+     */
+    public Meeting getFirstFutureMeeting() {
+        return meetings.getFirstFutureMeeting();
+    }
+
     //// util methods
 
     @Override

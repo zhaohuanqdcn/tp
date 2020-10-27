@@ -9,6 +9,7 @@ import java.time.LocalTime;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -180,6 +181,14 @@ public class UniqueMeetingList implements Iterable<Meeting> {
     public FilteredList<Meeting> getRecurringMeetings(Meeting toRemove) {
         requireNonNull(toRemove);
         return internalList.filtered(toRemove::isSameRecurringMeeting);
+    }
+
+    /**
+     * Returns the first future meeting, if any.
+     */
+    public Meeting getFirstFutureMeeting() {
+        Optional<Meeting> first = internalList.stream().filter(Meeting::isFutureMeeting).findFirst();
+        return first.orElse(null);
     }
 
     public void setMeetings(UniqueMeetingList replacement) {

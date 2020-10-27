@@ -68,4 +68,14 @@ public interface Logic {
      * Returns the history of states of the current app.
      */
     History getHistory();
+
+    /**
+     * Gets the first future meeting, if any.
+     */
+    Meeting getFirstFutureMeeting();
+
+    /**
+     * Refreshes the application to update Ui.
+     */
+    void refreshApplication();
 }

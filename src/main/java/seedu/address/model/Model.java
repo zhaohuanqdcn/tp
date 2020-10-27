@@ -59,6 +59,11 @@ public interface Model {
     ReadOnlyAddressBook getAddressBook();
 
     /**
+     * Returns the first {@code meeting} in the future. If there is no future meeting, return null.
+     */
+    Meeting getFirstFutureMeeting();
+
+    /**
      * Returns true if a meeting with the same identity as {@code meeting} exists in the address book.
      */
     boolean hasMeeting(Meeting meeting);
@@ -145,6 +150,8 @@ public interface Model {
     void updateFilteredMeetingList(Predicate<Meeting> predicate);
 
     void reattachDependentMeetings(Person editedPerson);
+
+    void refreshApplication();
 
     /**
      * Returns the state manager of the current app.

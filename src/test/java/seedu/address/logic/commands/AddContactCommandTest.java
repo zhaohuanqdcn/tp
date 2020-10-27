@@ -135,6 +135,11 @@ public class AddContactCommandTest {
         }
 
         @Override
+        public Meeting getFirstFutureMeeting() {
+            return null;
+        }
+
+        @Override
         public boolean hasMeeting(Meeting meeting) {
             throw new AssertionError("This method should not be called.");
         }
@@ -207,6 +212,11 @@ public class AddContactCommandTest {
         @Override
         public void reattachDependentMeetings(Person editedPerson) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void refreshApplication() {
+            // do nothing
         }
 
         @Override

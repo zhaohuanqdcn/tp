@@ -116,6 +116,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Meeting getFirstFutureMeeting() {
+        return addressBook.getFirstFutureMeeting();
+    }
+
+    @Override
     public boolean hasMeeting(Meeting meeting) {
         requireNonNull(meeting);
         return addressBook.hasMeeting(meeting);
@@ -232,6 +237,14 @@ public class ModelManager implements Model {
                         }
                     });
         }
+    }
+
+    //=========== Utility Functions =============================================================
+
+    @Override
+    public void refreshApplication() {
+        //updateFilteredMeetingList(PREDICATE_SHOW_ALL_MEETINGS);
+        sortMeeting();
     }
 
     @Override

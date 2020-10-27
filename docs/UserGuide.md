@@ -85,6 +85,8 @@ Recretary is a **desktop app for managing contacts and meetings, optimized for u
 
 ### Contact Management
 
+Contact entries in Recretary contain multiple pieces of information: name, phone number, email, address and company. There is also an optional company role and tags that may help you organize your contacts better. Contact information will be displayed on the left-hand-side of the window.
+
 #### Adding a person: `add_contact`
 
 Adds a person to the address book.
@@ -186,6 +188,8 @@ Format: `clear_contact`
 
    
 ### Meeting Management
+
+Meeting entries in Recretary have multiple attributes: date time, duration, title and location. You may declare the recurrence of a meeting to avoid repetitive input, and you may also add contacts as participants of a meeting. All meeting information will be displayed on the right-hand-side of the window, ordered in starting time, with a green bar indicating the next upcoming meeting. When a meeting starts, the green bar will move to the next meeting automatically. 
 
 #### Adding a meeting: `add_meeting`
 
