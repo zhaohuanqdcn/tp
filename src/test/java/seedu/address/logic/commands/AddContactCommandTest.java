@@ -186,6 +186,11 @@ public class AddContactCommandTest {
         public void updateFilteredMeetingList(Predicate<Meeting> predicate) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void reattachDependentMeetings(Person editedPerson) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

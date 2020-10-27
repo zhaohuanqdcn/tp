@@ -1,14 +1,17 @@
 package seedu.address.ui;
 
+import java.util.UUID;
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.logic.Logic;
 import seedu.address.model.meeting.Meeting;
+import seedu.address.model.person.Person;
 
 /**
  * Panel containing the list of meetings.
@@ -23,10 +26,10 @@ public class MeetingListPanel extends UiPart<Region> {
     /**
      * Creates a {@code MeetingListPanel} with the given {@code ObservableList}.
      */
-    public MeetingListPanel(Logic logic) {
+    public MeetingListPanel(ObservableList<Meeting> meetingList, ObservableMap<UUID, Person> personMap) {
         super(FXML);
-        meetingListView.setItems(logic.getFilteredMeetingList());
-        meetingListView.setCellFactory(listView -> new MeetingListViewCell(logic));
+        meetingListView.setItems(meetingList);
+        meetingListView.setCellFactory(listView -> new MeetingListViewCell(personMap));
     }
 
     /**
@@ -34,10 +37,10 @@ public class MeetingListPanel extends UiPart<Region> {
      */
     class MeetingListViewCell extends ListCell<Meeting> {
 
-        private final Logic logic;
+        private final ObservableMap<UUID, Person> personMap;
 
-        public MeetingListViewCell(Logic logic) {
-            this.logic = logic;
+        public MeetingListViewCell(ObservableMap<UUID, Person> personMap) {
+            this.personMap = personMap;
         }
         @Override
         protected void updateItem(Meeting meeting, boolean empty) {
@@ -47,7 +50,7 @@ public class MeetingListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new MeetingCard(logic, meeting, getIndex() + 1).getRoot());
+                setGraphic(new MeetingCard(personMap, meeting, getIndex() + 1).getRoot());
             }
         }
     }

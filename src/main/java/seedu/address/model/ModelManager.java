@@ -176,6 +176,18 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void reattachDependentMeetings(Person editedPerson) {
+        for (Meeting meeting : getAddressBook().getMeetingList()) {
+            meeting.getParticipants()
+                    .forEach(uuid -> {
+                        if (uuid.equals(editedPerson.getUuid())) {
+                            setMeeting(meeting, meeting.copy());
+                        }
+                    });
+        }
+    }
+
+    @Override
     public boolean equals(Object obj) {
         // short circuit if same object
         if (obj == this) {

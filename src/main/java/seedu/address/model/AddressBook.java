@@ -61,10 +61,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.personList.setPersons(new ArrayList<>(persons.values()));
     }
 
-    public void setPersonList(List<Person> persons) {
-        this.personList.setPersons(persons);
-    }
-
     /**
      * Replaces the contents of the meeting list with {@code meetings}.
      * {@code meetings} must not contain duplicate meetings.

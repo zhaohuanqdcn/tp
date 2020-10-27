@@ -10,7 +10,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.logic.Logic;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.person.Person;
 
@@ -49,7 +48,7 @@ public class MeetingCard extends UiPart<Region> {
     /**
      * Creates a {@code MeetingCard} with the given {@code Meeting} and index to display.
      */
-    public MeetingCard(Logic logic, Meeting meeting, int displayedIndex) {
+    public MeetingCard(ObservableMap<UUID, Person> personMap, Meeting meeting, int displayedIndex) {
         super(FXML);
         this.meeting = meeting;
         id.setText(displayedIndex + ". ");
@@ -60,7 +59,7 @@ public class MeetingCard extends UiPart<Region> {
 
         meeting.getParticipants().stream().forEach(partcipant ->
                 participants.getChildren().add(
-                        new Label(logic.getPersonMap().get(partcipant).getName().toString())));
+                        new Label(personMap.get(partcipant).getName().toString())));
 
     }
 
