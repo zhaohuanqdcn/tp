@@ -137,15 +137,6 @@ public class Meeting {
                 && (otherMeeting.getDateTime().equals(getDateTime()));
     }
 
-    /**
-     * Make a copy of the exisiting meeting.
-     * @return a new copy of the meeting.
-     */
-    public Meeting copy() {
-        return new Meeting(title, duration, dateTime,
-                location, recurrence, participants);
-    }
-
     public void addParticipant(Person person) {
         this.participants.add(person.getUuid());
     }
