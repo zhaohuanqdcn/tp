@@ -71,7 +71,7 @@ public class MainApp extends Application {
 
         ui = new UiManager(logic);
     }
-
+    
     /**
      * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
      * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
