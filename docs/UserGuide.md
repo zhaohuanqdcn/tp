@@ -258,6 +258,20 @@ Examples:
 
 -   `find_meeting abc def` returns `abc meeting`, `def meeting`<br>
 
+<div markdown="span" class="alert alert-primary">:framed_picture:
+
+**Visual Walkthrough Guide:**
+
+State of the app *BEFORE* the `find_meeting` command.
+
+   ![findMeetingBefore](images/findMeetingBefore.png)
+
+State of the app *AFTER* the `find_meeting v1.3` command.
+
+   ![findMeetingAfter](images/findMeetingAfter.png)
+
+</div>
+
 #### Deleting a meeting: `delete_meeting`
 
 Deletes the specified item (and its recurrernces) from the address book.
@@ -312,7 +326,23 @@ Shows a message explaining how to access the help page.
 #### Undo : `undo`
 
 Undoes the previous command or previous `n` commands based on the given index.
+<div markdown="span" class="alert alert-primary">:framed_picture:
 
+**Visual Walkthrough Guide:**
+
+1. State of the app *BEFORE* the `delete_contact` command that you entered by mistake and wish to undo.
+
+   ![undo1](images/undo1.png)
+
+2. State of the app *AFTER* the `delete_contact` command that you entered by mistake and wish to undo.
+
+   ![undo2](images/undo2.png)
+
+3. State of the app *AFTER* the `undo` command.
+
+   ![undo3](images/undo3.png)
+
+</div>
 
 <div markdown="block" class="alert alert-info">
 

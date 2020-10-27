@@ -90,9 +90,12 @@ public class MeetingCard extends UiPart<Region> {
 
         loc.setText(meeting.getLocation().toString());
 
-        meeting.getParticipants().stream().forEach(partcipant ->
-                participants.getChildren().add(
-                        new Label(personMap.get(partcipant).getName().toString())));
+        meeting.getParticipants().forEach(participant -> {
+            System.out.println(participant);
+            System.out.println(participants);
+            participants.getChildren().add(
+                    new Label(personMap.get(participant).getName().toString()));
+        });
 
         // sizing according to duration
         setDynamicSize(meeting.getDuration());
