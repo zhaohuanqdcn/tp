@@ -23,7 +23,6 @@ import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddressBookTest {
