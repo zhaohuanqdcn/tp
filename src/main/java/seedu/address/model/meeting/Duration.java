@@ -16,8 +16,8 @@ public class Duration {
     public static final long MAX_MINUTES = 59;
     public static final String MESSAGE_CONSTRAINTS = "Number of minutes should not be more than " + MAX_MINUTES;
 
-    private final long hours;
-    private final long minutes;
+    public final long hours;
+    public final long minutes;
 
     /**
      * Constructs a {@code Duration}.
