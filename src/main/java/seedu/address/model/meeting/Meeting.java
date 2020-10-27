@@ -158,7 +158,7 @@ public class Meeting {
         List<UUID> personList = new ArrayList<>(this.participants);
         int length = this.participants.size();
         assert length > index.getZeroBased() : "index is invalid";
-        UUID personToDelete = personList.get(length - 1 - index.getZeroBased());
+        UUID personToDelete = personList.get(index.getZeroBased());
         this.participants.remove(personToDelete);
     }
 

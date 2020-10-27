@@ -127,6 +127,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasConflict(Meeting meeting) {
+        requireNonNull(meeting);
+        return addressBook.hasConflict(meeting, userPrefs.getIntervalBetweenMeetings());
+    }
+
+    @Override
     public void deleteMeeting(Meeting target) {
         addressBook.removeMeeting(target);
     }

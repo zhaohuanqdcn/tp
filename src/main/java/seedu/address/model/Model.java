@@ -69,6 +69,11 @@ public interface Model {
     boolean hasMeeting(Meeting meeting);
 
     /**
+     * Returns true if a meeting in the schedule has overlapped timing (includes interval) with {@code meeting}
+     */
+    boolean hasConflict(Meeting meeting);
+
+    /**
      * Deletes the given meeting.
      * The meeting must exist in the address book.
      */

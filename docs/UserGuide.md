@@ -22,6 +22,7 @@ Recretary is a **desktop app for managing contacts and meetings, optimized for u
         -   Deleting a meeting: `delete_meeting`
         -   Adding a participant into a meeting: `add_part`
         -   Clearing all entries: `clear_meeting`
+        -  Exporting meetings in .ics format: `export_meeting`
     -   General
         -   Viewing help : `help`
         -   Undo : `undo`
@@ -139,8 +140,21 @@ Format: `find_contact KEYWORD [MORE_KEYWORDS]`
 
 Examples:
 
--   `find_contact John` returns `john chan` and `John Doe`
-    ![result for 'find alex david'](images/findAlexDavidResult.png)
+-   `find_contact John` returns `John Chan` and `John Doe`
+
+<div markdown="span" class="alert alert-primary">:framed_picture:
+
+**Visual Walkthrough Guide:**
+
+State of the app *BEFORE* the `find_contact John` command.
+
+   ![findJohnBefore](images/findJohnBefore.png)
+
+State of the app *AFTER* the `find_contact John` command.
+
+   ![findJohnAfter](images/findJohnResult.png)
+
+</div>
 
 #### Deleting a person: `delete_contact`
 
@@ -192,17 +206,37 @@ Format: `add_meeting d/DATETIME dur/DURATION title/TITLE l/LOCATION [rec/RECURRE
 
 </div>
 
+Examples:
+
+-   `add_meeting title/abc company meeting d/31/12/20 1400 dur/00 60 l/John street, block 123, #01-01`
+
 <div markdown="span" class="alert alert-primary">:bulb:
 
 **Tip:**
-After adding a meeting, add new participants to it with the `add_part` command.
+After adding a meeting, add new participants to it with the `add_part` command below.
 Only people in your contacts can be added as participants.
+
+</div>
+
+#### Adding a participant into a meeting: `add_part`
+
+Adds a participant with the specified `CONTACT_INDEX` in the currently viewable contact list into the meeting with the specified `MEETING_INDEX`.
+
+Format: `add_part ci/CONTACT_INDEX mi/MEETING_INDEX`
+
+<div markdown="span" class="alert alert-primary">:bulb:
+
+**Tip:**
+Run a `find_contact` command before running an `add_part` to narrow the contact list so that you can easily add a contact instead of scrolling through the whole list!
+
+Run a `find_meeting` command before running an `add_part` to narrow the meeting list so that you can easily add a meeting instead of scrolling through the whole list!
 
 </div>
 
 Examples:
 
--   `add_meeting title/abc company meeting d/31/12/20 1400 dur/00 60 l/John street, block 123, #01-01`
+-   `add_part ci/1 mi/3` adds the first contact in the whole list to the 3rd meeting.
+-   `find_contact alice` followed by `add_part ci/1 mi/2` adds the first contact of the `find_contact` command's result into the 2nd meeting.
 
 #### Listing all meetings: `list_meeting`
 
@@ -214,7 +248,7 @@ Format: `list_meeting`
 
 Edits an existing meeting in the meeting schedule. The `RECURRENCE` field is not modifiable, and the edition of recurring meeting will only edit the specified instance. If the title of a recurring meeting is edited, it is no longer considered as an instance of recurrence.
 
-Format: `edit_meeting INDEX [d/DATETIME] [t/TITLE] [l/LOCATION] [del_part/ P_INDEX]...`
+Format: `edit_meeting INDEX [d/DATETIME] [t/TITLE] [l/LOCATION] ...`
 
 Delete participants in a meeting with this format:  
 E.g.  
@@ -222,7 +256,7 @@ Recretary: `Here is the current list of participants.`
 <code> &nbsp; 1. John doe, abc company </code>  
 <code> &nbsp; 2. John doe, def company </code>  
 `Enter the next participant’s index to delete`  
-User: `edit_meeting INDEX del_part/ 1`
+User: `edit_meeting INDEX delete_part/ 1`
 
 <div markdown="span" class="alert alert-primary">:bulb:
 
@@ -258,6 +292,20 @@ Examples:
 
 -   `find_meeting abc def` returns `abc meeting`, `def meeting`<br>
 
+<div markdown="span" class="alert alert-primary">:framed_picture:
+
+**Visual Walkthrough Guide:**
+
+State of the app *BEFORE* the `find_meeting` command.
+
+   ![findMeetingBefore](images/findMeetingBefore.png)
+
+State of the app *AFTER* the `find_meeting v1.3` command.
+
+   ![findMeetingAfter](images/findMeetingAfter.png)
+
+</div>
+
 #### Deleting a meeting: `delete_meeting`
 
 Deletes the specified item (and its recurrernces) from the address book.
@@ -274,31 +322,17 @@ Examples:
 * `delete_meeting 2 rec/true` deletes the 2nd meeting and all its recurrences in the address book.
 * `find_meeting Shareholder` followed by `delete_meeting 1` deletes the 1st contact in the results of the `find` command.
 
-#### Adding a participant into a meeting: `add_part`
-
-Adds a participant with the specified `CONTACT_INDEX` in the currently viewable contact list into the meeting with the specified `MEETING_INDEX`.
-
-Format: `add_part ci/CONTACT_INDEX mi/MEETING_INDEX`
-
-<div markdown="span" class="alert alert-primary">:bulb:
-
-**Tip:**
-Run a `find_contact` command before running an `add_part` to narrow the contact list so that you can easily add a contact instead of scrolling through the whole list!
-
-Run a `find_meeting` command before running an `add_part` to narrow the meeting list so that you can easily add a meeting instead of scrolling through the whole list!
-
-</div>
-
-Examples:
-
--   `add_part ci/1 mi/3` adds the first contact in the whole list to the 3rd meeting.
--   `find_contact alice` followed by `add_part ci/1 mi/2` adds the first contact of the `find_contact` command's result into the 2nd meeting.
-
 #### Clearing all meetings : `clear_meeting`
 
 Clears all meetings from the meeting schedule.
 
 Format: `clear_meeting`
+
+#### Exporting meetings in .ics format : `export_meeting`
+
+Exports all meetings as an iCalendar file that is compatible with other calendar apps such as Google Calendar. By default, the resulting file can be found in the `data` folder. Check the FAQ section to see how to change the save location.
+
+Format: `export_meeting`
 
 
 ### General
@@ -312,7 +346,23 @@ Shows a message explaining how to access the help page.
 #### Undo : `undo`
 
 Undoes the previous command or previous `n` commands based on the given index.
+<div markdown="span" class="alert alert-primary">:framed_picture:
 
+**Visual Walkthrough Guide:**
+
+1. State of the app *BEFORE* the `delete_contact` command that you entered by mistake and wish to undo.
+
+   ![undo1](images/undo1.png)
+
+2. State of the app *AFTER* the `delete_contact` command that you entered by mistake and wish to undo.
+
+   ![undo2](images/undo2.png)
+
+3. State of the app *AFTER* the `undo` command.
+
+   ![undo3](images/undo3.png)
+
+</div>
 
 <div markdown="block" class="alert alert-info">
 
@@ -338,6 +388,10 @@ Recretary data are saved in the hard disk automatically after any command that c
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Recretary home folder.
+
+**Q**: Where is my Recretary data stored?<br>
+**A**: By default, a  `data` folder will be created in the same folder as the JAR file. After running the app for the first time, you can change the file path by editing preferences.json in the same folder directly. 
+
 
 ---
 

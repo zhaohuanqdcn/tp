@@ -270,7 +270,7 @@ The clear meeting mechanism is facilitated by `ClearMeetingCommand`. It extends 
 
 *   Adding a syntax like `delete_meeting all` command makes it hard to parse `DeleteMeetingCommand`, and `clear_meeting` itself is not very often used. 
 
-### Meeting Class
+### Meetings Feature
 
 #### Implementation
 

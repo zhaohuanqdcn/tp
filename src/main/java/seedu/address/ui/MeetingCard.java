@@ -81,7 +81,6 @@ public class MeetingCard extends UiPart<Region> {
         this.meeting = meeting;
         id.setText(displayedIndex + "");
         title.setText(meeting.getTitle().value);
-
         startTime.setText(meeting.getDateTime().getStartTime());
 
         endTime.setText(meeting.getDateTime().getEndTime(meeting.getDuration()));
@@ -90,9 +89,13 @@ public class MeetingCard extends UiPart<Region> {
 
         loc.setText(meeting.getLocation().toString());
 
-        meeting.getParticipants().stream().forEach(partcipant ->
-                participants.getChildren().add(
-                        new Label(personMap.get(partcipant).getName().toString())));
+        meeting.getParticipants().forEach(participant ->
+                participants
+                        .getChildren()
+                        .add(new Label(personMap
+                                .get(participant)
+                                .getName()
+                                .toString())));
 
         // sizing according to duration
         setDynamicSize(meeting.getDuration());
@@ -131,7 +134,7 @@ public class MeetingCard extends UiPart<Region> {
     }
 
     private void setDynamicSize(Duration duration) {
-        double length = duration.hours * 60 + duration.minutes;
+        double length = duration.getHours() * 60 + duration.getMinutes();
 
         meetingBar.heightProperty().setValue(length);
         length /= 10;
