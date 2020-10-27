@@ -140,8 +140,21 @@ Format: `find_contact KEYWORD [MORE_KEYWORDS]`
 
 Examples:
 
--   `find_contact John` returns `john chan` and `John Doe`
-    ![result for 'find alex david'](images/findAlexDavidResult.png)
+-   `find_contact John` returns `John Chan` and `John Doe`
+
+<div markdown="span" class="alert alert-primary">:framed_picture:
+
+**Visual Walkthrough Guide:**
+
+State of the app *BEFORE* the `find_contact John` command.
+
+   ![findJohnBefore](images/findJohnBefore.png)
+
+State of the app *AFTER* the `find_contact John` command.
+
+   ![findJohnAfter](images/findJohnResult.png)
+
+</div>
 
 #### Deleting a person: `delete_contact`
 
