@@ -61,8 +61,8 @@ class JsonAdaptedMeeting {
      */
     public JsonAdaptedMeeting(Meeting source) {
         title = source.getTitle().value;
-        duration = source.getDuration().hours + " " + source.getDuration().minutes;
-        dateTime = source.getDateTime().value.format(dateTimeFormat);
+        duration = source.getDuration().getHours() + " " + source.getDuration().getMinutes();
+        dateTime = source.getDateTime().getValue().format(dateTimeFormat);
         location = source.getLocation().value;
         recurrence = source.getRecurrence().toString();
         participants.addAll(source.getParticipants().stream()

@@ -137,7 +137,7 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-### Add meeting feature
+### Add meeting command
 
 #### Implementation
 
@@ -165,7 +165,7 @@ The following sequence diagram shows how the add meeting operation works:
 
 _{more aspects and alternatives to be added}_
 
-### Edit meeting feature
+### Edit meeting command
 
 #### Implementation
 
@@ -193,7 +193,7 @@ The following sequence diagram shows how the edit meeting operation works:
 
 _{more aspects and alternatives to be added}_
 
-### Delete meeting feature
+### Delete meeting command
 
 #### Implementation
 
@@ -209,7 +209,7 @@ The flow of a usual delete meeting execution cycle has been illustrated above as
 
 *   `DeleteMeetingCommand` is implemented in a way so that it deletes the meeting specified by an index from the _last shown list_. This enables combinatorial commands which seem more intuitive. For instance, `delete_meeting 1` following a `FindMeetingCommand` deletes the first meeting from the search results, whereas the same command following a `ListMeetingCommand` deletes the first meeting from the whole meeting list.
 
-### Find meeting feature
+### Find meeting command
 
 #### Implementation
 
@@ -242,7 +242,7 @@ The given sequence diagram illustrates the flow of a usual find meeting executio
 
 *   Currently, DateTime finding is carried out using string matching. It would be more natural to match through DateTime comparison. This would make sure that different date formats like "November" and "Nov" both match the meeting.
 
-### List meeting feature
+### List meeting command
 
 #### Implementation
 
@@ -256,7 +256,7 @@ The list meeting mechanism is facilitated by `ListMeetingCommand`. It extends `C
 
 *   Adding a syntax like `find_meeting` with empty keyword makes the list operation less intuitive. As `list_meeting` is a frequently used functionality, we decide to have a separate command.
 
-### Clear meeting feature
+### Clear meeting command
 
 #### Implementation
 
@@ -270,7 +270,7 @@ The clear meeting mechanism is facilitated by `ClearMeetingCommand`. It extends 
 
 *   Adding a syntax like `delete_meeting all` command makes it hard to parse `DeleteMeetingCommand`, and `clear_meeting` itself is not very often used. 
 
-### Meeting Class
+### Modelling Meetings 
 
 #### Implementation
 
@@ -308,6 +308,23 @@ The following activity diagram summarizes what happens when a user executes a de
 * Consistent workflow with other commands
 
 _{more aspects and alternatives to be added}_
+
+### System Timer
+
+#### Implementation
+
+A system timer is implemented to automatically update Ui (implemented) and send reminders (proposed) as time passes by if the app is running in the background (no user interaction). The timer is handled by `Scheduler` and `ScheduledTask`. The `Scheduler` keeps track of the next upcoming meeting, if any, and uses a `Timer` to start `ScheduledTask`. When the time comes, the `Timer` executes `ScheduledTask` where `Scheduler` and `Ui` are updated. The dependencies are shown in the diagram below.
+
+![SchedulerClassDiagram](images/SchedulerClassDiagram.png)
+
+#### Design consideration:
+
+##### Aspect: How to ensure the timer is valid
+
+* The `Scheduler` is updated at the start of application and after every user input. If the `ScheduledTask` is not repaced, which happens most of the time, the overhead is relatively low.
+
+_{more aspects and alternatives to be added}_
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**

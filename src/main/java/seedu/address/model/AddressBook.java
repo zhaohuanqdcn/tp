@@ -117,6 +117,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removePerson(Person key) {
         persons.remove(key);
+        System.out.println(persons.asUnmodifiableObservableMap());
         personList.remove(key);
     }
 
@@ -184,6 +185,13 @@ public class AddressBook implements ReadOnlyAddressBook {
         FilteredList<Meeting> toRemove = meetings.getRecurringMeetings(key);
         List<Meeting> toRemoveObjects = new ArrayList<>(toRemove);
         toRemoveObjects.forEach(meetings::remove);
+    }
+
+    /**
+     * Gets the first future meeting, if any.
+     */
+    public Meeting getFirstFutureMeeting() {
+        return meetings.getFirstFutureMeeting();
     }
 
     //// util methods
