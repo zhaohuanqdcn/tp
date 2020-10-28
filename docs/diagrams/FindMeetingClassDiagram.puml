@@ -20,6 +20,6 @@ FindMeetingCommand : execute(Model)
 
 FindMeetingCommand o-right-> "1" DataContainsKeywordsPredicate
 Command .left. Model
-Command -down-|> FindMeetingCommand
-Predicate .down.|> DataContainsKeywordsPredicate
+FindMeetingCommand -down-|> Command
+DataContainsKeywordsPredicate .down.|> Predicate
 @enduml

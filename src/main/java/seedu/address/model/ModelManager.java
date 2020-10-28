@@ -116,6 +116,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Meeting getFirstFutureMeeting() {
+        return addressBook.getFirstFutureMeeting();
+    }
+
+    @Override
     public boolean hasMeeting(Meeting meeting) {
         requireNonNull(meeting);
         return addressBook.hasMeeting(meeting);
@@ -163,6 +168,17 @@ public class ModelManager implements Model {
     @Override
     public void deletePerson(Person target) {
         addressBook.removePerson(target);
+
+        for (Meeting meeting : getAddressBook().getMeetingList()) {
+            meeting.getParticipants()
+                    .forEach(uuid -> {
+                        if (uuid.equals(target.getUuid())) {
+                            Meeting editedMeeting = meeting.copy();
+                            editedMeeting.deleteParticipant(target);
+                            setMeeting(meeting, editedMeeting);
+                        }
+                    });
+        }
     }
 
     @Override
@@ -221,6 +237,14 @@ public class ModelManager implements Model {
                         }
                     });
         }
+    }
+
+    //=========== Utility Functions =============================================================
+
+    @Override
+    public void refreshApplication() {
+        //updateFilteredMeetingList(PREDICATE_SHOW_ALL_MEETINGS);
+        sortMeeting();
     }
 
     @Override

@@ -124,6 +124,11 @@ class AddMeetingCommandTest {
         }
 
         @Override
+        public void refreshApplication() {
+            // do nothing
+        }
+
+        @Override
         public void addPerson(Person person) {
             throw new AssertionError("This method should not be called.");
         }
@@ -146,6 +151,11 @@ class AddMeetingCommandTest {
         @Override
         public ReadOnlyAddressBook getAddressBook() {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Meeting getFirstFutureMeeting() {
+            return null;
         }
 
         @Override

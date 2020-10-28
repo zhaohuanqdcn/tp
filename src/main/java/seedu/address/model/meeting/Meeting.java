@@ -2,6 +2,7 @@ package seedu.address.model.meeting;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -116,6 +117,14 @@ public class Meeting {
     }
 
     /**
+     * Returns true if the meeting is scheduled with a {@code dateTime} in future.
+     */
+    public boolean isFutureMeeting() {
+        LocalDateTime localDateTime = LocalDateTime.now();
+        return dateTime.value.isAfter(localDateTime);
+    }
+
+    /**
      * Returns an immutable person set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
@@ -151,6 +160,16 @@ public class Meeting {
         assert length > index.getZeroBased() : "index is invalid";
         UUID personToDelete = personList.get(index.getZeroBased());
         this.participants.remove(personToDelete);
+    }
+
+    /**
+     * Delete a participant from the set based on the person's uuid.
+     * @param person whose uuid is contained in the set.
+     */
+    public void deleteParticipant(Person person) {
+        if (this.participants.contains(person.getUuid())) {
+            this.participants.remove(person.getUuid());
+        }
     }
 
     /**
