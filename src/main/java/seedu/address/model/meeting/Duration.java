@@ -54,6 +54,14 @@ public class Duration {
         return minutes <= MAX_MINUTES;
     }
 
+    public long getHours() {
+        return hours;
+    }
+
+    public long getMinutes() {
+        return minutes;
+    }
+
     @Override
     public String toString() {
         String temp = "";
@@ -79,4 +87,7 @@ public class Duration {
         return Objects.hash(hours, minutes);
     }
 
+    public Duration copy() {
+        return new Duration(hours, minutes);
+    }
 }

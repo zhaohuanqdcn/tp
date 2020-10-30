@@ -4,7 +4,9 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Region;
+import seedu.address.logic.CommandSession;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -27,12 +29,22 @@ public class CommandBox extends UiPart<Region> {
     /**
      * Creates a {@code CommandBox} with the given {@code CommandExecutor}.
      */
-    public CommandBox(CommandExecutor commandExecutor) {
+    public CommandBox(CommandExecutor commandExecutor, CommandSession commandSession) {
         super(FXML);
         this.commandExecutor = commandExecutor;
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
         sendButton.setOnAction(event -> handleCommandEntered());
+
+        commandTextField.setOnKeyPressed(e -> {
+            if (e.getCode().equals(KeyCode.UP)) {
+                commandTextField.setText(commandSession.scrollUp());
+            } else if (e.getCode().equals(KeyCode.DOWN)) {
+                commandTextField.setText(commandSession.scrollDown());
+            }
+            e.consume();
+        });
+
     }
 
     /**
@@ -80,5 +92,6 @@ public class CommandBox extends UiPart<Region> {
          */
         CommandResult execute(String commandText) throws CommandException, ParseException;
     }
+
 
 }

@@ -1,7 +1,11 @@
 package seedu.address.ui;
 
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
@@ -15,6 +19,7 @@ import javafx.scene.shape.Rectangle;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.meeting.Duration;
 import seedu.address.model.meeting.Meeting;
+import seedu.address.model.person.Person;
 
 /**
  * An UI component that displays information of a {@code Meeting}.
@@ -70,13 +75,12 @@ public class MeetingCard extends UiPart<Region> {
      * Creates a {@code MeetingCard} with the given {@code Meeting}, index to display,
      * whether it is the first meeting of the day and index of next earliest meeting.
      */
-    public MeetingCard(Meeting meeting, int displayedIndex,
+    public MeetingCard(ObservableMap<UUID, Person> personMap, Meeting meeting, int displayedIndex,
                        boolean isFirstInDay, int indexOfNextEarliestMeeting) {
         super(FXML);
         this.meeting = meeting;
         id.setText(displayedIndex + "");
         title.setText(meeting.getTitle().value);
-
         startTime.setText(meeting.getDateTime().getStartTime());
 
         endTime.setText(meeting.getDateTime().getEndTime(meeting.getDuration()));
@@ -85,13 +89,18 @@ public class MeetingCard extends UiPart<Region> {
 
         loc.setText(meeting.getLocation().toString());
 
+        meeting.getParticipants().forEach(participant ->
+                participants
+                        .getChildren()
+                        .add(new Label(personMap
+                                .get(participant)
+                                .getName()
+                                .toString())));
+
         // sizing according to duration
         setDynamicSize(meeting.getDuration());
 
         logger.info(timelineDetails.getWidth() + "");
-
-        meeting.getParticipants()
-                .forEach(participant -> participants.getChildren().add(new Label(participant.getName().toString())));
 
         locationIcon.setImage(new Image(getClass().getResourceAsStream("/images/location.png")));
         withIcon.setImage(new Image(getClass().getResourceAsStream("/images/with.png")));
@@ -116,8 +125,16 @@ public class MeetingCard extends UiPart<Region> {
         }
     }
 
+    public Set<Person> getPersonParticipants(Set<UUID> uuids, ObservableMap<UUID, Person> persons) {
+        Set<Person> participants = new HashSet<>();
+        for (UUID uuid : uuids) {
+            participants.add(persons.get(uuid));
+        }
+        return participants;
+    }
+
     private void setDynamicSize(Duration duration) {
-        double length = duration.hours * 60 + duration.minutes;
+        double length = duration.getHours() * 60 + duration.getMinutes();
 
         meetingBar.heightProperty().setValue(length);
         length /= 10;

@@ -5,14 +5,20 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
+import java.util.UUID;
 
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.meeting.UniqueMeetingList;
+import seedu.address.model.meeting.UniqueMeetingList.Pair;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.person.UniquePersonMap;
 
 /**
  * Wraps all data at the address-book level
@@ -20,7 +26,8 @@ import seedu.address.model.person.UniquePersonList;
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
-    private final UniquePersonList persons;
+    private final UniquePersonList personList;
+    private final UniquePersonMap persons;
     private final UniqueMeetingList meetings;
 
     /*
@@ -31,17 +38,18 @@ public class AddressBook implements ReadOnlyAddressBook {
      *   among constructors.
      */
     {
-        persons = new UniquePersonList();
+        personList = new UniquePersonList();
+        persons = new UniquePersonMap();
         meetings = new UniqueMeetingList();
     }
 
-    public AddressBook() {}
+    public AddressBook() {
+    }
 
     /**
      * Creates an AddressBook using the Persons in the {@code toBeCopied}
      */
     public AddressBook(ReadOnlyAddressBook toBeCopied) {
-        this();
         resetData(toBeCopied);
     }
 
@@ -51,8 +59,9 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Replaces the contents of the person list with {@code persons}.
      * {@code persons} must not contain duplicate persons.
      */
-    public void setPersons(List<Person> persons) {
+    public void setPersons(Map<UUID, Person> persons) {
         this.persons.setPersons(persons);
+        this.personList.setPersons(new ArrayList<>(persons.values()));
     }
 
     /**
@@ -69,7 +78,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
-        setPersons(newData.getPersonList());
+        setPersons(newData.getPersonMap());
         setMeetings(newData.getMeetingList());
     }
 
@@ -89,6 +98,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addPerson(Person p) {
         persons.add(p);
+        personList.add(p);
     }
 
     /**
@@ -100,6 +110,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(editedPerson);
 
         persons.setPerson(target, editedPerson);
+        personList.setPerson(target, editedPerson);
     }
 
     /**
@@ -108,6 +119,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removePerson(Person key) {
         persons.remove(key);
+        System.out.println(persons.asUnmodifiableObservableMap());
+        personList.remove(key);
     }
 
     //// meeting-level operations
@@ -118,6 +131,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     public boolean hasMeeting(Meeting meeting) {
         requireNonNull(meeting);
         return meetings.contains(meeting);
+    }
+
+    /**
+     * Checks whether a meeting conflicts with other meetings in the schedule
+     */
+    public Pair<Boolean, Optional<Meeting>> hasConflict(Meeting meeting, int interval) {
+        requireNonNull(meeting);
+        return meetings.checkConflict(meeting, interval);
     }
 
     /**
@@ -168,18 +189,29 @@ public class AddressBook implements ReadOnlyAddressBook {
         toRemoveObjects.forEach(meetings::remove);
     }
 
+    /**
+     * Gets the first future meeting, if any.
+     */
+    public Meeting getFirstFutureMeeting() {
+        return meetings.getFirstFutureMeeting();
+    }
+
     //// util methods
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons\n"
+        return super.toString() + persons.asUnmodifiableObservableMap().size() + " persons\n"
                 + meetings.asUnmodifiableObservableList().size() + " meetings";
         // TODO: refine later
     }
 
+    public ObservableMap<UUID, Person> getPersonMap() {
+        return persons.asUnmodifiableObservableMap();
+    }
+
     @Override
     public ObservableList<Person> getPersonList() {
-        return persons.asUnmodifiableObservableList();
+        return personList.asUnmodifiableObservableList();
     }
 
     @Override
@@ -192,6 +224,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
                 && persons.equals(((AddressBook) other).persons)
+                && personList.equals(((AddressBook) other).personList)
                 && meetings.equals(((AddressBook) other).meetings));
     }
 

@@ -9,11 +9,14 @@ import static seedu.address.testutil.Assert.assertThrows;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Optional;
+import java.util.UUID;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
@@ -21,6 +24,9 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.meeting.Meeting;
+import seedu.address.model.meeting.UniqueMeetingList.Pair;
+import seedu.address.model.memento.History;
+import seedu.address.model.memento.StateManager;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
@@ -131,6 +137,11 @@ public class AddContactCommandTest {
         }
 
         @Override
+        public Meeting getFirstFutureMeeting() {
+            return null;
+        }
+
+        @Override
         public boolean hasMeeting(Meeting meeting) {
             throw new AssertionError("This method should not be called.");
         }
@@ -161,12 +172,22 @@ public class AddContactCommandTest {
         }
 
         @Override
+        public Pair hasConflict(Meeting meeting) {
+            return new Pair(false, Optional.empty());
+        }
+
+        @Override
         public void deletePerson(Person target) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void setPerson(Person target, Person editedPerson) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableMap<UUID, Person> getPersonMap() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -187,6 +208,26 @@ public class AddContactCommandTest {
 
         @Override
         public void updateFilteredMeetingList(Predicate<Meeting> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void reattachDependentMeetings(Person editedPerson) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void refreshApplication() {
+            // do nothing
+        }
+
+        @Override
+        public StateManager getStateManager() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public History getHistory() {
             throw new AssertionError("This method should not be called.");
         }
     }

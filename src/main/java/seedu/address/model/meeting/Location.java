@@ -56,4 +56,7 @@ public class Location {
         return value.hashCode();
     }
 
+    public Location copy() {
+        return new Location(value);
+    }
 }

@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import javafx.beans.binding.DoubleBinding;
@@ -15,10 +16,17 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.CommandSession;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.scheduler.RefreshTask;
+import seedu.address.logic.scheduler.Scheduler;
+import seedu.address.model.meeting.Meeting;
+import seedu.address.model.memento.History;
+import seedu.address.model.memento.StateManager;
+import seedu.address.model.person.Person;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -30,8 +38,13 @@ public class MainWindow extends UiPart<Stage> {
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
-    private Stage primaryStage;
-    private Logic logic;
+    private final Stage primaryStage;
+    private final Logic logic;
+    private final CommandSession commandSession;
+    private final StateManager stateManager;
+    private final History history;
+    private final Scheduler scheduler;
+    private RefreshTask refreshTask;
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
@@ -80,6 +93,17 @@ public class MainWindow extends UiPart<Stage> {
 
         helpWindow = new HelpWindow();
 
+        commandSession = new CommandSession();
+
+        stateManager = logic.getStateManager();
+
+        history = logic.getHistory();
+
+        scheduler = new Scheduler();
+
+        refreshTask = new RefreshTask(scheduler, this.logic, "refresh");
+
+        scheduler.update(refreshTask);
 
     }
 
@@ -135,8 +159,7 @@ public class MainWindow extends UiPart<Stage> {
                 .subtract(commandBoxPlaceholder.heightProperty())
                 .subtract(160);
 
-
-        meetingListPanel = new MeetingListPanel(logic.getFilteredMeetingList(), timelineHeight);
+        meetingListPanel = new MeetingListPanel(logic.getFilteredMeetingList(), logic.getPersonMap(), timelineHeight);
         meetingListPanelPlaceholder.getChildren().add(meetingListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -145,7 +168,7 @@ public class MainWindow extends UiPart<Stage> {
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand);
+        CommandBox commandBox = new CommandBox(this::executeCommand, commandSession);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         DoubleBinding halfScreenWidth = contentPanelPlaceholder.widthProperty().multiply(0.5);
@@ -210,6 +233,8 @@ public class MainWindow extends UiPart<Stage> {
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
+            saveCurrentState(commandText);
+
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
@@ -222,11 +247,43 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
+            commandSession.add(commandText);
+
+            history.push(stateManager.createState());
+
+            refreshTask = new RefreshTask(scheduler, this.logic, "refresh");
+
+            scheduler.update(refreshTask);
+
             return commandResult;
+
         } catch (CommandException | ParseException e) {
+
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+
+    private void saveCurrentState(String commandText) {
+        ArrayList<Person> personArrayList = new ArrayList<>();
+        logic
+                .getAddressBook()
+                .getPersonList()
+                .stream()
+                .map(Person::copy)
+                .forEach(personArrayList::add);
+        stateManager.setPersonList(personArrayList);
+
+        ArrayList<Meeting> meetingArrayList = new ArrayList<>();
+        logic
+                .getAddressBook()
+                .getMeetingList()
+                .stream()
+                .map(Meeting::copy)
+                .forEach(meetingArrayList::add);
+        stateManager.setMeetingList(meetingArrayList);
+
+        stateManager.setCommandState(commandText);
     }
 }

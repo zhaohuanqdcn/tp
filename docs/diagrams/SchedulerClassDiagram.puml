@@ -1,0 +1,33 @@
+@startuml
+!include style.puml
+show members
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR
+skinparam classBackgroundColor LOGIC_COLOR
+skinparam classAttributeFontColor #FFFFFF
+
+Class Java.TimerTask
+Class Java.Timer
+
+Class Scheduler {
+    {method} update(ScheduledTask)
+}
+Abstract Class ScheduledTask {
+    {field} List<String> keywords
+}
+Class RefreshTask {
+
+}
+
+Class Meeting MODEL_COLOR
+Class Java.Timer #000000
+Class Java.TimerTask #000000
+ScheduledTask -up-|> Java.TimerTask
+RefreshTask -left-|> ScheduledTask
+Scheduler <--> ScheduledTask
+Scheduler -right-> Java.Timer
+ScheduledTask o-left-> Logic
+ScheduledTask o-left-> Meeting
+
+Java.Timer -[hidden]right-> Java.TimerTask
+@enduml

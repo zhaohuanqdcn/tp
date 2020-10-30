@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RECURRENCE;
 
 import java.util.List;
 
@@ -18,9 +19,12 @@ public class DeleteMeetingCommand extends Command {
     public static final String COMMAND_WORD = "delete_meeting";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the meeting identified by the index number used in the displayed meeting list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + ": Deletes the meeting (and possibly its recurrences) "
+            + "identified by the index number used in the displayed meeting list.\n"
+            + "Parameters: "
+            + "INDEX "
+            + "[" + PREFIX_RECURRENCE + "RECURRING] \n"
+            + "Example: " + COMMAND_WORD + " 1 " + PREFIX_RECURRENCE + "true";
 
     public static final String MESSAGE_DELETE_MEETING_SUCCESS = "Deleted Meeting: %1$s";
 

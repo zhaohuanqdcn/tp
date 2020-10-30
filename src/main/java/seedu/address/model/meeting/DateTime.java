@@ -48,7 +48,7 @@ public class DateTime {
                 isValidFormat = true;
             }
         } catch (DateTimeParseException e) {
-            e.printStackTrace();
+            throw e;
         }
         return isValidFormat;
     }
@@ -63,8 +63,12 @@ public class DateTime {
         return dateInputFormat;
     }
 
-    public static DateTimeFormatter getDateOutputFormat() {
+    public DateTimeFormatter getDateOutputFormat() {
         return dateOutputFormat;
+    }
+
+    public LocalDateTime getValue() {
+        return value;
     }
 
     public DateTime getNextOccurrence(Recurrence recurrence, int index) {
@@ -109,7 +113,11 @@ public class DateTime {
     public String getEndTime(Duration duration) {
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mma");
         return timeFormatter.format(value
-                .plusHours(duration.hours)
-                .plusMinutes(duration.minutes));
+                .plusHours(duration.getHours())
+                .plusMinutes(duration.getMinutes()));
+    }
+
+    public DateTime copy() {
+        return new DateTime(value);
     }
 }

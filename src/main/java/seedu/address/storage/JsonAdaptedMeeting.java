@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -18,7 +19,6 @@ import seedu.address.model.meeting.Location;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.meeting.Recurrence;
 import seedu.address.model.meeting.Title;
-import seedu.address.model.person.Person;
 
 /**
  * Jackson-friendly version of {@link Meeting}.
@@ -33,8 +33,9 @@ class JsonAdaptedMeeting {
     private final String duration;
     private final String dateTime;
     private final String location;
+
+    private final List<UUID> participants = new ArrayList<>();
     private final String recurrence;
-    private final List<JsonAdaptedPerson> participants = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedMeeting} with the given person details.
@@ -43,7 +44,8 @@ class JsonAdaptedMeeting {
     public JsonAdaptedMeeting(@JsonProperty("title") String title, @JsonProperty("duration") String duration,
             @JsonProperty("dateTime") String dateTime, @JsonProperty("location") String location,
                     @JsonProperty("recurrence") String recurrence,
-                            @JsonProperty("participants") List<JsonAdaptedPerson> participants) {
+                            @JsonProperty("participants") List<UUID> participants) {
+
         this.title = title;
         this.duration = duration;
         this.dateTime = dateTime;
@@ -59,12 +61,11 @@ class JsonAdaptedMeeting {
      */
     public JsonAdaptedMeeting(Meeting source) {
         title = source.getTitle().value;
-        duration = source.getDuration().hours + " " + source.getDuration().minutes;
-        dateTime = source.getDateTime().value.format(dateTimeFormat);
+        duration = source.getDuration().getHours() + " " + source.getDuration().getMinutes();
+        dateTime = source.getDateTime().getValue().format(dateTimeFormat);
         location = source.getLocation().value;
         recurrence = source.getRecurrence().toString();
         participants.addAll(source.getParticipants().stream()
-                .map(JsonAdaptedPerson::new)
                 .collect(Collectors.toList()));
     }
 
@@ -74,10 +75,6 @@ class JsonAdaptedMeeting {
      * @throws IllegalValueException if there were any data constraints violated in the adapted meeting.
      */
     public Meeting toModelType() throws IllegalValueException {
-        final List<Person> meetingParticipants = new ArrayList<>();
-        for (JsonAdaptedPerson person : participants) {
-            meetingParticipants.add(person.toModelType());
-        }
 
         if (title == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Title.class.getSimpleName()));
@@ -136,7 +133,7 @@ class JsonAdaptedMeeting {
         }
 
 
-        final Set<Person> modelParticipants = new HashSet<>(meetingParticipants);
+        final Set<UUID> modelParticipants = new HashSet<>(participants);
         return new Meeting(modelTitle, modelDuration, modelDateTime, modelLocation, modelRecurrence, modelParticipants);
     }
 

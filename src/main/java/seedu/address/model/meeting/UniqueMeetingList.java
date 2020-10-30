@@ -7,6 +7,9 @@ import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
+import java.util.function.BinaryOperator;
+import java.util.function.Predicate;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -54,13 +57,91 @@ public class UniqueMeetingList implements Iterable<Meeting> {
     }
 
     /**
+     * Checks whether a meeting conflicts with other meetings in the schedule.
+     */
+    public Pair<Boolean, Optional<Meeting>> checkConflict(Meeting meeting, int interval) {
+        // the list should be sorted at all time, however sort again just to ensure it is sorted.
+        sort();
+        LocalDateTime currentMeetingDateTime = meeting.getDateTime().value;
+        Predicate<Meeting> isBeforeCurrentMeetingPredicate = x -> x.getDateTime().value
+                .isBefore(currentMeetingDateTime);
+        Predicate<Meeting> isAfterOrEqualCurrentMeetingPredicate = x -> x.getDateTime().value
+                .isAfter(currentMeetingDateTime) || x.getDateTime().value.equals(currentMeetingDateTime);
+        BinaryOperator<Meeting> storeLast = (x, y) -> y;
+
+        // The iterative approach is more efficient as it only need to scan through the list once
+        // and probably stop half way.
+        // However, it requires some handling of corner cases, eg: when the list is empty, etc.
+        // Therefore, FP could be safer and easier to understand even though it scans through the list twice.
+        Optional<Meeting> nearestMeetingBeforeCurrent = internalList.stream()
+                                                                    .filter(isBeforeCurrentMeetingPredicate)
+                                                                    .reduce(storeLast);
+
+        Optional<Meeting> nearestMeetingAfterOrEqualCurrent = internalList.stream()
+                                                                          .filter(isAfterOrEqualCurrentMeetingPredicate)
+                                                                          .findFirst();
+
+        if (checkMeetingBefore(nearestMeetingBeforeCurrent, meeting, interval)) {
+            return new Pair<> (true, nearestMeetingBeforeCurrent);
+        }
+
+        if (checkMeetingAfter(nearestMeetingAfterOrEqualCurrent, meeting, interval)) {
+            return new Pair<>(true, nearestMeetingAfterOrEqualCurrent);
+        }
+
+        return new Pair<>(false, Optional.empty());
+
+
+    }
+
+    private boolean checkMeetingBefore(Optional<Meeting> nearestMeetingBefore, Meeting toAddMeeting, int interval) {
+        if (nearestMeetingBefore.isPresent()) {
+            Meeting meetingBefore = nearestMeetingBefore.get();
+            LocalDateTime meetingBeforeDateTime = meetingBefore.getDateTime().value;
+            Duration meetingBeforeDuration = meetingBefore.getDuration();
+            long totalMinutes = meetingBeforeDuration.hours * 60 + meetingBeforeDuration.minutes + interval;
+            LocalDateTime nextMeetingAvailableDateTime = meetingBeforeDateTime.plusMinutes(totalMinutes);
+
+            LocalDateTime currentMeetingDateTime = toAddMeeting.getDateTime().value;
+
+            if (currentMeetingDateTime.equals(nextMeetingAvailableDateTime)
+                    || currentMeetingDateTime.isBefore(nextMeetingAvailableDateTime)) {
+                return true;
+            }
+
+        }
+        return false;
+    }
+
+    private boolean checkMeetingAfter(Optional<Meeting> meetingAfterOrEqual, Meeting toAddMeeting, int interval) {
+        if (meetingAfterOrEqual.isPresent()) {
+            Meeting meetingToCheck = meetingAfterOrEqual.get();
+            LocalDateTime meetingToCheckDateTime = meetingToCheck.getDateTime().value;
+            if (meetingToCheckDateTime.equals(toAddMeeting.getDateTime().value)) {
+                return true;
+            }
+
+            LocalDateTime previousMeetingAvailableDateTime = meetingToCheckDateTime.minusMinutes(interval);
+
+            LocalDateTime currentMeetingDateTime = toAddMeeting.getDateTime().value;
+
+            if (currentMeetingDateTime.equals(previousMeetingAvailableDateTime)
+                    || currentMeetingDateTime.isAfter(previousMeetingAvailableDateTime)) {
+                return true;
+            }
+
+        }
+        return false;
+    }
+
+    /**
      * Sorts all meetings in the list according to Date and Time.
      * Tie break by comparing meeting's title in chronological order.
      */
     public void sort() {
         Comparator<Meeting> meetingComparator = (meetingOne, meetingTwo) -> {
-            LocalDateTime dateTimeOne = meetingOne.getDateTime().value;
-            LocalDateTime dateTimeTwo = meetingTwo.getDateTime().value;
+            LocalDateTime dateTimeOne = meetingOne.getDateTime().getValue();
+            LocalDateTime dateTimeTwo = meetingTwo.getDateTime().getValue();
             if (dateTimeOne.equals(dateTimeTwo)) {
                 return meetingOne.getTitle().value.compareTo(meetingTwo.getTitle().value);
             } else {
@@ -108,6 +189,14 @@ public class UniqueMeetingList implements Iterable<Meeting> {
     public FilteredList<Meeting> getRecurringMeetings(Meeting toRemove) {
         requireNonNull(toRemove);
         return internalList.filtered(toRemove::isSameRecurringMeeting);
+    }
+
+    /**
+     * Returns the first future meeting, if any.
+     */
+    public Meeting getFirstFutureMeeting() {
+        Optional<Meeting> first = internalList.stream().filter(Meeting::isFutureMeeting).findFirst();
+        return first.orElse(null);
     }
 
     public void setMeetings(UniqueMeetingList replacement) {
@@ -165,5 +254,44 @@ public class UniqueMeetingList implements Iterable<Meeting> {
             }
         }
         return true;
+    }
+
+
+    public static class Pair<T, R> {
+
+        private final T valueOne;
+        private final R valueTwo;
+
+        /**
+         * Constructs a 2-tuple that holds any two value
+         */
+        public Pair(T valueOne, R valueTwo) {
+            requireNonNull(valueOne);
+            requireNonNull(valueTwo);
+            this.valueOne = valueOne;
+            this.valueTwo = valueTwo;
+        }
+
+        public T getValueOne() {
+            return valueOne;
+        }
+
+        public R getValueTwo() {
+            return valueTwo;
+        }
+
+        @Override
+        public int hashCode() {
+            return valueOne.hashCode() ^ valueTwo.hashCode();
+        }
+
+        @Override
+        public boolean equals(Object other) {
+            return other == this // short circuit if same object
+                    || (other instanceof Pair // instanceof handles nulls
+                    && valueOne.equals(((Pair<?, ?>) other).getValueOne()) // state check
+                    && valueTwo.equals(((Pair<?, ?>) other).getValueTwo()));
+        }
+
     }
 }

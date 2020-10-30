@@ -54,4 +54,7 @@ public class Address {
         return value.hashCode();
     }
 
+    public Address copy() {
+        return new Address(value);
+    }
 }

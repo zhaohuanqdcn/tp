@@ -5,11 +5,14 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 AddressBook *-right-> "1" UniqueMeetingList
+
 UniqueMeetingList o-down-> Meeting
 
 Meeting --> "*" Participant
+
 Meeting *--> Title
 Meeting *--> Duration
 Meeting *--> DateTime
 Meeting *--> Location
+Meeting *--> Recurrence
 @enduml

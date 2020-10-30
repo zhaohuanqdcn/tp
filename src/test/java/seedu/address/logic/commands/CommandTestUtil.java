@@ -13,6 +13,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -32,6 +33,8 @@ import seedu.address.testutil.PersonBuilder;
  */
 public class CommandTestUtil {
 
+    public static final String VALID_UUID_AMY = UUID.randomUUID().toString();
+    public static final String VALID_UUID_BOB = UUID.randomUUID().toString();
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
     public static final String VALID_PHONE_AMY = "11111111";
