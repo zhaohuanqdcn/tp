@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.model.Model;
-import seedu.address.model.meeting.MeetingWithinDaysPredicate;
+import seedu.address.model.meeting.MeetingWithinHoursPredicate;
 
 /**
  * Finds and lists all meetings whose time is within certain hours.
@@ -19,9 +19,9 @@ public class RemindMeetingCommand extends Command {
             + "Parameters: HOURS (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 72";
 
-    private final MeetingWithinDaysPredicate predicate;
+    private final MeetingWithinHoursPredicate predicate;
 
-    public RemindMeetingCommand(MeetingWithinDaysPredicate predicate) {
+    public RemindMeetingCommand(MeetingWithinHoursPredicate predicate) {
         this.predicate = predicate;
     }
 

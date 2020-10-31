@@ -69,10 +69,6 @@ public class UniqueMeetingList implements Iterable<Meeting> {
                 .isAfter(currentMeetingDateTime) || x.getDateTime().value.equals(currentMeetingDateTime);
         BinaryOperator<Meeting> storeLast = (x, y) -> y;
 
-        // The iterative approach is more efficient as it only need to scan through the list once
-        // and probably stop half way.
-        // However, it requires some handling of corner cases, eg: when the list is empty, etc.
-        // Therefore, FP could be safer and easier to understand even though it scans through the list twice.
         Optional<Meeting> nearestMeetingBeforeCurrent = internalList.stream()
                                                                     .filter(isBeforeCurrentMeetingPredicate)
                                                                     .reduce(storeLast);
