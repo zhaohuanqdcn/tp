@@ -1,6 +1,6 @@
 package seedu.address.ui;
 
-import java.util.*;
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import javafx.beans.binding.DoubleBinding;
@@ -24,7 +24,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.scheduler.RefreshTask;
 import seedu.address.logic.scheduler.ReminderPopupTask;
 import seedu.address.logic.scheduler.Scheduler;
-import seedu.address.model.meeting.*;
+import seedu.address.model.meeting.Meeting;
 import seedu.address.model.memento.History;
 import seedu.address.model.memento.StateManager;
 import seedu.address.model.person.Person;
@@ -113,7 +113,8 @@ public class MainWindow extends UiPart<Stage> {
 
         reminderScheduler = new Scheduler();
 
-        reminderPopupTask = new ReminderPopupTask(reminderScheduler, this.logic, "popupNotifications", this::handlePopup);
+        reminderPopupTask = new ReminderPopupTask(reminderScheduler, this.logic,
+                "popupNotifications", this::handlePopup);
 
         reminderScheduler.update(reminderPopupTask);
     }
@@ -212,7 +213,9 @@ public class MainWindow extends UiPart<Stage> {
             helpWindow.focus();
         }
     }
-
+    /**
+     * Shows the popup with the given meeting contents
+     */
     public void handlePopup(Meeting meeting) {
         reminderPopup.setMeeting(meeting);
         if (!reminderPopup.isShowing()) {
@@ -275,7 +278,8 @@ public class MainWindow extends UiPart<Stage> {
 
             refreshScheduler.update(refreshTask);
 
-            reminderPopupTask = new ReminderPopupTask(reminderScheduler, this.logic, "popupNotifications", this::handlePopup);
+            reminderPopupTask = new ReminderPopupTask(reminderScheduler, this.logic,
+                    "popupNotifications", this::handlePopup);
 
             reminderScheduler.update(reminderPopupTask);
 

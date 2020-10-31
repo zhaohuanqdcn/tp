@@ -1,7 +1,6 @@
 package seedu.address.logic;
 
 import java.nio.file.Path;
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 import javafx.collections.ObservableList;

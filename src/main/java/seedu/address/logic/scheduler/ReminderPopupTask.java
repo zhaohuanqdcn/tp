@@ -1,17 +1,25 @@
 package seedu.address.logic.scheduler;
 
+import java.time.LocalDateTime;
+import java.util.function.Consumer;
+
 import javafx.application.Platform;
 import seedu.address.logic.Logic;
 import seedu.address.model.meeting.Meeting;
 
-import java.time.LocalDateTime;
-import java.util.function.Consumer;
-
 public class ReminderPopupTask extends ScheduledTask {
 
     private final Logic logic;
-    Consumer<Meeting> consumer;
+    private final Consumer<Meeting> consumer;
 
+    /**
+     * Instantiates a new Reminder popup task.
+     *
+     * @param scheduler the scheduler to which this task is bound
+     * @param logic     the logic used to get the order of meetings to set the task
+     * @param name      the name of the task
+     * @param consumer  the consumer which is called when the task is run
+     */
     public ReminderPopupTask(Scheduler scheduler, Logic logic, String name, Consumer<Meeting> consumer) {
         super(scheduler, logic.getNextMeeting(30), name);
         this.consumer = consumer;
