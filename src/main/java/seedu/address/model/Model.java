@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.function.Predicate;
 
@@ -8,6 +9,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.meeting.Meeting;
+import seedu.address.model.meeting.UniqueMeetingList.Pair;
 import seedu.address.model.memento.History;
 import seedu.address.model.memento.StateManager;
 import seedu.address.model.person.Person;
@@ -59,9 +61,10 @@ public interface Model {
     ReadOnlyAddressBook getAddressBook();
 
     /**
-     * Returns the first {@code meeting} in the future. If there is no future meeting, return null.
+     * Returns the next {@code meeting} in the future with a particular offset (in minutes) from current time.
+     * If there is no future meeting, return null.
      */
-    Meeting getFirstFutureMeeting();
+    Meeting getNextMeeting(long offset);
 
     /**
      * Returns true if a meeting with the same identity as {@code meeting} exists in the address book.
@@ -71,7 +74,7 @@ public interface Model {
     /**
      * Returns true if a meeting in the schedule has overlapped timing (includes interval) with {@code meeting}
      */
-    boolean hasConflict(Meeting meeting);
+    Pair<Boolean, Optional<Meeting>> hasConflict(Meeting meeting);
 
     /**
      * Deletes the given meeting.

@@ -9,6 +9,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.function.Predicate;
 
@@ -22,6 +23,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.meeting.Meeting;
+import seedu.address.model.meeting.UniqueMeetingList.Pair;
 import seedu.address.model.memento.History;
 import seedu.address.model.memento.StateManager;
 import seedu.address.model.person.Person;
@@ -144,8 +146,8 @@ class AddMeetingCommandTest {
         }
 
         @Override
-        public boolean hasConflict(Meeting meeting) {
-            return false;
+        public Pair hasConflict(Meeting meeting) {
+            return new Pair(false, Optional.empty());
         }
 
         @Override
@@ -154,7 +156,7 @@ class AddMeetingCommandTest {
         }
 
         @Override
-        public Meeting getFirstFutureMeeting() {
+        public Meeting getNextMeeting(long offset) {
             return null;
         }
 

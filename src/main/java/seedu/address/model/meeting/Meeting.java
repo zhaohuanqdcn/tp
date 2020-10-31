@@ -119,10 +119,10 @@ public class Meeting {
     /**
      * Returns true if the meeting is scheduled with a {@code dateTime} in future.
      */
-    public boolean isFutureMeeting() {
-        LocalDateTime localDateTime = LocalDateTime.now();
-        return dateTime.value.isAfter(localDateTime);
+    public boolean isFutureMeeting(LocalDateTime now) {
+        return dateTime.value.isAfter(now);
     }
+
 
     /**
      * Returns an immutable person set, which throws {@code UnsupportedOperationException}

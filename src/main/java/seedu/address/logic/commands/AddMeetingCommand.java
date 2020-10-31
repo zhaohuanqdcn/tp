@@ -8,9 +8,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RECURRENCE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
+import java.util.Optional;
+
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.meeting.Meeting;
+import seedu.address.model.meeting.UniqueMeetingList.Pair;
 
 public class AddMeetingCommand extends Command {
 
@@ -33,7 +36,8 @@ public class AddMeetingCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New meeting added: %1$s \n "
             + "Add participants by finding their name, and key in their index on the list";
     public static final String MESSAGE_DUPLICATE_MEETING = "This meeting already exists in the schedule";
-    public static final String MESSAGE_CONFLICT_MEETING = "This meeting conflicts with an existing meeting in the list";
+    public static final String MESSAGE_CONFLICT_MEETING =
+            "This meeting conflicts with an existing meeting in the list :\n";
 
     private final Meeting toAdd;
 
@@ -54,8 +58,9 @@ public class AddMeetingCommand extends Command {
 
         // check if all recurrence meetings do not conflict with current schedule, then proceed to add them
         for (Meeting meeting : toAdd.getRecurrencesAsList()) {
-            if (model.hasConflict(meeting)) {
-                throw new CommandException(MESSAGE_CONFLICT_MEETING);
+            Pair<Boolean, Optional<Meeting>> conflictCheckResult = model.hasConflict(meeting);
+            if (conflictCheckResult.getValueOne()) {
+                throw new CommandException(MESSAGE_CONFLICT_MEETING + conflictCheckResult.getValueTwo().get());
             }
         }
 

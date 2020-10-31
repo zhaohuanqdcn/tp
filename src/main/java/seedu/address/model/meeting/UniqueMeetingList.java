@@ -3,16 +3,13 @@ package seedu.address.model.meeting;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Function;
+import java.util.function.BinaryOperator;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -62,67 +59,78 @@ public class UniqueMeetingList implements Iterable<Meeting> {
     /**
      * Checks whether a meeting conflicts with other meetings in the schedule.
      */
-    public boolean checkConflict(Meeting meeting, int interval) {
+    public Pair<Boolean, Optional<Meeting>> checkConflict(Meeting meeting, int interval) {
+        // the list should be sorted at all time, however sort again just to ensure it is sorted.
+        sort();
+        LocalDateTime currentMeetingDateTime = meeting.getDateTime().value;
+        Predicate<Meeting> isBeforeCurrentMeetingPredicate = x -> x.getDateTime().value
+                .isBefore(currentMeetingDateTime);
+        Predicate<Meeting> isAfterOrEqualCurrentMeetingPredicate = x -> x.getDateTime().value
+                .isAfter(currentMeetingDateTime) || x.getDateTime().value.equals(currentMeetingDateTime);
+        BinaryOperator<Meeting> storeLast = (x, y) -> y;
 
-        LocalDate currentMeetingLocalDate = meeting.getDateTime().value.toLocalDate();
-        Predicate<Meeting> localDatePredicate = x -> x.getDateTime().value.toLocalDate()
-                .equals(currentMeetingLocalDate);
+        // The iterative approach is more efficient as it only need to scan through the list once
+        // and probably stop half way.
+        // However, it requires some handling of corner cases, eg: when the list is empty, etc.
+        // Therefore, FP could be safer and easier to understand even though it scans through the list twice.
+        Optional<Meeting> nearestMeetingBeforeCurrent = internalList.stream()
+                                                                    .filter(isBeforeCurrentMeetingPredicate)
+                                                                    .reduce(storeLast);
 
-        Function<Meeting, Pair<LocalTime, LocalTime>> meetingToStartEndTimeMapper = x -> {
-            LocalTime start = x.getDateTime().value.toLocalTime();
-            Duration duration = x.getDuration();
-            long totalMinutesOfMeeting = duration.hours * 60 + duration.minutes;
-            LocalTime end = start.plusMinutes(totalMinutesOfMeeting);
-            return new Pair<>(start, end);
-        };
+        Optional<Meeting> nearestMeetingAfterOrEqualCurrent = internalList.stream()
+                                                                          .filter(isAfterOrEqualCurrentMeetingPredicate)
+                                                                          .findFirst();
 
-        List<Pair<LocalTime, LocalTime>> startEndList = internalList.stream()
-                                                                    .filter(localDatePredicate)
-                                                                    .map(meetingToStartEndTimeMapper)
-                                                                    .collect(Collectors.toList());
-
-        int totalMinutesinDay = 24 * 60;
-        // each array element represent a minute in a day
-        boolean[] dayMinutesArray = new boolean[totalMinutesinDay];
-
-        fillArray(startEndList, dayMinutesArray, interval);
-
-        return checkMeetingWithArray(dayMinutesArray, meeting);
-    }
-
-    private int convertLocalTimeToArrayIndex(LocalTime localTime) {
-        return localTime.getHour() * 60 + localTime.getMinute();
-    }
-
-    private void fillArray(List<Pair<LocalTime, LocalTime>> pairList, boolean[] dayMinutesArray, int interval) {
-        for (Pair<LocalTime, LocalTime> startEndTime : pairList) {
-            LocalTime start = startEndTime.getValueOne();
-            LocalTime end = startEndTime.getValueTwo();
-            int startIndex = convertLocalTimeToArrayIndex(start) - interval;
-            int endIndex = convertLocalTimeToArrayIndex(end) + interval;
-
-            for (int i = startIndex; i <= endIndex; i++) {
-                dayMinutesArray[i] = true;
-            }
+        if (checkMeetingBefore(nearestMeetingBeforeCurrent, meeting, interval)) {
+            return new Pair<> (true, nearestMeetingBeforeCurrent);
         }
 
+        if (checkMeetingAfter(nearestMeetingAfterOrEqualCurrent, meeting, interval)) {
+            return new Pair<>(true, nearestMeetingAfterOrEqualCurrent);
+        }
+
+        return new Pair<>(false, Optional.empty());
+
+
     }
 
-    /**
-     * Checks whether a meeting's start and end time overlap with other meetings
-     */
-    public boolean checkMeetingWithArray(boolean[] dayMinutesArray, Meeting meeting) {
-        LocalTime start = meeting.getDateTime().value.toLocalTime();
-        LocalTime end = start.plusMinutes(meeting.getDuration().hours * 60 + meeting.getDuration().minutes);
-        int startIndex = convertLocalTimeToArrayIndex(start);
-        int endIndex = convertLocalTimeToArrayIndex(end);
+    private boolean checkMeetingBefore(Optional<Meeting> nearestMeetingBefore, Meeting toAddMeeting, int interval) {
+        if (nearestMeetingBefore.isPresent()) {
+            Meeting meetingBefore = nearestMeetingBefore.get();
+            LocalDateTime meetingBeforeDateTime = meetingBefore.getDateTime().value;
+            Duration meetingBeforeDuration = meetingBefore.getDuration();
+            long totalMinutes = meetingBeforeDuration.hours * 60 + meetingBeforeDuration.minutes + interval;
+            LocalDateTime nextMeetingAvailableDateTime = meetingBeforeDateTime.plusMinutes(totalMinutes);
 
-        for (int i = startIndex; i <= endIndex; i++) {
-            if (dayMinutesArray[i]) {
+            LocalDateTime currentMeetingDateTime = toAddMeeting.getDateTime().value;
+
+            if (currentMeetingDateTime.equals(nextMeetingAvailableDateTime)
+                    || currentMeetingDateTime.isBefore(nextMeetingAvailableDateTime)) {
                 return true;
             }
-        }
 
+        }
+        return false;
+    }
+
+    private boolean checkMeetingAfter(Optional<Meeting> meetingAfterOrEqual, Meeting toAddMeeting, int interval) {
+        if (meetingAfterOrEqual.isPresent()) {
+            Meeting meetingToCheck = meetingAfterOrEqual.get();
+            LocalDateTime meetingToCheckDateTime = meetingToCheck.getDateTime().value;
+            if (meetingToCheckDateTime.equals(toAddMeeting.getDateTime().value)) {
+                return true;
+            }
+
+            LocalDateTime previousMeetingAvailableDateTime = meetingToCheckDateTime.minusMinutes(interval);
+
+            LocalDateTime currentMeetingDateTime = toAddMeeting.getDateTime().value;
+
+            if (currentMeetingDateTime.equals(previousMeetingAvailableDateTime)
+                    || currentMeetingDateTime.isAfter(previousMeetingAvailableDateTime)) {
+                return true;
+            }
+
+        }
         return false;
     }
 
@@ -186,8 +194,9 @@ public class UniqueMeetingList implements Iterable<Meeting> {
     /**
      * Returns the first future meeting, if any.
      */
-    public Meeting getFirstFutureMeeting() {
-        Optional<Meeting> first = internalList.stream().filter(Meeting::isFutureMeeting).findFirst();
+    public Meeting getNextMeeting(long offset) {
+        Optional<Meeting> first = internalList.stream().filter(meeting -> meeting
+                .isFutureMeeting(LocalDateTime.now().plusMinutes(offset))).findFirst();
         return first.orElse(null);
     }
 

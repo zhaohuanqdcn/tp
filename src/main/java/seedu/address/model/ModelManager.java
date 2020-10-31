@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -14,6 +15,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.meeting.Meeting;
+import seedu.address.model.meeting.UniqueMeetingList.Pair;
 import seedu.address.model.memento.History;
 import seedu.address.model.memento.StateManager;
 import seedu.address.model.person.Person;
@@ -116,8 +118,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Meeting getFirstFutureMeeting() {
-        return addressBook.getFirstFutureMeeting();
+    public Meeting getNextMeeting(long offset) {
+        return addressBook.getNextMeeting(offset);
     }
 
     @Override
@@ -127,7 +129,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasConflict(Meeting meeting) {
+    public Pair<Boolean, Optional<Meeting>> hasConflict(Meeting meeting) {
         requireNonNull(meeting);
         return addressBook.hasConflict(meeting, userPrefs.getIntervalBetweenMeetings());
     }

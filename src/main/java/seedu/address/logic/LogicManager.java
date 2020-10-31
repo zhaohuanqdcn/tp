@@ -112,13 +112,14 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Meeting getFirstFutureMeeting() {
-        return model.getFirstFutureMeeting();
+    public Meeting getNextMeeting(long offset) {
+        return model.getNextMeeting(offset);
     }
 
     @Override
     public void refreshApplication() {
         model.refreshApplication();
     }
+
 
 }
