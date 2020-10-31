@@ -4,9 +4,9 @@
     "windowHeight" : 500.0,
     "extra" : "some value ",
     "windowCoordinates" : {
-      "x" : 300,
-      "y" : 100,
-      "z" : 99
+      "x" : 300.0,
+      "y" : 100.0,
+      "z" : 99.0
     }
   },
   "addressBookFilePath" : "addressbook.json"

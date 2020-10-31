@@ -3,9 +3,9 @@ package seedu.address.commons.core;
 import java.io.Serializable;
 import java.util.Objects;
 
-import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
+import seedu.address.commons.core.point.Point;
 
 /**
  * A Serializable class that contains the GUI settings.
@@ -13,22 +13,34 @@ import javafx.stage.Screen;
  */
 public class GuiSettings implements Serializable {
 
-    private static final double DEFAULT_HEIGHT = 600;
-    private static final double DEFAULT_WIDTH = 740;
+    private static final double DEFAULT_HEIGHT = 500;
+    private static final double DEFAULT_WIDTH = 1000;
 
     private final double windowWidth;
     private final double windowHeight;
-    private final Point2D windowCoordinates;
+    private final Point windowCoordinates;
 
     /**
      * Constructs a {@code GuiSettings} with the default height, width and position.
      */
     public GuiSettings() {
-        Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
-        windowWidth = bounds.getWidth();
-        windowHeight = bounds.getHeight();
-
-        windowCoordinates = new Point2D(bounds.getMinX(), bounds.getMinY()); // null represent no coordinates
+        double windowWidthTemp;
+        double windowHeightTemp;
+        Point windowCoordinatesTemp;
+        try {
+            Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
+            windowWidthTemp = bounds.getWidth();
+            windowHeightTemp = bounds.getHeight();
+            windowCoordinatesTemp = new Point(bounds.getMinX(), bounds.getMinY()); // null represent no coordinates
+        } catch (Error e) {
+            // if run in test environment, use default settings
+            windowWidthTemp = DEFAULT_WIDTH;
+            windowHeightTemp = DEFAULT_HEIGHT;
+            windowCoordinatesTemp = new Point(300, 100);
+        }
+        windowHeight = windowHeightTemp;
+        windowWidth = windowWidthTemp;
+        windowCoordinates = windowCoordinatesTemp;
     }
 
     /**
@@ -37,7 +49,7 @@ public class GuiSettings implements Serializable {
     public GuiSettings(double windowWidth, double windowHeight, int xPosition, int yPosition) {
         this.windowWidth = windowWidth;
         this.windowHeight = windowHeight;
-        windowCoordinates = new Point2D(xPosition, yPosition);
+        windowCoordinates = new Point(xPosition, yPosition);
     }
 
     public double getWindowWidth() {
@@ -48,7 +60,7 @@ public class GuiSettings implements Serializable {
         return windowHeight;
     }
 
-    public Point2D getWindowCoordinates() {
+    public Point getWindowCoordinates() {
         return windowCoordinates;
     }
 
@@ -81,4 +93,5 @@ public class GuiSettings implements Serializable {
         sb.append("Position : " + windowCoordinates);
         return sb.toString();
     }
+
 }
