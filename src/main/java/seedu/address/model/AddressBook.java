@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.UUID;
 
 import javafx.collections.ObservableList;
@@ -14,6 +15,7 @@ import javafx.collections.ObservableMap;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.meeting.UniqueMeetingList;
+import seedu.address.model.meeting.UniqueMeetingList.Pair;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.UniquePersonMap;
@@ -132,9 +134,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Checks whether a meeting conflicts with other meetings in the schdule
+     * Checks whether a meeting conflicts with other meetings in the schedule
      */
-    public boolean hasConflict(Meeting meeting, int interval) {
+    public Pair<Boolean, Optional<Meeting>> hasConflict(Meeting meeting, int interval) {
         requireNonNull(meeting);
         return meetings.checkConflict(meeting, interval);
     }

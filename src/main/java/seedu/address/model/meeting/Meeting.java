@@ -123,6 +123,7 @@ public class Meeting {
         return dateTime.value.isAfter(now);
     }
 
+
     /**
      * Returns an immutable person set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.

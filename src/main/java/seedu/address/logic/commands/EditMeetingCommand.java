@@ -26,6 +26,7 @@ import seedu.address.model.meeting.Location;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.meeting.Recurrence;
 import seedu.address.model.meeting.Title;
+import seedu.address.model.meeting.UniqueMeetingList.Pair;
 
 /**
  * Edits the details of an existing meeting in Recretary.
@@ -50,7 +51,8 @@ public class EditMeetingCommand extends Command {
     public static final String MESSAGE_EDIT_MEETING_SUCCESS = "Edited Meeting: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_MEETING = "This meeting already exists in the address book.";
-    public static final String MESSAGE_CONFLICT_MEETING = "This meeting conflicts with an existing meeting in the list";
+    public static final String MESSAGE_CONFLICT_MEETING =
+            "This meeting conflicts with an existing meeting in the list :\n";
 
     private final Index index;
     private final EditMeetingDescriptor editMeetingDescriptor;
@@ -86,10 +88,10 @@ public class EditMeetingCommand extends Command {
 
         // delete the meeting to simulate the add after deletion logic of edit
         model.deleteMeeting(meetingToEdit);
-
-        if (model.hasConflict(editedMeeting)) {
+        Pair<Boolean, Optional<Meeting>> conflictCheckResult = model.hasConflict(editedMeeting);
+        if (conflictCheckResult.getValueOne()) {
             model.addMeeting(meetingToEdit);
-            throw new CommandException(MESSAGE_CONFLICT_MEETING);
+            throw new CommandException(MESSAGE_CONFLICT_MEETING + conflictCheckResult.getValueTwo().get());
         }
 
         model.addMeeting(meetingToEdit);

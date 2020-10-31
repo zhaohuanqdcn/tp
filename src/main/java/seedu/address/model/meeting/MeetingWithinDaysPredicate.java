@@ -16,7 +16,7 @@ public class MeetingWithinDaysPredicate implements Predicate<Meeting> {
         LocalDateTime currentTime = LocalDateTime.now();
         LocalDateTime meetingTime = meeting.getDateTime().getValue();
 
-        if (meetingTime.isBefore(currentTime)) {
+        if (meetingTime.isBefore(currentTime) || meetingTime.equals(currentTime)) {
             return false;
         }
 
