@@ -8,8 +8,18 @@ import seedu.address.model.meeting.Meeting;
 
 public class RefreshTask extends ScheduledTask {
 
+    private final Logic logic;
+
+    /**
+     * Instantiates a new Refresh task.
+     *
+     * @param scheduler the scheduler to which this task in bound
+     * @param logic     the logic from which the order of meetings are generated
+     * @param name      the name of the task
+     */
     public RefreshTask(Scheduler scheduler, Logic logic, String name) {
-        super(scheduler, logic, name);
+        super(scheduler, logic.getNextMeeting(0), name);
+        this.logic = logic;
     }
 
     @Override

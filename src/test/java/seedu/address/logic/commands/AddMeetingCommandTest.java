@@ -156,7 +156,7 @@ class AddMeetingCommandTest {
         }
 
         @Override
-        public Meeting getFirstFutureMeeting() {
+        public Meeting getNextMeeting(long offset) {
             return null;
         }
 
