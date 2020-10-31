@@ -186,8 +186,8 @@ public class UniqueMeetingList implements Iterable<Meeting> {
     /**
      * Returns the first future meeting, if any.
      */
-    public Meeting getFirstFutureMeeting() {
-        Optional<Meeting> first = internalList.stream().filter(Meeting::isFutureMeeting).findFirst();
+    public Meeting getNextMeeting(long offset) {
+        Optional<Meeting> first = internalList.stream().filter(meeting -> meeting.isFutureMeeting(LocalDateTime.now().plusMinutes(offset))).findFirst();
         return first.orElse(null);
     }
 

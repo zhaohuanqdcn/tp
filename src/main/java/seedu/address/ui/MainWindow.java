@@ -1,6 +1,6 @@
 package seedu.address.ui;
 
-import java.util.ArrayList;
+import java.util.*;
 import java.util.logging.Logger;
 
 import javafx.beans.binding.DoubleBinding;
@@ -22,8 +22,9 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.scheduler.RefreshTask;
+import seedu.address.logic.scheduler.ReminderPopupTask;
 import seedu.address.logic.scheduler.Scheduler;
-import seedu.address.model.meeting.Meeting;
+import seedu.address.model.meeting.*;
 import seedu.address.model.memento.History;
 import seedu.address.model.memento.StateManager;
 import seedu.address.model.person.Person;
@@ -43,7 +44,10 @@ public class MainWindow extends UiPart<Stage> {
     private final CommandSession commandSession;
     private final StateManager stateManager;
     private final History history;
-    private final Scheduler scheduler;
+    private final Scheduler refreshScheduler;
+    private final Scheduler reminderScheduler;
+    private final ReminderPopup reminderPopup;
+    private ReminderPopupTask reminderPopupTask;
     private RefreshTask refreshTask;
 
     // Independent Ui parts residing in this Ui container
@@ -93,18 +97,25 @@ public class MainWindow extends UiPart<Stage> {
 
         helpWindow = new HelpWindow();
 
+        reminderPopup = new ReminderPopup(primaryStage);
+
         commandSession = new CommandSession();
 
         stateManager = logic.getStateManager();
 
         history = logic.getHistory();
 
-        scheduler = new Scheduler();
+        refreshScheduler = new Scheduler();
 
-        refreshTask = new RefreshTask(scheduler, this.logic, "refresh");
+        refreshTask = new RefreshTask(refreshScheduler, this.logic, "refresh");
 
-        scheduler.update(refreshTask);
+        refreshScheduler.update(refreshTask);
 
+        reminderScheduler = new Scheduler();
+
+        reminderPopupTask = new ReminderPopupTask(reminderScheduler, this.logic, "popupNotifications", this::handlePopup);
+
+        reminderScheduler.update(reminderPopupTask);
     }
 
     public Stage getPrimaryStage() {
@@ -202,6 +213,15 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    public void handlePopup(Meeting meeting) {
+        reminderPopup.setMeeting(meeting);
+        if (!reminderPopup.isShowing()) {
+            reminderPopup.show();
+        } else {
+            reminderPopup.focus();
+        }
+    }
+
     void show() {
         primaryStage.show();
     }
@@ -251,9 +271,13 @@ public class MainWindow extends UiPart<Stage> {
 
             history.push(stateManager.createState());
 
-            refreshTask = new RefreshTask(scheduler, this.logic, "refresh");
+            refreshTask = new RefreshTask(refreshScheduler, this.logic, "refresh");
 
-            scheduler.update(refreshTask);
+            refreshScheduler.update(refreshTask);
+
+            reminderPopupTask = new ReminderPopupTask(reminderScheduler, this.logic, "popupNotifications", this::handlePopup);
+
+            reminderScheduler.update(reminderPopupTask);
 
             return commandResult;
 

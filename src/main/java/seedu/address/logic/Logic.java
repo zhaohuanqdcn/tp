@@ -1,6 +1,7 @@
 package seedu.address.logic;
 
 import java.nio.file.Path;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import javafx.collections.ObservableList;
@@ -70,12 +71,12 @@ public interface Logic {
     History getHistory();
 
     /**
-     * Gets the first future meeting, if any.
+     * Gets the next occuring meeting with offset from current time, if any.
      */
-    Meeting getFirstFutureMeeting();
-
+    Meeting getNextMeeting(long offset);
     /**
      * Refreshes the application to update Ui.
      */
     void refreshApplication();
+
 }

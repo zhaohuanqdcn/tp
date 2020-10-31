@@ -2,6 +2,7 @@ package seedu.address.logic;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.time.LocalDateTime;
 import java.util.UUID;
 import java.util.logging.Logger;
 
@@ -112,13 +113,14 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Meeting getFirstFutureMeeting() {
-        return model.getFirstFutureMeeting();
+    public Meeting getNextMeeting(long offset) {
+        return model.getNextMeeting(offset);
     }
 
     @Override
     public void refreshApplication() {
         model.refreshApplication();
     }
+
 
 }

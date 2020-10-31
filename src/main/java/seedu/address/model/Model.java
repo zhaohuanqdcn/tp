@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.time.LocalDateTime;
 import java.util.UUID;
 import java.util.function.Predicate;
 
@@ -59,9 +60,10 @@ public interface Model {
     ReadOnlyAddressBook getAddressBook();
 
     /**
-     * Returns the first {@code meeting} in the future. If there is no future meeting, return null.
+     * Returns the next {@code meeting} in the future with a particular offset (in minutes) from current time.
+     * If there is no future meeting, return null.
      */
-    Meeting getFirstFutureMeeting();
+    Meeting getNextMeeting(long offset);
 
     /**
      * Returns true if a meeting with the same identity as {@code meeting} exists in the address book.

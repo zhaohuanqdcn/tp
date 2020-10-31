@@ -10,17 +10,15 @@ public abstract class ScheduledTask extends TimerTask {
 
     protected final Meeting meeting;
     protected final Scheduler scheduler;
-    protected final Logic logic;
     protected final String name;
 
     /**
      * Constructor of {@code ScheduledTask}.
      */
-    public ScheduledTask(Scheduler scheduler, Logic logic, String name) {
+    public ScheduledTask(Scheduler scheduler, Meeting meeting, String name) {
         super();
         this.scheduler = scheduler;
-        this.logic = logic;
-        this.meeting = this.logic.getFirstFutureMeeting();
+        this.meeting = meeting;
         this.name = name;
     }
 

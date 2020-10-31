@@ -190,8 +190,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Gets the first future meeting, if any.
      */
-    public Meeting getFirstFutureMeeting() {
-        return meetings.getFirstFutureMeeting();
+    public Meeting getNextMeeting(long offset) {
+        return meetings.getNextMeeting(offset);
     }
 
     //// util methods

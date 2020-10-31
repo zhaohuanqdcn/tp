@@ -1,17 +1,20 @@
 package seedu.address.logic.scheduler;
 
-import java.time.LocalDateTime;
-
 import javafx.application.Platform;
 import seedu.address.logic.Logic;
 import seedu.address.model.meeting.Meeting;
 
-public class RefreshTask extends ScheduledTask {
+import java.time.LocalDateTime;
+import java.util.function.Consumer;
+
+public class ReminderPopupTask extends ScheduledTask {
 
     private final Logic logic;
+    Consumer<Meeting> consumer;
 
-    public RefreshTask(Scheduler scheduler, Logic logic, String name) {
-        super(scheduler, logic.getNextMeeting(0), name);
+    public ReminderPopupTask(Scheduler scheduler, Logic logic, String name, Consumer<Meeting> consumer) {
+        super(scheduler, logic.getNextMeeting(30), name);
+        this.consumer = consumer;
         this.logic = logic;
     }
 
@@ -22,18 +25,18 @@ public class RefreshTask extends ScheduledTask {
 
     @Override
     public LocalDateTime getTaskTime() {
-        return super.meeting.getDateTime().value;
+        return super.meeting.getDateTime().value.minusMinutes(30);
     }
 
     @Override
     public void run() {
         // update scheduler
         scheduler.resetNextTaskTime();
-        RefreshTask nextRefresh = new RefreshTask(scheduler, logic, name);
+        ReminderPopupTask nextRefresh = new ReminderPopupTask(scheduler, logic, name, consumer);
         scheduler.update(nextRefresh);
 
         //update Ui
-        Platform.runLater(logic::refreshApplication);
+        Platform.runLater(() -> consumer.accept(meeting));
     }
 
     @Override
