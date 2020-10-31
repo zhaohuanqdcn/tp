@@ -1,8 +1,11 @@
 package seedu.address.commons.core;
 
-import java.awt.Point;
 import java.io.Serializable;
 import java.util.Objects;
+
+import javafx.geometry.Point2D;
+import javafx.geometry.Rectangle2D;
+import javafx.stage.Screen;
 
 /**
  * A Serializable class that contains the GUI settings.
@@ -15,15 +18,17 @@ public class GuiSettings implements Serializable {
 
     private final double windowWidth;
     private final double windowHeight;
-    private final Point windowCoordinates;
+    private final Point2D windowCoordinates;
 
     /**
      * Constructs a {@code GuiSettings} with the default height, width and position.
      */
     public GuiSettings() {
-        windowWidth = DEFAULT_WIDTH;
-        windowHeight = DEFAULT_HEIGHT;
-        windowCoordinates = null; // null represent no coordinates
+        Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
+        windowWidth = bounds.getWidth();
+        windowHeight = bounds.getHeight();
+
+        windowCoordinates = new Point2D(bounds.getMinX(), bounds.getMinY()); // null represent no coordinates
     }
 
     /**
@@ -32,7 +37,7 @@ public class GuiSettings implements Serializable {
     public GuiSettings(double windowWidth, double windowHeight, int xPosition, int yPosition) {
         this.windowWidth = windowWidth;
         this.windowHeight = windowHeight;
-        windowCoordinates = new Point(xPosition, yPosition);
+        windowCoordinates = new Point2D(xPosition, yPosition);
     }
 
     public double getWindowWidth() {
@@ -43,8 +48,8 @@ public class GuiSettings implements Serializable {
         return windowHeight;
     }
 
-    public Point getWindowCoordinates() {
-        return windowCoordinates != null ? new Point(windowCoordinates) : null;
+    public Point2D getWindowCoordinates() {
+        return windowCoordinates;
     }
 
     @Override
