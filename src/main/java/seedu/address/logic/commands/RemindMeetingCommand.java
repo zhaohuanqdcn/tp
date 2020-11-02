@@ -13,8 +13,8 @@ public class RemindMeetingCommand extends Command {
 
     public static final String COMMAND_WORD = "remind_meeting";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all meetings whose date and time are "
-            + "within certain hours relative to the time on local machine "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all meetings that are "
+            + "within certain hours relative to the time on the local machine "
             + "and displays them as a list with index numbers.\n"
             + "Parameters: HOURS (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 72";

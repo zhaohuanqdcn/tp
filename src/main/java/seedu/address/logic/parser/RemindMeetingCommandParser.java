@@ -11,6 +11,8 @@ import seedu.address.model.meeting.MeetingWithinHoursPredicate;
  */
 public class RemindMeetingCommandParser implements Parser<RemindMeetingCommand> {
 
+    protected static final String HOUR_KEYWORD = "hour";
+
     /**
      * Parses the given {@code String} of arguments in the context of the RemindMeetingCommand
      * and returns a RemindMeetingCommand object for execution.
@@ -18,7 +20,7 @@ public class RemindMeetingCommandParser implements Parser<RemindMeetingCommand> 
      */
     public RemindMeetingCommand parse(String args) throws ParseException {
         try {
-            int hour = ParserUtil.parseHour(args);
+            int hour = ParserUtil.parsePositiveInteger(args, HOUR_KEYWORD);
             return new RemindMeetingCommand(new MeetingWithinHoursPredicate(hour));
         } catch (ParseException pe) {
             throw new ParseException(

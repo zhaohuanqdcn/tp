@@ -9,6 +9,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 
 public class EditUserPrefCommandParser implements Parser<EditUserPrefCommand> {
 
+    protected static final String INTERVAL_KEYWORD = "interval";
+
     /**
      * Parses the given {@code String} of arguments in the context of the EditUserPrefCommand
      * and returns an EditUserPrefCommand object for execution.
@@ -26,8 +28,8 @@ public class EditUserPrefCommandParser implements Parser<EditUserPrefCommand> {
                 new EditUserPrefCommand.EditUserPrefDescriptor();
 
         if (argMultimap.getValue(PREFIX_USER_PREFERENCE_INTERVAL).isPresent()) {
-            editUserPrefDescriptor.setInterval(ParserUtil.parseInterval(argMultimap
-                    .getValue(PREFIX_USER_PREFERENCE_INTERVAL).get()));
+            editUserPrefDescriptor.setInterval(ParserUtil.parsePositiveInteger(argMultimap
+                    .getValue(PREFIX_USER_PREFERENCE_INTERVAL).get(), INTERVAL_KEYWORD));
         }
 
         if (!editUserPrefDescriptor.isAnyFieldEdited()) {

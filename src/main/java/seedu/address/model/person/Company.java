@@ -8,7 +8,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Guarantees: immutable; is valid as declared in {@link #isValidCompany(String)}
  */
 public class Company {
-    public static final String MESSAGE_CONSTRAINTS = "Company name should  not be blank";
+    public static final String MESSAGE_CONSTRAINTS = "Company name should not be blank and less than 161 characters";
     public final String companyName;
 
     /**

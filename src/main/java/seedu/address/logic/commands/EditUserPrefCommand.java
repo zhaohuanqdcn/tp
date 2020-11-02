@@ -12,19 +12,17 @@ import seedu.address.model.UserPrefs;
 
 public class EditUserPrefCommand extends Command {
 
-    public static final String COMMAND_WORD = "edit_userPref";
+    public static final String COMMAND_WORD = "edit_user_pref";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits user preference. "
             + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INTERVAL (must be a none negative integer) "
-            + "[" + PREFIX_USER_PREFERENCE_INTERVAL + "INTERVAL] \n"
+            + "Parameters: " + PREFIX_USER_PREFERENCE_INTERVAL + " INTERVAL\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_USER_PREFERENCE_INTERVAL + "10";
 
 
     public static final String MESSAGE_EDIT_USER_PREFERENCE_SUCCESS = "Edited user preference:\n";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String INVALID_NUMERIC_INPUT = "The interval has to be an none negative integer.";
 
     private final EditUserPrefDescriptor userPrefsDescriptor;
 
@@ -43,9 +41,7 @@ public class EditUserPrefCommand extends Command {
 
         if (userPrefsDescriptor.getInterval().isPresent()) {
             int interval = userPrefsDescriptor.getInterval().get();
-            if (interval < 0) {
-                throw new CommandException(INVALID_NUMERIC_INPUT);
-            }
+            assert interval > 0 : "interval < 0";
             userPrefCopy.setIntervalBetweenMeetings(interval);
         }
 
