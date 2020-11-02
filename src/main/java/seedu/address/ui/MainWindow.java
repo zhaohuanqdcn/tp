@@ -14,6 +14,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.CommandSession;
@@ -22,6 +23,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.scheduler.RefreshTask;
+import seedu.address.logic.scheduler.ReminderPopupTask;
 import seedu.address.logic.scheduler.Scheduler;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.memento.History;
@@ -43,7 +45,10 @@ public class MainWindow extends UiPart<Stage> {
     private final CommandSession commandSession;
     private final StateManager stateManager;
     private final History history;
-    private final Scheduler scheduler;
+    private final Scheduler refreshScheduler;
+    private final Scheduler reminderScheduler;
+    private final ReminderPopup reminderPopup;
+    private ReminderPopupTask reminderPopupTask;
     private RefreshTask refreshTask;
 
     // Independent Ui parts residing in this Ui container
@@ -88,10 +93,13 @@ public class MainWindow extends UiPart<Stage> {
 
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
+        primaryStage.initStyle(StageStyle.UNDECORATED);
 
         setAccelerators();
 
         helpWindow = new HelpWindow();
+
+        reminderPopup = new ReminderPopup(primaryStage);
 
         commandSession = new CommandSession();
 
@@ -99,12 +107,18 @@ public class MainWindow extends UiPart<Stage> {
 
         history = logic.getHistory();
 
-        scheduler = new Scheduler();
+        refreshScheduler = new Scheduler();
 
-        refreshTask = new RefreshTask(scheduler, this.logic, "refresh");
+        refreshTask = new RefreshTask(refreshScheduler, this.logic, "refresh");
 
-        scheduler.update(refreshTask);
+        refreshScheduler.update(refreshTask);
 
+        reminderScheduler = new Scheduler();
+
+        reminderPopupTask = new ReminderPopupTask(reminderScheduler, this.logic,
+                "popupNotifications", this::handlePopup);
+
+        reminderScheduler.update(reminderPopupTask);
     }
 
     public Stage getPrimaryStage() {
@@ -157,7 +171,7 @@ public class MainWindow extends UiPart<Stage> {
                 .heightProperty()
                 .subtract(resultDisplayPlaceholder.heightProperty())
                 .subtract(commandBoxPlaceholder.heightProperty())
-                .subtract(160);
+                .subtract(140);
 
         meetingListPanel = new MeetingListPanel(logic.getFilteredMeetingList(), logic.getPersonMap(), timelineHeight);
         meetingListPanelPlaceholder.getChildren().add(meetingListPanel.getRoot());
@@ -182,12 +196,13 @@ public class MainWindow extends UiPart<Stage> {
      * Sets the default size based on {@code guiSettings}.
      */
     private void setWindowDefaultSize(GuiSettings guiSettings) {
-        primaryStage.setHeight(guiSettings.getWindowHeight());
-        primaryStage.setWidth(guiSettings.getWindowWidth());
         if (guiSettings.getWindowCoordinates() != null) {
             primaryStage.setX(guiSettings.getWindowCoordinates().getX());
             primaryStage.setY(guiSettings.getWindowCoordinates().getY());
         }
+        primaryStage.setHeight(guiSettings.getWindowHeight());
+        primaryStage.setWidth(guiSettings.getWindowWidth());
+
     }
 
     /**
@@ -199,6 +214,17 @@ public class MainWindow extends UiPart<Stage> {
             helpWindow.show();
         } else {
             helpWindow.focus();
+        }
+    }
+    /**
+     * Shows the popup with the given meeting contents
+     */
+    public void handlePopup(Meeting meeting) {
+        reminderPopup.setMeeting(meeting);
+        if (!reminderPopup.isShowing()) {
+            reminderPopup.show();
+        } else {
+            reminderPopup.focus();
         }
     }
 
@@ -251,9 +277,14 @@ public class MainWindow extends UiPart<Stage> {
 
             history.push(stateManager.createState());
 
-            refreshTask = new RefreshTask(scheduler, this.logic, "refresh");
+            refreshTask = new RefreshTask(refreshScheduler, this.logic, "refresh");
 
-            scheduler.update(refreshTask);
+            refreshScheduler.update(refreshTask);
+
+            reminderPopupTask = new ReminderPopupTask(reminderScheduler, this.logic,
+                    "popupNotifications", this::handlePopup);
+
+            reminderScheduler.update(reminderPopupTask);
 
             return commandResult;
 
