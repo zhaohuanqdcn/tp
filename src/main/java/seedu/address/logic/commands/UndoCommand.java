@@ -70,7 +70,11 @@ public class UndoCommand extends Command {
         ab.setMeetings(stateToRestore.getMeetingList());
         model.setAddressBook(ab);
 
-        return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, toPrint.toString()));
+        String ret = toPrint
+                .toString()
+                .replace(ExportMeetingCommand.COMMAND_WORD, "cannot undo export command - skipping...");
+
+        return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, ret));
     }
 
     @Override

@@ -6,33 +6,8 @@ title: User Guide
 Recretary is a **desktop app for managing contacts and meetings, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, Recretary can get your contact management tasks done faster than traditional GUI apps.
 
 **Table of Content**
--   Quick Start
--   Features
-    -   Contact Management
-        -   Adding a person: `add_contact`
-        -   Listing all persons: `list_contact`
-        -   Editing a person: `edit_contact`
-        -   Locating persons: `find_contact`
-        -   Deleting a person: `delete_contact`
-        -   Clearing all entries: `clear_contact`
-    -   Meeting Management
-        -   Adding a meeting: `add_meeting`
-        -   Listing all meetings: `list_meeting`
-        -   Editing a meeting: `edit_meeting`
-        -   Locating meetings: `find_meeting`
-        -   Deleting a meeting: `delete_meeting`
-        -   Adding a participant into a meeting: `add_part`
-        -   Clearing all entries: `clear_meeting`
-        -   Remind meeting: `remind_meeting`
-        -  Exporting meetings in .ics format: `export_meeting`
-
-    -   General
-        -   Viewing help : `help`
-        -   Undo : `undo`
-        -   Exiting the program : `exit`
-        -   Update user preference : `edit_userPref`
--   FAQ
--   Command summary
+1. Table of Contents
+{:toc}
 
 
 ## Quick start
@@ -289,14 +264,13 @@ Examples:
     
 #### Locating meetings: `find_meeting`
 
-Find meetings whose titles contain any of the given keywords.
+Find meetings whose data (matches title, date in all natural formats, location) contain any of the given keywords.
 
 Format: `find_meeting KEYWORD [MORE_KEYWORDS]`
 
 -   The search is case-insensitive. e.g `discuss` will match `Discuss`
 -   The order of the keywords does not matter. e.g. `Shareholder Meeting` will match `Meeting Shareholder`
--   All fields (title, participants etc) are searched.
--   Only full words will be matched e.g. `Team` will not match `Teams`
+-   Most fields (title, date, time and location) are searched.
 -   Meetings matching at least one keyword will be returned (i.e. `OR` search).
     e.g. `Shareholder Meeting` will return `Shareholder Chat`, `Team Meeting`
 
@@ -394,7 +368,8 @@ Undoes the previous command or previous `n` commands based on the given index.
 <div markdown="block" class="alert alert-info">
 
 **:information_source: Notes about the undo command:**<br>
-`undo` command is purposefully left out of the history and is hence not undoable. This is because you can undo previous commands before the undo to prevent being stuck in an undo loop. 
+- `undo` command is purposefully left out of the history and is hence not undoable. This is because you can undo previous commands before the undo to prevent being stuck in an undo loop. 
+- `export_meeting` command cannot be undone as it exports outside the app scope.
 </div>
 
 Format: `undo [INDEX]`
