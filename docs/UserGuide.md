@@ -337,7 +337,7 @@ Format: `deletemeeting INDEX [rec/RECURRING]`
 Examples:
 * `deletemeeting 2` deletes the 2nd meeting in the meeting schedule.
 * `deletemeeting 2 rec/true` deletes the 2nd meeting and all its recurrences in the address book.
-* `findmeeting Shareholder` followed by `deletemeeting 1` deletes the 1st contact in the results of the `find` command.
+* `findmeeting Shareholder` followed by `deletemeeting 1` deletes the 1st meeting in the results of the `find` command.
 
 #### Clearing all meetings : `clearmeeting`
 
@@ -423,7 +423,7 @@ Format: `exit`
 
 #### Update user preference : `edituserpref i/INTERVAL`
 
--  Edit the user preferred intervals between meetings. 
+-  Edit the user preferred intervals between meetings. Data for user preferences is stored in the file **preferences.json**. 
 -   The dafault value is 0 (which means that interval is not considered). 
 -   This interval value will be used for conflict checking and meant to simulate the resting or travel time between meetings.
 -  `i/INTERVAL` indicates the interval between meetings. Note that there is a range restriction similar to the `remindmeeting` command
@@ -455,18 +455,18 @@ Action | Format, Examples
 **Undo** | `undo`
 **Edit user preference** | `edituserpref i/10`
 ***Contacts*** |
-**Add** | `addcontact n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS c/COMPANY [r/COMPANY_ROLE] [t/TAG]…` <br> e.g., `add_contact n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd a/XYZ Company r/manager t/friend` 
-**Delete** | `deletecontact INDEX` <br> e.g., `delete_contact 3`
-**Edit** | `editcontact INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [c/COMPANY] [r/COMPANY_ROLE] [t/TAG]…`<br> e.g.,`edit_contact 2 n/James Lee e/jameslee@example.com`
-**Find** | `findcontact KEYWORD [MORE_KEYWORDS]`<br> e.g., `find_contact James Jake`
+**Add** | `addcontact n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS c/COMPANY [r/COMPANY_ROLE] [t/TAG]…` <br> e.g., `addcontact n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd a/XYZ Company r/manager t/friend` 
+**Delete** | `deletecontact INDEX` <br> e.g., `deletecontact 3`
+**Edit** | `editcontact INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [c/COMPANY] [r/COMPANY_ROLE] [t/TAG]…`<br> e.g.,`editcontact 2 n/James Lee e/jameslee@example.com`
+**Find** | `findcontact KEYWORD [MORE_KEYWORDS]`<br> e.g., `findcontact James Jake`
 **List** | `listcontact`
 **Clear** | `clearcontact`
 ***Meetings*** |
-**Add** |`addmeeting d/DATETIME dur/DURATION title/TITLE l/LOCATION [rec/RECURRENCE]` <br> e.g., `add_meeting d/31/12/20 1400 dur/01 00 title/xyz meeting l/John street, block 1, #01-01 rec/weekly`
-**Add Participant** |`addpart ci/[INDEX] mi/[INDEX]`<br> e.g., `add_part ci/1 mi/3`
-**Delete** | `deletemeeting INDEX [rec/RECURRING]`<br> e.g., `delete_meeting 5 rec/true`
-**Edit** | `editmeeting INDEX [d/DATETIME] [dur/DURATION] [t/TITLE] [l/LOCATION]`<br> e.g.,`edit_meeting 1 dur/01 30 l/COM2 LT17`
-**Find** | `findmeeting KEYWORD [MORE_KEYWORDS]`<br> e.g., `find_meeting recretary stakeholders`
+**Add** |`addmeeting d/DATETIME dur/DURATION title/TITLE l/LOCATION [rec/RECURRENCE]` <br> e.g., `addmeeting d/31/12/20 1400 dur/01 00 title/xyz meeting l/John street, block 1, #01-01 rec/weekly`
+**Add Participant** |`addpart ci/[INDEX] mi/[INDEX]`<br> e.g., `addpart ci/1 mi/3`
+**Delete** | `deletemeeting INDEX [rec/RECURRING]`<br> e.g., `deletemeeting 5 rec/true`
+**Edit** | `editmeeting INDEX [d/DATETIME] [dur/DURATION] [t/TITLE] [l/LOCATION]`<br> e.g.,`editmeeting 1 dur/01 30 l/COM2 LT17`
+**Find** | `findmeeting KEYWORD [MORE_KEYWORDS]`<br> e.g., `findmeeting recretary stakeholders`
 **List** | `listmeeting`
 **Clear** | `clearmeeting`
 **Remind** | `remindmeeting`
