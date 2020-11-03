@@ -33,7 +33,7 @@ import seedu.address.model.meeting.UniqueMeetingList.Pair;
  */
 public class EditMeetingCommand extends Command {
 
-    public static final String COMMAND_WORD = "edit_meeting";
+    public static final String COMMAND_WORD = "editmeeting";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
             + "by the index number used in the displayed person list. "
@@ -89,9 +89,10 @@ public class EditMeetingCommand extends Command {
         // delete the meeting to simulate the add after deletion logic of edit
         model.deleteMeeting(meetingToEdit);
         Pair<Boolean, Optional<Meeting>> conflictCheckResult = model.hasConflict(editedMeeting);
-        if (conflictCheckResult.getValueOne()) {
+        if (conflictCheckResult.getLeftValue()) {
             model.addMeeting(meetingToEdit);
-            throw new CommandException(MESSAGE_CONFLICT_MEETING + conflictCheckResult.getValueTwo().get());
+            model.sortMeeting();
+            throw new CommandException(MESSAGE_CONFLICT_MEETING + conflictCheckResult.getRightValue().get());
         }
 
         model.addMeeting(meetingToEdit);

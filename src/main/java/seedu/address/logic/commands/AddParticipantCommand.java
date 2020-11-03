@@ -14,7 +14,7 @@ import seedu.address.model.person.Person;
 
 public class AddParticipantCommand extends Command {
 
-    public static final String COMMAND_WORD = "add_part";
+    public static final String COMMAND_WORD = "addpart";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a participant to your meeting. \n"
             + "Parameters: CONTACT_INDEX MEETING_INDEX (must be a positive integer)\n"

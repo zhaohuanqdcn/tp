@@ -98,6 +98,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
         sb.append("\nLocal data file location : " + addressBookFilePath);
+        sb.append("\nLocal meeting ICS file location : " + meetingIcsFilePath);
         sb.append("\nInterval between meetings : " + intervalBetweenMeetings + " minutes");
         return sb.toString();
     }

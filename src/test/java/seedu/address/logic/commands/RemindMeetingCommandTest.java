@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.meeting.MeetingWithinDaysPredicate;
+import seedu.address.model.meeting.MeetingWithinHoursPredicate;
 import seedu.address.model.memento.History;
 import seedu.address.model.memento.StateManager;
 
@@ -19,8 +19,8 @@ public class RemindMeetingCommandTest {
 
     @Test
     public void equals() {
-        MeetingWithinDaysPredicate predicateOne = new MeetingWithinDaysPredicate(10);
-        MeetingWithinDaysPredicate predicateTwo = new MeetingWithinDaysPredicate(20);
+        MeetingWithinHoursPredicate predicateOne = new MeetingWithinHoursPredicate(10);
+        MeetingWithinHoursPredicate predicateTwo = new MeetingWithinHoursPredicate(20);
 
         RemindMeetingCommand remindCommandOne = new RemindMeetingCommand(predicateOne);
         RemindMeetingCommand remindCommandTwo = new RemindMeetingCommand(predicateTwo);
