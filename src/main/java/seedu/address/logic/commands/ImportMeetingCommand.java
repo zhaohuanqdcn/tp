@@ -9,7 +9,7 @@ import seedu.address.model.Model;
  */
 public class ImportMeetingCommand extends Command {
 
-    public static final String COMMAND_WORD = "import_meeting";
+    public static final String COMMAND_WORD = "importmeeting";
     public static final String MESSAGE_SUCCESS = "Meetings have been exported as .ics!";
 
 

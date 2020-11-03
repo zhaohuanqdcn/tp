@@ -7,7 +7,7 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.RemindMeetingCommand;
-import seedu.address.model.meeting.MeetingWithinDaysPredicate;
+import seedu.address.model.meeting.MeetingWithinHoursPredicate;
 
 public class RemindMeetingCommandParserTest {
 
@@ -15,7 +15,7 @@ public class RemindMeetingCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsDeleteCommand() {
-        MeetingWithinDaysPredicate predicate = new MeetingWithinDaysPredicate(10);
+        MeetingWithinHoursPredicate predicate = new MeetingWithinHoursPredicate(10);
         assertParseSuccess(parser, "10", new RemindMeetingCommand(predicate));
     }
 

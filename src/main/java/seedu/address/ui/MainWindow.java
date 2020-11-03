@@ -14,6 +14,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.CommandSession;
@@ -92,6 +93,7 @@ public class MainWindow extends UiPart<Stage> {
 
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
+        primaryStage.initStyle(StageStyle.UNDECORATED);
 
         setAccelerators();
 
@@ -169,7 +171,7 @@ public class MainWindow extends UiPart<Stage> {
                 .heightProperty()
                 .subtract(resultDisplayPlaceholder.heightProperty())
                 .subtract(commandBoxPlaceholder.heightProperty())
-                .subtract(160);
+                .subtract(140);
 
         meetingListPanel = new MeetingListPanel(logic.getFilteredMeetingList(), logic.getPersonMap(), timelineHeight);
         meetingListPanelPlaceholder.getChildren().add(meetingListPanel.getRoot());
@@ -194,12 +196,13 @@ public class MainWindow extends UiPart<Stage> {
      * Sets the default size based on {@code guiSettings}.
      */
     private void setWindowDefaultSize(GuiSettings guiSettings) {
-        primaryStage.setHeight(guiSettings.getWindowHeight());
-        primaryStage.setWidth(guiSettings.getWindowWidth());
         if (guiSettings.getWindowCoordinates() != null) {
             primaryStage.setX(guiSettings.getWindowCoordinates().getX());
             primaryStage.setY(guiSettings.getWindowCoordinates().getY());
         }
+        primaryStage.setHeight(guiSettings.getWindowHeight());
+        primaryStage.setWidth(guiSettings.getWindowWidth());
+
     }
 
     /**
