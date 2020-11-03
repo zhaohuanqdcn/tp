@@ -9,28 +9,28 @@ Recretary is a **desktop app for managing contacts and meetings, optimized for u
 -   Quick Start
 -   Features
     -   Contact Management
-        -   Adding a person: `add_contact`
-        -   Listing all persons: `list_contact`
-        -   Editing a person: `edit_contact`
-        -   Locating persons: `find_contact`
-        -   Deleting a person: `delete_contact`
-        -   Clearing all entries: `clear_contact`
+        -   Adding a person: `addcontact`
+        -   Listing all persons: `listcontact`
+        -   Editing a person: `editcontact`
+        -   Locating persons: `findcontact`
+        -   Deleting a person: `deletecontact`
+        -   Clearing all entries: `clearcontact`
     -   Meeting Management
-        -   Adding a meeting: `add_meeting`
-        -   Listing all meetings: `list_meeting`
-        -   Editing a meeting: `edit_meeting`
-        -   Locating meetings: `find_meeting`
-        -   Deleting a meeting: `delete_meeting`
-        -   Adding a participant into a meeting: `add_part`
-        -   Clearing all entries: `clear_meeting`
-        -   Remind meeting: `remind_meeting`
-        -  Exporting meetings in .ics format: `export_meeting`
+        -   Adding a meeting: `addmeeting`
+        -   Listing all meetings: `listmeeting`
+        -   Editing a meeting: `editmeeting`
+        -   Locating meetings: `findmeeting`
+        -   Deleting a meeting: `deletemeeting`
+        -   Adding a participant into a meeting: `addpart`
+        -   Clearing all entries: `clearmeeting`
+        -   Remind meeting: `remindmeeting`
+        -  Exporting meetings in .ics format: `exportmeeting`
 
     -   General
         -   Viewing help : `help`
         -   Undo : `undo`
         -   Exiting the program : `exit`
-        -   Update user preference : `edit_userPref`
+        -   Update user preference : `edituserpref`
 -   FAQ
 -   Command summary
 
@@ -43,19 +43,21 @@ Recretary is a **desktop app for managing contacts and meetings, optimized for u
 
 1. Copy the file to the folder you want to use as the _home folder_ for Recretary.
 
-1. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.
+1. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data. You can get familiar with our app by following the simple instructions below and observe the changes in your GUI. You can also just type `clearcontact` and `clearmeeting` separately to clear all data.
    ![Ui](images/Ui.png)
 
 1. For you to get familiar with the app and to practice, type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.
    Some example commands you can try:
 
-    - **`list_contact`** : Lists all contacts.
+    - **`listcontact`** : Lists all contacts.
 
-    - **`add_contact`** `add_contact n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 c/ABC Holdings Pte. Ltd` : Adds a contact named `John Doe` to the Address Book.
+    - **`addcontact`** `add_contact n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 c/ABC Holdings Pte. Ltd` : Adds a contact named `John Doe` to the Address Book.
 
-    - **`delete_meeting`**`3` : Deletes the 3rd meeting shown in the current list.
+    - **`deletemeeting`**`1` : Deletes the 1st meeting shown in the current list.
 
-    - **`clear_meeting`** : Deletes all meetings.
+    - **`clearmeeting`** : Deletes all meetings.
+    
+    - **`clearcontact`** : Deletes all contacts. 
 
     - **`exit`** : Exits the app.
 
@@ -80,42 +82,45 @@ Recretary is a **desktop app for managing contacts and meetings, optimized for u
 
 -   Parameters can be in any order.<br>
     e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+   
+-   Although it is not recommended to supply duplicate parameters, they are accepted as only the last parameter of the same type will be considered.<br>
+    e.g. if the command entered by user is `editcontact 1 n/John n/Bob`, only `n/Bob` will be considered as there are two `n/` parameters and thus only the last is considered. 
 
 </div>
 
 ### Contact Management
 
-Contact entries in Recretary contain multiple pieces of information: name, phone number, email, address and company. There is also an optional company role and tags that may help you organize your contacts better. Contact information will be displayed on the left-hand-side of the window.
+Contact entries in Recretary contain multiple pieces of information: name, phone number, email, address and company. There are also optional entries company role and tags that may help you organize your contacts better. Contact information will be displayed on the left-hand-side of the window.
 
-#### Adding a person: `add_contact`
+#### Adding a person: `addcontact`
 
 Adds a person to the address book.
 
-Format: `add_contact n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS c/COMPANY [r/COMPANY_ROLE] [t/TAG]…​`
+Format: `addcontact n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS c/COMPANY [r/COMPANY_ROLE]…​ [t/TAG]…​`
 
 <div markdown="span" class="alert alert-primary">:bulb:
 
 **Tip:**
-A person can have any number of tags (including 0)
+A person can have any number of tags and company roles (including 0)
 
 </div>
 
 Examples:
 
--   `add_contact n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 c/ABC Holdings Pte. Ltd`
--   `add_contact n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Mansion p/1234567 r/CEO c/DEF Company`
+-   `addcontact n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 c/ABC Holdings Pte. Ltd`
+-   `addcontact n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Mansion p/1234567 r/CEO c/DEF Company`
 
-#### Listing all persons: `list_contact`
+#### Listing all persons: `listcontact`
 
 Shows a list of all persons in the address book.
 
-Format: `list_contact`
+Format: `listcontact`
 
-#### Editing a person: `edit_contact`
+#### Editing a person: `editcontact`
 
 Edits an existing person in the address book.
 
-Format: `edit_contact INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [c/COMPANY] [t/TAG] [r/COMPANY_ROLE]…`
+Format: `editcontact INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [c/COMPANY] [t/TAG]… [r/COMPANY_ROLE]…`
 
 -   Edits the person at the specified `INDEX`. The index refers to the index number
     shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
@@ -131,11 +136,11 @@ Examples:
     `91234567` and `johndoe@example.com` respectively.
 -   `edit_contact 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
-#### Locating persons: `find_contact`
+#### Locating persons: `findcontact`
 
 Find contacts whose names contain any of the given keywords.
 
-Format: `find_contact KEYWORD [MORE_KEYWORDS]`
+Format: `findcontact KEYWORD [MORE_KEYWORDS]`
 
 -   The search is case-insensitive. e.g `hans` will match `Hans`
 -   The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
@@ -146,57 +151,57 @@ Format: `find_contact KEYWORD [MORE_KEYWORDS]`
 
 Examples:
 
--   `find_contact John` returns `john chan` and `John Doe`
--   `find_contact bernice david` returns:
+-   `findcontact John` returns `john chan` and `John Doe`
+-   `findcontact bernice david` returns:
     ![result for 'find bernice david'](images/findBerniceDavidResult.png)
 
 <div markdown="span" class="alert alert-primary">:framed_picture:
 
 **Visual Walkthrough Guide:**
 
-State of the app *BEFORE* the `find_contact John` command.
+State of the app *BEFORE* the `findcontact John` command.
 
    ![findJohnBefore](images/findJohnBefore.png)
 
-State of the app *AFTER* the `find_contact John` command.
+State of the app *AFTER* the `findcontact John` command.
 
    ![findJohnAfter](images/findJohnResult.png)
 
 </div>
 
 
-#### Deleting a person: `delete_contact`
+#### Deleting a person: `deletecontact`
 
 Deletes the specified person from the address book.
 
-Format: `delete_contact INDEX`
+Format: `deletecontact INDEX`
 
 * Deletes the person at the specified `INDEX`.
 * The index refers to the index number shown in the displayed list.
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
-* `delete_contact 2` deletes the 2nd contact in the address book.
+* `deletecontact 2` deletes the 2nd contact in the address book.
 
-* `find_contact Betsy` followed by `delete_contact 1` deletes the 1st contact in the results of the `find` command.
+* `findcontact Betsy` followed by `deletecontact 1` deletes the 1st contact in the results of the `find` command.
 
-#### Clearing all persons: `clear_contact`
+#### Clearing all persons: `clearcontact`
 
 Clears all persons from the address book.
 
-Format: `clear_contact`
+Format: `clearcontact`
 
    
 ### Meeting Management
 
 Meeting entries in Recretary have multiple attributes: date time, duration, title and location. You may declare the recurrence of a meeting to avoid repetitive input, and you may also add contacts as participants of a meeting. All meeting information will be displayed on the right-hand-side of the window, ordered in starting time, with a green bar indicating the next upcoming meeting. When a meeting starts, the green bar will move to the next meeting automatically. 
 
-#### Adding a meeting: `add_meeting`
+#### Adding a meeting: `addmeeting`
 
-Adds a meeting into the meeting schedule. The existing list of meetings will be automatically sorted afterwards according to date and time. It also takes meeting interval into consideration and checks for meeting conflict. 
+Adds a meeting into the meeting schedule. The existing list of meetings will be automatically sorted afterwards according to date and time. It also takes meeting interval into consideration and checks for meeting conflict (since your boss is always a participant in these meetings, therefore meetings can't overlap with each other). 
 
 
-Format: `add_meeting d/DATETIME dur/DURATION title/TITLE l/LOCATION [rec/RECURRENCE]`
+Format: `addmeeting d/DATETIME dur/DURATION title/TITLE l/LOCATION [rec/RECURRENCE]`
 
 <div markdown="block" class="alert alert-info">
 
@@ -214,66 +219,66 @@ Format: `add_meeting d/DATETIME dur/DURATION title/TITLE l/LOCATION [rec/RECURRE
 
 -   The field `RECURRENCE` can be one of `DAILY`, `WEEKLY` or `MONTHLY`.
 
--   The number of recurrences added is by default 5, and can be edited in `UserPrefs`.
+-   The number of recurrences added is by default 5, and can be edited in `UserPrefs`. //THIS NEEDS TO BE EDITED
 
 </div>
 
 Examples:
 
--   `add_meeting title/abc company meeting d/31/12/20 1400 dur/00 50 l/John street, block 123, #01-01`
+-   `addmeeting title/abc company meeting d/31/12/20 1400 dur/00 50 l/John street, block 123, #01-01`
 
 <div markdown="span" class="alert alert-primary">:bulb:
 
 **Note:**
-After adding a meeting, add new participants to it with the `add_part` command below.
+After adding a meeting, add new participants to it with the `addpart` described command below.
 Only people in your contacts can be added as participants.
 
 </div>
 
-#### Adding a participant into a meeting: `add_part`
+#### Adding a participant into a meeting: `addpart`
 
 Adds a participant with the specified `CONTACT_INDEX` in the currently viewable contact list into the meeting with the specified `MEETING_INDEX`.
 
-Format: `add_part ci/CONTACT_INDEX mi/MEETING_INDEX`
+Format: `addpart ci/CONTACT_INDEX mi/MEETING_INDEX`
 
 <div markdown="span" class="alert alert-primary">:bulb:
 
 **Tip:**
-Run a `find_contact` command before running an `add_part` to narrow the contact list so that you can easily add a contact instead of scrolling through the whole list!
+Run a `findcontact` command before running an `addpart` to narrow the contact list so that you can easily add a contact instead of scrolling through the whole list!
 
-Run a `find_meeting` command before running an `add_part` to narrow the meeting list so that you can easily add a meeting instead of scrolling through the whole list!
+Run a `findmeeting` command before running an `addpart` to narrow the meeting list so that you can easily add a meeting instead of scrolling through the whole list!
 
 </div>
 
 Examples:
 
--   `add_part ci/1 mi/3` adds the first contact in the whole list to the 3rd meeting.
--   `find_contact alice` followed by `add_part ci/1 mi/2` adds the first contact of the `find_contact` command's result into the 2nd meeting.
+-   `addpart ci/1 mi/3` adds the first contact in the whole list to the 3rd meeting.
+-   `findcontact alice` followed by `addpart ci/1 mi/2` adds the first contact of the `findcontact` command's result into the 2nd meeting.
 
-#### Listing all meetings: `list_meeting`
+#### Listing all meetings: `listmeeting`
 
 Shows a list of all meetings in the address book.
 
-Format: `list_meeting`
+Format: `listmeeting`
 
-#### Editing a meeting: `edit_meeting`
+#### Editing a meeting: `editmeeting`
 
-Edits an existing meeting in the meeting schedule. Similar to adding a meeting, the sorting and conflict detection will also take place automatically. The `RECURRENCE` field is not modifiable, and the edition of recurring meeting will only edit the specified instance. If the title of a recurring meeting is edited, it is no longer considered as an instance of recurrence.
+Edits an existing meeting in the meeting schedule. Similar to adding a meeting, the sorting and conflict checking will also take place automatically. The `RECURRENCE` field is not modifiable, and the edition of recurring meeting will only edit the specified instance. If the title of a recurring meeting is edited, it is no longer considered as an instance of recurrence.
 
-Format: `edit_meeting INDEX [d/DATETIME] [t/TITLE] [l/LOCATION] ...`
+Format: `editmeeting INDEX [d/DATETIME] [t/TITLE] [l/LOCATION] ...`
 
-Delete participants in a meeting with this format:  
+Delete participants in a meeting with this format:  //NEEDS TO BE EDITED
 E.g.  
 Recretary: `Here is the current list of participants.`  
 <code> &nbsp; 1. John doe, abc company </code>  
 <code> &nbsp; 2. John doe, def company </code>  
 `Enter the next participant’s index to delete`  
-User: `edit_meeting INDEX delete_part/ 1`
+User: `editmeeting INDEX deletepart/ 1`
 
 <div markdown="span" class="alert alert-primary">:bulb:
 
 **Tip:**
-You can add new participants to a meeting with the separate `add_part` command.
+You can add new participants to a meeting with the separate `addpart` command.
 
 </div>
 
@@ -284,14 +289,14 @@ You can add new participants to a meeting with the separate `add_part` command.
 
 Examples:
 
-* `edit_meeting 1 d/10/11/20 1400 l/clementi` Edits the datetime and location of the 1st meeting to be 
+* `editmeeting 1 d/10/11/20 1400 l/clementi` Edits the datetime and location of the 1st meeting to be 
 `10/11/2020 1400` and `clementi` respectively.
     
-#### Locating meetings: `find_meeting`
+#### Locating meetings: `findmeeting`
 
 Find meetings whose titles contain any of the given keywords.
 
-Format: `find_meeting KEYWORD [MORE_KEYWORDS]`
+Format: `findmeeting KEYWORD [MORE_KEYWORDS]`
 
 -   The search is case-insensitive. e.g `discuss` will match `Discuss`
 -   The order of the keywords does not matter. e.g. `Shareholder Meeting` will match `Meeting Shareholder`
@@ -302,27 +307,27 @@ Format: `find_meeting KEYWORD [MORE_KEYWORDS]`
 
 Examples:
 
--   `find_meeting abc def` returns `abc meeting`, `def meeting`<br>
+-   `findmeeting abc def` returns `abc meeting`, `def meeting`<br>
 
 <div markdown="span" class="alert alert-primary">:framed_picture:
 
 **Visual Walkthrough Guide:**
 
-State of the app *BEFORE* the `find_meeting` command.
+State of the app *BEFORE* the `findmeeting` command.
 
    ![findMeetingBefore](images/findMeetingBefore.png)
 
-State of the app *AFTER* the `find_meeting v1.3` command.
+State of the app *AFTER* the `findmeeting v1.3` command.
 
    ![findMeetingAfter](images/findMeetingAfter.png)
 
 </div>
 
-#### Deleting a meeting: `delete_meeting`
+#### Deleting a meeting: `deletemeeting`
 
 Deletes the specified item (and its recurrernces) from the address book.
 
-Format: `delete_meeting INDEX [rec/RECURRING]`
+Format: `deletemeeting INDEX [rec/RECURRING]`
 
 * Deletes the meeting at the specified `INDEX`.
 * The index refers to the index number shown in the displayed list.
@@ -330,35 +335,46 @@ Format: `delete_meeting INDEX [rec/RECURRING]`
 * The recurring must be either `true` or `false`.
 
 Examples:
-* `delete_meeting 2` deletes the 2nd meeting in the meeting schedule.
-* `delete_meeting 2 rec/true` deletes the 2nd meeting and all its recurrences in the address book.
-* `find_meeting Shareholder` followed by `delete_meeting 1` deletes the 1st contact in the results of the `find` command.
+* `deletemeeting 2` deletes the 2nd meeting in the meeting schedule.
+* `deletemeeting 2 rec/true` deletes the 2nd meeting and all its recurrences in the address book.
+* `findmeeting Shareholder` followed by `deletemeeting 1` deletes the 1st contact in the results of the `find` command.
 
-#### Clearing all meetings : `clear_meeting`
+#### Clearing all meetings : `clearmeeting`
 
 Clears all meetings from the meeting schedule.
 
-Format: `clear_meeting`
+Format: `clearmeeting`
 
 
-#### Remind meetings: `remind_meeting`
+#### Remind meetings: `remindmeeting`
 
-Find meetings whose occurrences are within the hours specify by the user.
+Search and display all meetings that will occur within the hours specify by the user.
 
-Format: `find_meeting HOUR`
+Format: `remindmeeting HOUR`
 
--   HOUR must be a positive integer.
+-   HOUR must be a positive integer, the range of this value is from 1 - 2147483647 (user most likely won't have so many data to keep track of in a practical usage).
 -   The reference point of time is the time on user's local machine when user entered the command.
 
 Examples:
 
--   `remind_meeting 48` returns `abc meeting`, `def meeting`<br>
+-   `remindmeeting 1440` returns ` abc meeting`, `xyz meeting`<br> 
+Remark: 1440 = 2(months) * 30(days) * 24(hours) which is the total hours for two months; user can use this strategy to standardize the unit of time(hours) beforehand
 
-#### Exporting meetings in .ics format : `export_meeting`
+**Visual Walkthrough Guide:**
+
+State of the app *BEFORE* the `remindmeeting` command.
+
+   ![Picture for GUI before remind command](images/remind_meeting_before.png)
+
+State of the app *AFTER* the `remindmeeting 1440` command.
+
+   ![Picture for GUI after remind command](images/remind_meeting_after.png)
+
+#### Exporting meetings in .ics format : `exportmeeting`
 
 Exports all meetings as an iCalendar file that is compatible with other calendar apps such as Google Calendar. By default, the resulting file can be found in the `data` folder. Check the FAQ section to see how to change the save location.
 
-Format: `export_meeting`
+Format: `exportmeeting`
 
 
 
@@ -405,10 +421,12 @@ Exits the program.
 
 Format: `exit`
 
-#### Update user preference : `edit_userPref [i/INTERVAL]`
+#### Update user preference : `edituserpref i/INTERVAL`
 
--  Edit user preference according to user input. All fields are optional. However, at least one of the fields must be present.
--  `[i/INTERVAL]` indicates the interval between meetings
+-  Edit the user preferred intervals between meetings. 
+-   The dafault value is 0 (which means that interval is not considered). 
+-   This interval value will be used for conflict checking and meant to simulate the resting or travel time between meetings.
+-  `i/INTERVAL` indicates the interval between meetings. Note that there is a range restriction similar to the `remindmeeting` command
 
 #### Saving the data
 
@@ -435,22 +453,22 @@ Action | Format, Examples
 **Help** | `help`
 **Exit** | `exit`
 **Undo** | `undo`
-**Edit user preference** | `edit_userPref i/10`
+**Edit user preference** | `edituserpref i/10`
 ***Contacts*** |
-**Add** | `add_contact n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS c/COMPANY [r/COMPANY_ROLE] [t/TAG]…` <br> e.g., `add_contact n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd a/XYZ Company r/manager t/friend` 
-**Delete** | `delete_contact INDEX` <br> e.g., `delete_contact 3`
-**Edit** | `edit_contact INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [c/COMPANY] [r/COMPANY_ROLE] [t/TAG]…`<br> e.g.,`edit_contact 2 n/James Lee e/jameslee@example.com`
-**Find** | `find_contact KEYWORD [MORE_KEYWORDS]`<br> e.g., `find_contact James Jake`
-**List** | `list_contact`
-**Clear** | `clear_contact`
+**Add** | `addcontact n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS c/COMPANY [r/COMPANY_ROLE] [t/TAG]…` <br> e.g., `add_contact n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd a/XYZ Company r/manager t/friend` 
+**Delete** | `deletecontact INDEX` <br> e.g., `delete_contact 3`
+**Edit** | `editcontact INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [c/COMPANY] [r/COMPANY_ROLE] [t/TAG]…`<br> e.g.,`edit_contact 2 n/James Lee e/jameslee@example.com`
+**Find** | `findcontact KEYWORD [MORE_KEYWORDS]`<br> e.g., `find_contact James Jake`
+**List** | `listcontact`
+**Clear** | `clearcontact`
 ***Meetings*** |
-**Add** |`add_meeting d/DATETIME dur/DURATION title/TITLE l/LOCATION [rec/RECURRENCE]` <br> e.g., `add_meeting d/31/12/20 1400 dur/01 00 title/xyz meeting l/John street, block 1, #01-01 rec/weekly`
-**Add Participant** |`add_part ci/[INDEX] mi/[INDEX]`<br> e.g., `add_part ci/1 mi/3`
-**Delete** | `delete_meeting INDEX [rec/RECURRING]`<br> e.g., `delete_meeting 5 rec/true`
-**Edit** | `edit_meeting INDEX [d/DATETIME] [dur/DURATION] [t/TITLE] [l/LOCATION]`<br> e.g.,`edit_meeting 1 dur/01 30 l/COM2 LT17`
-**Find** | `find_meeting KEYWORD [MORE_KEYWORDS]`<br> e.g., `find_meeting recretary stakeholders`
-**List** | `list_meeting`
-**Clear** | `clear_meeting`
-**Remind** | `remind_meeting`
+**Add** |`addmeeting d/DATETIME dur/DURATION title/TITLE l/LOCATION [rec/RECURRENCE]` <br> e.g., `add_meeting d/31/12/20 1400 dur/01 00 title/xyz meeting l/John street, block 1, #01-01 rec/weekly`
+**Add Participant** |`addpart ci/[INDEX] mi/[INDEX]`<br> e.g., `add_part ci/1 mi/3`
+**Delete** | `deletemeeting INDEX [rec/RECURRING]`<br> e.g., `delete_meeting 5 rec/true`
+**Edit** | `editmeeting INDEX [d/DATETIME] [dur/DURATION] [t/TITLE] [l/LOCATION]`<br> e.g.,`edit_meeting 1 dur/01 30 l/COM2 LT17`
+**Find** | `findmeeting KEYWORD [MORE_KEYWORDS]`<br> e.g., `find_meeting recretary stakeholders`
+**List** | `listmeeting`
+**Clear** | `clearmeeting`
+**Remind** | `remindmeeting`
 
 
