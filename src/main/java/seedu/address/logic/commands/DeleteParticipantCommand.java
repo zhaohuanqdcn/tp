@@ -13,7 +13,7 @@ import seedu.address.model.meeting.Meeting;
 
 public class DeleteParticipantCommand extends Command {
 
-    public static final String COMMAND_WORD = "delete_part";
+    public static final String COMMAND_WORD = "deletepart";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Delete a participant from your meeting. \n"
             + "Parameters: CONTACT_INDEX MEETING_INDEX (must be a positive integer)\n"

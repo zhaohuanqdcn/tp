@@ -12,7 +12,7 @@ import seedu.address.model.meeting.DataContainsKeywordsPredicate;
  */
 public class FindMeetingCommand extends Command {
 
-    public static final String COMMAND_WORD = "find_meeting";
+    public static final String COMMAND_WORD = "findmeeting";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all meetings whose string data contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"

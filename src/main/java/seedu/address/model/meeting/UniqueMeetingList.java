@@ -269,11 +269,11 @@ public class UniqueMeetingList implements Iterable<Meeting> {
             this.valueTwo = valueTwo;
         }
 
-        public T getValueOne() {
+        public T getLeftValue() {
             return valueOne;
         }
 
-        public R getValueTwo() {
+        public R getRightValue() {
             return valueTwo;
         }
 
@@ -286,8 +286,8 @@ public class UniqueMeetingList implements Iterable<Meeting> {
         public boolean equals(Object other) {
             return other == this // short circuit if same object
                     || (other instanceof Pair // instanceof handles nulls
-                    && valueOne.equals(((Pair<?, ?>) other).getValueOne()) // state check
-                    && valueTwo.equals(((Pair<?, ?>) other).getValueTwo()));
+                    && valueOne.equals(((Pair<?, ?>) other).getLeftValue()) // state check
+                    && valueTwo.equals(((Pair<?, ?>) other).getRightValue()));
         }
 
     }

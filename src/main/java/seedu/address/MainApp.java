@@ -73,7 +73,7 @@ public class MainApp extends Application {
         initLogging(config);
 
         model = initModelManager(storage, userPrefs, new StateManager(), new History());
-        //Handle the situation where user manually append information in addressbook
+        //sort all meetings at the start to make sure app has the correct behavior
         sortMeeting(model);
         logic = new LogicManager(model, storage, icsStorage);
 

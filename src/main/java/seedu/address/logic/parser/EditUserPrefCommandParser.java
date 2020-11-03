@@ -20,7 +20,7 @@ public class EditUserPrefCommandParser implements Parser<EditUserPrefCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_USER_PREFERENCE_INTERVAL);
 
-        if (!argMultimap.getPreamble().isEmpty() || args.isEmpty()) {
+        if (!argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditUserPrefCommand.MESSAGE_USAGE));
         }
 

@@ -12,7 +12,7 @@ import seedu.address.model.UserPrefs;
 
 public class EditUserPrefCommand extends Command {
 
-    public static final String COMMAND_WORD = "edit_user_pref";
+    public static final String COMMAND_WORD = "edituserpref";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits user preference. "
             + "Existing values will be overwritten by the input values.\n"
@@ -22,7 +22,7 @@ public class EditUserPrefCommand extends Command {
 
 
     public static final String MESSAGE_EDIT_USER_PREFERENCE_SUCCESS = "Edited user preference:\n";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
+    public static final String MESSAGE_NOT_EDITED = "The interval field cannot be empty";
 
     private final EditUserPrefDescriptor userPrefsDescriptor;
 
@@ -41,7 +41,7 @@ public class EditUserPrefCommand extends Command {
 
         if (userPrefsDescriptor.getInterval().isPresent()) {
             int interval = userPrefsDescriptor.getInterval().get();
-            assert interval > 0 : "interval < 0";
+            assert interval > 0 : "interval should be inside the valid range";
             userPrefCopy.setIntervalBetweenMeetings(interval);
         }
 
@@ -55,7 +55,7 @@ public class EditUserPrefCommand extends Command {
     }
 
     public static class EditUserPrefDescriptor {
-        private int interval;
+        private Integer interval;
 
         public EditUserPrefDescriptor() {}
 

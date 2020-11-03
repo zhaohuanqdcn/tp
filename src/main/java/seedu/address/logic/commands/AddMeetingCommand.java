@@ -17,7 +17,7 @@ import seedu.address.model.meeting.UniqueMeetingList.Pair;
 
 public class AddMeetingCommand extends Command {
 
-    public static final String COMMAND_WORD = "add_meeting";
+    public static final String COMMAND_WORD = "addmeeting";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a meeting to your schedule. "
             + "Parameters: "
@@ -59,8 +59,8 @@ public class AddMeetingCommand extends Command {
         // check if all recurrence meetings do not conflict with current schedule, then proceed to add them
         for (Meeting meeting : toAdd.getRecurrencesAsList()) {
             Pair<Boolean, Optional<Meeting>> conflictCheckResult = model.hasConflict(meeting);
-            if (conflictCheckResult.getValueOne()) {
-                throw new CommandException(MESSAGE_CONFLICT_MEETING + conflictCheckResult.getValueTwo().get());
+            if (conflictCheckResult.getLeftValue()) {
+                throw new CommandException(MESSAGE_CONFLICT_MEETING + conflictCheckResult.getRightValue().get());
             }
         }
 

@@ -11,7 +11,7 @@ import seedu.address.model.meeting.MeetingWithinHoursPredicate;
  */
 public class RemindMeetingCommand extends Command {
 
-    public static final String COMMAND_WORD = "remind_meeting";
+    public static final String COMMAND_WORD = "remindmeeting";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all meetings that are "
             + "within certain hours relative to the time on the local machine "

@@ -21,6 +21,7 @@ public class RemindMeetingCommandParser implements Parser<RemindMeetingCommand> 
     public RemindMeetingCommand parse(String args) throws ParseException {
         try {
             int hour = ParserUtil.parsePositiveInteger(args, HOUR_KEYWORD);
+            assert hour > 0 : "Hour is not in the valid range";
             return new RemindMeetingCommand(new MeetingWithinHoursPredicate(hour));
         } catch (ParseException pe) {
             throw new ParseException(
