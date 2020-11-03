@@ -5,17 +5,20 @@ title: Adithya Narayan Rangarajan Sreenivasan's Project Portfolio Page
 
 ## Project: AddressBook Level 3
 
-AddressBook - Level 3 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+Recretary is a tool that helps Executive Personal Secretaries manage their day-to-day tasks and take care of their executive's busy meeting schedule. The aim is to reduce the burden and the workload of the Executive Personal Secretaries. While it has a GUI, most of the user interactions happen using a CLI (Command Line Interface). It is written in Java, and has about 14 kLoC.
 
 Given below are my contributions to the project.
 
-* **New Feature**: Added the ability to undo/redo previous commands.
-  * What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
+* **Major Enhancement**: Responsible for the UI overhaul and updated the entire frontend
+
+* **New Feature**: Added the ability to undo previous commands.
+  * What it does: allows the user to undo all previous commands one at a time or also mulitple commands at once!
   * Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-  * Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-  * Credits: *{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}*
+  * Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. After careful consideration, I decided to use the Memento pattern to rectify the undo rather than the command pattern as it can undo multiple commands at once.
 
 * **New Feature**: Added a history command that allows the user to navigate to previous commands using up/down keys.
+  * Justification: I thought it would be good if the app could stay true to its CLI roots and hence this feature was introduced for ease of use as users can change text in previous commands to form a new command. 
+
 
 * **Code contributed**: [RepoSense link]()
 

@@ -51,7 +51,7 @@
 
                 </VBox>
             </HBox>
-            <Label fx:id="id" alignment="TOP_LEFT" styleClass="person-index" text="\$id"/>
+            <Label fx:id="id" minWidth="144" alignment="CENTER_RIGHT" textAlignment="RIGHT" styleClass="person-index" text="id"/>
         </HBox>
         <rowConstraints>
             <RowConstraints/>
