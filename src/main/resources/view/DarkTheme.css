@@ -515,13 +515,13 @@
 .person-index {
     -fx-text-fill: #777E7E;
     -fx-font-family: "Inter Bold";
-    -fx-font-size: 76pt;
+    -fx-font-size: 50pt;
 }
 
 .meeting-index {
     -fx-text-fill: #777E7E;
     -fx-font-family: "Inter Bold";
-    -fx-font-size: 48pt;
+    -fx-font-size: 44pt;
 }
 
 #meetingBarWrapper {
