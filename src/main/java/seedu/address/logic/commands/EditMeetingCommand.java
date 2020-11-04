@@ -42,8 +42,7 @@ public class EditMeetingCommand extends Command {
             + "[" + PREFIX_TITLE + "TITLE] "
             + "[" + PREFIX_DURATION + "DURATION] "
             + "[" + PREFIX_DATETIME + "DATETIME] "
-            + "[" + PREFIX_LOCATION + "LOCATION] "
-            + "[" + PREFIX_ADD_PARTICIPANTS + "PARTICIPANTS] \n"
+            + "[" + PREFIX_LOCATION + "LOCATION] \n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_TITLE + "OP2 "
             + PREFIX_DURATION + "01 20";
