@@ -348,7 +348,7 @@ State of the app *AFTER* the `remindmeeting 1440` command.
 
 #### Exporting meetings in .ics format : `exportmeeting`
 
-Exports all meetings as an iCalendar file that is compatible with other calendar apps such as Google Calendar. By default, the resulting file can be found in the `data` folder. Check the FAQ section to see how to change the save location.
+Exports all meetings as an iCalendar file that is compatible with other calendar apps such as Google Calendar. Anything following the `exportmeeting` keyword will be ignored by the application. By default, the resulting file can be found in the `data` folder. Check the FAQ section to see how to change the save location.
 
 Format: `exportmeeting`
 
@@ -450,5 +450,6 @@ Action | Format, Examples
 **List** | `listmeeting`
 **Clear** | `clearmeeting`
 **Remind** | `remindmeeting HOUR` <br> e.g., `remindmeeting 24`
+**Export** | `exportmeeting`
 
 
