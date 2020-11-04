@@ -449,6 +449,6 @@ Action | Format, Examples
 **Find** | `findmeeting KEYWORD [MORE_KEYWORDS]`<br> e.g., `findmeeting recretary stakeholders`
 **List** | `listmeeting`
 **Clear** | `clearmeeting`
-**Remind** | `remindmeeting`
+**Remind** | `remindmeeting HOUR` <br> e.g., `remindmeeting 24`
 
 
