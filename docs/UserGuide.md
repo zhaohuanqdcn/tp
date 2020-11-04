@@ -107,9 +107,9 @@ Format: `editcontact INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [c/COMPANY] 
 
 Examples:
 
--   `edit_contact 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be
+-   `editcontact 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be
     `91234567` and `johndoe@example.com` respectively.
--   `edit_contact 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+-   `editcontact 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
 #### Locating persons: `findcontact`
 
@@ -169,7 +169,7 @@ Format: `clearcontact`
    
 ### Meeting Management
 
-Meeting entries in Recretary have multiple attributes: date time, duration, title and location. You may declare the recurrence of a meeting to avoid repetitive input, and you may also add contacts as participants of a meeting. All meeting information will be displayed on the right-hand-side of the window, ordered in starting time, with a green bar indicating the next upcoming meeting. When a meeting starts, the green bar will move to the next meeting automatically. 
+Meeting entries in Recretary have multiple attributes: date time, duration, title and location. You may declare the recurrence of a meeting to avoid repetitive input, and you may also add contacts as participants of a meeting. All meeting information will be displayed on the right-hand-side of the window, ordered by their starting time, with a green bar indicating the next upcoming meeting. When the next upcoming meeting starts, the green bar will move to the next meeting automatically, if any. 
 
 #### Adding a meeting: `addmeeting`
 
@@ -192,15 +192,17 @@ Format: `addmeeting d/DATETIME dur/DURATION title/TITLE l/LOCATION [rec/RECURREN
     
 -   The number of minutes in `DURATION` cannot exceed `59`.
 
--   The field `RECURRENCE` can be one of `DAILY`, `WEEKLY` or `MONTHLY`.
+-   The field `RECURRENCE` consists of two parts separated by `/`. The first part can be one of `daily`, `weekly` or `monthly` indicating the frequency of recurrences, and the second part is a positive integer no more than 20 to indicate the number of recurrences. <br>
+    e.g. `daily/1`,
+    e.g. `weekly/20`,
+    e.g. `monthly/5`,
 
--   The number of recurrences added is by default 5, and can be edited in `UserPrefs`. //THIS NEEDS TO BE EDITED
 
 </div>
 
 Examples:
 
--   `addmeeting title/abc company meeting d/31/12/20 1400 dur/00 50 l/John street, block 123, #01-01`
+-   `addmeeting title/abc company meeting d/31/12/20 1400 dur/00 50 l/John street, block 123, #01-01 rec/weekly/5`
 
 <div markdown="span" class="alert alert-primary">:bulb:
 
@@ -299,7 +301,7 @@ State of the app *AFTER* the `findmeeting v1.3` command.
 
 #### Deleting a meeting: `deletemeeting`
 
-Deletes the specified item (and its recurrernces) from the address book.
+Deletes the specified item (and its recurrences) from the address book.
 
 Format: `deletemeeting INDEX [rec/RECURRING]`
 
@@ -367,11 +369,11 @@ Undoes the previous command or previous `n` commands based on the given index.
 
 **Visual Walkthrough Guide:**
 
-1. State of the app *BEFORE* the `delete_contact` command that you entered by mistake and wish to undo.
+1. State of the app *BEFORE* the `deletecontact` command that you entered by mistake and wish to undo.
 
    ![undo1](images/undo1.png)
 
-2. State of the app *AFTER* the `delete_contact` command that you entered by mistake and wish to undo.
+2. State of the app *AFTER* the `deletecontact` command that you entered by mistake and wish to undo.
 
    ![undo2](images/undo2.png)
 
@@ -385,7 +387,7 @@ Undoes the previous command or previous `n` commands based on the given index.
 
 **:information_source: Notes about the undo command:**<br>
 - `undo` command is purposefully left out of the history and is hence not undoable. This is because you can undo previous commands before the undo to prevent being stuck in an undo loop. 
-- `export_meeting` command cannot be undone as it exports outside the app scope.
+- `exportmeeting` command cannot be undone as it exports outside the app scope.
 </div>
 
 Format: `undo [INDEX]`
@@ -437,7 +439,7 @@ Action | Format, Examples
 **List** | `listcontact`
 **Clear** | `clearcontact`
 ***Meetings*** |
-**Add** |`addmeeting d/DATETIME dur/DURATION title/TITLE l/LOCATION [rec/RECURRENCE]` <br> e.g., `addmeeting d/31/12/20 1400 dur/01 00 title/xyz meeting l/John street, block 1, #01-01 rec/weekly`
+**Add** |`addmeeting d/DATETIME dur/DURATION title/TITLE l/LOCATION [rec/RECURRENCE]` <br> e.g., `addmeeting d/31/12/20 1400 dur/01 00 title/xyz meeting l/John street, block 1, #01-01 rec/weekly/5`
 **Add Participant** |`addpart ci/[INDEX] mi/[INDEX]`<br> e.g., `addpart ci/1 mi/3`
 **Delete** | `deletemeeting INDEX [rec/RECURRING]`<br> e.g., `deletemeeting 5 rec/true`
 **Edit** | `editmeeting INDEX [d/DATETIME] [dur/DURATION] [t/TITLE] [l/LOCATION]`<br> e.g.,`editmeeting 1 dur/01 30 l/COM2 LT17`

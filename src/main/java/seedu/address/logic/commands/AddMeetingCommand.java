@@ -31,7 +31,7 @@ public class AddMeetingCommand extends Command {
             + PREFIX_DATETIME + "31/12/20 1400 "
             + PREFIX_DURATION + "1 30 "
             + PREFIX_LOCATION + "Cool spot "
-            + PREFIX_RECURRENCE + "weekly";
+            + PREFIX_RECURRENCE + "weekly/5";
 
     public static final String MESSAGE_SUCCESS = "New meeting added: %1$s \n "
             + "Add participants by finding their name, and key in their index on the list";
@@ -40,6 +40,7 @@ public class AddMeetingCommand extends Command {
             "This meeting conflicts with an existing meeting in the list :\n";
 
     private final Meeting toAdd;
+    private final int recurNumber;
 
     /**
      * Creates an AddMeetingCommand to add the specified {@code Meeting}
@@ -47,6 +48,17 @@ public class AddMeetingCommand extends Command {
     public AddMeetingCommand(Meeting meeting) {
         requireNonNull(meeting);
         toAdd = meeting;
+        recurNumber = 1;
+    }
+
+    /**
+     * Creates an AddMeetingCommand to add the specified {@code Meeting} and {@code Recurring Number}
+     */
+    public AddMeetingCommand(Meeting meeting, int recur) {
+        requireNonNull(meeting);
+        assert recur > 0 && recur <= 20;
+        toAdd = meeting;
+        recurNumber = recur;
     }
 
     @Override
@@ -57,14 +69,14 @@ public class AddMeetingCommand extends Command {
         }
 
         // check if all recurrence meetings do not conflict with current schedule, then proceed to add them
-        for (Meeting meeting : toAdd.getRecurrencesAsList()) {
+        for (Meeting meeting : toAdd.getRecurrencesAsList(recurNumber)) {
             Pair<Boolean, Optional<Meeting>> conflictCheckResult = model.hasConflict(meeting);
             if (conflictCheckResult.getLeftValue()) {
                 throw new CommandException(MESSAGE_CONFLICT_MEETING + conflictCheckResult.getRightValue().get());
             }
         }
 
-        for (Meeting meeting : toAdd.getRecurrencesAsList()) {
+        for (Meeting meeting : toAdd.getRecurrencesAsList(recurNumber)) {
             model.addMeeting(meeting);
         }
 
@@ -76,6 +88,7 @@ public class AddMeetingCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddMeetingCommand // instanceof handles nulls
-                && toAdd.equals(((AddMeetingCommand) other).toAdd));
+                && toAdd.equals(((AddMeetingCommand) other).toAdd))
+                && recurNumber == ((AddMeetingCommand) other).recurNumber;
     }
 }

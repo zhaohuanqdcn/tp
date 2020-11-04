@@ -87,12 +87,12 @@ public class Meeting {
     /**
      * Get all recurrences as a list
      */
-    public List<Meeting> getRecurrencesAsList() {
+    public List<Meeting> getRecurrencesAsList(int recNumber) {
         if (getRecurrence() == Recurrence.NONE) {
             return Arrays.asList(this);
         }
         List<Meeting> recurrences = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < recNumber; i++) {
             Meeting next =
                     new Meeting(getTitle(), getDuration(),
                             getDateTime().getNextOccurrence(getRecurrence(), i),

@@ -15,11 +15,14 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.meeting.Recurrence;
+import seedu.address.model.meeting.UniqueMeetingList.Pair;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
+
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
@@ -80,6 +83,29 @@ public class ParserUtilTest {
         String nameWithWhitespace = WHITESPACE + VALID_NAME + WHITESPACE;
         Name expectedName = new Name(VALID_NAME);
         assertEquals(expectedName, ParserUtil.parseName(nameWithWhitespace));
+    }
+
+    @Test
+    public void parseRecurrence_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseRecurrence(VALID_BOOLEAN_1));
+        assertThrows(ParseException.class, () -> ParserUtil.parseRecurrence(VALID_BOOLEAN_1 + "/1"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseRecurrence("weekly"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseRecurrence("weekly/"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseRecurrence("weekly/-1"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseRecurrence("weekly/21"));
+    }
+
+    @Test
+    public void parsRecurrence_validValue_success() throws ParseException {
+        Pair<Recurrence, Integer> expected1 = new Pair<>(Recurrence.WEEKLY, 3);
+        assertEquals(expected1, ParserUtil.parseRecurrence("weekly/3"));
+        Pair<Recurrence, Integer> expected2 = new Pair<>(Recurrence.DAILY, 1);
+        assertEquals(expected2, ParserUtil.parseRecurrence("DAILY/1"));
+        Pair<Recurrence, Integer> expected3 = new Pair<>(Recurrence.MONTHLY, 20);
+        assertEquals(expected3, ParserUtil.parseRecurrence("MonTHly/20"));
+        Pair<Recurrence, Integer> expected4 = new Pair<>(Recurrence.NONE, 1);
+        assertEquals(expected4, ParserUtil.parseRecurrence(""));
+        assertEquals(expected4, ParserUtil.parseRecurrence(null));
     }
 
     @Test
