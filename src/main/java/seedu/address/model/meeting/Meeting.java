@@ -162,6 +162,10 @@ public class Meeting {
         this.participants.remove(personToDelete);
     }
 
+    public boolean hasParticipant(Person person) {
+        return this.participants.contains(person.getUuid());
+    }
+
     /**
      * Delete a participant from the set based on the person's uuid.
      * @param person whose uuid is contained in the set.
