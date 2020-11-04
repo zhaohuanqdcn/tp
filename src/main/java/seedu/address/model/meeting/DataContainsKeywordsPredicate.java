@@ -19,11 +19,13 @@ public class DataContainsKeywordsPredicate implements Predicate<Meeting> {
                 .anyMatch(keyword -> {
                     final StringBuilder builder = new StringBuilder();
                     builder.append(meeting.getTitle())
-                            .append(meeting.getDateTime())
                             .append(meeting.getDuration())
-                            .append(meeting.getLocation());
+                            .append(meeting.getLocation())
+                            .append(meeting.getDateTime().getDateOutputFormat().format(meeting.getDateTime().value))
+                            .append(meeting.getDateTime())
+                            .append(meeting.getDateTime().getDate());
 
-                    meeting.getParticipants().forEach(builder::append);
+                    System.out.println(meeting.getDateTime().getDateOutputFormat().format(meeting.getDateTime().value));
                     return builder
                             .toString()
                             .toLowerCase()
