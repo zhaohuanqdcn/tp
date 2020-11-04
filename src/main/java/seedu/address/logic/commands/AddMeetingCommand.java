@@ -25,7 +25,6 @@ public class AddMeetingCommand extends Command {
             + PREFIX_DATETIME + "DATETIME "
             + PREFIX_DURATION + "DURATION "
             + PREFIX_LOCATION + "LOCATION "
-            + "[" + PREFIX_ADD_PARTICIPANTS + "PARTICIPANTS]..."
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TITLE + "v1.3 discussion "
             + PREFIX_DATETIME + "31/12/20 1400 "
