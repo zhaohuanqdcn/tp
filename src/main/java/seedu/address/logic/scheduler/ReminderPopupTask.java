@@ -33,12 +33,14 @@ public class ReminderPopupTask extends ScheduledTask {
 
     @Override
     public LocalDateTime getTaskTime() {
-        LocalDateTime time = super.meeting.getDateTime().value.minusMinutes(30);
-        if (time.isBefore(LocalDateTime.now())) {
+        LocalDateTime time = super.meeting.getDateTime().value;
+        LocalDateTime remindTime = time.minusMinutes(30);
+        LocalDateTime now = LocalDateTime.now();
+        if (remindTime.isBefore(now)) {
             // if meeting starts within 30 min
-            return LocalDateTime.now().plusMinutes(1);
+            return now.plusMinutes(1);
         } else {
-            return time;
+            return remindTime;
         }
     }
 
