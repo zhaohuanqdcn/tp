@@ -187,7 +187,7 @@ Format: `addmeeting d/DATETIME dur/DURATION title/TITLE l/LOCATION [rec/RECURREN
     e.g. `d/1/1/20 1430`.
     e.g. `d/12/11/20 1430`.
 
--   The format for `DURATION` is `H mm`. <br>
+-   The format for `DURATION` is `H mm`, where `H` and `mm` must be non-negative numbers and cannot both be zero. <br>
     e.g. `dur/1 30`.
     
 -   The number of minutes in `DURATION` cannot exceed `59`.

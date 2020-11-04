@@ -51,7 +51,9 @@ public class Duration {
      * Returns true if a given number of minutes is valid.
      */
     public static boolean isValidDuration(long hours, long minutes) {
-        return minutes <= MAX_MINUTES;
+        return hours >= 0
+                && minutes >= 0 && minutes <= MAX_MINUTES
+                && !(hours == 0 && minutes == 0);
     }
 
     public long getHours() {
