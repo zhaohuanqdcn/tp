@@ -1,6 +1,7 @@
 package seedu.address.model.meeting;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -19,7 +20,7 @@ public class DateTimeTest {
     @Test
     public void constructor_invalidDateTime_throwsIllegalArgumentException() {
         String invalidDateTime = "1201";
-        assertThrows(DateTimeParseException.class, () -> new DateTime(invalidDateTime));
+        assertThrows(IllegalArgumentException.class, () -> new DateTime(invalidDateTime));
     }
 
     @Test
@@ -41,12 +42,9 @@ public class DateTimeTest {
         assertThrows(NullPointerException.class, () -> DateTime.isValidDateTime(null));
 
         // invalid dateTimes
-        assertThrows(DateTimeParseException.class, () ->
-                DateTime.isValidDateTime("1/2/2 1111")); // year is not two digits
-        assertThrows(DateTimeParseException.class, () ->
-                DateTime.isValidDateTime("112342325")); // does not follow format
-        assertThrows(DateTimeParseException.class, () ->
-                DateTime.isValidDateTime("1/2/10 1160")); // does not follow format
+        assertFalse(DateTime.isValidDateTime("1/2/2 1111")); // year is not two digits
+        assertFalse(DateTime.isValidDateTime("112342325")); // does not follow format
+        assertFalse(DateTime.isValidDateTime("1/2/10 1160")); // does not follow format
 
         // valid dateTimes
         assertTrue(DateTime.isValidDateTime("1/2/10 1300"));
