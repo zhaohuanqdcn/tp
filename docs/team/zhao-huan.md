@@ -3,24 +3,26 @@ layout: page
 title: Zhao Huan's Project Portfolio Page
 ---
 
-## Project: AddressBook Level 3
+## Project: Recretary
 
-AddressBook - Level 3 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+Recretary is a desktop app for managing contacts and meetings, optimized for use via a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). For fast typists, Recretary is the faster option for finishing contact management tasks than traditional GUI apps.
 
 Given below are my contributions to the project.
 
-* **New Feature**: Added the ability to undo/redo previous commands.
-  * What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-  * Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-  * Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-  * Credits: *{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}*
+* **New Feature**: Added some basic commands for meeting management.
+  * What it does: This allows the user to delete, view and clear existing meetings.
+  * Justification: These commands are among basic requirements of the app. 
 
-* **New Feature**: Added a history command that allows the user to navigate to previous commands using up/down keys.
+* **New Feature**: Added the support for recurring meetings.
+  * What it does: This allows the user to add, edit and delete recurring meetings.
+  * Justification: This feature improves the product effectively because recurring meetings are common in daily use, and enabling recurrences drastically reduces the time to repetitively input similar meeting information.  
 
-* **Code contributed**: [RepoSense link]()
+* **New Feature**: Implemented a system-wide scheduler to enable automated tasks.
+  * What it does: A system timer provides the ability to automatically update the application without user interference. Together with variants of scheduled tasks implemented, features like auto-Ui updates and pop-up reminders are now possible. 
+  * Justification: Though this functionality may not be easily observed by the users, the extendability it provides is significant. Always-up-to-date Ui and auto-pop-up reminders are two examples. Later on, any proposed automated tasks can be easily written. 
+  * Highlights: This enhancement requires an in-depth knowledge of the structure of the base code. It is also not straightforward in terms of implementation, as it involves multi-thread programming and synchronization.
 
-* **Project management**:
-  * Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+* **Code contributed**: [RepoSense link](https://nus-cs2103-ay2021s1.github.io/tp-dashboard/#breakdown=true&search=zhaohuanqdcn)
 
 * **Enhancements to existing features**:
   * Updated the GUI color scheme (Pull requests [\#33](), [\#34]())
