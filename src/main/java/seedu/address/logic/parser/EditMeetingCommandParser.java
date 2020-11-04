@@ -2,9 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_PARTICIPANTS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE_PARTICIPANTS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
@@ -24,7 +22,7 @@ public class EditMeetingCommandParser implements Parser<EditMeetingCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_DURATION, PREFIX_DATETIME,
-                        PREFIX_LOCATION, PREFIX_ADD_PARTICIPANTS, PREFIX_DELETE_PARTICIPANTS);
+                        PREFIX_LOCATION);
 
         Index index;
 
