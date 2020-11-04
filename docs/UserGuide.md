@@ -87,7 +87,7 @@ Examples:
 
 #### Listing all persons: `listcontact`
 
-Shows a list of all persons in the address book.
+Shows a list of all contacts in the address book. Anything following the `listcontact` keyword will be ignored by the application.
 
 Format: `listcontact`
 
@@ -162,7 +162,7 @@ Examples:
 
 #### Clearing all persons: `clearcontact`
 
-Clears all persons from the address book.
+Clears all persons from the address book. Anything following the `clearcontact` keyword will be ignored by the application.
 
 Format: `clearcontact`
 
@@ -234,7 +234,7 @@ Examples:
 
 #### Listing all meetings: `listmeeting`
 
-Shows a list of all meetings in the address book.
+Shows a list of all meetings in the address book. Anything following the `listmeeting` keyword will be ignored by the application.
 
 Format: `listmeeting`
 
@@ -317,7 +317,7 @@ Examples:
 
 #### Clearing all meetings : `clearmeeting`
 
-Clears all meetings from the meeting schedule.
+Clears all meetings from the meeting schedule. Anything following the `clearmeeting` keyword will be ignored by the application.
 
 Format: `clearmeeting`
 
@@ -356,15 +356,16 @@ Format: `exportmeeting`
 
 ### General
 
-#### Viewing help : `help`
+#### Viewing help : `help` 
 
-Shows a message explaining how to access the help page.
+Shows a message explaining how to access the help page. Anything following the `help` keyword will be ignored by the application.
 
 ![help message](images/helpMessage.png)
 
 #### Undo : `undo`
 
 Undoes the previous command or previous `n` commands based on the given index.
+
 <div markdown="span" class="alert alert-primary">:framed_picture:
 
 **Visual Walkthrough Guide:**
@@ -386,15 +387,17 @@ Undoes the previous command or previous `n` commands based on the given index.
 <div markdown="block" class="alert alert-info">
 
 **:information_source: Notes about the undo command:**<br>
+
 - `undo` command is purposefully left out of the history and is hence not undoable. This is because you can undo previous commands before the undo to prevent being stuck in an undo loop. 
 - `exportmeeting` command cannot be undone as it exports outside the app scope.
+
 </div>
 
 Format: `undo [INDEX]`
 
 #### Exiting the program : `exit`
 
-Exits the program.
+Exits the program. Anything following the `exit` keyword will be ignored by the application.
 
 Format: `exit`
 
@@ -429,8 +432,8 @@ Action | Format, Examples
 ***Generals*** |
 **Help** | `help`
 **Exit** | `exit`
-**Undo** | `undo`
-**Edit user preference** | `edituserpref i/10`
+**Undo** | `undo [INDEX]` <br> e.g., `undo 3` or `undo`
+**Edit user preference** | `edituserpref i/INTERVAL` <br> e.g., `edituserpref i/10`
 ***Contacts*** |
 **Add** | `addcontact n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS c/COMPANY [r/COMPANY_ROLE] [t/TAG]…` <br> e.g., `addcontact n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd a/XYZ Company r/manager t/friend` 
 **Delete** | `deletecontact INDEX` <br> e.g., `deletecontact 3`
