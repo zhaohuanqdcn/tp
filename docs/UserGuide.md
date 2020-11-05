@@ -12,9 +12,14 @@ Recretary is a **desktop app for managing contacts and meetings, optimized for u
 
 ## Quick start
 
+This section contains a step-by-step guide on how to install Recretary on your computer as well as some basic commands 
+for you to get familiarise with Recretary. 
+
+### Installation
+
 1. Ensure you have Java `11` or above installed in your Computer.
 
-1. Download the latest `recretary.jar` from [here](https://github.com/se-edu/recretary/releases).
+1. Download the latest `recretary.jar` from [here](https://github.com/AY2021S1-CS2103T-W16-1/tp/releases).
 
 1. Copy the file to the folder you want to use as the _home folder_ for Recretary.
 
@@ -42,12 +47,14 @@ Recretary is a **desktop app for managing contacts and meetings, optimized for u
 
 ## Features
 
+This section contains detailed information of each of Recretary's commands, with relevant examples and images to guide 
+you. 
 <div markdown="block" class="alert alert-info">
 
 **:information_source: Notes about the command format:**<br>
 
 -   Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
-    e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+    e.g. in `addcontact n/NAME`, `NAME` is a parameter which can be used as `addcontact n/John Doe`.
 
 -   Items in square brackets are optional.<br>
     e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
@@ -58,14 +65,14 @@ Recretary is a **desktop app for managing contacts and meetings, optimized for u
 -   Parameters can be in any order.<br>
     e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
    
--   Although it is not recommended to supply duplicate parameters, they are accepted as only the last parameter of the same type will be considered.<br>
-    e.g. if the command entered by user is `editcontact 1 n/John n/Bob`, only `n/Bob` will be considered as there are two `n/` parameters and thus only the last is considered. 
+-   Although it is not recommended to supply duplicate parameters, they will still be accepted. However, only the last parameter of the same type will be considered.<br>
+    e.g. if the command entered by user is `editcontact 1 n/John n/Bob`, only `n/Bob` will be considered as only the last of the two `n/` parameters is considered. 
 
 </div>
 
 ### Contact Management
 
-Contact entries in Recretary contain multiple pieces of information: name, phone number, email, address and company. There are also optional entries company role and tags that may help you organize your contacts better. Contact information will be displayed on the left-hand-side of the window.
+Contact entries in Recretary contain multiple pieces of information: name, phone number, email, address and company. There are also optional entries company role and tags that may help you organize your contacts better. You can find contact information on the left-hand-side of the window.
 
 #### Adding a person: `addcontact`
 
@@ -169,16 +176,17 @@ Format: `clearcontact`
    
 ### Meeting Management
 
-Meeting entries in Recretary have multiple attributes: date time, duration, title and location. You may declare the recurrence of a meeting to avoid repetitive input, and you may also add contacts as participants of a meeting. All meeting information will be displayed on the right-hand-side of the window, ordered by their starting time, with a green bar indicating the next upcoming meeting. When the next upcoming meeting starts, the green bar will move to the next meeting automatically, if any. 
+Meeting entries in Recretary have multiple attributes: date time, duration, title and location. You may declare the recurrence of a meeting to avoid repetitive input, 
+and you may also add contacts as participants of a meeting. All meeting information will be displayed on the right-hand-side of the window, 
+ordered by their starting time, with a green bar indicating the next upcoming meeting. When the next upcoming meeting starts, the green bar will move to the next meeting automatically, if any. 
 
 #### Adding a meeting: `addmeeting`
 
-Adds a meeting into the meeting schedule. The existing list of meetings will be automatically sorted afterwards according to date and time. It also takes meeting interval into consideration and checks for meeting conflict (since your boss is always a participant in these meetings, therefore meetings can't overlap with each other).  
+Adds a meeting into the meeting schedule. The existing list of meetings will be automatically sorted after the addition according to date and time. 
 **Note:**
 Conflict checking will not report an error if user supply new interval value that causes old meetings to conflict with each other. This is because interval is there to simulate travelling time,etc and should be different (and they passed the previous conflict check when added).
 
-
-Format: `addmeeting d/DATETIME dur/DURATION title/TITLE l/LOCATION [rec/RECURRENCE]`
+Format: `addmeeting title/TITLE d/DATETIME dur/DURATION l/LOCATION [rec/RECURRENCE]`
 
 <div markdown="block" class="alert alert-info">
 
@@ -197,19 +205,27 @@ Format: `addmeeting d/DATETIME dur/DURATION title/TITLE l/LOCATION [rec/RECURREN
 -   The field `RECURRENCE` consists of two parts separated by `/`. The first part can be one of `daily`, `weekly` or `monthly` indicating the frequency of recurrences, and the second part is a positive integer no more than 20 to indicate the number of recurrences. <br>
     e.g. `daily/1`,
     e.g. `weekly/20`,
-    e.g. `monthly/5`,
+    e.g. `monthly/5`
 
 
 </div>
 
-Examples:
+Example:
+- `addmeeting title/roundtable discussion d/31/12/20 1200 dur/00 30 l/NUS SoC`
+- `addmeeting title/abc company meeting d/31/12/20 1400 dur/00 50 l/John street, block 123, #01-01 rec/weekly/5`
 
--   `addmeeting title/abc company meeting d/31/12/20 1400 dur/00 50 l/John street, block 123, #01-01 rec/weekly/5`
+Example usage:
+
+`addmeeting title/v1.5 discussion d/12/12/20 1200 dur/02 00 l/Home`
+
+Expected result:
+`New meeting added: v1.5 discussion Date and Time: 12 Dec 2020 12.00pm Duration: 2hrs Location: Home Recurrence: none Participants: none 
+Add participants with the addpart command now!`
 
 <div markdown="span" class="alert alert-primary">:bulb:
 
 **Note:**
-After adding a meeting, add new participants to it with the `addpart` described command below.
+After adding a meeting, add new participants to it with the `addpart` command described below.
 Only people in your contacts can be added as participants.
 
 </div>
@@ -225,7 +241,7 @@ Format: `addpart ci/CONTACT_INDEX mi/MEETING_INDEX`
 **Tip:**
 Run a `findcontact` command before running an `addpart` to narrow the contact list so that you can easily add a contact instead of scrolling through the whole list!
 
-Run a `findmeeting` command before running an `addpart` to narrow the meeting list so that you can easily add a meeting instead of scrolling through the whole list!
+Likewise, run a `findmeeting` command before running an `addpart` to narrow the meeting list so that you can easily add a meeting instead of scrolling through the whole list!
 
 </div>
 
@@ -233,6 +249,15 @@ Examples:
 
 -   `addpart ci/1 mi/3` adds the first contact in the whole list to the 3rd meeting.
 -   `findcontact alice` followed by `addpart ci/1 mi/2` adds the first contact of the `findcontact` command's result into the 2nd meeting.
+
+Example Usage: 
+`addpart ci/1 mi/1`
+
+Expected result:
+
+![addfirstParticipant](images/addfirstParticipant.png)
+
+`New participant added to meeting: NAME_OF_PARTICIPANT_ADDED`
 
 #### Listing all meetings: `listmeeting`
 
@@ -244,20 +269,13 @@ Format: `listmeeting`
 
 Edits an existing meeting in the meeting schedule. Similar to adding a meeting, the sorting and conflict checking will also take place automatically. The `RECURRENCE` field is not modifiable, and the edition of recurring meeting will only edit the specified instance. If the title of a recurring meeting is edited, it is no longer considered as an instance of recurrence.
 
-Format: `editmeeting INDEX [d/DATETIME] [t/TITLE] [l/LOCATION] ...`
-
-Delete participants in a meeting with this format:  //NEEDS TO BE EDITED
-E.g.  
-Recretary: `Here is the current list of participants.`  
-<code> &nbsp; 1. John doe, abc company </code>  
-<code> &nbsp; 2. John doe, def company </code>  
-`Enter the next participant’s index to delete`  
-User: `editmeeting INDEX deletepart/ 1`
+Format: `editmeeting INDEX [d/DATETIME] [title/TITLE] [l/LOCATION] ...`
 
 <div markdown="span" class="alert alert-primary">:bulb:
 
 **Tip:**
-You can add new participants to a meeting with the separate `addpart` command.
+You can add new participants to a meeting with the separate `addpart` command or delete existing participants in the meeting
+with the `deletepart` command.
 
 </div>
 
@@ -270,6 +288,16 @@ Examples:
 
 * `editmeeting 1 d/10/11/20 1400 l/clementi` Edits the datetime and location of the 1st meeting to be 
 `10/11/2020 1400` and `clementi` respectively.
+
+Example Usage: 
+`editmeeting 2 title/DEF company meeting dur/00 30`
+
+Expected Outcome:
+
+`Edited Meeting: DEF company meeting Date and Time: 12 Dec 2020 12.00pm Duration:  30mins Location: Home Recurrence: none Participants: none`
+
+Change the title and duration of the second meeting in the currently displayed meeting list to `DEF company meeting` 
+and `30mins' respectively. Other attributes of the meeting remain unchanged. 
     
 #### Locating meetings: `findmeeting`
 

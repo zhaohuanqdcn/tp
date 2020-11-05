@@ -208,6 +208,7 @@ public class Meeting {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
+        System.out.println(getRecurrence());
         builder.append(getTitle())
                 .append(" Date and Time: ")
                 .append(getDateTime())
@@ -218,7 +219,11 @@ public class Meeting {
                 .append(" Recurrence: ")
                 .append(getRecurrence())
                 .append(" Participants: ");
-        getParticipants().forEach(builder::append);
+        if (getParticipants().isEmpty()) {
+            builder.append("none");
+        } else {
+            getParticipants().forEach(builder::append);
+        }
         return builder.toString();
     }
 
