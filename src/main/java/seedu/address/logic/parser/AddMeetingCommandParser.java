@@ -20,6 +20,7 @@ import seedu.address.model.meeting.Location;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.meeting.Recurrence;
 import seedu.address.model.meeting.Title;
+import seedu.address.model.meeting.UniqueMeetingList.Pair;
 
 public class AddMeetingCommandParser implements Parser<AddMeetingCommand> {
 
@@ -45,14 +46,14 @@ public class AddMeetingCommandParser implements Parser<AddMeetingCommand> {
 
         Set<UUID> participantList = Collections.emptySet();
 
-        Recurrence recurrence;
+        Pair<Recurrence, Integer> recurrence;
         if (arePrefixesPresent(argMultimap, PREFIX_RECURRENCE)) {
             recurrence = ParserUtil.parseRecurrence(argMultimap.getValue(PREFIX_RECURRENCE).get());
         } else {
-            recurrence = Recurrence.NONE;
+            recurrence = new Pair<Recurrence, Integer>(Recurrence.NONE, 1);
         }
-        Meeting meeting = new Meeting(title, duration, dateTime, location, recurrence, participantList);
-        return new AddMeetingCommand(meeting);
+        Meeting meeting = new Meeting(title, duration, dateTime, location, recurrence.getLeftValue(), participantList);
+        return new AddMeetingCommand(meeting, recurrence.getRightValue());
     }
 
     /**

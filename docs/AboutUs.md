@@ -45,7 +45,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 <img src="images/xxzz-tt.png" width="200px">
 
 [[github](https://github.com/xxzz-tt)]
-[[portfolio](team/tan-xuan-zhi.md)]
+[[portfolio](team/xxzz-tt.md)]
 
 * Role: Developer
 * Responsibilities: Implement commands relating to model class Meeting

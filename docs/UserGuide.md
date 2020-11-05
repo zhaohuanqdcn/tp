@@ -87,7 +87,7 @@ Examples:
 
 #### Listing all persons: `listcontact`
 
-Shows a list of all persons in the address book.
+Shows a list of all contacts in the address book. Anything following the `listcontact` keyword will be ignored by the application.
 
 Format: `listcontact`
 
@@ -107,9 +107,9 @@ Format: `editcontact INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [c/COMPANY] 
 
 Examples:
 
--   `edit_contact 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be
+-   `editcontact 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be
     `91234567` and `johndoe@example.com` respectively.
--   `edit_contact 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+-   `editcontact 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
 #### Locating persons: `findcontact`
 
@@ -162,14 +162,14 @@ Examples:
 
 #### Clearing all persons: `clearcontact`
 
-Clears all persons from the address book.
+Clears all persons from the address book. Anything following the `clearcontact` keyword will be ignored by the application.
 
 Format: `clearcontact`
 
    
 ### Meeting Management
 
-Meeting entries in Recretary have multiple attributes: date time, duration, title and location. You may declare the recurrence of a meeting to avoid repetitive input, and you may also add contacts as participants of a meeting. All meeting information will be displayed on the right-hand-side of the window, ordered in starting time, with a green bar indicating the next upcoming meeting. When a meeting starts, the green bar will move to the next meeting automatically. 
+Meeting entries in Recretary have multiple attributes: date time, duration, title and location. You may declare the recurrence of a meeting to avoid repetitive input, and you may also add contacts as participants of a meeting. All meeting information will be displayed on the right-hand-side of the window, ordered by their starting time, with a green bar indicating the next upcoming meeting. When the next upcoming meeting starts, the green bar will move to the next meeting automatically, if any. 
 
 #### Adding a meeting: `addmeeting`
 
@@ -187,20 +187,22 @@ Format: `addmeeting d/DATETIME dur/DURATION title/TITLE l/LOCATION [rec/RECURREN
     e.g. `d/1/1/20 1430`.
     e.g. `d/12/11/20 1430`.
 
--   The format for `DURATION` is `H mm`. <br>
+-   The format for `DURATION` is `H mm`, where `H` and `mm` must be non-negative numbers and cannot both be zero. <br>
     e.g. `dur/1 30`.
     
 -   The number of minutes in `DURATION` cannot exceed `59`.
 
--   The field `RECURRENCE` can be one of `DAILY`, `WEEKLY` or `MONTHLY`.
+-   The field `RECURRENCE` consists of two parts separated by `/`. The first part can be one of `daily`, `weekly` or `monthly` indicating the frequency of recurrences, and the second part is a positive integer no more than 20 to indicate the number of recurrences. <br>
+    e.g. `daily/1`,
+    e.g. `weekly/20`,
+    e.g. `monthly/5`,
 
--   The number of recurrences added is by default 5, and can be edited in `UserPrefs`. //THIS NEEDS TO BE EDITED
 
 </div>
 
 Examples:
 
--   `addmeeting title/abc company meeting d/31/12/20 1400 dur/00 50 l/John street, block 123, #01-01`
+-   `addmeeting title/abc company meeting d/31/12/20 1400 dur/00 50 l/John street, block 123, #01-01 rec/weekly/5`
 
 <div markdown="span" class="alert alert-primary">:bulb:
 
@@ -232,7 +234,7 @@ Examples:
 
 #### Listing all meetings: `listmeeting`
 
-Shows a list of all meetings in the address book.
+Shows a list of all meetings in the address book. Anything following the `listmeeting` keyword will be ignored by the application.
 
 Format: `listmeeting`
 
@@ -299,7 +301,7 @@ State of the app *AFTER* the `findmeeting v1.3` command.
 
 #### Deleting a meeting: `deletemeeting`
 
-Deletes the specified item (and its recurrernces) from the address book.
+Deletes the specified item (and its recurrences) from the address book.
 
 Format: `deletemeeting INDEX [rec/RECURRING]`
 
@@ -315,7 +317,7 @@ Examples:
 
 #### Clearing all meetings : `clearmeeting`
 
-Clears all meetings from the meeting schedule.
+Clears all meetings from the meeting schedule. Anything following the `clearmeeting` keyword will be ignored by the application.
 
 Format: `clearmeeting`
 
@@ -346,7 +348,7 @@ State of the app *AFTER* the `remindmeeting 1440` command.
 
 #### Exporting meetings in .ics format : `exportmeeting`
 
-Exports all meetings as an iCalendar file that is compatible with other calendar apps such as Google Calendar. By default, the resulting file can be found in the `data` folder. Check the FAQ section to see how to change the save location.
+Exports all meetings as an iCalendar file that is compatible with other calendar apps such as Google Calendar. Anything following the `exportmeeting` keyword will be ignored by the application. By default, the resulting file can be found in the `data` folder. Check the FAQ section to see how to change the save location.
 
 Format: `exportmeeting`
 
@@ -354,24 +356,25 @@ Format: `exportmeeting`
 
 ### General
 
-#### Viewing help : `help`
+#### Viewing help : `help` 
 
-Shows a message explaining how to access the help page.
+Shows a message explaining how to access the help page. Anything following the `help` keyword will be ignored by the application.
 
 ![help message](images/helpMessage.png)
 
 #### Undo : `undo`
 
 Undoes the previous command or previous `n` commands based on the given index.
+
 <div markdown="span" class="alert alert-primary">:framed_picture:
 
 **Visual Walkthrough Guide:**
 
-1. State of the app *BEFORE* the `delete_contact` command that you entered by mistake and wish to undo.
+1. State of the app *BEFORE* the `deletecontact` command that you entered by mistake and wish to undo.
 
    ![undo1](images/undo1.png)
 
-2. State of the app *AFTER* the `delete_contact` command that you entered by mistake and wish to undo.
+2. State of the app *AFTER* the `deletecontact` command that you entered by mistake and wish to undo.
 
    ![undo2](images/undo2.png)
 
@@ -384,15 +387,17 @@ Undoes the previous command or previous `n` commands based on the given index.
 <div markdown="block" class="alert alert-info">
 
 **:information_source: Notes about the undo command:**<br>
+
 - `undo` command is purposefully left out of the history and is hence not undoable. This is because you can undo previous commands before the undo to prevent being stuck in an undo loop. 
-- `export_meeting` command cannot be undone as it exports outside the app scope.
+- `exportmeeting` command cannot be undone as it exports outside the app scope.
+
 </div>
 
 Format: `undo [INDEX]`
 
 #### Exiting the program : `exit`
 
-Exits the program.
+Exits the program. Anything following the `exit` keyword will be ignored by the application.
 
 Format: `exit`
 
@@ -427,8 +432,8 @@ Action | Format, Examples
 ***Generals*** |
 **Help** | `help`
 **Exit** | `exit`
-**Undo** | `undo`
-**Edit user preference** | `edituserpref i/10`
+**Undo** | `undo [INDEX]` <br> e.g., `undo 3` or `undo`
+**Edit user preference** | `edituserpref i/INTERVAL` <br> e.g., `edituserpref i/10`
 ***Contacts*** |
 **Add** | `addcontact n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS c/COMPANY [r/COMPANY_ROLE] [t/TAG]…` <br> e.g., `addcontact n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd a/XYZ Company r/manager t/friend` 
 **Delete** | `deletecontact INDEX` <br> e.g., `deletecontact 3`
@@ -437,13 +442,14 @@ Action | Format, Examples
 **List** | `listcontact`
 **Clear** | `clearcontact`
 ***Meetings*** |
-**Add** |`addmeeting d/DATETIME dur/DURATION title/TITLE l/LOCATION [rec/RECURRENCE]` <br> e.g., `addmeeting d/31/12/20 1400 dur/01 00 title/xyz meeting l/John street, block 1, #01-01 rec/weekly`
+**Add** |`addmeeting d/DATETIME dur/DURATION title/TITLE l/LOCATION [rec/RECURRENCE]` <br> e.g., `addmeeting d/31/12/20 1400 dur/01 00 title/xyz meeting l/John street, block 1, #01-01 rec/weekly/5`
 **Add Participant** |`addpart ci/[INDEX] mi/[INDEX]`<br> e.g., `addpart ci/1 mi/3`
 **Delete** | `deletemeeting INDEX [rec/RECURRING]`<br> e.g., `deletemeeting 5 rec/true`
 **Edit** | `editmeeting INDEX [d/DATETIME] [dur/DURATION] [t/TITLE] [l/LOCATION]`<br> e.g.,`editmeeting 1 dur/01 30 l/COM2 LT17`
 **Find** | `findmeeting KEYWORD [MORE_KEYWORDS]`<br> e.g., `findmeeting recretary stakeholders`
 **List** | `listmeeting`
 **Clear** | `clearmeeting`
-**Remind** | `remindmeeting`
+**Remind** | `remindmeeting HOUR` <br> e.g., `remindmeeting 24`
+**Export** | `exportmeeting`
 
 

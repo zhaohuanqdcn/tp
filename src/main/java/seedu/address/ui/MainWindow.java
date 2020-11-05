@@ -202,7 +202,6 @@ public class MainWindow extends UiPart<Stage> {
         }
         primaryStage.setHeight(guiSettings.getWindowHeight());
         primaryStage.setWidth(guiSettings.getWindowWidth());
-
     }
 
     /**
@@ -237,6 +236,8 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void handleExit() {
+        refreshScheduler.cancel();
+        reminderScheduler.cancel();
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
