@@ -16,6 +16,7 @@ import seedu.address.model.meeting.Duration;
 import seedu.address.model.meeting.Location;
 import seedu.address.model.meeting.Recurrence;
 import seedu.address.model.meeting.Title;
+import seedu.address.model.meeting.UniqueMeetingList.Pair;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Company;
 import seedu.address.model.person.Email;
@@ -186,20 +187,28 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String recur} into a {@code Recurrence}.
+     * Parses a {@code String recur} into a {@coed Pair} of {@code Recurrence} and {@code recurringNumber}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code recur} is invalid.
      */
-    public static Recurrence parseRecurrence(String recur) throws ParseException {
-        if (recur == null) {
-            return Recurrence.NONE;
+    public static Pair<Recurrence, Integer> parseRecurrence(String recur) throws ParseException {
+        if (recur == null || recur.isEmpty()) {
+            return new Pair<Recurrence, Integer>(Recurrence.NONE, 1);
         }
-        String trimmedRecur = recur.toLowerCase().trim();
-        if (!Recurrence.isValid(trimmedRecur)) {
+        String[] trimmedRecur = recur.toLowerCase().trim().split("/");
+        if (trimmedRecur.length != 2) {
             throw new ParseException(Recurrence.MESSAGE_CONSTRAINTS);
         }
-        return Recurrence.ofNullable(trimmedRecur);
+        if (!Recurrence.isValid(trimmedRecur[0])) {
+            throw new ParseException(Recurrence.MESSAGE_CONSTRAINTS);
+        }
+        Recurrence recurrence = Recurrence.ofNullable(trimmedRecur[0]);
+        int recurNumber = Integer.parseInt(trimmedRecur[1]);
+        if (recurNumber <= 0 || recurNumber > 20) {
+            throw new ParseException(Recurrence.MESSAGE_CONSTRAINTS);
+        }
+        return new Pair<Recurrence, Integer>(recurrence, recurNumber);
     }
 
     /**
@@ -220,7 +229,6 @@ public class ParserUtil {
             throw new ParseException("");
         }
     }
-
 
     /**
      * Parses a {@code String duration} into a {@code Duration}.

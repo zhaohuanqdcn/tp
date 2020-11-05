@@ -23,7 +23,7 @@ public class AddParticipantCommandParser implements Parser<AddParticipantCommand
             ArgumentMultimap argMultimap =
                     ArgumentTokenizer.tokenize(args, PREFIX_CONTACT_INDEX, PREFIX_MEETING_INDEX);
 
-            if (!arePrefixesPresent(argMultimap, PREFIX_CONTACT_INDEX)
+            if (!arePrefixesPresent(argMultimap, PREFIX_CONTACT_INDEX, PREFIX_MEETING_INDEX)
                     || !argMultimap.getPreamble().isEmpty()) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                         AddParticipantCommand.MESSAGE_USAGE));

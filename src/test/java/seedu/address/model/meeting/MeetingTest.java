@@ -33,7 +33,7 @@ public class MeetingTest {
 
         Meeting singleMeeting = new MeetingBuilder().build(); // non-recurring meeting
         expectedList.add(singleMeeting);
-        assertEquals(singleMeeting.getRecurrencesAsList(), expectedList);
+        assertEquals(singleMeeting.getRecurrencesAsList(1), expectedList);
 
         Meeting dailyMeeting = new MeetingBuilder().withDateTime("30/12/20 1500").withRecurrence("daily").build();
         Meeting day1 = new MeetingBuilder().withDateTime("30/12/20 1500").withRecurrence("daily").build();
@@ -47,7 +47,7 @@ public class MeetingTest {
         expectedList.add(day3);
         expectedList.add(day4);
         expectedList.add(day5);
-        assertEquals(dailyMeeting.getRecurrencesAsList(), expectedList);
+        assertEquals(dailyMeeting.getRecurrencesAsList(5), expectedList);
     }
 
     @Test

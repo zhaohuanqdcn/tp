@@ -32,7 +32,8 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 <img src="images/adithyanarayan.png" width="200px">
 
-[[github](http://github.com/AdithyaNarayan)] [[portfolio](team/adi.md)]
+[[github](http://github.com/AdithyaNarayan)]
+[[portfolio](team/adithyanarayan.md)]
 
 * Role: Developer
 * Responsibilities: UI and Frontend
@@ -44,7 +45,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 <img src="images/xxzz-tt.png" width="200px">
 
 [[github](https://github.com/xxzz-tt)]
-[[portfolio](team/tan-xuan-zhi.md)]
+[[portfolio](team/xxzz-tt.md)]
 
 * Role: Developer
 * Responsibilities: Implement commands relating to model class Meeting
