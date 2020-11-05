@@ -32,7 +32,8 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 <img src="images/adithyanarayan.png" width="200px">
 
-[[github](http://github.com/AdithyaNarayan)] [[portfolio](team/adi.md)]
+[[github](http://github.com/AdithyaNarayan)]
+[[portfolio](team/adithyanarayan.md)]
 
 * Role: Developer
 * Responsibilities: UI and Frontend
