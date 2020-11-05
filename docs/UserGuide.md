@@ -183,7 +183,8 @@ ordered by their starting time, with a green bar indicating the next upcoming me
 #### Adding a meeting: `addmeeting`
 
 Adds a meeting into the meeting schedule. The existing list of meetings will be automatically sorted after the addition according to date and time. 
-It also takes meeting interval into consideration and checks for meeting conflict (since your boss is always a participant in these meetings, therefore meetings can't overlap with each other). 
+**Note:**
+Conflict checking will not report an error if user supply new interval value that causes old meetings to conflict with each other. This is because interval is there to simulate travelling time,etc and should be different (and they passed the previous conflict check when added).
 
 Format: `addmeeting title/TITLE d/DATETIME dur/DURATION l/LOCATION [rec/RECURRENCE]`
 
