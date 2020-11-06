@@ -97,7 +97,17 @@ public class EditMeetingCommand extends Command {
         model.setMeeting(meetingToEdit, editedMeeting);
         model.sortMeeting();
         model.updateFilteredMeetingList(PREDICATE_SHOW_ALL_MEETINGS);
-        return new CommandResult(String.format(MESSAGE_EDIT_MEETING_SUCCESS, editedMeeting));
+
+        final StringBuilder builder = new StringBuilder();
+
+        if (!editedMeeting.getParticipants().isEmpty()){
+            for (UUID uuid : editedMeeting.getParticipants()) {
+                builder.append(model.getParticipant(uuid).getName() + ", ");
+            }
+            builder.setLength(builder.length() - 2);
+        }
+        return new CommandResult(String.format(MESSAGE_EDIT_MEETING_SUCCESS, editedMeeting)
+                + builder.toString());
     }
 
     /**

@@ -218,6 +218,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Person getParticipant(UUID uuid) {
+        assert persons.containsKey(uuid);
+        return persons.get(uuid);
+    }
+
+    @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
