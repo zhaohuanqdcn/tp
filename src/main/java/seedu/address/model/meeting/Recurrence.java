@@ -43,7 +43,7 @@ public enum Recurrence {
         return this == MONTHLY ? "monthly"
                 : this == DAILY ? "daily"
                 : this == WEEKLY ? "weekly"
-                : "none";
+                : "";
     }
 
     public Recurrence copy() {

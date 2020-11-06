@@ -123,13 +123,22 @@ public class Meeting {
         return dateTime.value.isAfter(now);
     }
 
-
     /**
      * Returns an immutable person set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
     public Set<UUID> getParticipants() {
         return Collections.unmodifiableSet(participants);
+    }
+
+    /**
+     * Returns a person from the participants set
+     */
+    public UUID getOneParticipant(Index index) {
+        List<UUID> personList = new ArrayList<>(this.participants);
+        int length = this.participants.size();
+        assert length > index.getZeroBased() : "index is invalid";
+        return personList.get(index.getZeroBased());
     }
 
     /**
@@ -208,7 +217,6 @@ public class Meeting {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        System.out.println(getRecurrence());
         builder.append(getTitle())
                 .append(" Date and Time: ")
                 .append(getDateTime())
@@ -221,8 +229,6 @@ public class Meeting {
                 .append(" Participants: ");
         if (getParticipants().isEmpty()) {
             builder.append("none");
-        } else {
-            getParticipants().forEach(builder::append);
         }
         return builder.toString();
     }

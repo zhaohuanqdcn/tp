@@ -141,6 +141,12 @@ public interface Model {
     ObservableList<Meeting> getFilteredMeetingList();
 
     /**
+     * Returns the person with the uuid key.
+     * @param uuid of the person.
+     */
+    Person getParticipant(UUID uuid);
+
+    /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
