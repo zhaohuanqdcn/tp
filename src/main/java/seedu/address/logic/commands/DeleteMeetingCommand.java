@@ -65,7 +65,7 @@ public class DeleteMeetingCommand extends Command {
 
         final StringBuilder builder = new StringBuilder();
 
-        if (!meetingToDelete.getParticipants().isEmpty()){
+        if (!meetingToDelete.getParticipants().isEmpty()) {
             for (UUID uuid : meetingToDelete.getParticipants()) {
                 builder.append(model.getParticipant(uuid).getName() + ", ");
             }

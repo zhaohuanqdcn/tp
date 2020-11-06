@@ -100,7 +100,7 @@ public class EditMeetingCommand extends Command {
 
         final StringBuilder builder = new StringBuilder();
 
-        if (!editedMeeting.getParticipants().isEmpty()){
+        if (!editedMeeting.getParticipants().isEmpty()) {
             for (UUID uuid : editedMeeting.getParticipants()) {
                 builder.append(model.getParticipant(uuid).getName() + ", ");
             }
