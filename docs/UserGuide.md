@@ -313,7 +313,7 @@ addpart ci/1 mi/1
 
 Expected result:
 
-![addfirstParticipant](images/addfirstParticipant.png)
+![addfirstParticipant](images/addFirstParticipant.png)
 
 ```
 New participant added to meeting: NAME_OF_PARTICIPANT_ADDED
