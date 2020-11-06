@@ -41,6 +41,19 @@ public class TypicalMeetings {
         return ab;
     }
 
+    /**
+     * Returns an {@code AddressBook} with all the typical meetings with contacts.
+     */
+    public static AddressBook getTypicalAddressBookWithContacts() {
+        AddressBook ab = new AddressBook();
+        for (Meeting meeting : getTypicalMeetings()) {
+            ab.addMeeting(meeting);
+        }
+        ab.addPerson(ALICE);
+        ab.addPerson(BOB);
+        return ab;
+    }
+
     public static List<Meeting> getTypicalMeetings() {
         return new ArrayList<>(Arrays.asList(DISCUSSION, ROUNDTABLE));
     }
