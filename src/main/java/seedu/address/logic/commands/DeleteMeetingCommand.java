@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RECURRENCE;
 
 import java.util.List;
+import java.util.UUID;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -61,7 +62,18 @@ public class DeleteMeetingCommand extends Command {
         } else { // delete all recurrences
             model.deleteRecurringMeetings(meetingToDelete);
         }
-        return new CommandResult(String.format(MESSAGE_DELETE_MEETING_SUCCESS, meetingToDelete));
+
+        final StringBuilder builder = new StringBuilder();
+
+        if (!meetingToDelete.getParticipants().isEmpty()) {
+            for (UUID uuid : meetingToDelete.getParticipants()) {
+                builder.append(model.getParticipant(uuid).getName() + ", ");
+            }
+            builder.setLength(builder.length() - 2);
+        }
+
+        return new CommandResult(String.format(MESSAGE_DELETE_MEETING_SUCCESS, meetingToDelete)
+                + builder.toString());
     }
 
     @Override

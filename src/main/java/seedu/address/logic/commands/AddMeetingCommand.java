@@ -31,8 +31,8 @@ public class AddMeetingCommand extends Command {
             + PREFIX_LOCATION + "Cool spot "
             + PREFIX_RECURRENCE + "weekly/5";
 
-    public static final String MESSAGE_SUCCESS = "New meeting added: %1$s \n "
-            + "Add participants by finding their name, and key in their index on the list";
+    public static final String MESSAGE_SUCCESS = "New meeting added: %1$s \n"
+            + "Add participants with the addpart command now!";
     public static final String MESSAGE_DUPLICATE_MEETING = "This meeting already exists in the schedule";
     public static final String MESSAGE_CONFLICT_MEETING =
             "This meeting conflicts with an existing meeting in the list :\n";
