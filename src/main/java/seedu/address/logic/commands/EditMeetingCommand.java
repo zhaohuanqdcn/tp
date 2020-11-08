@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_PARTICIPANTS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
@@ -42,8 +41,7 @@ public class EditMeetingCommand extends Command {
             + "[" + PREFIX_TITLE + "TITLE] "
             + "[" + PREFIX_DURATION + "DURATION] "
             + "[" + PREFIX_DATETIME + "DATETIME] "
-            + "[" + PREFIX_LOCATION + "LOCATION] "
-            + "[" + PREFIX_ADD_PARTICIPANTS + "PARTICIPANTS] \n"
+            + "[" + PREFIX_LOCATION + "LOCATION] \n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_TITLE + "OP2 "
             + PREFIX_DURATION + "01 20";
@@ -99,7 +97,17 @@ public class EditMeetingCommand extends Command {
         model.setMeeting(meetingToEdit, editedMeeting);
         model.sortMeeting();
         model.updateFilteredMeetingList(PREDICATE_SHOW_ALL_MEETINGS);
-        return new CommandResult(String.format(MESSAGE_EDIT_MEETING_SUCCESS, editedMeeting));
+
+        final StringBuilder builder = new StringBuilder();
+
+        if (!editedMeeting.getParticipants().isEmpty()) {
+            for (UUID uuid : editedMeeting.getParticipants()) {
+                builder.append(model.getParticipant(uuid).getName() + ", ");
+            }
+            builder.setLength(builder.length() - 2);
+        }
+        return new CommandResult(String.format(MESSAGE_EDIT_MEETING_SUCCESS, editedMeeting)
+                + builder.toString());
     }
 
     /**

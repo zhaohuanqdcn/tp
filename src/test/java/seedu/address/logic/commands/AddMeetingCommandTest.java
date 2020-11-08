@@ -33,7 +33,7 @@ class AddMeetingCommandTest {
 
     @Test
     public void constructor_nullMeeting_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddMeetingCommand(null));
+        assertThrows(NullPointerException.class, () -> new AddMeetingCommand(null, 1));
     }
 
     @Test
@@ -42,7 +42,7 @@ class AddMeetingCommandTest {
                 new AddMeetingCommandTest.ModelStubAcceptingMeetingAdded();
         Meeting validMeeting = new MeetingBuilder().build();
 
-        CommandResult commandResult = new AddMeetingCommand(validMeeting).execute(modelStub);
+        CommandResult commandResult = new AddMeetingCommand(validMeeting, 1).execute(modelStub);
 
         assertEquals(String.format(AddMeetingCommand.MESSAGE_SUCCESS, validMeeting), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validMeeting), modelStub.meetingsAdded);
@@ -54,10 +54,10 @@ class AddMeetingCommandTest {
                 new AddMeetingCommandTest.ModelStubAcceptingMeetingAdded();
         Meeting validMeeting = new MeetingBuilder().withRecurrence("daily").build();
 
-        CommandResult commandResult = new AddMeetingCommand(validMeeting).execute(modelStub);
+        CommandResult commandResult = new AddMeetingCommand(validMeeting, 5).execute(modelStub);
 
         assertEquals(String.format(AddMeetingCommand.MESSAGE_SUCCESS, validMeeting), commandResult.getFeedbackToUser());
-        assertEquals(validMeeting.getRecurrencesAsList(), modelStub.meetingsAdded);
+        assertEquals(validMeeting.getRecurrencesAsList(5), modelStub.meetingsAdded);
     }
 
 
@@ -66,14 +66,14 @@ class AddMeetingCommandTest {
     void testEquals() {
         Meeting party = new MeetingBuilder().withTitle("party").build();
         Meeting presentation = new MeetingBuilder().withTitle("presentation").build();
-        AddMeetingCommand addPartyCommand = new AddMeetingCommand(party);
-        AddMeetingCommand addPresentationCommand = new AddMeetingCommand(presentation);
+        AddMeetingCommand addPartyCommand = new AddMeetingCommand(party, 5);
+        AddMeetingCommand addPresentationCommand = new AddMeetingCommand(presentation, 5);
 
         // same object -> returns true
         assertTrue(addPartyCommand.equals(addPartyCommand));
 
         // same values -> returns true
-        AddMeetingCommand addPresentationCommandCopy = new AddMeetingCommand(presentation);
+        AddMeetingCommand addPresentationCommandCopy = new AddMeetingCommand(presentation, 5);
         assertTrue(addPresentationCommand.equals(addPresentationCommandCopy));
 
         // different types -> returns false
@@ -84,6 +84,10 @@ class AddMeetingCommandTest {
 
         // different meeting -> returns false
         assertFalse(addPartyCommand.equals(addPresentationCommand));
+
+        // different recurring number -> returns false
+        AddMeetingCommand addPartyCommandCopy = new AddMeetingCommand(party, 1);
+        assertFalse(addPartyCommand.equals(addPartyCommandCopy));
     }
 
     /**
@@ -212,6 +216,11 @@ class AddMeetingCommandTest {
 
         @Override
         public ObservableList<Meeting> getFilteredMeetingList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Person getParticipant(UUID uuid) {
             throw new AssertionError("This method should not be called.");
         }
 

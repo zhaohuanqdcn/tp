@@ -6,7 +6,8 @@ package seedu.address.model.meeting;
 public enum Recurrence {
     NONE, DAILY, WEEKLY, MONTHLY;
 
-    public static final String MESSAGE_CONSTRAINTS = "Recurrence can be one of daily, weekly or monthly. ";
+    public static final String MESSAGE_CONSTRAINTS = "Recurrence can be one of daily, weekly or monthly, "
+            + "with a positive integer no more than 20 followed after '/' indicating the number of recurrences.";
 
     /**
      * Check if a given string {@code recur} can be formatted in to a Recurrence object

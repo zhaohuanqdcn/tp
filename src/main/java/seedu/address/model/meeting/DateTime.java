@@ -41,16 +41,12 @@ public class DateTime {
      * Return true if string can be formatted to a LocalDateTime object
      */
     public static boolean isValidDateTime(String dateTime) {
-        boolean isValidFormat = false;
         try {
-            LocalDateTime toCheck = LocalDateTime.parse(dateTime, dateInputFormat);
-            if (dateTime.equals(toCheck.format(dateInputFormat))) {
-                isValidFormat = true;
-            }
+            dateInputFormat.parse(dateTime);
+            return true;
         } catch (DateTimeParseException e) {
-            throw e;
+            return false;
         }
-        return isValidFormat;
     }
 
     public String getDate() {

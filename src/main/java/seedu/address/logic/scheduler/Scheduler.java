@@ -40,11 +40,18 @@ public class Scheduler {
 
     private void scheduleNewTask(ScheduledTask task, LocalDateTime time) {
         Date date = convertToDate(time);
-        timer.cancel();
+        this.cancel();
         timer = new Timer();
         timer.schedule(task, date);
         nextTask = time;
         logger.info("----------------[SCHEDULE][" + task.toString() + "]");
+    }
+
+    /**
+     * Cancels the scheduled task
+     */
+    public void cancel() {
+        this.timer.cancel();
     }
 
     protected void resetNextTaskTime() {
