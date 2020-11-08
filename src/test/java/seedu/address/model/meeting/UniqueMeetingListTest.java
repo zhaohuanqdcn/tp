@@ -6,6 +6,21 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_LOCATION_ROUNDTABLE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PARTICIPANT_ALICE;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalMeetings.CONFLICT_MEETING_EIGHT;
+import static seedu.address.testutil.TypicalMeetings.CONFLICT_MEETING_ELEVEN;
+import static seedu.address.testutil.TypicalMeetings.CONFLICT_MEETING_FIFTEEN;
+import static seedu.address.testutil.TypicalMeetings.CONFLICT_MEETING_FIVE;
+import static seedu.address.testutil.TypicalMeetings.CONFLICT_MEETING_FOUR;
+import static seedu.address.testutil.TypicalMeetings.CONFLICT_MEETING_FOURTEEN;
+import static seedu.address.testutil.TypicalMeetings.CONFLICT_MEETING_NINE;
+import static seedu.address.testutil.TypicalMeetings.CONFLICT_MEETING_ONE;
+import static seedu.address.testutil.TypicalMeetings.CONFLICT_MEETING_SEVEN;
+import static seedu.address.testutil.TypicalMeetings.CONFLICT_MEETING_SIX;
+import static seedu.address.testutil.TypicalMeetings.CONFLICT_MEETING_TEN;
+import static seedu.address.testutil.TypicalMeetings.CONFLICT_MEETING_THIRTEEN;
+import static seedu.address.testutil.TypicalMeetings.CONFLICT_MEETING_THREE;
+import static seedu.address.testutil.TypicalMeetings.CONFLICT_MEETING_TWELVE;
+import static seedu.address.testutil.TypicalMeetings.CONFLICT_MEETING_TWO;
 import static seedu.address.testutil.TypicalMeetings.DISCUSSION;
 import static seedu.address.testutil.TypicalMeetings.ROUNDTABLE;
 
@@ -131,6 +146,52 @@ public class UniqueMeetingListTest {
         assertEquals(uniqueMeetingList, expectedMeetingList);
     }
 
+    @Test
+    public void checkConflict_meetingConflictBoundaryValueZeroInterval_failure() {
+        uniqueMeetingList.add(CONFLICT_MEETING_ONE);
+        assertTrue(uniqueMeetingList.checkConflict(CONFLICT_MEETING_TWO, 0).getLeftValue());
+        assertFalse(uniqueMeetingList.checkConflict(CONFLICT_MEETING_THREE, 0).getLeftValue());
+    }
+
+    @Test
+    public void checkConflict_meetingConflictBoundaryValueWithInterval_failure() {
+        uniqueMeetingList.add(CONFLICT_MEETING_ONE);
+        assertTrue(uniqueMeetingList.checkConflict(CONFLICT_MEETING_FOUR, 10).getLeftValue());
+        assertFalse(uniqueMeetingList.checkConflict(CONFLICT_MEETING_FIVE, 10).getLeftValue());
+    }
+
+    @Test
+    public void checkConflict_meetingConflictSameMeeting_failure() {
+        uniqueMeetingList.add(CONFLICT_MEETING_ONE);
+        assertTrue(uniqueMeetingList.checkConflict(CONFLICT_MEETING_ONE, 0).getLeftValue());
+    }
+
+    @Test
+    public void checkConflict_meetingConflictBeforeBoundaryNoInterval_failure() {
+        uniqueMeetingList.add(CONFLICT_MEETING_ONE);
+        assertTrue(uniqueMeetingList.checkConflict(CONFLICT_MEETING_SIX, 0).getLeftValue());
+        assertFalse(uniqueMeetingList.checkConflict(CONFLICT_MEETING_SEVEN, 0).getLeftValue());
+        assertFalse(uniqueMeetingList.checkConflict(CONFLICT_MEETING_EIGHT, 0).getLeftValue());
+    }
+
+    @Test
+    public void checkConflict_meetingConflictBeforeBoundaryWithInterval_failure() {
+        uniqueMeetingList.add(CONFLICT_MEETING_ONE);
+        assertTrue(uniqueMeetingList.checkConflict(CONFLICT_MEETING_NINE, 10).getLeftValue());
+        assertFalse(uniqueMeetingList.checkConflict(CONFLICT_MEETING_TEN, 10).getLeftValue());
+        assertFalse(uniqueMeetingList.checkConflict(CONFLICT_MEETING_ELEVEN, 10).getLeftValue());
+    }
+
+    @Test
+    public void checkConflict_meetingNoConflict_success() {
+        uniqueMeetingList.add(CONFLICT_MEETING_ONE);
+        assertFalse(uniqueMeetingList.checkConflict(CONFLICT_MEETING_TWELVE, 10).getLeftValue());
+        assertFalse(uniqueMeetingList.checkConflict(CONFLICT_MEETING_THIRTEEN, 10).getLeftValue());
+        assertFalse(uniqueMeetingList.checkConflict(CONFLICT_MEETING_FOURTEEN, 30).getLeftValue());
+        assertFalse(uniqueMeetingList.checkConflict(CONFLICT_MEETING_FIFTEEN, 15).getLeftValue());
+    }
+
+    @Test
     public void remove_nullMeeting_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueMeetingList.remove(null));
     }

@@ -117,12 +117,13 @@ public class UniqueMeetingList implements Iterable<Meeting> {
                 return true;
             }
 
-            LocalDateTime previousMeetingAvailableDateTime = meetingToCheckDateTime.minusMinutes(interval);
-
             LocalDateTime currentMeetingDateTime = toAddMeeting.getDateTime().value;
+            Duration currentMeetingDuration = toAddMeeting.getDuration();
+            long totalMinutes = currentMeetingDuration.hours * 60 + currentMeetingDuration.minutes + interval;
+            LocalDateTime currentMeetingEndTime = currentMeetingDateTime.plusMinutes(totalMinutes);
 
-            if (currentMeetingDateTime.equals(previousMeetingAvailableDateTime)
-                    || currentMeetingDateTime.isAfter(previousMeetingAvailableDateTime)) {
+            if (meetingToCheckDateTime.equals(currentMeetingEndTime)
+                    || meetingToCheckDateTime.isBefore(currentMeetingEndTime)) {
                 return true;
             }
 

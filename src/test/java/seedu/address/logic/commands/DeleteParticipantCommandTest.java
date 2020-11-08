@@ -37,6 +37,7 @@ class DeleteParticipantCommandTest {
         expectedModel.deleteMeeting(meeting);
         meeting.delParticipant(INDEX_FIRST_PERSON);
         expectedModel.addMeeting(meeting);
+        expectedModel.sortMeeting();
 
         assertCommandSuccess(deleteParticipantCommand, model, expectedMessage, expectedModel);
     }

@@ -33,7 +33,7 @@ public class EditUserPrefCommandParser implements Parser<EditUserPrefCommand> {
         }
 
         if (!editUserPrefDescriptor.isAnyFieldEdited()) {
-            throw new ParseException(EditUserPrefCommand.MESSAGE_NOT_EDITED);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditUserPrefCommand.MESSAGE_USAGE));
         }
 
         return new EditUserPrefCommand(editUserPrefDescriptor);

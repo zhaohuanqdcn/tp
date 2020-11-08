@@ -20,7 +20,7 @@ public class MeetingWithinHoursPredicate implements Predicate<Meeting> {
             return false;
         }
 
-        return Duration.between(currentTime, meetingTime).toHours() <= this.hour;
+        return Duration.between(currentTime, meetingTime).toMinutes() <= this.hour * 60;
     }
 
     @Override

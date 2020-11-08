@@ -6,13 +6,20 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
+import java.time.LocalDateTime;
+
 import org.junit.jupiter.api.Test;
 
 public class DateTimeTest {
 
     @Test
-    public void constructor_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new DateTime(null));
+    public void constructor_nullString_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new DateTime((String) null));
+    }
+
+    @Test
+    public void constructor_nullLocalDateTime_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new DateTime((LocalDateTime) null));
     }
 
     @Test
