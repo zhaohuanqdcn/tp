@@ -7,18 +7,20 @@ Recretary is a **desktop app for managing contacts and meetings, optimized for u
 while still having the benefits of a Graphical User Interface (GUI). If you can type fast, Recretary can get your contact management tasks done faster than traditional GUI apps.
 
 **Table of Contents**
+<div class="toc-no-bullet-points">
 - Table of Contents
 {:toc}
+ </div>
 
 ## Introduction
 Recretary is a **desktop app for managing contacts and meetings, optimized for use via a Command Line Interface** (CLI).
 while still having the benefits of a Graphical User Interface (GUI). If you can type fast, Recretary can get your contact management tasks done faster than traditional GUI apps.
 
-## 2 Using the user guide
+## Using the user guide
 
 This section will give you, the user, all the details required to interpret and understand the user guide and use it to your advantage. This guide encompasses all the features that the app provides with in-depth explanation on how to use them in the app with examples and illustrations.
 
-### 2.1 Format
+### Format
 
 | Symbol/Formatting | Explanation |
 |-------------------|-------------|
@@ -45,7 +47,7 @@ This section will give you, the user, all the details required to interpret and 
 -   Although it is not recommended to supply duplicate parameters, they will still be accepted. However, only the last parameter of the same type will be considered.<br>
     e.g. if the command entered by user is `editcontact 1 n/John n/Bob`, only `n/Bob` will be considered as only the last of the two `n/` parameters is considered. 
 
-### 2.2 Navigation
+### Navigation
 
 This user guide was made taking in mind the ease of usability and navigation. You can easily click on the headings and sub-headings in the table of contents (and also other parts where a heading is mentioned) and it will take you right into the required part of the guide. 
 
