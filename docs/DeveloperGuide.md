@@ -51,7 +51,7 @@ For example, the `Logic` component (see the class diagram given below) defines i
 
 **How the architecture components interact with each other**
 
-The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `delete_meeting 1`.
+The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `deletemeeting 1`.
 
 <img src="images/ArchitectureSequenceDiagram.png" width="574" />
 
@@ -86,9 +86,9 @@ The `UI` component,
 1. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 1. In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete_meeting 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("deletemeeting 1")` API call.
 
-![Interactions Inside the Logic Component for the `delete_meeting 1` Command](images/DeleteMeetingSequenceDiagram.png)
+![Interactions Inside the Logic Component for the `deletemeeting 1` Command](images/DeleteMeetingSequenceDiagram.png)
 
 <div markdown="span" class="alert alert-info"> 
 
@@ -157,14 +157,6 @@ The following sequence diagram shows how the add meeting operation works:
 
 </div>
 
-#### Design consideration:
-
-##### Aspect: How add meeting executes
-
-* Consistent workflow with other commands
-
-_{more aspects and alternatives to be added}_
-
 ### Edit meeting command
 
 #### Implementation
@@ -185,14 +177,6 @@ The following sequence diagram shows how the edit meeting operation works:
 
 </div>
 
-#### Design consideration:
-
-##### Aspect: How edit meeting executes
-
-* Consistent workflow with other commands
-
-_{more aspects and alternatives to be added}_
-
 ### Delete meeting command
 
 #### Implementation
@@ -207,7 +191,7 @@ The flow of a usual delete meeting execution cycle has been illustrated above as
 
 ##### Aspect: which list to delete from?
 
-*   `DeleteMeetingCommand` is implemented in a way so that it deletes the meeting specified by an index from the _last shown list_. This enables combinatorial commands which seem more intuitive. For instance, `delete_meeting 1` following a `FindMeetingCommand` deletes the first meeting from the search results, whereas the same command following a `ListMeetingCommand` deletes the first meeting from the whole meeting list.
+*   `DeleteMeetingCommand` is implemented in a way so that it deletes the meeting specified by an index from the _last shown list_. This enables combinatorial commands which seem more intuitive. For instance, `deletemeeting 1` following a `FindMeetingCommand` deletes the first meeting from the search results, whereas the same command following a `ListMeetingCommand` deletes the first meeting from the whole meeting list.
 
 ### Find meeting command
 
@@ -252,9 +236,9 @@ The list meeting mechanism is facilitated by `ListMeetingCommand`. It extends `C
 
 #### Design consideration:
 
-##### Aspect: why not use find?
+##### Aspect: Why not use find?
 
-*   Adding a syntax like `find_meeting` with empty keyword makes the list operation less intuitive. As `list_meeting` is a frequently used functionality, we decide to have a separate command.
+*   Adding a syntax like `findmeeting` with empty keyword makes the list operation less intuitive. As `listmeeting` is a frequently used functionality, we decide to have a separate command.
 
 ### Clear meeting command
 
@@ -266,9 +250,9 @@ The clear meeting mechanism is facilitated by `ClearMeetingCommand`. It extends 
 
 #### Design consideration:
 
-##### Aspect: why not use delete?
+##### Aspect: Why not use delete?
 
-*   Adding a syntax like `delete_meeting all` command makes it hard to parse `DeleteMeetingCommand`, and `clear_meeting` itself is not very often used. 
+*   Adding a syntax like `deletemeeting all` command makes it hard to parse `DeleteMeetingCommand`, and `clearmeeting` itself is not very often used. 
 
 ### Modelling Meetings 
 
@@ -303,11 +287,9 @@ The following activity diagram summarizes what happens when a user executes a de
 
 #### Design consideration:
 
-##### Aspect: How add & delete participants executes
+##### Aspect: Why not make participants an attribute?
 
-* Consistent workflow with other commands
-
-_{more aspects and alternatives to be added}_
+* Adding participants through index is not effectively when the contact base is large. On the other hand, using separate commands provides the possibility of combinatorial commands to improve efficiency. For instance, `FindContactCommand` can be applied between `AddMeetingCommand` and `AddParticipantCommand`, making it easier to locate the intended contact.
 
 ### System Timer
 
@@ -319,11 +301,10 @@ A system timer is implemented to automatically update Ui (implemented) and send 
 
 #### Design consideration:
 
-##### Aspect: How to ensure the timer is valid
+##### Aspect: How to ensure the timer is valid?
 
-* The `Scheduler` is updated at the start of application and after every user input. If the `ScheduledTask` is not repaced, which happens most of the time, the overhead is relatively low.
+* The `Scheduler` is updated at the start of application and after every user input. If the `ScheduledTask` is not replaced, which happens most of the time, the overhead is relatively low.
 
-_{more aspects and alternatives to be added}_
 
 --------------------------------------------------------------------------------------------------------------------
 
