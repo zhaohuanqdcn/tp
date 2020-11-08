@@ -474,7 +474,7 @@ Remove all existing meeting from Recretary. You will now see an empty meeting li
 
 #### Remind meetings: `remindmeeting`
 
-Search and display all meetings that will occur within the hours specify by the user.
+Search and display all meetings that will occur within the hours specify by the user. 
 
 Format: `remindmeeting HOUR`
 

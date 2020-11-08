@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.TypicalMeetings.getTypicalAddressBook;
@@ -12,10 +13,33 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.meeting.MeetingWithinHoursPredicate;
 import seedu.address.model.memento.History;
 import seedu.address.model.memento.StateManager;
+import seedu.address.testutil.TypicalMeetings;
 
 public class RemindMeetingCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new StateManager(), new History());
+    @Test
+    public void execute_userInputOne_zeroMeetingsFound() {
+        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new StateManager(), new History());
+        //addMeeting has been tested
+        model.addMeeting(TypicalMeetings.getLiveMeeting());
+        //MeetingWithinHoursPredicate has been tested
+        MeetingWithinHoursPredicate predicateOne = new MeetingWithinHoursPredicate(1);
+        RemindMeetingCommand remindCommandOne = new RemindMeetingCommand(predicateOne);
+        CommandResult expectedCommandResult = new CommandResult("0 meetings listed!");
+        assertEquals(remindCommandOne.execute(model), expectedCommandResult);
+    }
+
+    @Test
+    public void execute_userInputTen_oneMeetingFound() {
+        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new StateManager(), new History());
+        //addMeeting has been tested
+        model.addMeeting(TypicalMeetings.getLiveMeeting());
+        //MeetingWithinHoursPredicate has been tested
+        MeetingWithinHoursPredicate predicate = new MeetingWithinHoursPredicate(10000);
+        RemindMeetingCommand remindCommand = new RemindMeetingCommand(predicate);
+        CommandResult expectedCommandResult = new CommandResult("1 meetings listed!");
+        assertEquals(remindCommand.execute(model), expectedCommandResult);
+    }
 
     @Test
     public void equals() {

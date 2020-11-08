@@ -87,13 +87,13 @@ public class EditMeetingCommand extends Command {
         // delete the meeting to simulate the add after deletion logic of edit
         model.deleteMeeting(meetingToEdit);
         Pair<Boolean, Optional<Meeting>> conflictCheckResult = model.hasConflict(editedMeeting);
+        model.addMeeting(meetingToEdit);
+
         if (conflictCheckResult.getLeftValue()) {
-            model.addMeeting(meetingToEdit);
             model.sortMeeting();
             throw new CommandException(MESSAGE_CONFLICT_MEETING + conflictCheckResult.getRightValue().get());
         }
 
-        model.addMeeting(meetingToEdit);
         model.setMeeting(meetingToEdit, editedMeeting);
         model.sortMeeting();
         model.updateFilteredMeetingList(PREDICATE_SHOW_ALL_MEETINGS);
