@@ -49,6 +49,13 @@ for you to get familiarise with Recretary.
 
 ---
 
+## Glossary
+
+* **CLI**: Command Line Interface. A program that accepts text input to execute system functions.
+* **GUI**: Graphic User Interface. A system of interactive visual components for computer software.
+
+---
+
 ## Features
 
 This section contains detailed information of each of Recretary's commands, with relevant examples and images to guide 
@@ -65,6 +72,9 @@ you.
 
 -   Items with `…`​ after them can be used multiple times including zero times.<br>
     e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+    
+-   If an items without `…`​ after it is found multiple times in the input, the last one found will be used.<br>
+    e.g. if the input contains `n/annie n/bill n/charlie`, the final contact name will be `charlie`.
 
 -   Parameters can be in any order.<br>
     e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
@@ -516,6 +526,9 @@ Meetings have been exported as .ics!
 ```
 
 Export all existing meetings into a .ics file that can be find in the same folder of Recretary.
+
+---
+
 ### General
 
 #### Viewing help : `help` 
@@ -569,6 +582,19 @@ Format: `exit`
 -   The dafault value is 0 (which means that interval is not considered). 
 -   This interval value will be used for conflict checking and meant to simulate the resting or travel time between meetings.
 -  `i/INTERVAL` indicates the interval between meetings. Note that there is a range restriction similar to the `remindmeeting` command
+
+#### Viewing previous commands 
+
+Pressing the `up` arrow key will change the content of the input box to the previous command that was executed (if one exists). Similarly, pressing the `down` arrow will display the command that was executed after the current one. Press an arrow key multiple times to navigate through multiple commands.
+
+<div markdown="block" class="alert alert-info">
+
+**:information_source: Notes about viewing previous/later commands:**<br>
+
+- Only commands that were successfully executed can be viewed. 
+- If there is any text in the input box when an arrow key is pressed, it will be cleared and cannot be navigated back to.
+
+</div>
 
 #### Saving the data
 
