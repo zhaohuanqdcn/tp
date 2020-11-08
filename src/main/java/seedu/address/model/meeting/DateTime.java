@@ -24,7 +24,7 @@ public class DateTime {
     /**
      * Constructs an {@code DateTime}.
      *
-     * @param dateTime A valid date and time.
+     * @param dateTime A valid date and time in String.
      */
     public DateTime(String dateTime) {
         requireNonNull(dateTime);
@@ -32,7 +32,11 @@ public class DateTime {
         value = LocalDateTime.parse(dateTime, dateInputFormat);
     }
 
-    private DateTime(LocalDateTime time) {
+    /**
+     * Constructs an {@code DateTime}.
+     * @param time A valid LocalDateTime object
+     */
+    public DateTime(LocalDateTime time) {
         requireNonNull(time);
         value = time;
     }

@@ -50,8 +50,20 @@ public class EditUserPrefCommand extends Command {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof EditUserPrefCommand)) {
+            return false;
+        }
+
+        // state check
+        EditUserPrefCommand e = (EditUserPrefCommand) other;
+        return userPrefsDescriptor.equals(((EditUserPrefCommand) other).userPrefsDescriptor);
     }
 
     public static class EditUserPrefDescriptor {
@@ -73,6 +85,22 @@ public class EditUserPrefCommand extends Command {
 
         public Optional<Integer> getInterval() {
             return Optional.ofNullable(interval);
+        }
+
+        @Override
+        public boolean equals(Object other) {
+
+            // short circuit if same object
+            if (other == this) {
+                return true;
+            }
+
+            // instanceof handles nulls
+            if (!(other instanceof EditUserPrefDescriptor)) {
+                return false;
+            }
+
+            return this.getInterval().equals(((EditUserPrefDescriptor) other).getInterval());
         }
     }
 
