@@ -6,13 +6,53 @@ title: User Guide
 Recretary is a **desktop app for managing contacts and meetings, optimized for use via a Command Line Interface** (CLI) 
 while still having the benefits of a Graphical User Interface (GUI). If you can type fast, Recretary can get your contact management tasks done faster than traditional GUI apps.
 
-**Table of Content**
-1. Table of Contents
+**Table of Contents**
+- Table of Contents
 {:toc}
 
 ## Introduction
-Recretary is a **desktop app for managing contacts and meetings, optimized for use via a Command Line Interface** (CLI) 
+Recretary is a **desktop app for managing contacts and meetings, optimized for use via a Command Line Interface** (CLI).
 while still having the benefits of a Graphical User Interface (GUI). If you can type fast, Recretary can get your contact management tasks done faster than traditional GUI apps.
+
+## 2 Using the user guide
+
+This section will give you, the user, all the details required to interpret and understand the user guide and use it to your advantage. This guide encompasses all the features that the app provides with in-depth explanation on how to use them in the app with examples and illustrations.
+
+### 2.1 Format
+
+| Symbol/Formatting | Explanation |
+|-------------------|-------------|
+| Monospaced Codeblocks (eg: `example`)                 | User input, command box output           |
+| :bulb:                 | A tip to increase your efficiency           |
+| :information_source:                 | Notes. An important must read before you execute a command           |
+| :framed_picture: | Visual Walkthrough. Images to guide you through an example use of the command step by step |
+
+
+**Notes about the command format:**<br>
+
+-   Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
+    e.g. in `addcontact n/NAME`, `NAME` is a parameter which can be used as `addcontact n/John Doe`.
+
+-   Items in square brackets are optional.<br>
+    e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+
+-   Items with `…`​ after them can be used multiple times including zero times.<br>
+    e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+
+-   Parameters can be in any order.<br>
+    e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+   
+-   Although it is not recommended to supply duplicate parameters, they will still be accepted. However, only the last parameter of the same type will be considered.<br>
+    e.g. if the command entered by user is `editcontact 1 n/John n/Bob`, only `n/Bob` will be considered as only the last of the two `n/` parameters is considered. 
+
+### 2.2 Navigation
+
+This user guide was made taking in mind the ease of usability and navigation. You can easily click on the headings and sub-headings in the table of contents (and also other parts where a heading is mentioned) and it will take you right into the required part of the guide. 
+
+Here is a quick summary of relevant links you can take a look at if you wish to brush through the user guide.
+
+- Get up and running as soon as possible: [Quick Start](#quick-start)
+- For a summary of the features on this user guide: [Command Summary](#command-summary)
 
 ## Quick start
 
@@ -53,26 +93,6 @@ for you to get familiarise with Recretary.
 
 This section contains detailed information of each of Recretary's commands, with relevant examples and images to guide 
 you. 
-<div markdown="block" class="alert alert-info">
-
-**:information_source: Notes about the command format:**<br>
-
--   Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
-    e.g. in `addcontact n/NAME`, `NAME` is a parameter which can be used as `addcontact n/John Doe`.
-
--   Items in square brackets are optional.<br>
-    e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-
--   Items with `…`​ after them can be used multiple times including zero times.<br>
-    e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-
--   Parameters can be in any order.<br>
-    e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
-   
--   Although it is not recommended to supply duplicate parameters, they will still be accepted. However, only the last parameter of the same type will be considered.<br>
-    e.g. if the command entered by user is `editcontact 1 n/John n/Bob`, only `n/Bob` will be considered as only the last of the two `n/` parameters is considered. 
-
-</div>
 
 ### Contact Management
 
@@ -556,6 +576,20 @@ Undoes the previous command or previous `n` commands based on the given index.
 </div>
 
 Format: `undo [INDEX]`
+
+
+#### Command Session History
+
+You can easily scroll up and down through the list of previous successful commands using the `UP` and `DOWN` key on your keyboard while in the command box.
+
+<div markdown="block" class="alert alert-info">
+
+**:information_source: Notes about the command session history:**<br>
+
+- Only successful previous commands (commands that did not give an error), are stored in the command history. This decision was taken deliberately because of the fact that if there is an error in the command, the command doesn't disappear but it stays in the command box highlighted in red.
+- Be cautious as your current command is wiped out when you move up or down ( similar to the windows cli).
+
+</div>
 
 #### Exiting the program : `exit`
 
