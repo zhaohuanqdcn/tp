@@ -8,7 +8,7 @@ title: Developer Guide
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Setting up, getting started**
-
+ 
 Refer to the guide [_Setting up and getting started_](SettingUp.md).
 
 --------------------------------------------------------------------------------------------------------------------
@@ -358,42 +358,33 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 | Priority | As a …​                                    | I want to …​                     | So that I can…​                                                        |
 | -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
+| `*`  |    meeting planner | create new meeting in my meeting list.| |
 | `*`  |    meeting planner | update existing meetings | make sure the details are up to date.| 
 | `*`  |    meeting planner | delete specified meetings if they are cancelled.| |
-| `*`  |    meeting planner | view all upcoming meetings in a specific order.| |
-| `*`  |    meeting planner | add a meeting to the schedule.| |
-| `*`  |    frequent user | search for a certain contact I am looking for| |
-| `*`  |    frequent user | view a list of all my contacts at any time.| |
+| `*`  |    meeting planner | view all upcoming meetings in chronic order.| |
+| `*`  |    meeting planner | search for meetings with some keywords.| |
 | `*`  |    frequent user | create new contact in my contact list.| |
-| `*`  |    first-time user | enter my and my employer's details| |
-| `*`  |    meeting planner | search for meetings with some criteria.| |
-| `*`  |    frequent meeting planner | receive reminders from the app that to remind my employer for an upcoming meeting | make sure my employer can be on time for their meetings.| 
-| `*`  |    frequent meeting planner | attach a location and time of the meeting as additional information| |
-| `*`  |     expert user | delete some unwanted contacts in my contact list.| |
-| `*`  |    frequent user | update each of my contacts whenever there is a change in their particulars/ details.||
-| `* *`  |    frequent meeting planner | plan a route based on meeting locations and times.| |
-| `* *`  |    frequent user | receive reminders for upcoming meetings |  prepare for the meeting. | 
-| `* *`  |    frequent meeting planner | assimilate a map in the app to keep track of all frequently visited locations  |  plan the travel routine wisely that takes time taken to travel from one place to another place into consideration.| 
-| `* *`  |    frequent meeting planner | send emails directly from the app by choosing the necessary recipients from the contact list.| |
-| `* *`  |    relatively new user | input slightly variated input that the app can understand and interpret  |  learn while doing.| 
-| `* *`  |    first time user | learn how to use the app  |  actually use the app to solve the tasks that I have.| 
+| `*`  |    frequent user | update existing contact in my contact list.| |
+| `*`  |    frequent user | search for a certain contact I am looking for.| |
+| `*`  |    frequent user | view a list of all my contacts at any time.| |
+| `*`  |    frequent meeting planner | attach a location and time of the meeting as additional information.| |
+| `*`  |    frequent meeting planner | attach a location and time of the meeting as additional information.| |
+| `*`  |    frequent meeting planner | create recurring meetings conveniently| avoid repetitive input. |
+| `* *`  |    frequent meeting planner | receive reminders for upcoming meetings |  prepare for the meeting. | 
+| `* *`  |    first time user | get a help page of the app  |  actually use the app to solve the tasks that I have.| 
 | `* *`  |    long-time user | automatically archive expired meetings | I am not distracted by old meetings.| 
-| `* *`  |    user ready to start using the app | clear all current data |  get rid of data I added when experimenting with the app.| 
-| `* *`  |    meeting planner | give priority to certain meetings | make sure these important meetings will take place under the best possible circumstances.| 
-| `* *`  |    frequent user | use built-in shortcuts  |  accelerate my workflow.| 
-| `* *`  |    frequent meeting planner | import and export the existing calendar  |  save time on entering this information manually.| 
+| `* *`  |    frequent meeting planner | export the meeting calendar  |  easily sync on other applications.| 
 | `* *`  |    relatively new user | be prompted to change my invalid input  |  get it correctly from then on.|  
 | `* * *`  |    first time user | find the list of all features that the app has | know what specific task can I complete by using this app.| 
 | `* * *`  |    potential user exploring the app | see the app populated with sample data,  |  easily see how the app will look like when it is in use.|
-| `* * *`  |    regular user | sync/export contacts/calendar| save time on data migration. |
-
+| `* * *`  |    user ready to start using the app | clear all current data |  get rid of data I added when experimenting with the app.| 
 
 
 ### Use cases
 
 (For all use cases below, the **System** is the `Recretary` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: UC01 - Add a person**  
+**Use case: UC01 - Add a contact**  
 
 **MSS**  
 
@@ -416,7 +407,7 @@ Use case ends.
 
 **MSS**
 
-1. User requests to add a new meeting with the location, title and date.
+1. User requests to add a new meeting with the location, title, datetime, duration and recurrences.
 2. System requests for the participant lists.
 3. User enters the participant's name (must be one of the contacts).
 4. System indicates that the addition is successful.
@@ -529,7 +520,7 @@ Use case ends.
 
 **MSS**
 
-1. User requests to search for a contact/meeting with a keyword.
+1. User requests to search for a contact/meeting with keywords.
 2. System shows the list of contacts/ meetings with matching keywords.
 
 Use case ends.
@@ -562,12 +553,21 @@ Use case ends.
   
   Steps 2b1-2b2 are repeated until the data entered are correct.  
   Use case resumes from step 3.
-
-**Use case: UC08 - Delete all contacts or meetings**  
+ 
+* 2c. The contact deleted is a participant of some meeting.
+  * 2c1. The contact is removed from the list of participants for all meetings.
+  Use case ends.
+  
+* 2d. User requires to remove all recurrences of a meeting.
+  * 2d1. System finds all recurrences of the meeting. 
+  * 2d2. System removes all recurrences one after another. 
+  Use case ends.
+ 
+**Use case: UC08 - Clear all contacts or meetings**  
 
 **MSS**
 
-1.  User requests to delete all contacts/ meetings.
+1.  User requests to clear contacts/ meetings.
 2.  System indicates that the deletion is successful.
 
     Use case ends.
