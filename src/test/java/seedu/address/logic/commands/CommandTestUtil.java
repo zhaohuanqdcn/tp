@@ -4,10 +4,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RECURRENCE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -52,11 +57,14 @@ public class CommandTestUtil {
     public static final String VALID_TITLE_DISCUSSION = "Amy Bee";
     public static final String VALID_TITLE_ROUNDTABLE = "Bob Choo";
     public static final Duration VALID_DURATION_DISCUSSION = new Duration(1, 20);
+    public static final String VALID_DURATION_DISCUSSION_STR = "1 20";
     public static final Duration VALID_DURATION_ROUNDTABLE = new Duration(2, 20);
+    public static final String VALID_DURATION_ROUNDTABLE_STR = "2 20";
     public static final String VALID_DATETIME_DISCUSSION = "12/2/12 1201";
     public static final String VALID_DATETIME_ROUNDTABLE = "12/2/12 1101";
     public static final String VALID_LOCATION_DISCUSSION = "Block 312, Amy Street 1";
     public static final String VALID_LOCATION_ROUNDTABLE = "Block 123, Bobby Street 3";
+    public static final String VALID_RECURRENCE = "weekly/5";
     public static final Person VALID_PARTICIPANT_ALICE = new PersonBuilder().withName("Alice Pauline")
             .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
             .withPhone("94351253")
@@ -85,6 +93,19 @@ public class CommandTestUtil {
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
     public static final String INVALID_COMPANY_DESC = " " + PREFIX_COMPANY + ""; // cannot be empty
+
+    public static final String TITLE_DESC_DISCUSSION = " " + PREFIX_TITLE + VALID_TITLE_DISCUSSION;
+    public static final String TITLE_DESC_ROUNDTABLE = " " + PREFIX_TITLE + VALID_TITLE_ROUNDTABLE;
+    public static final String DURATION_DESC_DISCUSSION = " " + PREFIX_DURATION + VALID_DURATION_DISCUSSION_STR;
+    public static final String DURATION_DESC_ROUNDTABLE = " " + PREFIX_DURATION + VALID_DURATION_ROUNDTABLE_STR;
+    public static final String DATETIME_DESC_DISCUSSION = " " + PREFIX_DATETIME + VALID_DATETIME_DISCUSSION;
+    public static final String LOCATION_DESC_DISCUSSION = " " + PREFIX_LOCATION + VALID_LOCATION_DISCUSSION;
+    public static final String RECURRENCE_DESC = " " + PREFIX_RECURRENCE + VALID_RECURRENCE;
+
+    public static final String INVALID_DATETIME_DESC = " " + PREFIX_DATETIME + "30/20/20 1400"; // month exceeds 12
+    public static final String INVALID_RECURRENCE_DESC = " " + PREFIX_RECURRENCE + "yearly"; // no support
+    public static final String INVALID_RECURRING_DESC = " " + PREFIX_RECURRENCE + "random"; // not in "true" or "false"
+    public static final String INVALID_DURATION_DESC = " " + PREFIX_DURATION + "00 00"; // zero duration not allowed
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

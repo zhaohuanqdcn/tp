@@ -50,8 +50,8 @@ This section will give you, the user, all the details required to interpret and 
 -   Items with `…`​ after them can be used multiple times including zero times.<br>
     e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
     
--   Parameters can be in any order.<br>
-    e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+-   Parameters with prefixes can be in any order.<br>
+    e.g. if the command specifies `INDEX n/NAME p/PHONE_NUMBER`, `INDEX p/PHONE_NUMBER n/NAME` is also acceptable whereas `p/PHONE_NUMBER INDEX n/NAME` is not correct since `INDEX` has no prefix.   
    
 -   Although it is not recommended to supply duplicate parameters, they will still be accepted. However, only the last parameter of the same type will be considered.<br>
     e.g. if the command entered by user is `editcontact 1 n/John n/Bob`, only `n/Bob` will be considered as only the last of the two `n/` parameters is considered. 
@@ -492,6 +492,18 @@ Deleted Meeting: Annual meeting Date and Time: 31 Dec 2020 2.00pm Duration:  50m
 ```
 Deletes the second meeting in the currently displayed meeting list. 
 
+<div markdown="block" class="alert alert-info">
+
+**:information_source: Summary about recurring meetings:**<br>
+
+- In `deletemeeting` there is an optional field `rec/RECURRING` which may be `true` or `false`. <br>
+e.g. `rec/true` means to delete all recurrences of the specified meeting.
+- In `addmeeting` there is an optional field `rec/RECURRENCE` which consists of two parts separated by `/` as mentioned above. <br>
+e.g. `rec/weekly/5` means the meeting added has recurs weekly for 5 times.
+- In `editmeeting`, the recurrence field is not editable. Edition will only affect a specific instance.
+
+</div>
+
 #### Clearing all meetings : `clearmeeting`
 
 Clears all meetings from the meeting schedule. Anything following the `clearmeeting` keyword will be ignored by the application.
@@ -674,7 +686,8 @@ Action | Format, Examples
 **Clear** | `clearcontact`
 ***Meetings*** |
 **Add** |`addmeeting d/DATETIME dur/DURATION title/TITLE l/LOCATION [rec/RECURRENCE]` <br> e.g., `addmeeting d/31/12/20 1400 dur/01 00 title/xyz meeting l/John street, block 1, #01-01 rec/weekly/5`
-**Add Participant** |`addpart ci/[INDEX] mi/[INDEX]`<br> e.g., `addpart ci/1 mi/3`
+**Add Participant** |`addpart ci/INDEX mi/INDEX`<br> e.g., `addpart ci/1 mi/3`
+**Delete Participant** | `deletepart ci/CONTACT_INDEX mi/MEETING_INDEX` <br> e.g., `deletepart ci/1 mi/3`
 **Delete** | `deletemeeting INDEX [rec/RECURRING]`<br> e.g., `deletemeeting 5 rec/true`
 **Edit** | `editmeeting INDEX [d/DATETIME] [dur/DURATION] [t/TITLE] [l/LOCATION]`<br> e.g.,`editmeeting 1 dur/01 30 l/COM2 LT17`
 **Find** | `findmeeting KEYWORD [MORE_KEYWORDS]`<br> e.g., `findmeeting recretary stakeholders`
@@ -683,4 +696,26 @@ Action | Format, Examples
 **Remind** | `remindmeeting HOUR` <br> e.g., `remindmeeting 24`
 **Export** | `exportmeeting`
 
+
+---
+
+## Prefix summary
+
+Prefix | Commands | Description
+--------|-----------|--------
+i/ | `edituserpref` | interval between meetings
+n/ | `addcontact`, `editcontact` | name of a contact 
+p/ | `addcontact`, `editcontact` | phone number of a contact 
+e/ | `addcontact`, `editcontact` | email of a contact 
+a/ | `addcontact`, `editcontact` | address of a contact 
+c/ | `addcontact`, `editcontact` | company of a contact 
+r/ | `addcontact`, `editcontact` | company role of a contact 
+t/ | `addcontact`, `editcontact` | tag of a contact 
+d/ | `addmeeting`, `editmeeting` | date and time of a meeting 
+l/ | `addmeeting`, `editmeeting` | location of a meeting 
+ci/ | `addpart`, `deletepart` | index of contact 
+mi/ | `addpart`, `deletepart` | index of meeting 
+dur/ | `addmeeting`, `editmeeting` | duration of a meeting
+rec/ | `addmeeting`, `deletemeeting` | recurrence of a meeting  
+title/ | `addmeeting`, `editmeeting` | title of a meeting 
 
