@@ -22,4 +22,6 @@ RemindMeetingCommand o-right-> "1" MeetingWithinHoursPredicate
 Command .left. Model
 RemindMeetingCommand -down-|> Command
 MeetingWithinHoursPredicate .down.|> Predicate
+
 @enduml
+

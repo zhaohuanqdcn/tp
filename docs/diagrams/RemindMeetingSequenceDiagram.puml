@@ -43,4 +43,5 @@ destroy RemindMeetingCommand
 
 [<--LogicManager
 deactivate LogicManager
+
 @enduml
