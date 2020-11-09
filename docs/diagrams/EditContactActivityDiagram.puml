@@ -1,0 +1,22 @@
+@startuml
+start
+:User executes editcontact command;
+:Parses the command inputs;
+
+if () then ([command is valid])
+    :Execute EditContactCommand;
+    if () then ([contact is not present at specified index])
+        :Display invalid meeting index error message;
+    else ([contact present at specified index])
+        if () then ([edited contact is a duplicate])
+        : Display duplicate contact error;
+        else ([edited contact is unique])
+                :Replace existing contact to edited contact;
+                :Display success message;
+        endif
+    endif
+else ([invalid index])
+:Display parse error message;
+endif
+stop
+@enduml
