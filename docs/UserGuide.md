@@ -640,7 +640,7 @@ You can easily scroll up and down through the list of previous successful comman
 
 </div>
 
-#### 5.4 Update user preference : `edituserpref i/INTERVAL`
+#### 5.4 Update user preference : `edituserpref`
 
 -  Edit the user preferred intervals between meetings. Data for user preferences is stored in the file **preferences.json**. 
 -   The dafault value is 0 (which means that interval is not considered). 
