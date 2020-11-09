@@ -109,8 +109,8 @@ public class DateTimeTest {
     @Test
     public void getEndTime() {
         DateTime actual = new DateTime("31/12/20 1401");
-        Duration duration1 = new Duration(1,59);
-        Duration duration2 = new Duration(9,0);
+        Duration duration1 = new Duration(1, 59);
+        Duration duration2 = new Duration(9, 0);
         assertEquals(actual.getEndTime(duration1), "4:00pm");
         assertEquals(actual.getEndTime(duration2), "1:01am");
     }
