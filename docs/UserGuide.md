@@ -92,7 +92,7 @@ for you to get familiarise with Recretary.
 
 * **CLI**: Command Line Interface. A program that accepts text input to execute system functions.
 * **GUI**: Graphic User Interface. A system of interactive visual components for computer software.
-
+* **interval** This represents the minimum time gap between meetings. It is meant to simulate the travelling time or resting time in between meetings.
 ---
 
 ## Features
@@ -262,9 +262,7 @@ ordered by their starting time, with a green bar indicating the next upcoming me
 
 #### Adding a meeting: `addmeeting`
 
-Adds a meeting into the meeting schedule. The existing list of meetings will be automatically sorted after the addition according to date and time. 
-**Note:**
-Conflict checking will not report an error if user supply new interval value that causes old meetings to conflict with each other. This is because interval is there to simulate travelling time,etc and should be different (and they passed the previous conflict check when added).
+Adds a meeting into the meeting schedule. The existing list of meetings will be automatically sorted after the addition according to date and time. Conflict checking is also in place to prevent users from scheduling overlapping meetings.
 
 Format: `addmeeting title/TITLE d/DATETIME dur/DURATION l/LOCATION [rec/RECURRENCE]`
 
@@ -307,9 +305,9 @@ Add participants with the addpart command now!
 
 <div markdown="span" class="alert alert-primary">:bulb:
 
-**Note:**
-After adding a meeting, add new participants to it with the `addpart` command described below.
-Only people in your contacts can be added as participants.
+**Note:**  
+After adding a meeting, add new participants to it with the `addpart` command described below. Only people in your contacts can be added as participants.  
+Conflict checking also considers **interval** (mentioned in glossary). It will not report an error if user supply new interval value that causes old meetings to conflict with each other. This is because interval should be different (and they passed the previous conflict check when added).
 
 </div>
 
@@ -522,7 +520,7 @@ Format: `remindmeeting HOUR`
 Examples:
 
 -   `remindmeeting 1440` returns ` abc meeting`, `xyz meeting`<br> 
-Remark: 1440 = 2(months) * 30(days) * 24(hours) which is the total hours for two months; user can use this strategy to standardize the unit of time(hours) beforehand
+**Remark**: 1440 = 2(months) * 30(days) * 24(hours) which is the total hours for two months; user can use this strategy to standardize the unit of time(hours) beforehand
 
 **Visual Walkthrough Guide:**
 
@@ -620,11 +618,17 @@ Format: `exit`
 
 #### Update user preference : `edituserpref i/INTERVAL`
 
--  Edit the user preferred intervals between meetings. Data for user preferences is stored in the file **preferences.json**. 
--   The dafault value is 0 (which means that interval is not considered). 
--   This interval value will be used for conflict checking and meant to simulate the resting or travel time between meetings.
--  `i/INTERVAL` indicates the interval between meetings. Note that there is a range restriction similar to the `remindmeeting` command
+-   Edit the value of **interval** between meetings. The interval value is stored and remain valid when user open the app next time. 
+-   The dafault value(if user dont specify its value via this command) is 0 which means that interval is not considered. 
+-  `i/INTERVAL` indicates the **interval** between meetings. Note that there is a range restriction similar to the `remindmeeting` command. 
 
+**Visual Guide:**
+
+Take note of the user feedback in the box *AFTER* the `edituserpref i/10` command.
+
+![editUserPrefFeedback](images/edituserpref.png)
+
+   
 #### Viewing previous commands 
 
 Pressing the `up` arrow key will change the content of the input box to the previous command that was executed (if one exists). Similarly, pressing the `down` arrow will display the command that was executed after the current one. Press an arrow key multiple times to navigate through multiple commands.
