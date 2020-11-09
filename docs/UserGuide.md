@@ -22,6 +22,15 @@ to manage your contacts and meetings much more efficiently on our sleek Graphica
 If you are new to CLI or Recretary, fret not! Explore our User Guide now to find out more on our amazing features and how
 they work!
 
+### Overview of the User Interface
+
+As you can see in Fig. 1, the user interface of the app is sleek and beautiful, but still gives you all the information that is required. The contacts are arranged in the left and the meetings are arranged in the right. All the meetings are always sorted according to time (earliest first). The meeting timeline draws your attention into the current time and the next meeting that is scheduled to take place.
+
+![Ui](images/Ui.png)
+<p align="center">Fig. 1: User Interface</p>
+
+To ensure maximum efficiency, we have made the app default to a full screen. The app has been made keeping full screen usage in mind.
+
 ## Using the user guide
 
 This section will give you, the user, all the details required to interpret and understand the user guide and use it to your advantage. This guide encompasses all the features that the app provides with in-depth explanation on how to use them in the app with examples and illustrations.
@@ -106,8 +115,7 @@ for you to get familiarise with Recretary.
 
 ## Features
 
-This section contains detailed information of each of Recretary's commands, with relevant examples and images to guide 
-you. 
+This section contains detailed information of each of Recretary's commands, with relevant examples and images to guide you. 
 
 ### Contact Management
 
@@ -448,18 +456,29 @@ Examples:
 
 -   `findmeeting abc def` returns `abc meeting`, `def meeting`<br>
 
+Example Usage
+```
+findmeeting abc
+```
+
+Expected result
+```
+1 meeting listed
+```
+
 <div markdown="span" class="alert alert-primary">:framed_picture:
 
 **Visual Walkthrough Guide:**
 
 State of the app *BEFORE* the `findmeeting` command.
 
+<br></br>
    ![findMeetingBefore](images/findMeetingBefore.png)
-
+<br></br>
 State of the app *AFTER* the `findmeeting v1.3` command.
-
+<br></br>
    ![findMeetingAfter](images/findMeetingAfter.png)
-
+<br></br>
 </div>
 
 #### Deleting a meeting: `deletemeeting`
@@ -582,19 +601,19 @@ Undoes the previous command or previous `n` commands based on the given index.
 <div markdown="span" class="alert alert-primary">:framed_picture:
 
 **Visual Walkthrough Guide:**
-
+<br></br>
 1. State of the app *BEFORE* the `deletecontact` command that you entered by mistake and wish to undo.
-
+<br></br>
    ![undo1](images/undo1.png)
-
+<br></br>
 2. State of the app *AFTER* the `deletecontact` command that you entered by mistake and wish to undo.
-
+<br></br>
    ![undo2](images/undo2.png)
-
+<br></br>
 3. State of the app *AFTER* the `undo` command.
-
+<br></br>
    ![undo3](images/undo3.png)
-
+<br></br>
 </div>
 
 <div markdown="block" class="alert alert-info">
@@ -612,6 +631,14 @@ Format: `undo [INDEX]`
 #### Command Session History
 
 You can easily scroll up and down through the list of previous successful commands using the `UP` and `DOWN` key on your keyboard while in the command box.
+<div markdown="span" class="alert alert-primary">:framed_picture:
+
+**Visual Walkthrough Guide:**
+<br></br>
+   ![commandSessionGIF](images/commandSession.gif)
+<br></br>
+
+</div>
 
 <div markdown="block" class="alert alert-info">
 

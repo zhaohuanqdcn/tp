@@ -72,6 +72,7 @@ The `UI` component,
 
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
+* Sometimes, Scheduler has a reference to UI to force an update to the UI based on current time. This is helpful for changing the location of the green bar and popup reminders.
 
 ### Logic component
 
@@ -193,6 +194,28 @@ The flow of a usual delete meeting execution cycle has been illustrated above as
 
 *   `DeleteMeetingCommand` is implemented in a way so that it deletes the meeting specified by an index from the _last shown list_. This enables combinatorial commands which seem more intuitive. For instance, `deletemeeting 1` following a `FindMeetingCommand` deletes the first meeting from the search results, whereas the same command following a `ListMeetingCommand` deletes the first meeting from the whole meeting list.
 
+### Find contact command
+
+#### Implementation
+
+The find contact mechanism is facilitated by `FindContactCommand`. It extends `Command`.
+
+-   `FindContactCommand#execute()` —  Finds contacts where the name of contact matches given keywords.
+
+Given below is the high-level class diagram based on `FindContactCommand` and its direct dependencies.
+
+![FindContactClassDiagram](images/FindContactClassDiagram.png)
+
+The given sequence diagram illustrates the flow of a usual find meeting execution cycle:
+
+![FindContactSequenceDiagram](images/FindContactSequenceDiagram.png)
+
+<div markdown="span" class="alert alert-info">
+
+:information_source: **Note:** The lifeline for `FindContactCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
+
 ### Find meeting command
 
 #### Implementation
@@ -222,9 +245,9 @@ The given sequence diagram illustrates the flow of a usual find meeting executio
 *   Initially, mimicing the functionality of `FindContactCommand`, the find meeting only matched the keywords to the title. However, it made more sense to match other attributes like participant names, location and time since it would be easy to pinpoint which meetings take place where through a single find command.
 *   Hence, the predicate matching logic was tweaked in order to accomodate other attributes to make the feature more robust.
 
-##### \[Proposed\] DateTime matching using different formats
+##### DateTime matching using different formats
 
-*   Currently, DateTime finding is carried out using string matching. It would be more natural to match through DateTime comparison. This would make sure that different date formats like "November" and "Nov" both match the meeting.
+*   The DateTime is converted into various different formats before comparing with the keyword. This ensures that natural searching like "Nov" and "November" are correctly matched.
 
 ### List meeting command
 
@@ -253,6 +276,25 @@ The clear meeting mechanism is facilitated by `ClearMeetingCommand`. It extends 
 ##### Aspect: Why not use delete?
 
 *   Adding a syntax like `deletemeeting all` command makes it hard to parse `DeleteMeetingCommand`, and `clearmeeting` itself is not very often used. 
+
+### Undo command
+
+#### Implementation
+
+The undo mechanism is facilitated by `History` and `RecretaryState`. `History` stores the previous commands and `RecretaryState` stores a particular addressbook state and its command. `UndoCommand` which extends `Command`, acts as an entrypoint into accessing these classes.
+
+-   `FindMeetingCommand#execute()` —  Finds meeting where the data of meeting matches given keywords.
+
+Given below is the high-level class diagram based on `FindMeetingCommand` and its direct dependencies.
+
+![UndoClassDiagram](images/UndoClassDiagram.png)
+
+#### Design consideration:
+
+##### Aspect: Memento Pattern vs Command Pattern
+
+*   The undo feature had two different design implementations that we were considering. Due to a growing list of features we had in our app, we decided to choose memento instead of command as coding out an undo for each individual command is an arduous and time-consuming process.
+*   Moreover, since the pre-existing architecture already has a `Model` that stores the state, it blends in well with the current architecture.
 
 ### Modelling Meetings 
 
@@ -531,6 +573,7 @@ Use case ends.
   * 1a1. System shows a message indicating no matching records were found.
   Use case ends.
   
+
 **Use case: UC07 - Delete a contact or a meeting**  
 
 **MSS**
@@ -575,6 +618,22 @@ Use case ends.
 **Extensions**: 
 
 * 1a. No contact/ meeting has been added.
+
+  Use case ends.
+
+**Use case: UC09 - Undo commands**  
+
+**MSS**
+
+1.  User executes a command that he wishes to undo.
+2.  User executes an undo command with a given index.
+3.  System revokes the commands and displays the commands that were undone.
+
+    Use case ends.
+    
+**Extensions**: 
+
+* 2a. Undo INDEX is more than the history of commands.
 
   Use case ends.
 
