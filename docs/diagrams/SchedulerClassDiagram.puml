@@ -13,10 +13,12 @@ Class Scheduler {
     {method} update(ScheduledTask)
 }
 Abstract Class ScheduledTask {
-    {field} List<String> keywords
 }
 Class RefreshTask {
-
+    {method} run()
+}
+Class ReminderPopUpTask {
+    {method} run()
 }
 
 Class Meeting MODEL_COLOR
@@ -24,10 +26,12 @@ Class Java.Timer #000000
 Class Java.TimerTask #000000
 ScheduledTask -up-|> Java.TimerTask
 RefreshTask -left-|> ScheduledTask
+ReminderPopUpTask -up-|> ScheduledTask
 Scheduler <--> ScheduledTask
 Scheduler -right-> Java.Timer
-ScheduledTask o-left-> Logic
-ScheduledTask o-left-> Meeting
+ScheduledTask -left-> Logic
+ScheduledTask -down-> Meeting
 
 Java.Timer -[hidden]right-> Java.TimerTask
+ReminderPopUpTask -[hidden]left-> Meeting
 @enduml

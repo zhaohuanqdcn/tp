@@ -26,7 +26,7 @@ they work!
 
 As you can see in in the figure below, the user interface of the app is sleek and beautiful, but still gives you all the information that is required. The contacts are arranged in the left and the meetings are arranged in the right. All the meetings are always sorted according to time (earliest first). The meeting timeline draws your attention into the current time and the next meeting that is scheduled to take place.
 
-![Ui](images/Ui.png)
+![Ui](images/Ui2.png)
 
 To ensure maximum efficiency, we have made the app default to a full screen. The app has been made keeping full screen usage in mind.
 
@@ -67,8 +67,9 @@ This user guide was made taking in mind the ease of usability and navigation. Yo
 
 Here is a quick summary of relevant links you can take a look at if you wish to brush through the user guide.
 
-- Get up and running as soon as possible: [Quick Start](#quick-start)
-- For a summary of the features on this user guide: [Command Summary](#command-summary)
+- Get up and running as soon as possible: [Quick Start](#3-quick-start)
+- For a summary of the features on this user guide: [Command Summary](#7-command-summary)
+- For a summary of the prefixes of commands: [Prefix Summary](#8-prefix-summary)
 
 ## 3 Quick start
 
@@ -101,7 +102,7 @@ for you to get familiarise with Recretary.
 
     - **`exit`** : Exits the app.
 
-1. Refer to the [Features](#features) below for details of each command.
+1. Refer to the [Features](#4-features) below for details of each command.
 
 ## 4 Features
 
@@ -312,8 +313,10 @@ Add participants with the addpart command now!
 
 <div markdown="span" class="alert alert-primary">:bulb:
 
-**Note:**  
-After adding a meeting, add new participants to it with the `addpart` command described below. Only people in your contacts can be added as participants.  
+**Note:**
+After adding a meeting, add new participants to it with the [addpart](#adding-a-participant-into-a-meeting-addpart) command described below.
+Only people in your contacts can be added as participants.
+
 Conflict checking also considers **interval** (mentioned in glossary). It will not report an error if user supply new interval value that causes old meetings to conflict with each other. This is because interval should be different (and they passed the previous conflict check when added).
 
 </div>
@@ -401,8 +404,8 @@ Format: `editmeeting INDEX [d/DATETIME] [title/TITLE] [l/LOCATION] ...`
 <div markdown="span" class="alert alert-primary">:bulb:
 
 **Tip:**
-You can add new participants to a meeting with the separate `addpart` command or delete existing participants in the meeting
-with the `deletepart` command.
+You can add new participants to a meeting with the separate [addpart](#adding-a-participant-into-a-meeting-addpart) command or delete existing participants in the meeting
+with the [deletepart](#delete-a-participant-into-a-meeting-deletepart) command.
 
 </div>
 
@@ -538,7 +541,7 @@ Format: `remindmeeting HOUR`
 
 Examples:
 
--   `remindmeeting 1440` returns ` abc meeting`, `xyz meeting`<br> 
+-   `remindmeeting 1440` returns `abc meeting` ,  `xyz meeting` <br> 
 **Remark**: 1440 = 2(months) * 30(days) * 24(hours) which is the total hours for two months; user can use this strategy to standardize the unit of time(hours) beforehand
 
 **Visual Walkthrough Guide:**
@@ -571,6 +574,16 @@ Meetings have been exported as .ics!
 ```
 
 Export all existing meetings into a .ics file that can be find in the same folder of Recretary.
+
+#### 4.2.11 Automatic meeting reminder
+
+A reminder will pop up when the earliest meeting is scheduled to start 30 minutes later, even if there is no user interference. If the start time of the earliest future meeting is already within 30 minutes when the app starts, a popup reminder will be shown one minute later.
+
+No command is needed to show the popup reminder, but in case you are not sure about future meetings, you can always use the `remindmeeting` command in 4.2.9 to view upcoming meetings.
+
+Below is an illustration of the pop-up reminder:
+
+![popup reminder](images/PopUpReminder.jpg)
 
 ---
 
@@ -667,8 +680,8 @@ Recretary data are saved in the hard disk automatically after any command that c
 #### 5.7 Exiting the program : `exit`
 
 Exits the program. Anything following the `exit` keyword will be ignored by the application.
-
 Format: `exit`
+
 ---
 
 ## 6 FAQ
