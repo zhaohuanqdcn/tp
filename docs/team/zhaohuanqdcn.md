@@ -36,16 +36,3 @@ Given below are my contributions to the project.
     * Updated user stories and use cases for some features.
     * Added brief explanation of `list` and `clear` commands for both entities.
     * Added implementation details of the `deletemeeting`, `deletecontact` and `system timer` features.
-
-
-* **Community**:
-  * PRs reviewed (with non-trivial review comments): [\#12](), [\#32](), [\#19](), [\#42]()
-  * Contributed to forum discussions (examples: [1](), [2](), [3](), [4]())
-  * Reported bugs and suggestions for other teams in the class (examples: [1](), [2](), [3]())
-  * Some parts of the history feature I added was adopted by several other class mates ([1](), [2]())
-
-* **Tools**:
-  * Integrated a third party library (Natty) to the project ([\#42]())
-  * Integrated a new Github plugin (CircleCI) to the team repo
-
-* _{you can add/remove categories in the list above}_
