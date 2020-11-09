@@ -314,7 +314,7 @@ Add participants with the addpart command now!
 <div markdown="span" class="alert alert-primary">:bulb:
 
 **Note:**
-After adding a meeting, add new participants to it with the [addpart](#adding-a-participant-into-a-meeting-addpart) command described below.
+After adding a meeting, add new participants to it with the [addpart](#422-adding-a-participant-into-a-meeting-addpart) command described below.
 Only people in your contacts can be added as participants.
 
 Conflict checking also considers **interval** (mentioned in glossary). It will not report an error if user supply new interval value that causes old meetings to conflict with each other. This is because interval should be different (and they passed the previous conflict check when added).
@@ -404,8 +404,8 @@ Format: `editmeeting INDEX [d/DATETIME] [title/TITLE] [l/LOCATION] ...`
 <div markdown="span" class="alert alert-primary">:bulb:
 
 **Tip:**
-You can add new participants to a meeting with the separate [addpart](#adding-a-participant-into-a-meeting-addpart) command or delete existing participants in the meeting
-with the [deletepart](#delete-a-participant-into-a-meeting-deletepart) command.
+You can add new participants to a meeting with the separate [addpart](#422-adding-a-participant-into-a-meeting-addpart) command or delete existing participants in the meeting
+with the [deletepart](#423-delete-a-participant-into-a-meeting-deletepart) command.
 
 </div>
 
