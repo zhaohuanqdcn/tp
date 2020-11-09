@@ -10,9 +10,12 @@ Class "{abstract}\nUiPart" as UiPart
 Class UiManager
 Class MainWindow
 Class HelpWindow
+Class ReminderPopup
 Class ResultDisplay
 Class PersonListPanel
 Class PersonCard
+Class MeetingListPanel
+Class MeetingCard
 Class StatusBarFooter
 Class CommandBox
 }
@@ -31,30 +34,41 @@ HiddenOutside ..> Ui
 UiManager .left.|> Ui
 UiManager -down-> MainWindow
 MainWindow --> HelpWindow
+MainWindow --> ReminderPopup
 MainWindow *-down-> CommandBox
 MainWindow *-down-> ResultDisplay
 MainWindow *-down-> PersonListPanel
+MainWindow *-down-> MeetingListPanel
 MainWindow *-down-> StatusBarFooter
 
 PersonListPanel -down-> PersonCard
+MeetingListPanel -down-> MeetingCard
 
 MainWindow -left-|> UiPart
+MeetingListPanel -down|> UiPart
 
 ResultDisplay --|> UiPart
 CommandBox --|> UiPart
 PersonListPanel --|> UiPart
 PersonCard --|> UiPart
+MeetingCard --|> UiPart
 StatusBarFooter --|> UiPart
 HelpWindow -down-|> UiPart
+ReminderPopup -down-|> UiPart
 
 PersonCard ..> Model
+MeetingCard ..> Model
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
-PersonListPanel -[hidden]left- HelpWindow
-HelpWindow -[hidden]left- CommandBox
+MeetingListPanel -[hidden]left- PersonListPanel
+PersonListPanel -[hidden]left- CommandBox
+CommandBox -[hidden]left- StatusBarFooter
+StatusBarFooter -[hidden]left- HelpWindow
+HelpWindow -[hidden]left- ReminderPopup
 CommandBox -[hidden]left- ResultDisplay
 ResultDisplay -[hidden]left- StatusBarFooter
+MeetingCard -[hidden]left- PersonCard
 
 MainWindow -[hidden]-|> UiPart
 @enduml

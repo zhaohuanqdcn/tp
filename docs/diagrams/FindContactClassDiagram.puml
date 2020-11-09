@@ -1,0 +1,25 @@
+@startuml
+!include style.puml
+show members
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR_T4
+skinparam classBackgroundColor LOGIC_COLOR
+skinparam classAttributeFontColor #FFFFFF
+Interface Predicate <<Interface>>
+
+Class Command {
+    {method} execute(Model)
+}
+Class NameContainsKeywordsPredicate {
+    {field} List<String> keywords
+}
+Class FindContactCommand
+Class Model MODEL_COLOR_T4
+
+FindContactCommand : execute(Model)
+
+FindContactCommand o-right-> "1" NameContainsKeywordsPredicate
+Command .left. Model
+FindContactCommand -down-|> Command
+NameContainsKeywordsPredicate .down.|> Predicate
+@enduml
