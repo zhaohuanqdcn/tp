@@ -317,7 +317,7 @@ Add participants with the addpart command now!
 <div markdown="span" class="alert alert-primary">:bulb:
 
 **Note:**
-After adding a meeting, add new participants to it with the `addpart` command described below.
+After adding a meeting, add new participants to it with the [addpart](#adding-a-participant-into-a-meeting-addpart) command described below.
 Only people in your contacts can be added as participants.
 
 </div>
@@ -405,8 +405,8 @@ Format: `editmeeting INDEX [d/DATETIME] [title/TITLE] [l/LOCATION] ...`
 <div markdown="span" class="alert alert-primary">:bulb:
 
 **Tip:**
-You can add new participants to a meeting with the separate `addpart` command or delete existing participants in the meeting
-with the `deletepart` command.
+You can add new participants to a meeting with the separate [addpart](#adding-a-participant-into-a-meeting-addpart) command or delete existing participants in the meeting
+with the [deletepart](#delete-a-participant-into-a-meeting-deletepart) command.
 
 </div>
 
