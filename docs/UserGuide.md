@@ -6,7 +6,7 @@ title: User Guide
 * Table of Contents
 {:toc}
 
-## Introduction
+## 1 Introduction
 
 Hello, fellow secretaries!
 
@@ -22,20 +22,19 @@ to manage your contacts and meetings much more efficiently on our sleek Graphica
 If you are new to CLI or Recretary, fret not! Explore our User Guide now to find out more on our amazing features and how
 they work!
 
-### Overview of the User Interface
+### 1.1 Overview of the User Interface
 
-As you can see in Fig. 1, the user interface of the app is sleek and beautiful, but still gives you all the information that is required. The contacts are arranged in the left and the meetings are arranged in the right. All the meetings are always sorted according to time (earliest first). The meeting timeline draws your attention into the current time and the next meeting that is scheduled to take place.
+As you can see in in the figure below, the user interface of the app is sleek and beautiful, but still gives you all the information that is required. The contacts are arranged in the left and the meetings are arranged in the right. All the meetings are always sorted according to time (earliest first). The meeting timeline draws your attention into the current time and the next meeting that is scheduled to take place.
 
-![Ui](images/Ui.png)
-<p align="center">Fig. 1: User Interface</p>
+![Ui](images/Ui2.png)
 
 To ensure maximum efficiency, we have made the app default to a full screen. The app has been made keeping full screen usage in mind.
 
-## Using the user guide
+## 2 Using the user guide
 
 This section will give you, the user, all the details required to interpret and understand the user guide and use it to your advantage. This guide encompasses all the features that the app provides with in-depth explanation on how to use them in the app with examples and illustrations.
 
-### Format
+### 2.1 Format
 
 | Symbol/Formatting | Explanation |
 |-------------------|-------------|
@@ -62,21 +61,22 @@ This section will give you, the user, all the details required to interpret and 
 -   Although it is not recommended to supply duplicate parameters, they will still be accepted. However, only the last parameter of the same type will be considered.<br>
     e.g. if the command entered by user is `editcontact 1 n/John n/Bob`, only `n/Bob` will be considered as only the last of the two `n/` parameters is considered. 
 
-### Navigation
+### 2.2 Navigation
 
 This user guide was made taking in mind the ease of usability and navigation. You can easily click on the headings and sub-headings in the table of contents (and also other parts where a heading is mentioned) and it will take you right into the required part of the guide. 
 
 Here is a quick summary of relevant links you can take a look at if you wish to brush through the user guide.
 
-- Get up and running as soon as possible: [Quick Start](#quick-start)
-- For a summary of the features on this user guide: [Command Summary](#command-summary)
+- Get up and running as soon as possible: [Quick Start](#3-quick-start)
+- For a summary of the features on this user guide: [Command Summary](#7-command-summary)
+- For a summary of the prefixes of commands: [Prefix Summary](#8-prefix-summary)
 
-## Quick start
+## 3 Quick start
 
 This section contains a step-by-step guide on how to install Recretary on your computer as well as some basic commands 
 for you to get familiarise with Recretary. 
 
-### Installation
+### 3.1 Installation
 
 1. Ensure you have Java `11` or above installed in your Computer.
 
@@ -102,26 +102,17 @@ for you to get familiarise with Recretary.
 
     - **`exit`** : Exits the app.
 
-1. Refer to the [Features](#features) below for details of each command.
+1. Refer to the [Features](#4-features) below for details of each command.
 
----
-
-## Glossary
-
-* **CLI**: Command Line Interface. A program that accepts text input to execute system functions.
-* **GUI**: Graphic User Interface. A system of interactive visual components for computer software.
-* **interval** This represents the minimum time gap between meetings. It is meant to simulate the travelling time or resting time in between meetings.
----
-
-## Features
+## 4 Features
 
 This section contains detailed information of each of Recretary's commands, with relevant examples and images to guide you. 
 
-### Contact Management
+### 4.1 Contact Management
 
 Contact entries in Recretary contain multiple pieces of information: name, phone number, email, address and company. There are also optional entries company role and tags that may help you organize your contacts better. You can find contact information on the left-hand-side of the window.
 
-#### Adding a person: `addcontact`
+#### 4.1.1 Adding a person: `addcontact`
 
 Adds a person to the address book.
 
@@ -147,7 +138,7 @@ Expected result:
 ```
 New person added: Amanda Jo Phone: 81234567 Email: amanda@example.com Company: Facebook Address: PGP House Tags: [friend] Company roles: 
 ```
-#### Listing all persons: `listcontact`
+#### 4.1.2 Listing all persons: `listcontact`
 
 Shows a list of all contacts in the address book. Any trailing words following the `listcontact` command will be ignored by the application.
 
@@ -165,7 +156,7 @@ Listed all persons
 
 All existing contacts are listed.
 
-#### Editing a person: `editcontact`
+#### 4.1.3 Editing a person: `editcontact`
 
 Edits an existing person in the address book.
 
@@ -191,9 +182,9 @@ editcontact 1 n/Kelly Low e/kelly@example.com
 ```
 Expected result: 
 ```
-Edited Person: Kelly Low Phone: 98765432 Email: kelly@example.com Company: ABC Holdings Pte. Ltd Address: John street, block 123, #01-01 Tags:  Company roles: 
+Edited Person: Kelly Low Phone: 98764432 Email: kelly@example.com Company: ABC Holdings Pte. Ltd Address: John street, block 123, #01-01 Tags:  Company roles: 
 ```
-#### Locating persons: `findcontact`
+#### 4.1.4 Locating persons: `findcontact`
 
 Find contacts whose names contain any of the given keywords.
 
@@ -227,7 +218,7 @@ State of the app *AFTER* the `findcontact John` command.
 </div>
 
 
-#### Deleting a person: `deletecontact`
+#### 4.1.5 Deleting a person: `deletecontact`
 
 Deletes the specified person from the address book.
 
@@ -253,7 +244,7 @@ Deleted Person: Kelly Low Phone: 98765432 Email: kelly@example.com Company: ABC 
 ```
 Deletes the first contact in the currently displayed contact list. 
 
-#### Clearing all contacts: `clearcontact`
+#### 4.1.6 Clearing all contacts: `clearcontact`
 
 Clears all contacts from the address book. Anything following the `clearcontact` keyword will be ignored by the application.
 
@@ -271,13 +262,13 @@ Contacts have been cleared!
 Remove all existing contacts from Recretary. You can now see an empty contact list.
 // add a warning here
 
-### Meeting Management
+### 4.2 Meeting Management
 
 Meeting entries in Recretary have multiple attributes: date time, duration, title and location. You may declare the recurrence of a meeting to avoid repetitive input, 
 and you may also add contacts as participants of a meeting. All meeting information will be displayed on the right-hand-side of the window, 
 ordered by their starting time, with a green bar indicating the next upcoming meeting. When the next upcoming meeting starts, the green bar will move to the next meeting automatically, if any. 
 
-#### Adding a meeting: `addmeeting`
+#### 4.2.1 Adding a meeting: `addmeeting`
 
 Adds a meeting into the meeting schedule. The existing list of meetings will be automatically sorted after the addition according to date and time. Conflict checking is also in place to prevent users from scheduling overlapping meetings.
 
@@ -328,7 +319,7 @@ Conflict checking also considers **interval** (mentioned in glossary). It will n
 
 </div>
 
-#### Adding a participant into a meeting: `addpart`
+#### 4.2.2 Adding a participant into a meeting: `addpart`
 
 Adds a participant with the specified `CONTACT_INDEX` in the currently viewable contact list into the meeting with the specified `MEETING_INDEX`.
 
@@ -361,7 +352,7 @@ Expected result:
 New participant added to meeting: NAME_OF_PARTICIPANT_ADDED
 ```
 
-#### Delete a participant into a meeting: `deletepart`
+#### 4.2.3 Delete a participant into a meeting: `deletepart`
 
 Deletes a participant with the specified `CONTACT_INDEX` in the currently displayed contact list into the meeting with the specified `MEETING_INDEX`.
 
@@ -382,7 +373,7 @@ Expected result:
 Participant is removed from meeting: NAME_OF_PARTICIPANT_DELETED
 ```
 
-#### Listing all meetings: `listmeeting`
+#### 4.2.4 Listing all meetings: `listmeeting`
 
 Shows a list of all meetings in the address book.
 
@@ -402,7 +393,7 @@ Listed all meetings
 
 All existing meetings are listed.
 
-#### Editing a meeting: `editmeeting`
+#### 4.2.5 Editing a meeting: `editmeeting`
 
 Edits an existing meeting in the meeting schedule. Similar to adding a meeting, the sorting and conflict checking will also take place automatically. The `RECURRENCE` field is not modifiable, and the edition of recurring meeting will only edit the specified instance. If the title of a recurring meeting is edited, it is no longer considered as an instance of recurrence.
 
@@ -438,7 +429,7 @@ Edited Meeting: DEF company meeting Date and Time: 12 Dec 2020 12.00pm Duration:
 Change the title and duration of the second meeting in the currently displayed meeting list to `DEF company meeting` 
 and `30mins` respectively. Other attributes of the meeting remain unchanged. 
     
-#### Locating meetings: `findmeeting`
+#### 4.2.6 Locating meetings: `findmeeting`
 
 Find meetings whose data (matches title, date in all natural formats, location) contain any of the given keywords.
 
@@ -470,16 +461,16 @@ Expected result
 
 State of the app *BEFORE* the `findmeeting` command.
 
-<br></br>
+<br>
    ![findMeetingBefore](images/findMeetingBefore.png)
-<br></br>
+<br>
 State of the app *AFTER* the `findmeeting v1.3` command.
-<br></br>
+<br>
    ![findMeetingAfter](images/findMeetingAfter.png)
-<br></br>
+<br>
 </div>
 
-#### Deleting a meeting: `deletemeeting`
+#### 4.2.7 Deleting a meeting: `deletemeeting`
 
 Deletes the specified item (and its recurrences) from the address book.
 
@@ -518,7 +509,7 @@ e.g. `rec/weekly/5` means the meeting added has recurs weekly for 5 times.
 
 </div>
 
-#### Clearing all meetings : `clearmeeting`
+#### 4.2.8 Clearing all meetings : `clearmeeting`
 
 Clears all meetings from the meeting schedule. Anything following the `clearmeeting` keyword will be ignored by the application.
 
@@ -537,7 +528,7 @@ Meetings has been cleared!
 Remove all existing meeting from Recretary. You will now see an empty meeting list.
 // add a warning here
 
-#### Remind meetings: `remindmeeting`
+#### 4.2.9 Remind meetings: `remindmeeting`
 
 Search and display all meetings that will occur within the hours specify by the user. 
 
@@ -548,7 +539,7 @@ Format: `remindmeeting HOUR`
 
 Examples:
 
--   `remindmeeting 1440` returns ` abc meeting`, `xyz meeting`<br> 
+-   `remindmeeting 1440` returns `abc meeting` ,  `xyz meeting` <br> 
 **Remark**: 1440 = 2(months) * 30(days) * 24(hours) which is the total hours for two months; user can use this strategy to standardize the unit of time(hours) beforehand
 
 **Visual Walkthrough Guide:**
@@ -561,7 +552,7 @@ State of the app *AFTER* the `remindmeeting 1440` command.
 
    ![Picture for GUI after remind command](images/remind_meeting_after.png)
 
-#### Exporting meetings in .ics format : `exportmeeting`
+#### 4.2.10 Exporting meetings in .ics format : `exportmeeting`
 
 Exports all meetings as an iCalendar file that is compatible with other calendar apps such as Google Calendar. 
 
@@ -582,36 +573,46 @@ Meetings have been exported as .ics!
 
 Export all existing meetings into a .ics file that can be find in the same folder of Recretary.
 
+#### 4.2.11 Automatic meeting reminder
+
+A reminder will pop up when the earliest meeting is scheduled to start 30 minutes later, even if there is no user interference. If the start time of the earliest future meeting is already within 30 minutes when the app starts, a popup reminder will be shown one minute later.
+
+No command is needed to show the popup reminder, but in case you are not sure about future meetings, you can always use the `remindmeeting` command in 4.2.9 to view upcoming meetings.
+
+Below is an illustration of the pop-up reminder:
+
+![popup reminder](images/PopUpReminder.jpg)
+
 ---
 
-### General
+### 5 General
 
-#### Viewing help : `help` 
+#### 5.1 Viewing help : `help` 
 
 Shows a message explaining how to access the help page. Anything following the `help` keyword will be ignored by the application.
 
 ![help message](images/helpMessage.png)
 
-#### Undo : `undo`
+#### 5.2 Undo : `undo`
 
 Undoes the previous command or previous `n` commands based on the given index.
 
 <div markdown="span" class="alert alert-primary">:framed_picture:
 
 **Visual Walkthrough Guide:**
-<br></br>
+<br>
 1. State of the app *BEFORE* the `deletecontact` command that you entered by mistake and wish to undo.
-<br></br>
+<br>
    ![undo1](images/undo1.png)
-<br></br>
+<br>
 2. State of the app *AFTER* the `deletecontact` command that you entered by mistake and wish to undo.
-<br></br>
+<br>
    ![undo2](images/undo2.png)
-<br></br>
+<br>
 3. State of the app *AFTER* the `undo` command.
-<br></br>
+<br>
    ![undo3](images/undo3.png)
-<br></br>
+<br>
 </div>
 
 <div markdown="block" class="alert alert-info">
@@ -626,15 +627,15 @@ Undoes the previous command or previous `n` commands based on the given index.
 Format: `undo [INDEX]`
 
 
-#### Command Session History
+#### 5.3 Command Session History
 
 You can easily scroll up and down through the list of previous successful commands using the `UP` and `DOWN` key on your keyboard while in the command box.
 <div markdown="span" class="alert alert-primary">:framed_picture:
 
 **Visual Walkthrough Guide:**
-<br></br>
+<br>
    ![commandSessionGIF](images/commandSession.gif)
-<br></br>
+<br>
 
 </div>
 
@@ -647,13 +648,7 @@ You can easily scroll up and down through the list of previous successful comman
 
 </div>
 
-#### Exiting the program : `exit`
-
-Exits the program. Anything following the `exit` keyword will be ignored by the application.
-
-Format: `exit`
-
-#### Update user preference : `edituserpref i/INTERVAL`
+#### 5.4 Update user preference : `edituserpref`
 
 -   Edit the value of **interval** between meetings. The interval value is stored and remain valid when user open the app next time. 
 -   The dafault value(if user dont specify its value via this command) is 0 which means that interval is not considered. 
@@ -663,10 +658,7 @@ Format: `exit`
 
 Take note of the user feedback in the box *AFTER* the `edituserpref i/10` command.
 
-![editUserPrefFeedback](images/edituserpref.png)
-
-   
-#### Viewing previous commands 
+#### 5.5 Viewing previous commands 
 
 Pressing the `up` arrow key will change the content of the input box to the previous command that was executed (if one exists). Similarly, pressing the `down` arrow will display the command that was executed after the current one. Press an arrow key multiple times to navigate through multiple commands.
 
@@ -679,13 +671,18 @@ Pressing the `up` arrow key will change the content of the input box to the prev
 
 </div>
 
-#### Saving the data
+#### 5.6 Saving the data
 
 Recretary data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
+#### 5.7 Exiting the program : `exit`
+
+Exits the program. Anything following the `exit` keyword will be ignored by the application.
+Format: `exit`
+
 ---
 
-## FAQ
+## 6 FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Recretary home folder.
@@ -696,7 +693,7 @@ Recretary data are saved in the hard disk automatically after any command that c
 
 ---
 
-## Command summary
+## 7 Command summary
 
 Action | Format, Examples
 --------|------------------
@@ -727,7 +724,7 @@ Action | Format, Examples
 
 ---
 
-## Prefix summary
+## 8 Prefix summary
 
 Prefix | Commands | Description
 --------|-----------|--------
@@ -747,3 +744,12 @@ dur/ | `addmeeting`, `editmeeting` | duration of a meeting
 rec/ | `addmeeting`, `deletemeeting` | recurrence of a meeting  
 title/ | `addmeeting`, `editmeeting` | title of a meeting 
 
+---
+
+## 9 Glossary
+
+* **CLI**: Command Line Interface. A program that accepts text input to execute system functions.
+* **GUI**: Graphic User Interface. A system of interactive visual components for computer software.
+* **Interval** This represents the minimum time gap between meetings. It is meant to simulate the travelling time or resting time in between meetings.
+  
+---
