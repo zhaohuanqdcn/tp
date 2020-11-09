@@ -1,0 +1,18 @@
+@startuml
+start
+:User executes addcontact command;
+:Parses the command inputs;
+
+if () then ([command is valid])
+    :Execute AddMeetingCommand;
+    if () then ([contact already exists])
+        :Display duplicate contact error message;
+    else ([contact is unique])
+        :Add contact into person map;
+        :Display success message;
+    endif
+else ([command has missing or invalid fields])
+:Display parse error message;
+endif
+stop
+@enduml

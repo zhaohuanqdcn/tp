@@ -36,6 +36,12 @@ activate Model
 Model --> EditMeetingCommand
 deactivate Model
 
+EditMeetingCommand -> Model : hasMeeting()
+activate Model
+
+Model --> EditMeetingCommand
+deactivate Model
+
 EditMeetingCommand -> Model : setMeeting()
 activate Model
 
@@ -44,6 +50,18 @@ activate AddressBook
 
 AddressBook --> Model :
 deactivate AddressBook
+
+Model --> EditMeetingCommand
+deactivate Model
+
+EditMeetingCommand -> Model : sortMeeting()
+activate Model
+
+Model --> EditMeetingCommand
+deactivate Model
+
+EditMeetingCommand -> Model : updateFilteredMeetingList()
+activate Model
 
 Model --> EditMeetingCommand
 deactivate Model

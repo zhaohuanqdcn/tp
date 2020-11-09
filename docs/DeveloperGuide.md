@@ -138,15 +138,132 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+### Add contact command
+
+#### Implementation
+
+The add meeting mechanism is facilitated by `AddContactCommandParser` and `AddContactCommand` which extend `Parser` and 
+`Command` respectively. `AddContactCommandParser` is responsible for parsing the user's inputs to generate a new 
+`AddMeetingCommand` with meeting, which then adds the meeting into the AddressBook.
+
+Here are some of the most important operations implemented:
+
+* `AddContactCommandParser#parse()`  —  Parse the user inputs to create a new person
+* `AddContactCommand#execute()`  —  Add a new person in the model if it is valid and not a duplicate.
+
+The `AddContactCommand#execute()` is exposed in the `Model` interface as `Model#addPerson()`and `Model#hasPerson(meeting)`.
+
+The following sequence diagram shows how the add contact operation works:
+
+![AddContactSequenceDiagram](images/AddContactSequenceDiagram.png)
+
+<div markdown="span" class="alert alert-info">
+
+:information_source: **Note:** The lifeline for `AddContactCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
+
+The following activity diagram summarizes the flow of events when a contact is being added:
+
+![AddContactActivityDiagram](images/AddContactActivityDiagram.png)
+
+### Edit contact command
+
+#### Implementation
+
+The edit meeting mechanism is facilitated by `EditContactCommandParser` and `EditContactCommand` which extend `Parser` and 
+`Command` respectively. `EditContactCommandParser` is responsible for parsing the user's inputs to generate a new 
+`EditContactCommand` which then modifies a meeting at a specific index.
+
+Here are some of the most important operations implemented:
+
+* `EditContactCommandParser#parse()`  —  Parse the user inputs to create an edited meeting
+* `EditContactCommand#execute()`  —  Add the edited meeting if it is not a duplicate and if its time does not clash with other meetings
+
+The `EditContactCommand#execute()` is exposed in the `Model` interface as `Model#setPerson()` and `Model#hasPerson(meeting)`.
+
+The following sequence diagram shows how the edit contact operation works:
+
+![EditContactSequenceDiagram](images/EditContactSequenceDiagram.png)
+
+<div markdown="span" class="alert alert-info">
+
+:information_source: **Note:** The lifeline for `EditContactCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
+
+The following activity diagram summarizes the flow of events when a contact is being added (Note that less important details are omitted for better clarity):
+
+![EditContactActivityDiagram](images/EditContactActivityDiagram.png)
+
+### Modelling Meetings 
+
+#### Implementation
+
+The Meetings class and meeting details classes are adapted from the code for Persons and person details.
+
+The following is the Class Diagram for the meetings feature.
+
+![MeetingClassDiag](images/MeetingClassDiag.png)
+
+The Meetings class and meeting details classes are adapted from the code for Persons and person details. The Meeting class contains two methods that are not present in the Person class:
+
+* `addParticipant(Person person)` — Adds person as a participant of the meeting.
+* `delParticipant(Index index)` — Deletes the participant at index from the meeting's list of participants.
+
+The following sequence diagram shows how the delete participant operation works:
+
+![DelPartSequenceDiagram](images/DelPartSequenceDiagram.png)
+
+<div markdown="span" class="alert alert-info">
+
+:information_source: **Note:** The lifeline for `DeleteParticipantCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
+
+The `addParticipant` command does the opposite with a similar sequence — it calls `Meeting#addParticipant(person)`.
+
+The following activity diagram summarizes what happens when a user executes a delete participant command:
+
+![ParticipantActivityDiagram](images/ParticipantActivityDiagram.png)
+
+#### Design consideration:
+
+##### Aspect: Why not make participants an attribute?
+
+* Adding participants through index is not effectively when the contact base is large. On the other hand, using separate commands provides the possibility of combinatorial commands to improve efficiency. For instance, `FindContactCommand` can be applied between `AddMeetingCommand` and `AddParticipantCommand`, making it easier to locate the intended contact.
+
 ### Add meeting command
 
 #### Implementation
 
-The add meeting mechanism is facilitated by `AddMeetingCommand`. It extends `Command`.
+The add meeting mechanism is facilitated by `AddMeetingCommandParser` and `AddMeetingCommand` which extend `Parser` and 
+`Command` respectively. `AddMeetingCommandParser` is responsible for parsing the user's inputs to generate a new 
+`AddMeetingCommand` with meeting, which then adds the meeting into the AddressBook.
 
-* `AddMeetingCommand#execute()` —  Add a new meeting in the model if it is valid and not a duplicate.
+Here are some of the most important operations implemented:
 
-This operation is exposed in the `Model` interface as `Model#addMeeting()`.
+* `AddMeetingCommandParser#parse()`  —  Parse the user inputs to create a new meeting
+* `AddMeetingCommand#execute()`  —  Add a new meeting in the model if it is valid and not a duplicate.
+
+The `AddMeetingCommand#execute()` is exposed in the `Model` interface as `Model#addMeeting()`, `Model#hasConflict(meeting)` and `Model#sortMeeting()`.
+
+Given below is a description on the flow of the add meeting mechanism behaves:
+
+1. The user enters a new input for the addmeeting command
+2. The `AddMeetingCommand#parse()` is called to parse the user inputs and create a new meeting object based on
+the inputs if all required prefixes are present. Else, a `ParseException` will be thrown and the user will be prompted 
+to fill in all required fields.
+3. Upon successful parsing, `AddMeetingCommand#execute()` will be called. It will first check if the added meeting is unique
+and if not, it will throw a `CommandException` and not add the meeting. 
+4. Then,`AddMeetingCommand#execute()` will also check if the meeting has any clashing `date` with any other meeting and 
+ throw a `CommandException` and not add the meeting if so. 
+5. If a meeting is unique and has no clashing `date`, then `Model#addMeeting()` is called to add the meeting.
+6. Lastly, `Model#sortMeeting()` is called to sort the `UniqueMeetingList` to make sure that all meetings are arranged according to time.
+
+The following activity diagram summarizes the flow of events when a meeting is being added:
+
+![AddMeetingActivityDiagram](images/AddMeetingActivityDiagram.png)
 
 The following sequence diagram shows how the add meeting operation works:
 
@@ -162,13 +279,37 @@ The following sequence diagram shows how the add meeting operation works:
 
 #### Implementation
 
-The edit meeting mechanism is facilitated by `EditMeetingCommand`. It extends `Command`.
+The edit meeting mechanism is facilitated by `EditMeetingCommandParser` and `EditMeetingCommand` which extend `Parser` and 
+`Command` respectively. `EditMeetingCommandParser` is responsible for parsing the user's inputs to generate a new 
+`EditMeetingCommand` which then modifies a meeting at a specific index.
 
-* `EditMeetingCommand#execute()` —  Edit a new meeting in the model if it is valid and not a duplicate.
+Here are some of the most important operations implemented:
 
-This operation is exposed in the `Model` interface as `Model#setMeeting()`, `Model#getFilteredMeetingList()` and `Model#getFilteredMeetingList()`.
+* `EditMeetingCommandParser#parse()`  —  Parse the user inputs to create an edited meeting
+* `EditMeetingCommand#execute()`  —  Add the edited meeting if it is not a duplicate and if its time does not clash with other meetings
 
-The following sequence diagram shows how the edit meeting operation works:
+The `EditMeetingCommand#execute()` is exposed in the `Model` interface as `Model#setMeeting()`, `Model#hasConflict(meeting)` and `Model#sortMeeting()`.
+
+Given below is a description on the flow of the edit meeting mechanism behaves:
+
+1. The user enters a new input for the editmeeting command
+2. The `EditMeetingCommandParser#parse()` is called to parse the user inputs and create a `EditMeetingDescriptor` object based on
+the inputs if a valid index (in this step, a positive integer suffices) is provided. Else, a `ParseException` will be thrown and the user will be prompted 
+to fill in all required fields.
+3. Upon successful parsing, `EditMeetingCommand#execute()` will be called to check if there is an existing meeting at the specified index.
+If not, a `CommandException` will be thrown and no meeting will be edited.
+4. If there is an existing meeting, `EditMeetingCommand#execute()` then creates a new edited meeting and checks if the edited meeting is
+the same as the current meeting or a duplicate of other meetings. If so, it will throw a `CommandException`. 
+4. Then,`EditMeetingCommand#execute()` also deletes the existing meeting and checks if the meeting has any clashing `date` with any other meeting
+before adding the existing meeting back. If there is a clash, it throws a `CommandException` and not add the meeting. 
+5. If a meeting is unique and has no clashes, then `Model#setMeeting()` is called to set the existing meeting to the edited meeting.
+6. Lastly, `Model#sortMeeting()` is called to sort the `UniqueMeetingList` to make sure that all meetings are arranged according to time.
+
+The following activity diagram summarizes the flow of events when a meeting is being added (Note that less important details are omitted for better clarity):
+
+![EditMeetingActivityDiagram](images/EditMeetingActivityDiagram.png)
+
+The following sequence diagram shows how the edit meeting operation works (Note that less important details are omitted for better clarity):
 
 ![EditMeetingSequenceDiagram](images/EditMeetingSequenceDiagram.png)
 
@@ -177,6 +318,19 @@ The following sequence diagram shows how the edit meeting operation works:
 :information_source: **Note:** The lifeline for `EditMeetingCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 </div>
+
+#### Design consideration:
+
+##### Aspect: Parameters taken for edit command
+
+* Alternative 1 (current choice): Take in arguments for the same prefix more than once
+  * Pros: Allow the user to enter different arguments for the same prefix multiple times so they do not have to backtrack
+  and change the argument. Only the last argument corresponding to the prefix will be used.
+  * Cons: User might unintentionally enter 2 arguments for the same prefix and find unexpected details in the edited meeting
+* Alternative 2: 
+  * Pros: Easy to uncover mistakes if the user has accidentally entered the same prefix more than once,
+  and no ambiguity on which argument to use to create the edited meeting.
+  * Cons: User has to re-enter the arguments again
 
 ### Delete meeting command
 
@@ -296,43 +450,6 @@ Given below is the high-level class diagram based on `FindMeetingCommand` and it
 *   The undo feature had two different design implementations that we were considering. Due to a growing list of features we had in our app, we decided to choose memento instead of command as coding out an undo for each individual command is an arduous and time-consuming process.
 *   Moreover, since the pre-existing architecture already has a `Model` that stores the state, it blends in well with the current architecture.
 
-### Modelling Meetings 
-
-#### Implementation
-
-The Meetings class and meeting details classes are adapted from the code for Persons and person details.
-
-The following is the Class Diagram for the meetings feature.
-
-![MeetingClassDiag](images/MeetingClassDiag.png)
-
-The Meetings class and meeting details classes are adapted from the code for Persons and person details. The Meeting class contains two methods that are not present in the Person class:
-
-* `addParticipant(Person person)` — Adds person as a participant of the meeting.
-* `delParticipant(Index index)` — Deletes the participant at index from the meeting's list of participants.
-
-The following sequence diagram shows how the delete participant operation works:
-
-![DelPartSequenceDiagram](images/DelPartSequenceDiagram.png)
-
-<div markdown="span" class="alert alert-info">
-
-:information_source: **Note:** The lifeline for `DeleteParticipantCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-</div>
-
-The `addParticipant` command does the opposite with a similar sequence — it calls `Meeting#addParticipant(person)`.
-
-The following activity diagram summarizes what happens when a user executes a delete participant command:
-
-![ParticipantActivityDiagram](images/ParticipantActivityDiagram.png)
-
-#### Design consideration:
-
-##### Aspect: Why not make participants an attribute?
-
-* Adding participants through index is not effectively when the contact base is large. On the other hand, using separate commands provides the possibility of combinatorial commands to improve efficiency. For instance, `FindContactCommand` can be applied between `AddMeetingCommand` and `AddParticipantCommand`, making it easier to locate the intended contact.
-
 ### System Timer
 
 #### Implementation
@@ -450,8 +567,8 @@ Use case ends.
 **MSS**
 
 1. User requests to add a new meeting with the location, title, datetime, duration and recurrences.
-2. System requests for the participant lists.
-3. User enters the participant's name (must be one of the contacts).
+2. System indicates that meeting addition is successful and prompts user to add participants to the meeting.
+3. User enters the participant's index on the displayed list (must be one of the contacts).
 4. System indicates that the addition is successful.
 5. User repeats step 3 until all participants are added.
 
@@ -558,7 +675,32 @@ Use case ends.
   Steps 2d1-2d2 are repeated until the user finishes editing.  
   Use case resumes from step 3.
 
-**Use case: UC06 - Find a contact or a meeting**  
+**Use case: UC06 - Delete participant from the meeting**  
+
+**MSS**
+
+1. User requests to remove a particular participant from a specific meeting.
+2. System shows a success message.
+
+Use case ends.
+
+**Extensions**:
+
+* 1a. User enters a negative integer as index.
+  * 1a1. System indicates the error and requests for a non-negative index as index.
+  * 1a2. User enters the correct index.
+  
+  Steps 1a1-1a2 are repeated until the data entered are correct.  
+  Use case resumes from step 2.
+ 
+* 1b. The contact and/ or meeting does not exist at the specified index.
+  * 1b1. System indicates the error and requests for a valid index.
+  * 1b2. User enters the correct index.
+  
+  Steps 1b1-1b2 are repeated until the data entered are correct.  
+  Use case resumes from step 2.
+
+**Use case: UC07 - Find a contact or a meeting**  
 
 **MSS**
 
@@ -572,9 +714,8 @@ Use case ends.
 * 1a. No contact/ meeting matched the keyword method.
   * 1a1. System shows a message indicating no matching records were found.
   Use case ends.
-  
 
-**Use case: UC07 - Delete a contact or a meeting**  
+**Use case: UC08 - Delete a contact or a meeting**  
 
 **MSS**
 
@@ -606,7 +747,7 @@ Use case ends.
   * 2d2. System removes all recurrences one after another. 
   Use case ends.
  
-**Use case: UC08 - Clear all contacts or meetings**  
+**Use case: UC09 - Clear all contacts or meetings**  
 
 **MSS**
 
@@ -620,6 +761,22 @@ Use case ends.
 * 1a. No contact/ meeting has been added.
 
   Use case ends.
+  
+  **Use case: UC09 - Export all meetings**  
+
+  **MSS**
+
+  1.  User requests to export meetings.
+  2.  System indicates that the export is successful.
+  3. User finds the exported file in the `data` folder.
+
+      Use case ends.
+      
+  **Extensions**: 
+
+  * 1a. No contact/ meeting has been added.
+
+    Use case ends.
 
 **Use case: UC09 - Undo commands**  
 
@@ -665,6 +822,32 @@ Use case ends.
 
 --------------------------------------------------------------------------------------------------------------------
 
+## **Appendix: Effort**
+
+Overall, we believe that compared to the difficulty level of AB3 at 10, the effort required for our project would be 15.
+
+### Difficulty Level
+
+Compared to AB3, our project is much more challenging. We added a new entity, Meeting, with its own function and command classes, by adapting code for AB3. In addition to that, we overhauled the entire UI, and added many new functionalities. For instance, command history, undo function, and meeting reminders. We also had to add elements to the pre-existing AB3 Person code to complement our new features. The new additions were much harder to implement as we had no basis to follow and had to hammer out the details and choose the most efficient implementation ourselves.
+
+### Challenges Faced
+Since the project began, we have overcome many challenges in implementation.
+- We realised our initial implementation of meeting participants would cause participants to be unlinked from the Contact class after restarting the app. After a long discussion, we decided to add unique identifiers to each contact and use that to refer to meeting participants, so that the information would be updated promptly even after restarting.
+- We implemented a completely new UI for our app that shows both contacts and meetings at the same time. However, the new implementation required the app to be fullscreen at all times. We realised the difficulty of implementing this as different implementations would not work on both Windows and Mac. Hence we realised the importance of cross-platform testing at every stage of implementation and were able to solve the problem eventually. 
+- We realised that the meetings class required a different way to add participants as the participants needed to be searched for as contacts. Hence we decided to use adding and deleting participants commands that are independent of the add meeting command.
+- We implemented our meeting schedule on a separate thread. However, the arguments accepted by that thread could not be modified after passing them, and it was thus unsuitable for using in the UI to display the meeting schedule. Hence, we decided to use the JavaFX default UI thread to solve the problem.
+
+### Effort Required
+We estimate that the effort required to code our new features is much higher than that of AB3. We were required to come up with new ways to implement associations between the many new classes that we added. We also had to overcome many obstacles during implementation that would hinder future functions, and had to come up with creative solutions for those problems. Hence our effort was above and beyond that needed for AB3.
+
+### Achievements
+- Implemented a new UI that is completely upgraded from the AB3 UI. 
+- Implemeneted new features to sort meetings by date and time and display the meeting schedule.
+- implemented a new type of instruction with two indexes (addpart and deletepart).
+- Implemented new features that improve user experience (command history, undo).
+- Implement a function to increase compatibility between our app and other apps (exportmeeting).
+--------------------------------------------------------------------------------------------------------------------
+
 ## **Appendix: Instructions for manual testing**
 
 Given below are instructions to test the app manually.
@@ -682,38 +865,165 @@ testers are expected to do more *exploratory* testing.
 
    1. Download the jar file and copy into an empty folder
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   1. Double-click the jar file Expected: Shows the GUI with a set of sample data. The window size should be maximized to full screen. Users are expected to use the app at this window size for it to have the correct performance.
 
-1. Saving window preferences
+2. Shutdown
+    1. Simply enter the `exit` command to shutdown the app
 
-   1. Resize the window to an optimum size. Move the window to a different location. Close the window.
+### Add a contact
+1. Add a new contact to the addressbook
 
-   1. Re-launch the app by double-clicking the jar file.<br>
-       Expected: The most recent window size and location is retained.
+    1. Prerequisites: The new contact does not already exist in the addressbook. In case that a duplicate contact was added, Recretary will prompt the user about this exception.
+    
+    1. Test case: `addcontact n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 c/ABC Holdings Pte. Ltd`  
+       Expected: The contact is successfully added to the addressbook.
+       
+    1. Test case: `addcontact n/John Doe p/ e/johnd@example.com a/John street, block 123, #01-01 c/ABC Holdings Pte. Ltd`  
+       Expected: The contact is not added because `p/`. User should see the error message in the feedback box.
+       
+    1. Test case: `addcontact p/98765432 e/johnd@example.com a/John street, block 123, #01-01 c/ABC Holdings Pte. Ltd`  
+       Expected: The contact is not added to the addressbook because of the missing name field, eg:`n/John Doe`.
+       
+    1. Test case: `addcontact abcd n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 c/ABC Holdings Pte. Ltd`  
+       Expected: The contact is not added to the addressbook because of the random String `abcd`.
+         
+### Edit a contact
+1. Edit an existing contact in the addressbook
 
-1. _{ more test cases …​ }_
-
-### Deleting a person
+    1. Prerequisites: The new contact does not already exist in the addressbook. In case that a duplicate contact was added, Recretary will prompt the user about this exception. 
+    
+    1. Test case: `editcontact 1 t/`
+    Expected: The tag for the first contact after the `list` command has been cleared.
+    
+    1. Test case: `editcontact 1 `
+    Expected: An exception was shown the prompt user to enter at least one field to be edited.
+    
+### Deleting a contact
 
 1. Deleting a person while all persons are being shown
 
    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 
-   1. Test case: `delete 1`<br>
+   1. Test case: `deletecontact 1`<br>
       Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 
-   1. Test case: `delete 0`<br>
+   1. Test case: `deletecontact 0`<br>
       Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
 
    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
-1. _{ more test cases …​ }_
+### Add a meeting
+1. Add a new meeting to the addressbook 
+
+    1. Prerequisites: The meeting does not already exist in the addressbook or conflict with any other meetings in the addressbook. 
+    
+    1. Test cases:<br>`addmeeting title/roundtable discussion d/31/12/20 1200 dur/00 30 l/NUS SoC`<br>`addmeeting title/roundtable discussion two d/31/12/20 1201 dur/00 30 l/NUS SoC`<br>
+    Expected: An error being shown telling the user that the second meeting conflicts with the first meeting
+    
+    1. Test cases: `addmeeting d/31/12/20 1200 dur/00 30 l/NUS SoC`<br>
+    Expected: An error being shown because the command is missing the compulsory title field, eg: `title/roundtable discussion`
+    
+    1. Test cases: `addmeeting title/roundtable discussion d/31/12/20 1200 dur/00 30 l/NUS SoC rec/yearly/30`<br>
+    Expected: An error being shown indicating wrong recurrence format because there is no option for `yearly` and `/30` is greather than the maximum value allowed which is 20
+    
+    1. Other incorrect commands that have extra random String or invalid value for a specific prefix<br>
+    Expected: An error being shown indicating wrong command format and suggest a correct usage.
+    
+### Adding a participant into a meeting
+1. Add participant to an existing meeting in the addressbook
+    
+    1. Prerequisite: The meeting should already exist in the addressbook (the index should be valid).
+    
+    1. Test cases: `findcontact alice` followed by `addpart ci/1 mi/2`
+    Expected: Succesfully adds the first contact of the `findcontact` command's result into the 2nd meeting.
+    
+    1. Test cases: `addpart ci/-1 mi/-1`
+    Expected: An error being shown because the index for existing contact and meeting is invalid
+    
+    1. Test cases: `addpart ci/-1`
+    Expected: An error being shown because the compulsory meeting index filed is missing, eg: `mi/1`
+
+### Editing a meeting
+1. Edits an existing meeting in the meeting schedule
+
+    1. Prerequisite: The meeting should already exist in the addressbook (the index should be valid).
+    
+    1. Test cases: `editmeeting -1 d/10/11/20 1400 l/clementi`
+    Expected: An error being shown because the index is invalid or empty
+    
+    1. Test cases: "editmeeting 1"
+    Expected: An error being shown because at least one filed needs to be specify
+    
+    1. Other test cases that doesn't follow the prefix convention
+    Expected: An error being shown because it does not follow the correct format
+    
+    1. Other test cases that make an existing meeting identical to another meeting in the list
+    Expected: An error being shown because the edited meeting should be unique in the list
+    
+    1. Other test cases that make an existing meeting conflict with another meeting in the list
+    Expected: An error indicate this conflict issue being shown
+   
+### Locating a meeting
+1. Find meetings whose data (matches title, date in all natural formats, location) contain any of the given keywords.
+
+    1. Test cases: `findmeeting`
+    Expected: An error indicates invalid command format being shown because the arguments cannot be empty
+    
+    1. Test cases: `findmeeting abc def`
+    Expected: A list of meetings such as `abc meeting`, `def meeting` or 0 meeting being displayed.
+    
+### Deleting a meeting
+1. Deletes the specified item (and its recurrences) from the address book.
+
+    1. Prerequisites: The index should be a valid index (<= the largest meeting index). 
+    
+    1. Test cases: `deletemeeting 1`
+    Expected: The 1st meeting in the displayed meeting list being deleted or shows an error if the displayed meeting list is empty.
+    
+    1. Test cases: `deletemeeting 2 rec/true`
+    Expected: The 2nd meeting being displayed in meeting list and all its recurrences being deleted; or show an error if there is only one meeting being displayed in list.
+    
+    1. Test cases: `deletemeeting`
+    Expected: An invalid command format error being shown because meeting index can't be empty.
+
+### Remind a meeting
+1. Search and display all meetings that will occur within the hours specify by the user.
+
+    1. Test cases: `remindmeeting 1440`
+    Expected: All meeting within 1440 hours being displayed, empty display if 0 meeting is found
+    
+    1. Test cases: `remindmeeting 0`
+    Expected: An error being shown because the input value is not in the valid range
+    
+    1. Other test cases that contain random text
+    Expected: An error indicates Unknown command or Invalid command format being shown.
+    
+### Update user preference
+1.  Edit the value of interval between meetings.
+    
+    1. Test cases: `edituserpref 10`
+    Expected: The value for `intervalBetweenMeetings` stored inside `preferences.json` is changed to 10.
+        
+    1. Test cases: `edituserpref 0`
+    Expected: An error being shown because the input value is not in the valid range.
+    
+    1. Other test cases that contain random text
+    Expected: An error indicates Unknown command or Invalid command format being shown.
 
 ### Saving data
 
 1. Dealing with missing/corrupted data files
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+   1. Run Recretary without a `addressbook.json` inside the data folder.  
+   Expected: Recreatary will perform as per normal with sample data loaded.
+   
+   2. Run Recretary with a corrupted `addressbook.json` (data are stored in wrong format, random text somewhere,etc).  
+   Expected: Recreatry will perform as per normal with an empty addressbook.
+   
+   3. Run Recretary without a `preferences.json` inside the root directory.  
+   Expected: Recretary will perform as per normal with the default data loaded.
+   
+   4. Run Recretary with a corrupted `preferences.json` inside the root directory (data are stored in wrong format, random text somewhere,etc).  
+   Expected: Recretary will perform as per normal with the default data loaded.
 
-1. _{ more test cases …​ }_
