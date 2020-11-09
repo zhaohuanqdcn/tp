@@ -104,8 +104,9 @@ public class DateTimeTest {
     public void getStartTime() {
         DateTime actual1 = new DateTime("31/12/20 1400");
         DateTime actual2 = new DateTime("31/12/20 0700");
-        assertEquals(actual1.getStartTime(), "2:00pm");
-        assertEquals(actual2.getStartTime(), "7:00am");
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mma");
+        assertEquals(actual1.getStartTime(), timeFormatter.format(LocalTime.of(14, 0)));
+        assertEquals(actual2.getStartTime(), timeFormatter.format(LocalTime.of(7, 0)));
     }
 
     @Test
