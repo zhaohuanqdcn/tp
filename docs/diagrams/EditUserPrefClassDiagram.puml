@@ -1,0 +1,31 @@
+@startuml
+!include style.puml
+show members
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR_T4
+skinparam classBackgroundColor LOGIC_COLOR
+skinparam classAttributeFontColor #FFFFFF
+
+
+Class Command {
+    {method} execute(Model)
+}
+Class EditUserPrefDescriptor {
+    {field} interval: Integer
+    {method} isAnyFieldEdited(): boolean
+    {method} setInterval(interval: int)
+    {method} getInterval() : int
+}
+Class EditUserPrefCommand
+Class Model MODEL_COLOR_T4
+
+EditUserPrefCommand : execute(Model)
+
+EditUserPrefCommand o-right-> "1" EditUserPrefDescriptor
+Command .left. Model
+EditUserPrefCommand -down-|> Command
+
+@enduml
+
+
+

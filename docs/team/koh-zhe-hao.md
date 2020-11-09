@@ -29,25 +29,21 @@ Given below are my contributions to the project.
 * **Enhancements to existing features**:
   * Refactor code base and test cases so that all contacts have compulsory company fields and optional company role fields, minor refactor to differentiate contact and meeting commands also  (Pull requests [\#50](https://github.com/AY2021S1-CS2103T-W16-1/tp/pull/50), [\#54](https://github.com/AY2021S1-CS2103T-W16-1/tp/pull/54))
   * Implement sort function for `UniqueMeetingList`, by calling this function whenever the order of list changes, this will make sure the meeting list is always sorted at all time. (Pull requests [\#91](https://github.com/AY2021S1-CS2103T-W16-1/tp/pull/91))
-  * Implement conflict checking function for `UniqueMeetingList` and call this method whenever needed, eg: after `addmeeting`, `editmeeting`, etc (Pull requests [\#104](https://github.com/AY2021S1-CS2103T-W16-1/tp/pull/104), [\#116](https://github.com/AY2021S1-CS2103T-W16-1/tp/pull/116))
-  
+  * Implement conflict checking function for `UniqueMeetingList` and call this method whenever needed, eg: after `addmeeting`, `editmeeting`, etc (Pull requests [\#104](https://github.com/AY2021S1-CS2103T-W16-1/tp/pull/104), [\#116](https://github.com/AY2021S1-CS2103T-W16-1/tp/pull/116), [\#186](https://github.com/AY2021S1-CS2103T-W16-1/tp/pull/186))
+  * Wrote substantial test cases for features/enhancement implemented with heuristics in mind. (Pull request [\#186](https://github.com/AY2021S1-CS2103T-W16-1/tp/pull/186))
   
 * **Documentation**:
   * User Guide:
     * Added documentation for the features `edituserpref` and `remindmeeting` [\#171](https://github.com/AY2021S1-CS2103T-W16-1/tp/pull/171)
     * Did cosmetic tweaks to existing documentation of features `addmeeting`, `editmeeting`, etc: [\#171](https://github.com/AY2021S1-CS2103T-W16-1/tp/pull/171)
-    * Minor improvement to overall user guide, eg: polish introduction, some choice of words, etc: [\#171](https://github.com/AY2021S1-CS2103T-W16-1/tp/pull/171)
+    * Minor improvement to overall user guide [\#171](https://github.com/AY2021S1-CS2103T-W16-1/tp/pull/171)
   * Developer Guide:
-    * Edit the class diagram to support everything related to meetings and `company`, `company role`.
+    * Minor edit to some old UML diagrams, eg: diagram for Model Component,etc .
+    * Added sections(UML diagrams and description, etc) for `edituserpref` and `remindmeeting`. 
+    * Add appendix for Instructions for Manual Testing
 
 * **Community**:
-  * PRs reviewed (with non-trivial review comments): [\#12](), [\#32](), [\#19](), [\#42]()
-  * Contributed to forum discussions (examples: [1](), [2](), [3](), [4]())
-  * Reported bugs and suggestions for other teams in the class (examples: [1](), [2](), [3]())
-  * Some parts of the history feature I added was adopted by several other class mates ([1](), [2]())
+  * Reported bugs and suggestions for other teams in the class (examples: [1](https://github.com/KOH-ZHE-HAO/ped/issues/1), [2](https://github.com/KOH-ZHE-HAO/ped/issues/2), [3](https://github.com/KOH-ZHE-HAO/ped/issues/3), [4](https://github.com/KOH-ZHE-HAO/ped/issues/4))
 
-* **Tools**:
-  * Integrated a third party library (Natty) to the project ([\#42]())
-  * Integrated a new Github plugin (CircleCI) to the team repo
 
-* _{you can add/remove categories in the list above}_
+
