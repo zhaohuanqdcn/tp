@@ -91,6 +91,9 @@ public class Meeting {
         if (getRecurrence() == Recurrence.NONE) {
             return Arrays.asList(this);
         }
+        if (recNumber <= 0) {
+            throw new IllegalArgumentException("Invalid recur number");
+        }
         List<Meeting> recurrences = new ArrayList<>();
         for (int i = 0; i < recNumber; i++) {
             Meeting next =

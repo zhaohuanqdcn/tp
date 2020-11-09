@@ -51,6 +51,48 @@ public class MeetingTest {
     }
 
     @Test
+    public void getRecurrencesAsList() {
+        List<Meeting> meetingList = new ArrayList<>();
+        Meeting meeting = new MeetingBuilder(DISCUSSION).withDateTime("30/12/20 1200").withRecurrence("").build();
+        meetingList.add(meeting);
+        assertEquals(meeting.getRecurrencesAsList(10), meetingList);
+
+        Meeting meeting1 = new MeetingBuilder(DISCUSSION).withDateTime("30/12/20 1200").withRecurrence("daily").build();
+        Meeting meeting2 = new MeetingBuilder(DISCUSSION).withDateTime("31/12/20 1200").withRecurrence("daily").build();
+        Meeting meeting3 = new MeetingBuilder(DISCUSSION).withDateTime("1/1/21 1200").withRecurrence("daily").build();
+        Meeting meeting4 = new MeetingBuilder(DISCUSSION).withDateTime("2/1/21 1200").withRecurrence("daily").build();
+        Meeting meeting5 = new MeetingBuilder(DISCUSSION).withDateTime("3/1/21 1200").withRecurrence("daily").build();
+
+        meetingList = new ArrayList<>();
+        meetingList.add(meeting1);
+        meetingList.add(meeting2);
+        meetingList.add(meeting3);
+        meetingList.add(meeting4);
+        meetingList.add(meeting5);
+        assertEquals(meeting1.getRecurrencesAsList(5), meetingList);
+
+        assertThrows(IllegalArgumentException.class, () -> meeting1.getRecurrencesAsList(-1));
+        assertThrows(IllegalArgumentException.class, () -> meeting2.getRecurrencesAsList(0));
+    }
+
+    @Test
+    public void isSameRecurringMeeting() {
+        Meeting meeting1 = new MeetingBuilder(DISCUSSION).withDateTime("30/12/20 1200").withRecurrence("daily").build();
+        Meeting meeting2 = new MeetingBuilder(DISCUSSION).withDateTime("31/12/20 1200").withRecurrence("daily").build();
+        Meeting meeting3 = new MeetingBuilder(DISCUSSION)
+                .withLocation("Random").withDateTime("31/12/20 1200").withRecurrence("daily").build();
+        Meeting meeting4 = new MeetingBuilder(DISCUSSION)
+                .withDateTime("31/12/20 1200").withRecurrence("monthly").build();
+        Meeting meeting5 = new MeetingBuilder(DISCUSSION)
+                .withTitle("Random").withDateTime("31/12/20 1200").withRecurrence("daily").build();
+        assertTrue(meeting1.isSameRecurringMeeting(meeting1)); // same meeting
+        assertTrue(meeting1.isSameRecurringMeeting(meeting2)); // recurring meeting
+        assertTrue(meeting1.isSameRecurringMeeting(meeting3)); // recurring meeting with edited location
+        assertFalse(meeting1.isSameRecurringMeeting(meeting4)); // different recurrence field
+        assertFalse(meeting1.isSameRecurringMeeting(meeting5)); // different title
+    }
+
+    @Test
     public void isSameMeeting() {
         // same object -> returns true
         assertTrue(DISCUSSION.isSameMeeting(DISCUSSION));
@@ -110,5 +152,10 @@ public class MeetingTest {
         // different participants -> returns false
         editedDiscussion = new MeetingBuilder(DISCUSSION).withParticipants(VALID_PARTICIPANT_BOB.getUuid()).build();
         assertFalse(DISCUSSION.equals(editedDiscussion));
+    }
+
+    @Test
+    public void copy() {
+        assertEquals(DISCUSSION.copy(), DISCUSSION);
     }
 }
