@@ -30,8 +30,9 @@ Given below are my contributions to the project.
 
 * **Documentation**:
   * User Guide:
-    * Added documentation for the features `delete` and `find` [\#72]()
-    * Did cosmetic tweaks to existing documentation of features `clear`, `exit`: [\#74]()
+    * Added documentation for the basic commands implemented
+    * Added documentation for automatic pop up reminders
+    * Added short intro, command and prefix summary
   * Developer Guide:
     * Updated user stories and use cases for some features.
     * Added brief explanation of `list` and `clear` commands for both entities.
