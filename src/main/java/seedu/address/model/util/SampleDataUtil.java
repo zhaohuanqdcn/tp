@@ -27,17 +27,24 @@ import seedu.address.model.tag.Tag;
  * Contains utility methods for populating {@code AddressBook} with sample data.
  */
 public class SampleDataUtil {
-    private static Person part1 = new Person(new Name("Alex Yeoh"), new Phone("87438807"),
+ /*   private static Person part1 = new Person(new Name("Alex Yeoh"), new Phone("87438807"),
             new Email("alexyeoh@example.com"), new Company("KFC"),
             new Address("Blk 30 Geylang Street 29, #06-40"), getTagSet("friends"),
             getCompanyRoleSet("CEO", "Boss"));
     private static Person part2 = new Person(new Name("Bernice Yu"), new Phone("99272758"),
             new Email("berniceyu@example.com"), new Company("KFC"),
             new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"), getTagSet("colleagues", "friends"),
-            getCompanyRoleSet("CTO"));
+            getCompanyRoleSet("CTO"));*/
     public static Person[] getSamplePersons() {
         return new Person[] {
-            part1, part2,
+            new Person(new Name("Alex Yeoh"), new Phone("87438807"),
+                new Email("alexyeoh@example.com"), new Company("KFC"),
+                new Address("Blk 30 Geylang Street 29, #06-40"), getTagSet("friends"),
+                getCompanyRoleSet("CEO", "Boss")),
+            new Person(new Name("Bernice Yu"), new Phone("99272758"),
+                new Email("berniceyu@example.com"), new Company("KFC"),
+                new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
+                getTagSet("colleagues", "friends"), getCompanyRoleSet("CTO")),
             new Person(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
                 new Company("NUS"),
                 new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
@@ -57,7 +64,7 @@ public class SampleDataUtil {
         };
     }
 
-    public static Meeting[] getSampleMeetings() {
+    public static Meeting[] getSampleMeetings(Person part1, Person part2) {
         Meeting meet1 = new Meeting(new Title("Final Jar Review"), new Duration("1 50"), new DateTime("20/11/20 1045"),
                 new Location("Zoom"), Recurrence.ofNullable("daily"), new HashSet<>());
         meet1.addParticipant(part1);
@@ -72,10 +79,13 @@ public class SampleDataUtil {
 
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
-        for (Person samplePerson : getSamplePersons()) {
+        Person[] people = getSamplePersons();
+
+        for (Person samplePerson : people) {
             sampleAb.addPerson(samplePerson);
         }
-        for (Meeting sampleMeeting : getSampleMeetings()) {
+        Meeting[] meetings = getSampleMeetings(people[0], people[1]);
+        for (Meeting sampleMeeting : meetings) {
             sampleAb.addMeeting(sampleMeeting);
         }
         return sampleAb;
