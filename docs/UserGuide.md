@@ -3,18 +3,27 @@ layout: page
 title: User Guide
 ---
 
-Recretary is a **desktop app for managing contacts and meetings, optimized for use via a Command Line Interface** (CLI) 
-while still having the benefits of a Graphical User Interface (GUI). If you can type fast, Recretary can get your contact management tasks done faster than traditional GUI apps.
-
 **Table of Contents**
 <div class="toc-no-bullet-points">
-- Table of Contents
-{:toc}
- </div>
+ * Table of Contents
+ {:toc}
+</div>
 
 ## Introduction
-Recretary is a **desktop app for managing contacts and meetings, optimized for use via a Command Line Interface** (CLI).
-while still having the benefits of a Graphical User Interface (GUI). If you can type fast, Recretary can get your contact management tasks done faster than traditional GUI apps.
+
+Hello, fellow secretaries!
+
+Welcome to Recretary, a desktop application to help you manage contacts and meetings so that you can be freed from 
+these tedious tasks. 
+
+If you are still keeping track of your contacts and meetings manually and find that tiresome, then Recretary is the 
+solution for you! Recretary is specially customised for secretaries to make the contact and meeting management process 
+as easy and as error-free as possible. What's more, Recretary is primarily optimized for use via a Command Line Interface
+(CLI), which means that you can use most features with just a single line of command. If you can type fast, will be able 
+to manage your contacts and meetings much more efficiently on our sleek Graphical User Interface (GUI).
+
+If you are new to CLI or Recretary, fret not! Explore our User Guide now to find out more on our amazing features and how
+they work!
 
 ## Using the user guide
 
@@ -304,7 +313,7 @@ addmeeting title/v1.5 discussion d/12/12/20 1200 dur/02 00 l/Home
 
 Expected result:
 ```
-New meeting added: v1.5 discussion Date and Time: 12 Dec 2020 12.00pm Duration: 2hrs Location: Home Recurrence: none Participants: none 
+New meeting added: v1.5 discussion Date and Time: 12 Dec 2020 12.00pm Duration: 2hrs Location: Home Recurrence: Participants: none 
 Add participants with the addpart command now!
 ```
 
@@ -421,7 +430,7 @@ editmeeting 2 title/DEF company meeting dur/00 30
 
 Expected Outcome:
 ```
-Edited Meeting: DEF company meeting Date and Time: 12 Dec 2020 12.00pm Duration:  30mins Location: Home Recurrence: none Participants: none
+Edited Meeting: DEF company meeting Date and Time: 12 Dec 2020 12.00pm Duration:  30mins Location: Home Recurrence: Participants: none
 ```
 Change the title and duration of the second meeting in the currently displayed meeting list to `DEF company meeting` 
 and `30mins` respectively. Other attributes of the meeting remain unchanged. 
@@ -495,8 +504,9 @@ clearmeeting
 ```
 
 Expected result: 
-
-`Meetings has been cleared!`
+```
+Meetings has been cleared!
+```
 
 Remove all existing meeting from Recretary. You will now see an empty meeting list.
 // add a warning here
