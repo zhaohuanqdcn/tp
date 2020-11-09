@@ -138,15 +138,132 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+### Add contact command
+
+#### Implementation
+
+The add meeting mechanism is facilitated by `AddContactCommandParser` and `AddContactCommand` which extend `Parser` and 
+`Command` respectively. `AddContactCommandParser` is responsible for parsing the user's inputs to generate a new 
+`AddMeetingCommand` with meeting, which then adds the meeting into the AddressBook.
+
+Here are some of the most important operations implemented:
+
+* `AddContactCommandParser#parse()`  —  Parse the user inputs to create a new person
+* `AddContactCommand#execute()`  —  Add a new person in the model if it is valid and not a duplicate.
+
+The `AddContactCommand#execute()` is exposed in the `Model` interface as `Model#addPerson()`and `Model#hasPerson(meeting)`.
+
+The following sequence diagram shows how the add contact operation works:
+
+![AddContactSequenceDiagram](images/AddContactSequenceDiagram.png)
+
+<div markdown="span" class="alert alert-info">
+
+:information_source: **Note:** The lifeline for `AddContactCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
+
+The following activity diagram summarizes the flow of events when a contact is being added:
+
+![AddContactActivityDiagram](images/AddContactActivityDiagram.png)
+
+### Edit contact command
+
+#### Implementation
+
+The edit meeting mechanism is facilitated by `EditContactCommandParser` and `EditContactCommand` which extend `Parser` and 
+`Command` respectively. `EditContactCommandParser` is responsible for parsing the user's inputs to generate a new 
+`EditContactCommand` which then modifies a meeting at a specific index.
+
+Here are some of the most important operations implemented:
+
+* `EditContactCommandParser#parse()`  —  Parse the user inputs to create an edited meeting
+* `EditContactCommand#execute()`  —  Add the edited meeting if it is not a duplicate and if its time does not clash with other meetings
+
+The `EditContactCommand#execute()` is exposed in the `Model` interface as `Model#setPerson()` and `Model#hasPerson(meeting)`.
+
+The following sequence diagram shows how the edit contact operation works:
+
+![EditContactSequenceDiagram](images/EditContactSequenceDiagram.png)
+
+<div markdown="span" class="alert alert-info">
+
+:information_source: **Note:** The lifeline for `EditContactCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
+
+The following activity diagram summarizes the flow of events when a contact is being added (Note that less important details are omitted for better clarity):
+
+![EditContactActivityDiagram](images/EditContactActivityDiagram.png)
+
+### Modelling Meetings 
+
+#### Implementation
+
+The Meetings class and meeting details classes are adapted from the code for Persons and person details.
+
+The following is the Class Diagram for the meetings feature.
+
+![MeetingClassDiag](images/MeetingClassDiag.png)
+
+The Meetings class and meeting details classes are adapted from the code for Persons and person details. The Meeting class contains two methods that are not present in the Person class:
+
+* `addParticipant(Person person)` — Adds person as a participant of the meeting.
+* `delParticipant(Index index)` — Deletes the participant at index from the meeting's list of participants.
+
+The following sequence diagram shows how the delete participant operation works:
+
+![DelPartSequenceDiagram](images/DelPartSequenceDiagram.png)
+
+<div markdown="span" class="alert alert-info">
+
+:information_source: **Note:** The lifeline for `DeleteParticipantCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
+
+The `addParticipant` command does the opposite with a similar sequence — it calls `Meeting#addParticipant(person)`.
+
+The following activity diagram summarizes what happens when a user executes a delete participant command:
+
+![ParticipantActivityDiagram](images/ParticipantActivityDiagram.png)
+
+#### Design consideration:
+
+##### Aspect: Why not make participants an attribute?
+
+* Adding participants through index is not effectively when the contact base is large. On the other hand, using separate commands provides the possibility of combinatorial commands to improve efficiency. For instance, `FindContactCommand` can be applied between `AddMeetingCommand` and `AddParticipantCommand`, making it easier to locate the intended contact.
+
 ### Add meeting command
 
 #### Implementation
 
-The add meeting mechanism is facilitated by `AddMeetingCommand`. It extends `Command`.
+The add meeting mechanism is facilitated by `AddMeetingCommandParser` and `AddMeetingCommand` which extend `Parser` and 
+`Command` respectively. `AddMeetingCommandParser` is responsible for parsing the user's inputs to generate a new 
+`AddMeetingCommand` with meeting, which then adds the meeting into the AddressBook.
 
-* `AddMeetingCommand#execute()` —  Add a new meeting in the model if it is valid and not a duplicate.
+Here are some of the most important operations implemented:
 
-This operation is exposed in the `Model` interface as `Model#addMeeting()`.
+* `AddMeetingCommandParser#parse()`  —  Parse the user inputs to create a new meeting
+* `AddMeetingCommand#execute()`  —  Add a new meeting in the model if it is valid and not a duplicate.
+
+The `AddMeetingCommand#execute()` is exposed in the `Model` interface as `Model#addMeeting()`, `Model#hasConflict(meeting)` and `Model#sortMeeting()`.
+
+Given below is a description on the flow of the add meeting mechanism behaves:
+
+1. The user enters a new input for the addmeeting command
+2. The `AddMeetingCommand#parse()` is called to parse the user inputs and create a new meeting object based on
+the inputs if all required prefixes are present. Else, a `ParseException` will be thrown and the user will be prompted 
+to fill in all required fields.
+3. Upon successful parsing, `AddMeetingCommand#execute()` will be called. It will first check if the added meeting is unique
+and if not, it will throw a `CommandException` and not add the meeting. 
+4. Then,`AddMeetingCommand#execute()` will also check if the meeting has any clashing `date` with any other meeting and 
+ throw a `CommandException` and not add the meeting if so. 
+5. If a meeting is unique and has no clashing `date`, then `Model#addMeeting()` is called to add the meeting.
+6. Lastly, `Model#sortMeeting()` is called to sort the `UniqueMeetingList` to make sure that all meetings are arranged according to time.
+
+The following activity diagram summarizes the flow of events when a meeting is being added:
+
+![AddMeetingActivityDiagram](images/AddMeetingActivityDiagram.png)
 
 The following sequence diagram shows how the add meeting operation works:
 
@@ -162,13 +279,37 @@ The following sequence diagram shows how the add meeting operation works:
 
 #### Implementation
 
-The edit meeting mechanism is facilitated by `EditMeetingCommand`. It extends `Command`.
+The edit meeting mechanism is facilitated by `EditMeetingCommandParser` and `EditMeetingCommand` which extend `Parser` and 
+`Command` respectively. `EditMeetingCommandParser` is responsible for parsing the user's inputs to generate a new 
+`EditMeetingCommand` which then modifies a meeting at a specific index.
 
-* `EditMeetingCommand#execute()` —  Edit a new meeting in the model if it is valid and not a duplicate.
+Here are some of the most important operations implemented:
 
-This operation is exposed in the `Model` interface as `Model#setMeeting()`, `Model#getFilteredMeetingList()` and `Model#getFilteredMeetingList()`.
+* `EditMeetingCommandParser#parse()`  —  Parse the user inputs to create an edited meeting
+* `EditMeetingCommand#execute()`  —  Add the edited meeting if it is not a duplicate and if its time does not clash with other meetings
 
-The following sequence diagram shows how the edit meeting operation works:
+The `EditMeetingCommand#execute()` is exposed in the `Model` interface as `Model#setMeeting()`, `Model#hasConflict(meeting)` and `Model#sortMeeting()`.
+
+Given below is a description on the flow of the edit meeting mechanism behaves:
+
+1. The user enters a new input for the editmeeting command
+2. The `EditMeetingCommandParser#parse()` is called to parse the user inputs and create a `EditMeetingDescriptor` object based on
+the inputs if a valid index (in this step, a positive integer suffices) is provided. Else, a `ParseException` will be thrown and the user will be prompted 
+to fill in all required fields.
+3. Upon successful parsing, `EditMeetingCommand#execute()` will be called to check if there is an existing meeting at the specified index.
+If not, a `CommandException` will be thrown and no meeting will be edited.
+4. If there is an existing meeting, `EditMeetingCommand#execute()` then creates a new edited meeting and checks if the edited meeting is
+the same as the current meeting or a duplicate of other meetings. If so, it will throw a `CommandException`. 
+4. Then,`EditMeetingCommand#execute()` also deletes the existing meeting and checks if the meeting has any clashing `date` with any other meeting
+before adding the existing meeting back. If there is a clash, it throws a `CommandException` and not add the meeting. 
+5. If a meeting is unique and has no clashes, then `Model#setMeeting()` is called to set the existing meeting to the edited meeting.
+6. Lastly, `Model#sortMeeting()` is called to sort the `UniqueMeetingList` to make sure that all meetings are arranged according to time.
+
+The following activity diagram summarizes the flow of events when a meeting is being added (Note that less important details are omitted for better clarity):
+
+![EditMeetingActivityDiagram](images/EditMeetingActivityDiagram.png)
+
+The following sequence diagram shows how the edit meeting operation works (Note that less important details are omitted for better clarity):
 
 ![EditMeetingSequenceDiagram](images/EditMeetingSequenceDiagram.png)
 
@@ -177,6 +318,19 @@ The following sequence diagram shows how the edit meeting operation works:
 :information_source: **Note:** The lifeline for `EditMeetingCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 </div>
+
+#### Design consideration:
+
+##### Aspect: Parameters taken for edit command
+
+* Alternative 1 (current choice): Take in arguments for the same prefix more than once
+  * Pros: Allow the user to enter different arguments for the same prefix multiple times so they do not have to backtrack
+  and change the argument. Only the last argument corresponding to the prefix will be used.
+  * Cons: User might unintentionally enter 2 arguments for the same prefix and find unexpected details in the edited meeting
+* Alternative 2: 
+  * Pros: Easy to uncover mistakes if the user has accidentally entered the same prefix more than once,
+  and no ambiguity on which argument to use to create the edited meeting.
+  * Cons: User has to re-enter the arguments again
 
 ### Delete meeting command
 
@@ -296,43 +450,6 @@ Given below is the high-level class diagram based on `FindMeetingCommand` and it
 *   The undo feature had two different design implementations that we were considering. Due to a growing list of features we had in our app, we decided to choose memento instead of command as coding out an undo for each individual command is an arduous and time-consuming process.
 *   Moreover, since the pre-existing architecture already has a `Model` that stores the state, it blends in well with the current architecture.
 
-### Modelling Meetings 
-
-#### Implementation
-
-The Meetings class and meeting details classes are adapted from the code for Persons and person details.
-
-The following is the Class Diagram for the meetings feature.
-
-![MeetingClassDiag](images/MeetingClassDiag.png)
-
-The Meetings class and meeting details classes are adapted from the code for Persons and person details. The Meeting class contains two methods that are not present in the Person class:
-
-* `addParticipant(Person person)` — Adds person as a participant of the meeting.
-* `delParticipant(Index index)` — Deletes the participant at index from the meeting's list of participants.
-
-The following sequence diagram shows how the delete participant operation works:
-
-![DelPartSequenceDiagram](images/DelPartSequenceDiagram.png)
-
-<div markdown="span" class="alert alert-info">
-
-:information_source: **Note:** The lifeline for `DeleteParticipantCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-</div>
-
-The `addParticipant` command does the opposite with a similar sequence — it calls `Meeting#addParticipant(person)`.
-
-The following activity diagram summarizes what happens when a user executes a delete participant command:
-
-![ParticipantActivityDiagram](images/ParticipantActivityDiagram.png)
-
-#### Design consideration:
-
-##### Aspect: Why not make participants an attribute?
-
-* Adding participants through index is not effectively when the contact base is large. On the other hand, using separate commands provides the possibility of combinatorial commands to improve efficiency. For instance, `FindContactCommand` can be applied between `AddMeetingCommand` and `AddParticipantCommand`, making it easier to locate the intended contact.
-
 ### System Timer
 
 #### Implementation
@@ -450,8 +567,8 @@ Use case ends.
 **MSS**
 
 1. User requests to add a new meeting with the location, title, datetime, duration and recurrences.
-2. System requests for the participant lists.
-3. User enters the participant's name (must be one of the contacts).
+2. System indicates that meeting addition is successful and prompts user to add participants to the meeting.
+3. User enters the participant's index on the displayed list (must be one of the contacts).
 4. System indicates that the addition is successful.
 5. User repeats step 3 until all participants are added.
 
@@ -558,7 +675,32 @@ Use case ends.
   Steps 2d1-2d2 are repeated until the user finishes editing.  
   Use case resumes from step 3.
 
-**Use case: UC06 - Find a contact or a meeting**  
+**Use case: UC06 - Delete participant from the meeting**  
+
+**MSS**
+
+1. User requests to remove a particular participant from a specific meeting.
+2. System shows a success message.
+
+Use case ends.
+
+**Extensions**:
+
+* 1a. User enters a negative integer as index.
+  * 1a1. System indicates the error and requests for a non-negative index as index.
+  * 1a2. User enters the correct index.
+  
+  Steps 1a1-1a2 are repeated until the data entered are correct.  
+  Use case resumes from step 2.
+ 
+* 1b. The contact and/ or meeting does not exist at the specified index.
+  * 1b1. System indicates the error and requests for a valid index.
+  * 1b2. User enters the correct index.
+  
+  Steps 1b1-1b2 are repeated until the data entered are correct.  
+  Use case resumes from step 2.
+
+**Use case: UC07 - Find a contact or a meeting**  
 
 **MSS**
 
@@ -572,9 +714,8 @@ Use case ends.
 * 1a. No contact/ meeting matched the keyword method.
   * 1a1. System shows a message indicating no matching records were found.
   Use case ends.
-  
 
-**Use case: UC07 - Delete a contact or a meeting**  
+**Use case: UC08 - Delete a contact or a meeting**  
 
 **MSS**
 
@@ -606,7 +747,7 @@ Use case ends.
   * 2d2. System removes all recurrences one after another. 
   Use case ends.
  
-**Use case: UC08 - Clear all contacts or meetings**  
+**Use case: UC09 - Clear all contacts or meetings**  
 
 **MSS**
 

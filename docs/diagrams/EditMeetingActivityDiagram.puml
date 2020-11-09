@@ -1,0 +1,26 @@
+@startuml
+start
+:User executes editmeeting command;
+:Parses the command inputs;
+
+if () then ([command is valid])
+    :Execute EditMeetingCommand;
+    if () then ([meeting is not present at specified index])
+        :Display invalid meeting index error message;
+    else ([meeting present at specified index])
+        if () then ([edited meeting is a duplicate])
+        : Display duplicate meeting error;
+        else ([edited meeting is unique])
+            if () then ([meeting time clashes])
+                :Display conflict meeting error message;
+            else ([no clash in meeting time])
+                :Replace existing meeting to edited meeting;
+                :Display success message;
+            endif
+        endif
+    endif
+else ([invalid index])
+:Display parse error message;
+endif
+stop
+@enduml
