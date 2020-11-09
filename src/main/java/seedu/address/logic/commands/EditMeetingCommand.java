@@ -261,7 +261,7 @@ public class EditMeetingCommand extends Command {
                     && getDateTime().equals(e.getDateTime())
                     && getDuration().equals(e.getDuration())
                     && getLocation().equals(e.getLocation())
-                    && getRecurrence() == e.getRecurrence()
+                    && getRecurrence().equals(e.getRecurrence())
                     && getPersons().equals(e.getPersons());
         }
     }
