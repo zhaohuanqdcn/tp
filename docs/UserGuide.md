@@ -543,6 +543,7 @@ Examples:
 
 -   `remindmeeting 1440` returns `abc meeting` ,  `xyz meeting` <br> 
 **Remark**: 1440 = 2(months) * 30(days) * 24(hours) which is the total hours for two months; user can use this strategy to standardize the unit of time(hours) beforehand
+<div markdown="span" class="alert alert-primary">:framed_picture:
 
 **Visual Walkthrough Guide:**
 
@@ -553,6 +554,8 @@ State of the app *BEFORE* the `remindmeeting` command.
 State of the app *AFTER* the `remindmeeting 1440` command.
 
    ![Picture for GUI after remind command](images/remind_meeting_after.png)
+
+</div>
 
 #### 4.2.10 Exporting meetings in .ics format : `exportmeeting`
 
