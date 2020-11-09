@@ -1,0 +1,58 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant "e:DeleteContactCommand" as DeleteContactCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":AddressBook" as AddressBook MODEL_COLOR
+end box
+[-> LogicManager : execute(input)
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand(input)
+activate AddressBookParser
+
+create DeleteContactCommand
+AddressBookParser -> DeleteContactCommand
+activate DeleteContactCommand
+
+DeleteContactCommand --> AddressBookParser
+deactivate DeleteContactCommand
+
+AddressBookParser --> LogicManager : e
+deactivate AddressBookParser
+
+LogicManager -> DeleteContactCommand : execute()
+activate DeleteContactCommand
+
+DeleteContactCommand -> Model : getFilteredPersonList()
+activate Model
+
+Model --> DeleteContactCommand
+deactivate Model
+
+DeleteContactCommand -> Model : deletePerson()
+activate Model
+
+Model -> AddressBook : removePerson()
+activate AddressBook
+
+AddressBook --> Model :
+deactivate AddressBook
+
+Model --> DeleteContactCommand
+deactivate Model
+
+DeleteContactCommand --> LogicManager : result
+deactivate DeleteContactCommand
+DeleteContactCommand -[hidden]-> LogicManager : result
+destroy DeleteContactCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

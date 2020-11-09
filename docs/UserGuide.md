@@ -574,6 +574,17 @@ Export all existing meetings into a .ics file that can be find in the same folde
 
 ---
 
+#### 4.2.11 Automatic meeting reminder
+
+A reminder will pop up when the earliest meeting will start 30 minutes later, even if there is no user interference. If the start time of the earliest future meeting is already within 30 minutes when the app starts, a popup reminder will be shown one minute later.
+
+No command is needed to show the popup reminder, but in case you are not sure about future meetings, you can always use the remind meeting command in 4.2.9 to view upcoming meetings.
+
+Below is an illustration of the pop-up reminder:
+
+![popup reminder](images/PopUpReminder.jpg)
+
+
 ### 5 General
 
 #### 5.1 Viewing help : `help` 

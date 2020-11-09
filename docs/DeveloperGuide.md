@@ -337,6 +337,18 @@ The following sequence diagram shows how the edit meeting operation works (Note 
   and no ambiguity on which argument to use to create the edited meeting.
   * Cons: User has to re-enter the arguments again
 
+### Delete contact command
+
+#### Implementation
+
+The delete contact mechanism is facilitated by `DeleteContactCommand`. It extends `Command`.
+
+-   `DeleteContactCommand#execute()` —  Deletes the contact specified by an index, and removes it from all participant lists of meetings, if any.
+
+The following sequence diagram shows how the delete contact operation works (Note that less important details are omitted for better clarity):
+
+![DeleteContactSequenceDiagram](images/DeleteContactSequenceDiagram.png)
+
 ### Delete meeting command
 
 #### Implementation
@@ -408,33 +420,37 @@ The given sequence diagram illustrates the flow of a usual find meeting executio
 
 *   The DateTime is converted into various different formats before comparing with the keyword. This ensures that natural searching like "Nov" and "November" are correctly matched.
 
-### List meeting command
+### List meeting & contact command
 
 #### Implementation
 
-The list meeting mechanism is facilitated by `ListMeetingCommand`. It extends `Command`.
+The list meeting / contact mechanism is facilitated by `ListMeetingCommand` and `ListContactCommand` respectively. They both extend `Command`.
 
 -   `ListMeetingCommand#execute()` —  Lists out all the meetings stored in the address book.
+
+-   `ListContactCommand#execute()` —  Lists out all the contacts stored in the address book.
 
 #### Design consideration:
 
 ##### Aspect: Why not use find?
 
-*   Adding a syntax like `findmeeting` with empty keyword makes the list operation less intuitive. As `listmeeting` is a frequently used functionality, we decide to have a separate command.
+*   Adding a syntax like `findmeeting` / `findcontact` with empty keyword makes the list operation less intuitive. As `listmeeting` / `listcontact` is a frequently used functionality, we decide to have a separate command.
 
-### Clear meeting command
+### Clear meeting & contact command
 
 #### Implementation
 
-The clear meeting mechanism is facilitated by `ClearMeetingCommand`. It extends `Command`.
+The clear meeting / contact mechanism is facilitated by `ClearMeetingCommand` / `ClearContactCommand` respectively. They both extend `Command`.
 
 -   `ClearMeetingCommand#execute()` —  Deletes all the meetings stored in the address book.
+
+-   `ClearContactCommand#execute()` —  Deletes all the contacts stored in the address book.
 
 #### Design consideration:
 
 ##### Aspect: Why not use delete?
 
-*   Adding a syntax like `deletemeeting all` command makes it hard to parse `DeleteMeetingCommand`, and `clearmeeting` itself is not very often used. 
+*   Adding a syntax like `deletemeeting all` command makes it hard to parse `DeleteMeetingCommand`, and `clearmeeting` itself is not very often used. The same applies for contacts.
 
 ### Undo command
 
@@ -459,7 +475,7 @@ Given below is the high-level class diagram based on `FindMeetingCommand` and it
 
 #### Implementation
 
-A system timer is implemented to automatically update Ui (implemented) and send reminders (proposed) as time passes by if the app is running in the background (no user interaction). The timer is handled by `Scheduler` and `ScheduledTask`. The `Scheduler` keeps track of the next upcoming meeting, if any, and uses a `Timer` to start `ScheduledTask`. When the time comes, the `Timer` executes `ScheduledTask` where `Scheduler` and `Ui` are updated. The dependencies are shown in the diagram below.
+A system timer is implemented to automatically update Ui and send reminders as time passes by if the app is running in the background (with no user interaction). The timer is handled by `Scheduler` and `ScheduledTask`. The `Scheduler` keeps track of the next upcoming meeting, if any, and uses a `Timer` to start `ScheduledTask`. When the time comes, the `Timer` executes `ScheduledTask` where the application gets updated. Different types of tasks extend `ScheduledTask` to achieve various functionalities. The dependencies are shown in the diagram below.
 
 ![SchedulerClassDiagram](images/SchedulerClassDiagram.png)
 
@@ -833,7 +849,7 @@ Overall, we believe that compared to the difficulty level of AB3 at 10, the effo
 
 ### Difficulty Level
 
-Compared to AB3, our project is much more challenging. We added a new entity, Meeting, with its own function and command classes, by adapting code for AB3. In addition to that, we overhauled the entire UI, and added many new functionalities. For instance, command history, undo function, and meeting reminders. We also had to add elements to the pre-existing AB3 Person code to complement our new features. The new additions were much harder to implement as we had no basis to follow and had to hammer out the details and choose the most efficient implementation ourselves.
+Compared to AB3, our project is much more challenging. We added a new entity, Meeting, with its own function and command classes, by adapting code from AB3. In addition to that, we overhauled the entire UI, and added many new functionalities. For instance, command history, undo function, and meeting reminders. We also had to add elements to the pre-existing AB3 Person code to complement our new features. The new additions were much harder to implement as we had no basis to follow and had to hammer out the details and choose the most efficient implementation ourselves.
 
 ### Challenges Faced
 Since the project began, we have overcome many challenges in implementation.
