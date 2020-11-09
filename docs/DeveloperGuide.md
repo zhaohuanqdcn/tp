@@ -637,6 +637,11 @@ Use case ends.
 
   Use case ends.
 
+* 3a. Export command cannot be undone.
+  * 3a1. User notified that exported ics isn't deleted.
+  
+  Use case ends. 
+
 ### Non-Functional Requirements
 
 1.  Should work on any mainstream OS as long as it has Java `11` or above installed.
