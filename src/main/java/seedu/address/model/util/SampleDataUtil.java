@@ -1,12 +1,19 @@
 package seedu.address.model.util;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.meeting.DateTime;
+import seedu.address.model.meeting.Duration;
+import seedu.address.model.meeting.Location;
+import seedu.address.model.meeting.Meeting;
+import seedu.address.model.meeting.Recurrence;
+import seedu.address.model.meeting.Title;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Company;
 import seedu.address.model.person.Email;
@@ -20,16 +27,17 @@ import seedu.address.model.tag.Tag;
  * Contains utility methods for populating {@code AddressBook} with sample data.
  */
 public class SampleDataUtil {
+    private static Person part1 = new Person(new Name("Alex Yeoh"), new Phone("87438807"),
+            new Email("alexyeoh@example.com"), new Company("KFC"),
+            new Address("Blk 30 Geylang Street 29, #06-40"), getTagSet("friends"),
+            getCompanyRoleSet("CEO", "Boss"));
+    private static Person part2 = new Person(new Name("Bernice Yu"), new Phone("99272758"),
+            new Email("berniceyu@example.com"), new Company("KFC"),
+            new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"), getTagSet("colleagues", "friends"),
+            getCompanyRoleSet("CTO"));
     public static Person[] getSamplePersons() {
         return new Person[] {
-            new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
-                new Company("KFC"),
-                new Address("Blk 30 Geylang Street 29, #06-40"),
-                getTagSet("friends"), getCompanyRoleSet("CEO", "Boss")),
-            new Person(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
-                new Company("KFC"),
-                new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
-                getTagSet("colleagues", "friends"), getCompanyRoleSet("CTO")),
+            part1, part2,
             new Person(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
                 new Company("NUS"),
                 new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
@@ -49,10 +57,26 @@ public class SampleDataUtil {
         };
     }
 
+    public static Meeting[] getSampleMeetings() {
+        Meeting meet1 = new Meeting(new Title("Final Jar Review"), new Duration("1 50"), new DateTime("20/11/20 1045"),
+                new Location("Zoom"), Recurrence.ofNullable("daily"), new HashSet<>());
+        meet1.addParticipant(part1);
+        Meeting meet2 = new Meeting(new Title("Final UGDG Review"), new Duration("1 50"), new DateTime("21/11/20 1545"),
+                new Location("Zoom"), Recurrence.ofNullable("weekly"), new HashSet<>());
+        meet2.addParticipant(part2);
+        return new Meeting[] {
+            meet1, meet2
+        };
+    }
+
+
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
         for (Person samplePerson : getSamplePersons()) {
             sampleAb.addPerson(samplePerson);
+        }
+        for (Meeting sampleMeeting : getSampleMeetings()) {
+            sampleAb.addMeeting(sampleMeeting);
         }
         return sampleAb;
     }

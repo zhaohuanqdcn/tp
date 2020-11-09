@@ -26,7 +26,7 @@ they work!
 
 As you can see in in the figure below, the user interface of the app is sleek and beautiful, but still gives you all the information that is required. The contacts are arranged in the left and the meetings are arranged in the right. All the meetings are always sorted according to time (earliest first). The meeting timeline draws your attention into the current time and the next meeting that is scheduled to take place.
 
-![Ui](images/Ui.png)
+![Ui](images/Ui2.png)
 
 To ensure maximum efficiency, we have made the app default to a full screen. The app has been made keeping full screen usage in mind.
 
@@ -538,7 +538,7 @@ Format: `remindmeeting HOUR`
 
 Examples:
 
--   `remindmeeting 1440` returns ` abc meeting`, `xyz meeting`<br> 
+-   `remindmeeting 1440` returns `abc meeting` ,  `xyz meeting` <br> 
 **Remark**: 1440 = 2(months) * 30(days) * 24(hours) which is the total hours for two months; user can use this strategy to standardize the unit of time(hours) beforehand
 
 **Visual Walkthrough Guide:**
@@ -678,8 +678,8 @@ Recretary data are saved in the hard disk automatically after any command that c
 #### 5.7 Exiting the program : `exit`
 
 Exits the program. Anything following the `exit` keyword will be ignored by the application.
-
 Format: `exit`
+
 ---
 
 ## 6 FAQ
