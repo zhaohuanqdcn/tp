@@ -12,19 +12,17 @@ import seedu.address.model.UserPrefs;
 
 public class EditUserPrefCommand extends Command {
 
-    public static final String COMMAND_WORD = "edit_userPref";
+    public static final String COMMAND_WORD = "edituserpref";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits user preference. "
             + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INTERVAL (must be a none negative integer) "
-            + "[" + PREFIX_USER_PREFERENCE_INTERVAL + "INTERVAL] \n"
+            + "Parameters: " + PREFIX_USER_PREFERENCE_INTERVAL + " INTERVAL\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_USER_PREFERENCE_INTERVAL + "10";
 
 
     public static final String MESSAGE_EDIT_USER_PREFERENCE_SUCCESS = "Edited user preference:\n";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String INVALID_NUMERIC_INPUT = "The interval has to be an none negative integer.";
+    public static final String MESSAGE_NOT_EDITED = "The interval field cannot be empty";
 
     private final EditUserPrefDescriptor userPrefsDescriptor;
 
@@ -43,9 +41,7 @@ public class EditUserPrefCommand extends Command {
 
         if (userPrefsDescriptor.getInterval().isPresent()) {
             int interval = userPrefsDescriptor.getInterval().get();
-            if (interval < 0) {
-                throw new CommandException(INVALID_NUMERIC_INPUT);
-            }
+            assert interval > 0 : "interval should be inside the valid range";
             userPrefCopy.setIntervalBetweenMeetings(interval);
         }
 
@@ -54,12 +50,24 @@ public class EditUserPrefCommand extends Command {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof EditUserPrefCommand)) {
+            return false;
+        }
+
+        // state check
+        EditUserPrefCommand e = (EditUserPrefCommand) other;
+        return userPrefsDescriptor.equals(((EditUserPrefCommand) other).userPrefsDescriptor);
     }
 
     public static class EditUserPrefDescriptor {
-        private int interval;
+        private Integer interval;
 
         public EditUserPrefDescriptor() {}
 
@@ -77,6 +85,22 @@ public class EditUserPrefCommand extends Command {
 
         public Optional<Integer> getInterval() {
             return Optional.ofNullable(interval);
+        }
+
+        @Override
+        public boolean equals(Object other) {
+
+            // short circuit if same object
+            if (other == this) {
+                return true;
+            }
+
+            // instanceof handles nulls
+            if (!(other instanceof EditUserPrefDescriptor)) {
+                return false;
+            }
+
+            return this.getInterval().equals(((EditUserPrefDescriptor) other).getInterval());
         }
     }
 

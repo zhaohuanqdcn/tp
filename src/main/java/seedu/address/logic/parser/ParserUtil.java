@@ -1,6 +1,8 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.EditUserPrefCommandParser.INTERVAL_KEYWORD;
+import static seedu.address.logic.parser.RemindMeetingCommandParser.HOUR_KEYWORD;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -14,6 +16,7 @@ import seedu.address.model.meeting.Duration;
 import seedu.address.model.meeting.Location;
 import seedu.address.model.meeting.Recurrence;
 import seedu.address.model.meeting.Title;
+import seedu.address.model.meeting.UniqueMeetingList.Pair;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Company;
 import seedu.address.model.person.Email;
@@ -28,8 +31,7 @@ import seedu.address.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
-    public static final String MESSAGE_INVALID_HOUR = "Hour is not a postive integer";
-    public static final String MESSAGE_INVALID_INTERVAL = "Interval is not a none negative integer";
+    public static final String MESSAGE_INVALID_INPUT = " is not a valid positive integer within the range";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -45,27 +47,19 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code hours} in String into an integer and returns it. Leading and trailing whitespaces will be
-     * trimmed.
-     * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
-     */
-    public static int parseHour(String hours) throws ParseException {
-        String trimmedHour = hours.trim();
-        if (!StringUtil.isNonZeroUnsignedInteger(trimmedHour)) {
-            throw new ParseException(MESSAGE_INVALID_HOUR);
-        }
-        return Integer.parseInt(trimmedHour);
-    }
-
-    /**
      * Parses {@code interval} in String into an integer and returns it. Leading and trailing whitespaces will be
      * trimmed.
      * @throws ParseException if the specified index is invalid (not none negative integer).
      */
-    public static int parseInterval(String interval) throws ParseException {
+    public static int parsePositiveInteger(String interval, String keyword) throws ParseException {
+        requireNonNull(interval);
+        requireNonNull(keyword);
         String trimmedInterval = interval.trim();
-        if (!StringUtil.isNoneNegativeInteger(trimmedInterval)) {
-            throw new ParseException(MESSAGE_INVALID_INTERVAL);
+        if (!StringUtil.isNonZeroUnsignedInteger(trimmedInterval)) {
+            if (keyword.equals(INTERVAL_KEYWORD)) {
+                throw new ParseException(INTERVAL_KEYWORD + MESSAGE_INVALID_INPUT);
+            }
+            throw new ParseException(HOUR_KEYWORD + MESSAGE_INVALID_INPUT);
         }
         return Integer.parseInt(trimmedInterval);
     }
@@ -145,20 +139,7 @@ public class ParserUtil {
         return new Company(trimmedCompany);
     }
 
-    /**
-     * Parses a {@code String tag} into a {@code Tag}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code tag} is invalid.
-     */
-    public static Tag parseTag(String tag) throws ParseException {
-        requireNonNull(tag);
-        String trimmedTag = tag.trim();
-        if (!Tag.isValidTagName(trimmedTag)) {
-            throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
-        }
-        return new Tag(trimmedTag);
-    }
+
 
     /**
      * Parses a {@code String title} into a {@code Title}.
@@ -206,20 +187,28 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String recur} into a {@code Recurrence}.
+     * Parses a {@code String recur} into a {@coed Pair} of {@code Recurrence} and {@code recurringNumber}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code recur} is invalid.
      */
-    public static Recurrence parseRecurrence(String recur) throws ParseException {
-        if (recur == null) {
-            return Recurrence.NONE;
+    public static Pair<Recurrence, Integer> parseRecurrence(String recur) throws ParseException {
+        if (recur == null || recur.isEmpty()) {
+            return new Pair<Recurrence, Integer>(Recurrence.NONE, 1);
         }
-        String trimmedRecur = recur.toLowerCase().trim();
-        if (!Recurrence.isValid(trimmedRecur)) {
+        String[] trimmedRecur = recur.toLowerCase().trim().split("/");
+        if (trimmedRecur.length != 2) {
             throw new ParseException(Recurrence.MESSAGE_CONSTRAINTS);
         }
-        return Recurrence.ofNullable(trimmedRecur);
+        if (!Recurrence.isValid(trimmedRecur[0])) {
+            throw new ParseException(Recurrence.MESSAGE_CONSTRAINTS);
+        }
+        Recurrence recurrence = Recurrence.ofNullable(trimmedRecur[0]);
+        int recurNumber = Integer.parseInt(trimmedRecur[1]);
+        if (recurNumber <= 0 || recurNumber > 20) {
+            throw new ParseException(Recurrence.MESSAGE_CONSTRAINTS);
+        }
+        return new Pair<Recurrence, Integer>(recurrence, recurNumber);
     }
 
     /**
@@ -240,7 +229,6 @@ public class ParserUtil {
             throw new ParseException("");
         }
     }
-
 
     /**
      * Parses a {@code String duration} into a {@code Duration}.
@@ -268,18 +256,18 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String companyRole} into a {@code CompanyRole}.
+     * Parses a {@code String tag} into a {@code Tag}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code companyRole} is invalid.
+     * @throws ParseException if the given {@code tag} is invalid.
      */
-    public static CompanyRole parseCompanyRole(String companyRole) throws ParseException {
-        requireNonNull(companyRole);
-        String trimmedCompanyRole = companyRole.trim();
-        if (!CompanyRole.isValidCompanyRoleName(trimmedCompanyRole)) {
-            throw new ParseException(CompanyRole.MESSAGE_CONSTRAINTS);
+    public static Tag parseTag(String tag) throws ParseException {
+        requireNonNull(tag);
+        String trimmedTag = tag.trim();
+        if (!Tag.isValidTagName(trimmedTag)) {
+            throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
         }
-        return new CompanyRole(trimmedCompanyRole);
+        return new Tag(trimmedTag);
     }
 
     /**
@@ -292,6 +280,21 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses a {@code String companyRole} into a {@code CompanyRole}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code companyRole} is invalid.
+     */
+    public static CompanyRole parseCompanyRole(String companyRole) throws ParseException {
+        requireNonNull(companyRole);
+        String trimmedCompanyRole = companyRole.trim();
+        if (!CompanyRole.isValidCompanyRoleName(trimmedCompanyRole)) {
+            throw new ParseException(CompanyRole.MESSAGE_CONSTRAINTS);
+        }
+        return new CompanyRole(trimmedCompanyRole);
     }
 
     /**

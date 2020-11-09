@@ -4,10 +4,10 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.function.Predicate;
 
-public class MeetingWithinDaysPredicate implements Predicate<Meeting> {
+public class MeetingWithinHoursPredicate implements Predicate<Meeting> {
     private final int hour;
 
-    public MeetingWithinDaysPredicate(int hour) {
+    public MeetingWithinHoursPredicate(int hour) {
         this.hour = hour;
     }
 
@@ -16,17 +16,17 @@ public class MeetingWithinDaysPredicate implements Predicate<Meeting> {
         LocalDateTime currentTime = LocalDateTime.now();
         LocalDateTime meetingTime = meeting.getDateTime().getValue();
 
-        if (meetingTime.isBefore(currentTime) || meetingTime.equals(currentTime)) {
+        if (meetingTime.isBefore(currentTime)) {
             return false;
         }
 
-        return Duration.between(currentTime, meetingTime).toHours() <= this.hour;
+        return Duration.between(currentTime, meetingTime).toMinutes() <= this.hour * 60;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof MeetingWithinDaysPredicate // instanceof handles nulls
-                && hour == ((MeetingWithinDaysPredicate) other).hour); // state check
+                || (other instanceof MeetingWithinHoursPredicate // instanceof handles nulls
+                && hour == ((MeetingWithinHoursPredicate) other).hour); // state check
     }
 }

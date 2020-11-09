@@ -12,7 +12,8 @@
 
 .root {
     -fx-font-family: "Inter Regular";
-    -fx-background-color: black;
+    -fx-background-color: transparent;
+    -fx-background: transparent;
 }
 
 .background {
@@ -427,6 +428,20 @@
     -fx-background-color: #7676FF;
 }
 
+#dismissButton {
+    -fx-font-family: 'Inter Bold';
+    -fx-font-size: 16pt;
+    -fx-background-radius: 24;
+    -fx-background-color: #4646DE;
+    -fx-border-color: transparent;
+    -fx-text-fill: white;
+}
+
+#dismissButton:hover {
+    -fx-background-color: #7676FF;
+}
+
+
 #feedbackResult {
     -fx-background-color: #2C2C3A;
     -fx-padding: 10;
@@ -500,13 +515,13 @@
 .person-index {
     -fx-text-fill: #777E7E;
     -fx-font-family: "Inter Bold";
-    -fx-font-size: 76pt;
+    -fx-font-size: 50pt;
 }
 
 .meeting-index {
     -fx-text-fill: #777E7E;
     -fx-font-family: "Inter Bold";
-    -fx-font-size: 48pt;
+    -fx-font-size: 44pt;
 }
 
 #meetingBarWrapper {
@@ -530,4 +545,10 @@
     -fx-font-size: 8pt;
     -fx-font-family: 'Inter Bold';
     -fx-text-fill: #9B9B9B;
+}
+
+.popup-card {
+    -fx-background-color: #2C2C3A;
+    -fx-padding: 12 8 2 16;
+    -fx-background-radius: 24;
 }

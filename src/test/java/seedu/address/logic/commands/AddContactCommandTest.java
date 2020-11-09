@@ -137,7 +137,7 @@ public class AddContactCommandTest {
         }
 
         @Override
-        public Meeting getFirstFutureMeeting() {
+        public Meeting getNextMeeting(long offset) {
             return null;
         }
 
@@ -198,6 +198,11 @@ public class AddContactCommandTest {
 
         @Override
         public ObservableList<Meeting> getFilteredMeetingList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Person getParticipant(UUID uuid) {
             throw new AssertionError("This method should not be called.");
         }
 

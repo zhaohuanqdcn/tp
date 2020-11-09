@@ -132,7 +132,6 @@ class JsonAdaptedMeeting {
             }
         }
 
-
         final Set<UUID> modelParticipants = new HashSet<>(participants);
         return new Meeting(modelTitle, modelDuration, modelDateTime, modelLocation, modelRecurrence, modelParticipants);
     }

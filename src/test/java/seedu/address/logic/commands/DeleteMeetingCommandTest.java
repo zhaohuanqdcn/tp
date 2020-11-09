@@ -1,6 +1,5 @@
 package seedu.address.logic.commands;
 
-
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
@@ -8,7 +7,9 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showMeetingAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_MEETING;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_MEETING;
-import static seedu.address.testutil.TypicalMeetings.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalMeetings.getTypicalAddressBookWithContacts;
+
+import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
 
@@ -21,14 +22,13 @@ import seedu.address.model.meeting.Meeting;
 import seedu.address.model.memento.History;
 import seedu.address.model.memento.StateManager;
 
-
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
  * {@code DeleteMeetingCommand}.
  */
 public class DeleteMeetingCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(),
+    private Model model = new ModelManager(getTypicalAddressBookWithContacts(), new UserPrefs(),
             new StateManager(), new History());
 
     @Test
@@ -36,7 +36,17 @@ public class DeleteMeetingCommandTest {
         Meeting meetingToDelete = model.getFilteredMeetingList().get(INDEX_FIRST_MEETING.getZeroBased());
         DeleteMeetingCommand deleteMeetingCommand = new DeleteMeetingCommand(INDEX_FIRST_MEETING);
 
-        String expectedMessage = String.format(DeleteMeetingCommand.MESSAGE_DELETE_MEETING_SUCCESS, meetingToDelete);
+        final StringBuilder builder = new StringBuilder();
+
+        if (!meetingToDelete.getParticipants().isEmpty()) {
+            for (UUID uuid : meetingToDelete.getParticipants()) {
+                builder.append(model.getParticipant(uuid).getName() + ", ");
+            }
+            builder.setLength(builder.length() - 2);
+        }
+
+        String expectedMessage = String.format(DeleteMeetingCommand.MESSAGE_DELETE_MEETING_SUCCESS, meetingToDelete)
+                + builder.toString();
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(),
                 new StateManager(), new History());

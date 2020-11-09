@@ -10,10 +10,11 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.meeting.Meeting;
+import seedu.address.model.person.Person;
 
 public class DeleteParticipantCommand extends Command {
 
-    public static final String COMMAND_WORD = "delete_part";
+    public static final String COMMAND_WORD = "deletepart";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Delete a participant from your meeting. \n"
             + "Parameters: CONTACT_INDEX MEETING_INDEX (must be a positive integer)\n"
@@ -21,7 +22,7 @@ public class DeleteParticipantCommand extends Command {
             + PREFIX_CONTACT_INDEX + "1"
             + PREFIX_MEETING_INDEX + "1";
 
-    public static final String MESSAGE_SUCCESS = "Participant is deleted from meeting: %1$s";
+    public static final String MESSAGE_SUCCESS = "Participant is removed from meeting: %1$s";
     public static final String MESSAGE_NO_MEETING = "This meeting does not exist!";
     public static final String MESSAGE_NO_PARTICIPANT = "There is no such participant in the meeting!";
 
@@ -52,11 +53,13 @@ public class DeleteParticipantCommand extends Command {
             throw new CommandException(MESSAGE_NO_PARTICIPANT);
         }
 
+        Person participantToDelete = model.getParticipant(meeting.getOneParticipant(participantIndex));
+
         model.deleteMeeting(meeting);
         meeting.delParticipant(participantIndex);
         model.addMeeting(meeting);
         model.sortMeeting();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, meeting));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, participantToDelete.getName()));
     }
 
     @Override

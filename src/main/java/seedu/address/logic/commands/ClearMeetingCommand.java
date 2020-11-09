@@ -10,7 +10,7 @@ import seedu.address.model.Model;
  */
 public class ClearMeetingCommand extends Command {
 
-    public static final String COMMAND_WORD = "clear_meeting";
+    public static final String COMMAND_WORD = "clearmeeting";
     public static final String MESSAGE_SUCCESS = "Meetings has been cleared!";
 
 

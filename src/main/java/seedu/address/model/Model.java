@@ -61,9 +61,10 @@ public interface Model {
     ReadOnlyAddressBook getAddressBook();
 
     /**
-     * Returns the first {@code meeting} in the future. If there is no future meeting, return null.
+     * Returns the next {@code meeting} in the future with a particular offset (in minutes) from current time.
+     * If there is no future meeting, return null.
      */
-    Meeting getFirstFutureMeeting();
+    Meeting getNextMeeting(long offset);
 
     /**
      * Returns true if a meeting with the same identity as {@code meeting} exists in the address book.
@@ -138,6 +139,12 @@ public interface Model {
 
     /** Returns an unmodifiable view of the filtered meeting list */
     ObservableList<Meeting> getFilteredMeetingList();
+
+    /**
+     * Returns the person with the uuid key.
+     * @param uuid of the person.
+     */
+    Person getParticipant(UUID uuid);
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.

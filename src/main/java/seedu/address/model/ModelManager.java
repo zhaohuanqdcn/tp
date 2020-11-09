@@ -118,8 +118,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Meeting getFirstFutureMeeting() {
-        return addressBook.getFirstFutureMeeting();
+    public Meeting getNextMeeting(long offset) {
+        return addressBook.getNextMeeting(offset);
     }
 
     @Override
@@ -215,6 +215,12 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Meeting> getFilteredMeetingList() {
         return filteredMeetings;
+    }
+
+    @Override
+    public Person getParticipant(UUID uuid) {
+        assert persons.containsKey(uuid);
+        return persons.get(uuid);
     }
 
     @Override

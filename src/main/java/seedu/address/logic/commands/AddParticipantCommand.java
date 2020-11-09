@@ -14,10 +14,11 @@ import seedu.address.model.person.Person;
 
 public class AddParticipantCommand extends Command {
 
-    public static final String COMMAND_WORD = "add_part";
+    public static final String COMMAND_WORD = "addpart";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a participant to your meeting. \n"
-            + "Parameters: CONTACT_INDEX MEETING_INDEX (must be a positive integer)\n"
+            + "Parameters: "
+            + PREFIX_CONTACT_INDEX + "CONTACT_INDEX MEETING_INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_CONTACT_INDEX + "1"
             + PREFIX_MEETING_INDEX + "1";
@@ -25,6 +26,7 @@ public class AddParticipantCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New participant added to meeting: %1$s";
     public static final String MESSAGE_NO_MEETING = "This meeting does not exist!";
     public static final String MESSAGE_NO_CONTACT = "This contact does not exist!";
+    public static final String MESSAGE_DUPLICATE_PARTICIPANT = "This participant already exists in the schedule!";
 
     private final Index participantIndex;
     private final Index meetingIndex;
@@ -55,12 +57,16 @@ public class AddParticipantCommand extends Command {
         }
 
         Meeting toAdd = filteredMeetingList.get(meetingIndex.getZeroBased());
+
+        if (toAdd.hasParticipant(personToAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_PARTICIPANT);
+        }
         model.deleteMeeting(toAdd);
         toAdd.addParticipant(personToAdd);
 
         model.addMeeting(toAdd);
         model.sortMeeting();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, personToAdd.getName()));
     }
 
     @Override

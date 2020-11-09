@@ -87,12 +87,12 @@ public class Meeting {
     /**
      * Get all recurrences as a list
      */
-    public List<Meeting> getRecurrencesAsList() {
+    public List<Meeting> getRecurrencesAsList(int recNumber) {
         if (getRecurrence() == Recurrence.NONE) {
             return Arrays.asList(this);
         }
         List<Meeting> recurrences = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < recNumber; i++) {
             Meeting next =
                     new Meeting(getTitle(), getDuration(),
                             getDateTime().getNextOccurrence(getRecurrence(), i),
@@ -119,11 +119,9 @@ public class Meeting {
     /**
      * Returns true if the meeting is scheduled with a {@code dateTime} in future.
      */
-    public boolean isFutureMeeting() {
-        LocalDateTime localDateTime = LocalDateTime.now();
-        return dateTime.value.isAfter(localDateTime);
+    public boolean isFutureMeeting(LocalDateTime now) {
+        return dateTime.value.isAfter(now);
     }
-
 
     /**
      * Returns an immutable person set, which throws {@code UnsupportedOperationException}
@@ -131,6 +129,16 @@ public class Meeting {
      */
     public Set<UUID> getParticipants() {
         return Collections.unmodifiableSet(participants);
+    }
+
+    /**
+     * Returns a person from the participants set
+     */
+    public UUID getOneParticipant(Index index) {
+        List<UUID> personList = new ArrayList<>(this.participants);
+        int length = this.participants.size();
+        assert length > index.getZeroBased() : "index is invalid";
+        return personList.get(index.getZeroBased());
     }
 
     /**
@@ -161,6 +169,10 @@ public class Meeting {
         assert length > index.getZeroBased() : "index is invalid";
         UUID personToDelete = personList.get(index.getZeroBased());
         this.participants.remove(personToDelete);
+    }
+
+    public boolean hasParticipant(Person person) {
+        return this.participants.contains(person.getUuid());
     }
 
     /**
@@ -215,7 +227,9 @@ public class Meeting {
                 .append(" Recurrence: ")
                 .append(getRecurrence())
                 .append(" Participants: ");
-        getParticipants().forEach(builder::append);
+        if (getParticipants().isEmpty()) {
+            builder.append("none");
+        }
         return builder.toString();
     }
 

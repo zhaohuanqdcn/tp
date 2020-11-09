@@ -4,24 +4,24 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.model.Model;
-import seedu.address.model.meeting.MeetingWithinDaysPredicate;
+import seedu.address.model.meeting.MeetingWithinHoursPredicate;
 
 /**
  * Finds and lists all meetings whose time is within certain hours.
  */
 public class RemindMeetingCommand extends Command {
 
-    public static final String COMMAND_WORD = "remind_meeting";
+    public static final String COMMAND_WORD = "remindmeeting";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all meetings whose date and time are "
-            + "within certain hours relative to the time on local machine "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all meetings that are "
+            + "within certain hours relative to the time on the local machine "
             + "and displays them as a list with index numbers.\n"
             + "Parameters: HOURS (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 72";
 
-    private final MeetingWithinDaysPredicate predicate;
+    private final MeetingWithinHoursPredicate predicate;
 
-    public RemindMeetingCommand(MeetingWithinDaysPredicate predicate) {
+    public RemindMeetingCommand(MeetingWithinHoursPredicate predicate) {
         this.predicate = predicate;
     }
 

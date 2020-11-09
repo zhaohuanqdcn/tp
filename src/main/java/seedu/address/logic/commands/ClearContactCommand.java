@@ -10,7 +10,7 @@ import seedu.address.model.Model;
  */
 public class ClearContactCommand extends Command {
 
-    public static final String COMMAND_WORD = "clear_contact";
+    public static final String COMMAND_WORD = "clearcontact";
     public static final String MESSAGE_SUCCESS = "Contacts have been cleared!";
 
 

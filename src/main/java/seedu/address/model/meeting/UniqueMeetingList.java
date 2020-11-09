@@ -69,10 +69,6 @@ public class UniqueMeetingList implements Iterable<Meeting> {
                 .isAfter(currentMeetingDateTime) || x.getDateTime().value.equals(currentMeetingDateTime);
         BinaryOperator<Meeting> storeLast = (x, y) -> y;
 
-        // The iterative approach is more efficient as it only need to scan through the list once
-        // and probably stop half way.
-        // However, it requires some handling of corner cases, eg: when the list is empty, etc.
-        // Therefore, FP could be safer and easier to understand even though it scans through the list twice.
         Optional<Meeting> nearestMeetingBeforeCurrent = internalList.stream()
                                                                     .filter(isBeforeCurrentMeetingPredicate)
                                                                     .reduce(storeLast);
@@ -121,12 +117,13 @@ public class UniqueMeetingList implements Iterable<Meeting> {
                 return true;
             }
 
-            LocalDateTime previousMeetingAvailableDateTime = meetingToCheckDateTime.minusMinutes(interval);
-
             LocalDateTime currentMeetingDateTime = toAddMeeting.getDateTime().value;
+            Duration currentMeetingDuration = toAddMeeting.getDuration();
+            long totalMinutes = currentMeetingDuration.hours * 60 + currentMeetingDuration.minutes + interval;
+            LocalDateTime currentMeetingEndTime = currentMeetingDateTime.plusMinutes(totalMinutes);
 
-            if (currentMeetingDateTime.equals(previousMeetingAvailableDateTime)
-                    || currentMeetingDateTime.isAfter(previousMeetingAvailableDateTime)) {
+            if (meetingToCheckDateTime.equals(currentMeetingEndTime)
+                    || meetingToCheckDateTime.isBefore(currentMeetingEndTime)) {
                 return true;
             }
 
@@ -194,8 +191,9 @@ public class UniqueMeetingList implements Iterable<Meeting> {
     /**
      * Returns the first future meeting, if any.
      */
-    public Meeting getFirstFutureMeeting() {
-        Optional<Meeting> first = internalList.stream().filter(Meeting::isFutureMeeting).findFirst();
+    public Meeting getNextMeeting(long offset) {
+        Optional<Meeting> first = internalList.stream().filter(meeting -> meeting
+                .isFutureMeeting(LocalDateTime.now().plusMinutes(offset))).findFirst();
         return first.orElse(null);
     }
 
@@ -272,11 +270,11 @@ public class UniqueMeetingList implements Iterable<Meeting> {
             this.valueTwo = valueTwo;
         }
 
-        public T getValueOne() {
+        public T getLeftValue() {
             return valueOne;
         }
 
-        public R getValueTwo() {
+        public R getRightValue() {
             return valueTwo;
         }
 
@@ -289,8 +287,8 @@ public class UniqueMeetingList implements Iterable<Meeting> {
         public boolean equals(Object other) {
             return other == this // short circuit if same object
                     || (other instanceof Pair // instanceof handles nulls
-                    && valueOne.equals(((Pair<?, ?>) other).getValueOne()) // state check
-                    && valueTwo.equals(((Pair<?, ?>) other).getValueTwo()));
+                    && valueOne.equals(((Pair<?, ?>) other).getLeftValue()) // state check
+                    && valueTwo.equals(((Pair<?, ?>) other).getRightValue()));
         }
 
     }

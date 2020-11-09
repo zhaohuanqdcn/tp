@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Scene?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.stage.Stage?>
+
+<?import javafx.scene.layout.VBox?>
+<?import java.net.URL?>
+<fx:root resizable="false" title="Help" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11"
+         xmlns:fx="http://javafx.com/fxml/1">
+    <icons>
+        <Image url="@/images/help_icon.png"/>
+    </icons>
+    <scene>
+        <Scene>
+            <stylesheets>
+                <URL value="@DarkTheme.css"/>
+                <URL value="@Extensions.css"/>
+            </stylesheets>
+            <VBox alignment="CENTER" styleClass="popup-card" spacing="4.0">
+                <Label fx:id="title" styleClass="cell_big_label" text="\$title" style="-fx-text-fill: white"/>
+                <Label fx:id="time" styleClass="cell_small_label" text="\$time" style="-fx-text-fill: white"/>
+                <Label styleClass="cell_big_label" text="in 30 minutes" style="-fx-text-fill: white"/>
+                <Label styleClass="cell_small_label" text="press enter to dismiss" style="-fx-text-fill: white"/>
+                <Button fx:id="dismissButton" mnemonicParsing="false" text="Dismiss" onAction="#dismiss"/>
+            </VBox>
+        </Scene>
+    </scene>
+</fx:root>

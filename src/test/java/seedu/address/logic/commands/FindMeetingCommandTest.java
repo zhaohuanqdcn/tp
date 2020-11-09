@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_MEETINGS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalMeetings.DISCUSSION;
-import static seedu.address.testutil.TypicalMeetings.ROUNDTABLE;
 import static seedu.address.testutil.TypicalMeetings.getTypicalAddressBook;
 
 import java.util.Arrays;
@@ -69,12 +68,12 @@ public class FindMeetingCommandTest {
 
     @Test
     public void execute_multipleKeywords_multipleMeetingsFound() {
-        String expectedMessage = String.format(MESSAGE_MEETINGS_LISTED_OVERVIEW, 2);
+        String expectedMessage = String.format(MESSAGE_MEETINGS_LISTED_OVERVIEW, 1);
         DataContainsKeywordsPredicate predicate = preparePredicate("2012 Alice");
         FindMeetingCommand command = new FindMeetingCommand(predicate);
         expectedModel.updateFilteredMeetingList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(DISCUSSION, ROUNDTABLE), model.getFilteredMeetingList());
+        assertEquals(Arrays.asList(DISCUSSION), model.getFilteredMeetingList());
     }
 
     /**

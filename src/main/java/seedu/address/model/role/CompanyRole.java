@@ -9,8 +9,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class CompanyRole {
 
-    public static final String MESSAGE_CONSTRAINTS = "Company role names should be alphabetic";
-    public static final String VALIDATION_REGEX = "\\p{Alpha}+";
+    public static final String MESSAGE_CONSTRAINTS =
+            "Company roles should only contain alphabetic characters and spaces";
+    public static final String VALIDATION_REGEX = "[\\p{Alpha}][\\p{Alpha} ]*";
 
     public final String companyRoleName;
 

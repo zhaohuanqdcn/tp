@@ -24,7 +24,7 @@ public class DateTime {
     /**
      * Constructs an {@code DateTime}.
      *
-     * @param dateTime A valid date and time.
+     * @param dateTime A valid date and time in String.
      */
     public DateTime(String dateTime) {
         requireNonNull(dateTime);
@@ -32,7 +32,11 @@ public class DateTime {
         value = LocalDateTime.parse(dateTime, dateInputFormat);
     }
 
-    private DateTime(LocalDateTime time) {
+    /**
+     * Constructs an {@code DateTime}.
+     * @param time A valid LocalDateTime object
+     */
+    public DateTime(LocalDateTime time) {
         requireNonNull(time);
         value = time;
     }
@@ -41,16 +45,12 @@ public class DateTime {
      * Return true if string can be formatted to a LocalDateTime object
      */
     public static boolean isValidDateTime(String dateTime) {
-        boolean isValidFormat = false;
         try {
-            LocalDateTime toCheck = LocalDateTime.parse(dateTime, dateInputFormat);
-            if (dateTime.equals(toCheck.format(dateInputFormat))) {
-                isValidFormat = true;
-            }
+            dateInputFormat.parse(dateTime);
+            return true;
         } catch (DateTimeParseException e) {
-            throw e;
+            return false;
         }
-        return isValidFormat;
     }
 
     public String getDate() {

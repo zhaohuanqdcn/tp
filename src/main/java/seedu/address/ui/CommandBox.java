@@ -39,8 +39,10 @@ public class CommandBox extends UiPart<Region> {
         commandTextField.setOnKeyPressed(e -> {
             if (e.getCode().equals(KeyCode.UP)) {
                 commandTextField.setText(commandSession.scrollUp());
+                commandTextField.end();
             } else if (e.getCode().equals(KeyCode.DOWN)) {
                 commandTextField.setText(commandSession.scrollDown());
+                commandTextField.end();
             }
             e.consume();
         });

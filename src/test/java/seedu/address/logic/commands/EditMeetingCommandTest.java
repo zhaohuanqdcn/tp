@@ -37,7 +37,7 @@ class EditMeetingCommandTest {
                 new StateManager(), new History());
 
         expectedModel.setMeeting(model.getFilteredMeetingList().get(0), editedMeeting);
-        // model is sorted due to the underlying add_meeting command, therefore expectedModel also needs to be sorted
+        // model is sorted due to the underlying addmeeting command, therefore expectedModel also needs to be sorted
         expectedModel.sortMeeting();
         assertCommandSuccess(editMeetingCommand, model, expectedMessage, expectedModel);
     }
