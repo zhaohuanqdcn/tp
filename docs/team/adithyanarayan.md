@@ -3,7 +3,7 @@ layout: page
 title: Adithya Narayan Rangarajan Sreenivasan's Project Portfolio Page
 ---
 
-## Project: AddressBook Level 3
+## Project: Recretary
 
 Recretary is a tool that helps Executive Personal Secretaries manage their day-to-day tasks and take care of their executive's busy meeting schedule. The aim is to reduce the burden and the workload of the Executive Personal Secretaries. While it has a GUI, most of the user interactions happen using a CLI (Command Line Interface). It is written in Java, and has about 14 kLoC.
 
