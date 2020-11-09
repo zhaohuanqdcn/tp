@@ -280,6 +280,13 @@ The following sequence diagram shows how the add meeting operation works:
 
 </div>
 
+#### Design consideration:
+
+##### Aspect: Algorithm for conflict checking
+
+*   checks for conflict by comparing the meeting toAdd and its nearest past and future meetings in this list by taking advantage of meeting list being sorted at all time
+*   this ensures that new interval value will not cause planned meetings to conflict with each other
+
 ### Edit meeting command
 
 #### Implementation
@@ -386,6 +393,58 @@ The given sequence diagram illustrates the flow of a usual find meeting executio
 :information_source: **Note:** The lifeline for `FindContactCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 </div>
+
+### Remind meeting command
+
+#### Implementation
+
+The remind meeting mechanism is facilitated by `RemindMeetingCommand`. It extends `Command`.
+
+-   `RemindMeetingCommand#execute()` —  Search and display all meetings that will occur within the hours specify by the user.
+
+Given below is the high-level class diagram based on `FindMeetingCommand` and its direct dependencies.
+
+![RemindMeetingClassDiagram](images/RemindMeetingClassDiagram.png)
+
+The given sequence diagram illustrates the flow of a usual find meeting execution cycle:
+
+![RemindMeetingSequenceDiagram](images/RemindMeetingSequenceDiagram.png)
+
+<div markdown="span" class="alert alert-info">
+
+:information_source: **Note:** The lifeline for `RemindMeetingCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
+
+
+### Edit userpref command
+
+#### Implementation
+
+The edit userpref mechanism is facilitated by `EditUserPrefCommand`. It extends `Command`.
+
+-   `RemindMeetingCommand#execute()` —  Edit the value of interval between meetings. The interval value is stored and remain valid when user open the app next time.
+
+Given below is the high-level class diagram based on `EditUserPrefCommand` and its direct dependencies.
+
+![EditUserPrefClassDiagram](images/EditUserPrefClassDiagram.png)
+
+The given sequence diagram illustrates the flow of a usual find meeting execution cycle:
+
+![EditUserPrefSequenceDiagram](images/EditUserPrefSequenceDiagram.png)
+
+<div markdown="span" class="alert alert-info">
+
+:information_source: **Note:** The lifeline for `RemindMeetingCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
+
+#### Design consideration:
+
+##### Aspect: Extention
+
+*   Although we only allow user to edit interval value in preferences.json for now, I implement it with `ArgumentMultimap` when parsing user input. Therefore, it is quite easy to extend this feature to allow users to edit and even add new field in preferences.json
+
 
 ### Find meeting command
 

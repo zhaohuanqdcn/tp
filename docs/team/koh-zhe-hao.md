@@ -39,7 +39,6 @@ Given below are my contributions to the project.
     * Minor improvement to overall user guide [\#171](https://github.com/AY2021S1-CS2103T-W16-1/tp/pull/171)
   * Developer Guide:
     * Minor edit to some old UML diagrams, eg: diagram for Model Component,etc .
-    * Added a few more use cases. 
     * Added sections(UML diagrams and description, etc) for `edituserpref` and `remindmeeting`. 
     * Add appendix for Instructions for Manual Testing
 

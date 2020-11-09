@@ -1,0 +1,53 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant "e:EditUserPrefCommand" as EditUserPrefCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+[-> LogicManager : execute(edit userPref)
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand(edit userPref)
+activate AddressBookParser
+
+create EditUserPrefCommand
+AddressBookParser -> EditUserPrefCommand
+activate EditUserPrefCommand
+
+EditUserPrefCommand --> AddressBookParser
+deactivate EditUserprefCommand
+
+AddressBookParser --> LogicManager : e
+deactivate AddressBookParser
+
+LogicManager -> EditUserPrefCommand : execute()
+activate EditUserPrefCommand
+
+EditUserPrefCommand -> Model : getUserPref()
+activate Model
+
+Model --> EditUserPrefCommand : userPref
+deactivate Model
+
+EditUserPrefCommand -> Model : setUserPrefs(userPrefCopy)
+activate Model
+
+Model --> EditUserPrefCommand
+deactivate Model
+
+
+
+EditUserPrefCommand --> LogicManager : result
+deactivate EditUserPrefCommand
+EditUserPrefCommand -[hidden]-> LogicManager : result
+destroy EditUserPrefCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
