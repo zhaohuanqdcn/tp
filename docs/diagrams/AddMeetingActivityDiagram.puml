@@ -1,0 +1,23 @@
+@startuml
+start
+:User executes addmeeting command;
+:Parses the command inputs;
+
+if () then ([command is valid])
+    :Execute AddMeetingCommand;
+    if () then ([meeting already exists])
+        :Display duplicate meeting error message;
+    else ([meeting is unique])
+        if () then ([meeting time clashes])
+            :Display conflict meeting error message;
+        else ([no clash in meeting time])
+            :Add meeting into the meeting list
+            according to number of recurrences;
+            :Display success message;
+            endif
+    endif
+else ([command has missing or invalid fields])
+:Display parse error message;
+endif
+stop
+@enduml
