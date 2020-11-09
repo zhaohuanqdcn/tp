@@ -632,14 +632,6 @@ Format: `undo [INDEX]`
 #### 5.3 Command Session History
 
 You can easily scroll up and down through the list of previous successful commands using the `UP` and `DOWN` key on your keyboard while in the command box.
-<div markdown="span" class="alert alert-primary">:framed_picture:
-
-**Visual Walkthrough Guide:**
-<br>
-   ![commandSessionGIF](images/commandSession.gif)
-<br>
-
-</div>
 
 <div markdown="block" class="alert alert-info">
 
@@ -655,10 +647,7 @@ You can easily scroll up and down through the list of previous successful comman
 -   Edit the value of **interval** between meetings. The interval value is stored and remain valid when user open the app next time. 
 -   The dafault value(if user dont specify its value via this command) is 0 which means that interval is not considered. 
 -  `i/INTERVAL` indicates the **interval** between meetings. Note that there is a range restriction similar to the `remindmeeting` command. 
-
-**Visual Guide:**
-
-Take note of the user feedback in the box *AFTER* the `edituserpref i/10` command.
+-   Take note of the user feedback in the box *AFTER* the `edituserpref i/10` command.
 
 #### 5.5 Viewing previous commands 
 
