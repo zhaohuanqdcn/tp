@@ -15,6 +15,8 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.meeting.DateTime;
+import seedu.address.model.meeting.Duration;
 import seedu.address.model.meeting.Recurrence;
 import seedu.address.model.meeting.UniqueMeetingList.Pair;
 import seedu.address.model.person.Address;
@@ -39,6 +41,11 @@ public class ParserUtilTest {
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
+
+    private static final String VALID_DURATION_1 = "0 20";
+    private static final String VALID_DURATION_2 = "9 59";
+    private static final String VALID_DATETIME_1 = "12/12/20 1200";
+    private static final String VALID_DATETIME_2 = "29/2/20 0500";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -96,7 +103,7 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parsRecurrence_validValue_success() throws ParseException {
+    public void parseRecurrence_validValue_success() throws ParseException {
         Pair<Recurrence, Integer> expected1 = new Pair<>(Recurrence.WEEKLY, 3);
         assertEquals(expected1, ParserUtil.parseRecurrence("weekly/3"));
         Pair<Recurrence, Integer> expected2 = new Pair<>(Recurrence.DAILY, 1);
@@ -125,6 +132,43 @@ public class ParserUtilTest {
         assertThrows(ParseException.class, () -> ParserUtil.parseBoolean(VALID_PHONE));
     }
 
+    @Test
+    public void parseDuration_validValue_success() throws ParseException {
+        Duration duration1 = new Duration(0, 20);
+        Duration duration2 = new Duration(9, 59);
+        assertEquals(duration1, ParserUtil.parseDuration(VALID_DURATION_1));
+        assertEquals(duration2, ParserUtil.parseDuration(VALID_DURATION_2));
+    }
+
+    @Test
+    public void parseDuration_invalidValue_throwParseException() throws ParseException {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseDuration(null));
+        assertThrows(ParseException.class, () -> ParserUtil.parseDuration("123"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseDuration("-1 12"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseDuration("12 -1"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseDuration("0 60"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseDuration("0 0"));
+    }
+
+    @Test
+    public void parseDateTime_validValue_success() throws ParseException {
+        DateTime dateTime1 = new DateTime(VALID_DATETIME_1);
+        DateTime dateTime2 = new DateTime(VALID_DATETIME_2);
+        assertEquals(dateTime1, ParserUtil.parseDateTime(VALID_DATETIME_1));
+        assertEquals(dateTime2, ParserUtil.parseDateTime(VALID_DATETIME_2));
+    }
+
+    @Test
+    public void parseDateTime_invalidValue_throwParseException() throws ParseException {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseDateTime(null));
+        assertThrows(ParseException.class, () -> ParserUtil.parseDateTime("123"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseDateTime("12/12/20 2500"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseDateTime("12/20/20 1200"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseDateTime("12/12/20 0060"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseDateTime("12-12-20 0060"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseDateTime("12-12-20 00:60"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseDateTime("12/12/20"));
+    }
 
     @Test
     public void parsePhone_null_throwsNullPointerException() {

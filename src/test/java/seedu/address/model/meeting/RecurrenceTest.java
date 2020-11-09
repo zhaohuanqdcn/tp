@@ -33,4 +33,13 @@ public class RecurrenceTest {
         assertTrue(Recurrence.isValid(""));
         assertTrue(Location.isValidLocation("monthly"));
     }
+
+    @Test
+    public void ofNullable() {
+        assertEquals(Recurrence.NONE, Recurrence.ofNullable(""));
+        assertEquals(Recurrence.NONE, Recurrence.ofNullable(null));
+        assertEquals(Recurrence.DAILY, Recurrence.ofNullable("daily"));
+        assertEquals(Recurrence.WEEKLY, Recurrence.ofNullable("weekly"));
+        assertEquals(Recurrence.MONTHLY, Recurrence.ofNullable("monthly"));
+    }
 }
