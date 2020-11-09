@@ -64,7 +64,7 @@ The sections below give more details of each component.
 **API** :
 [`Ui.java`](https://github.com/AY2021S1-CS2103T-W16-1/tp/tree/master/src/main/java/seedu/address/ui/Ui.java)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The  ***UI Diagram*** given above explains the UI of the app. The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/AY2021S1-CS2103T-W16-1/tp/tree/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/AY2021S1-CS2103T-W16-1/tp/tree/master/src/main/resources/view/MainWindow.fxml)
 
@@ -80,6 +80,7 @@ The `UI` component,
 
 **API** :
 [`Logic.java`](https://github.com/AY2021S1-CS2103T-W16-1/tp/tree/master/src/main/java/seedu/address/logic/Logic.java)
+The  ***Logic Diagram*** given above explains the logic of the app. 
 
 1. `Logic` uses the `AddressBookParser` class to parse the user command.
 1. This results in a `Command` object which is executed by the `LogicManager`.
@@ -102,6 +103,8 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 
 **API** : [`Model.java`](https://github.com/AY2021S1-CS2103T-W16-1/tp/tree/master/src/main/java/seedu/address/model/Model.java)
 
+The  ***Model Diagram*** given above explains the Models of the app that are used to store most app data. 
+
 The `Model`,
 
 * stores a `UserPref` object that represents the user’s preferences.
@@ -123,6 +126,8 @@ The `Model`,
 ![Structure of the Storage Component](images/StorageClassDiagram.png)
 
 **API** : [`Storage.java`](https://github.com/AY2021S1-CS2103T-W16-1/tp/tree/master/src/main/java/seedu/address/storage/Storage.java)
+
+The  ***Storage Diagram*** given above explains the Storage of the app, how data is stored in files outside of the app. 
 
 The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
@@ -543,7 +548,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 (For all use cases below, the **System** is the `Recretary` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: UC01 - Add a contact**  
+#### Use case: UC01 - Add a contact
 
 **MSS**  
 
@@ -562,7 +567,7 @@ Use case ends.
   
   Use case resumes from step 2.
 
-**Use case: UC02 - Add a meeting and its participants**  
+#### Use case: UC02 - Add a meeting and its participants 
 
 **MSS**
 
@@ -592,7 +597,7 @@ Use case ends.
   
   Use case resumes from step 4.
 
-**Use case: UC03 - List all contacts or all meetings**  
+#### Use case: UC03 - List all contacts or all meetings 
 
 **MSS**
 
@@ -607,7 +612,7 @@ Use case ends.
   
   Use case ends.
 
-**Use case: UC04 - Edit a contact**  
+#### Use case: UC04 - Edit a contact 
 
 **MSS**
 
@@ -637,7 +642,7 @@ Use case ends.
   Steps 2c1-2c2 are repeated until the data entered are correct.  
   Use case resumes from step 3.
 
-**Use case: UC05 - Edit a meeting**  
+#### Use case: UC05 - Edit a meeting
 
 **MSS**
 
@@ -675,7 +680,7 @@ Use case ends.
   Steps 2d1-2d2 are repeated until the user finishes editing.  
   Use case resumes from step 3.
 
-**Use case: UC06 - Delete participant from the meeting**  
+#### Use case: UC06 - Delete participant from the meeting
 
 **MSS**
 
@@ -700,7 +705,7 @@ Use case ends.
   Steps 1b1-1b2 are repeated until the data entered are correct.  
   Use case resumes from step 2.
 
-**Use case: UC07 - Find a contact or a meeting**  
+#### Use case: UC07 - Find a contact or a meeting
 
 **MSS**
 
@@ -715,7 +720,7 @@ Use case ends.
   * 1a1. System shows a message indicating no matching records were found.
   Use case ends.
 
-**Use case: UC08 - Delete a contact or a meeting**  
+#### Use case: UC08 - Delete a contact or a meeting
 
 **MSS**
 
@@ -747,7 +752,7 @@ Use case ends.
   * 2d2. System removes all recurrences one after another. 
   Use case ends.
  
-**Use case: UC09 - Clear all contacts or meetings**  
+#### Use case: UC09 - Clear all contacts or meetings
 
 **MSS**
 
@@ -762,7 +767,7 @@ Use case ends.
 
   Use case ends.
   
-  **Use case: UC09 - Export all meetings**  
+#### Use case: UC10 - Export all meetings
 
   **MSS**
 
@@ -778,7 +783,7 @@ Use case ends.
 
     Use case ends.
 
-**Use case: UC09 - Undo commands**  
+#### Use case: UC11 - Undo commands
 
 **MSS**
 
@@ -842,10 +847,12 @@ We estimate that the effort required to code our new features is much higher tha
 
 ### Achievements
 - Implemented a new UI that is completely upgraded from the AB3 UI. 
-- Implemeneted new features to sort meetings by date and time and display the meeting schedule.
-- implemented a new type of instruction with two indexes (addpart and deletepart).
+- Implemented new features to sort meetings by date and time and display the meeting schedule.
+- Implemented a new type of instruction with two indexes (addpart and deletepart).
 - Implemented new features that improve user experience (command history, undo).
 - Implement a function to increase compatibility between our app and other apps (exportmeeting).
+
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Appendix: Instructions for manual testing**
@@ -895,7 +902,7 @@ testers are expected to do more *exploratory* testing.
     1. Test case: `editcontact 1 t/`
     Expected: The tag for the first contact after the `list` command has been cleared.
     
-    1. Test case: `editcontact 1 `
+    1. Test case: `editcontact 1`
     Expected: An exception was shown the prompt user to enter at least one field to be edited.
     
 ### Deleting a contact
@@ -952,7 +959,7 @@ testers are expected to do more *exploratory* testing.
     1. Test cases: `editmeeting -1 d/10/11/20 1400 l/clementi`
     Expected: An error being shown because the index is invalid or empty
     
-    1. Test cases: "editmeeting 1"
+    1. Test cases: `editmeeting 1`
     Expected: An error being shown because at least one filed needs to be specify
     
     1. Other test cases that doesn't follow the prefix convention
