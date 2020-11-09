@@ -1,0 +1,21 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR_T3
+skinparam classBackgroundColor LOGIC_COLOR
+skinparam classAttributeFontColor #FFFFFF
+
+Class RecretaryState MODEL_COLOR_T3 {
+}
+Class History MODEL_COLOR_T3 {
+}
+Class StateManager MODEL_COLOR_T3 {
+}
+Class Model MODEL_COLOR_T3
+
+History o-right-> "0..*" RecretaryState
+StateManager .left. Model
+StateManager -right-> History
+StateManager .right. RecretaryState
+UndoCommand .up. StateManager
+@enduml

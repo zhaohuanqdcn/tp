@@ -7,6 +7,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 import org.junit.jupiter.api.Test;
 
@@ -83,5 +85,39 @@ public class DateTimeTest {
         actual = new DateTime("1/1/22 1400");
 
         assertNotEquals(expected, actual.getDate());
+    }
+
+    @Test
+    public void getNextOccurrence() {
+        DateTime actual = new DateTime("31/12/20 1400");
+        DateTime expected1 = new DateTime("3/1/21 1400");
+        DateTime expected2 = new DateTime("31/12/21 1400");
+        DateTime expected3 = new DateTime("7/1/21 1400");
+        assertEquals(actual.getNextOccurrence(Recurrence.NONE, 0), actual);
+        assertEquals(actual.getNextOccurrence(Recurrence.DAILY, 0), actual);
+        assertEquals(actual.getNextOccurrence(Recurrence.DAILY, 3), expected1);
+        assertEquals(actual.getNextOccurrence(Recurrence.MONTHLY, 12), expected2);
+        assertEquals(actual.getNextOccurrence(Recurrence.WEEKLY, 1), expected3);
+    }
+
+    @Test
+    public void getStartTime() {
+        DateTime actual1 = new DateTime("31/12/20 1400");
+        DateTime actual2 = new DateTime("31/12/20 0700");
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mma");
+        assertEquals(actual1.getStartTime(), timeFormatter.format(LocalTime.of(14, 0)));
+        assertEquals(actual2.getStartTime(), timeFormatter.format(LocalTime.of(7, 0)));
+    }
+
+    @Test
+    public void getEndTime() {
+        DateTime actual = new DateTime("31/12/20 1401");
+        Duration duration1 = new Duration(1, 59);
+        Duration duration2 = new Duration(11, 0);
+        Duration duration3 = new Duration(48, 0);
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mma");
+        assertEquals(actual.getEndTime(duration1), timeFormatter.format(LocalTime.of(16, 0)));
+        assertEquals(actual.getEndTime(duration2), timeFormatter.format(LocalTime.of(1, 1)));
+        assertEquals(actual.getEndTime(duration3), timeFormatter.format(LocalTime.of(14, 1)));
     }
 }

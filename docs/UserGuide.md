@@ -3,15 +3,33 @@ layout: page
 title: User Guide
 ---
 
-Recretary is a **desktop app for managing contacts and meetings, optimized for use via a Command Line Interface** (CLI) 
-while still having the benefits of a Graphical User Interface (GUI). If you can type fast, Recretary can get your contact management tasks done faster than traditional GUI apps.
-
 * Table of Contents
 {:toc}
 
 ## Introduction
-Recretary is a **desktop app for managing contacts and meetings, optimized for use via a Command Line Interface** (CLI).
-while still having the benefits of a Graphical User Interface (GUI). If you can type fast, Recretary can get your contact management tasks done faster than traditional GUI apps.
+
+Hello, fellow secretaries!
+
+Welcome to Recretary, a desktop application to help you manage contacts and meetings so that you can be freed from 
+these tedious tasks. 
+
+If you are still keeping track of your contacts and meetings manually and find that tiresome, then Recretary is the 
+solution for you! Recretary is specially customised for secretaries to make the contact and meeting management process 
+as easy and as error-free as possible. What's more, Recretary is primarily optimized for use via a Command Line Interface
+(CLI), which means that you can use most features with just a single line of command. If you can type fast, will be able 
+to manage your contacts and meetings much more efficiently on our sleek Graphical User Interface (GUI).
+
+If you are new to CLI or Recretary, fret not! Explore our User Guide now to find out more on our amazing features and how
+they work!
+
+### Overview of the User Interface
+
+As you can see in Fig. 1, the user interface of the app is sleek and beautiful, but still gives you all the information that is required. The contacts are arranged in the left and the meetings are arranged in the right. All the meetings are always sorted according to time (earliest first). The meeting timeline draws your attention into the current time and the next meeting that is scheduled to take place.
+
+![Ui](images/Ui.png)
+<p align="center">Fig. 1: User Interface</p>
+
+To ensure maximum efficiency, we have made the app default to a full screen. The app has been made keeping full screen usage in mind.
 
 ## Using the user guide
 
@@ -97,8 +115,7 @@ for you to get familiarise with Recretary.
 
 ## Features
 
-This section contains detailed information of each of Recretary's commands, with relevant examples and images to guide 
-you. 
+This section contains detailed information of each of Recretary's commands, with relevant examples and images to guide you. 
 
 ### Contact Management
 
@@ -299,7 +316,7 @@ addmeeting title/v1.5 discussion d/12/12/20 1200 dur/02 00 l/Home
 
 Expected result:
 ```
-New meeting added: v1.5 discussion Date and Time: 12 Dec 2020 12.00pm Duration: 2hrs Location: Home Recurrence: none Participants: none 
+New meeting added: v1.5 discussion Date and Time: 12 Dec 2020 12.00pm Duration: 2hrs Location: Home Recurrence: Participants: none 
 Add participants with the addpart command now!
 ```
 
@@ -416,7 +433,7 @@ editmeeting 2 title/DEF company meeting dur/00 30
 
 Expected Outcome:
 ```
-Edited Meeting: DEF company meeting Date and Time: 12 Dec 2020 12.00pm Duration:  30mins Location: Home Recurrence: none Participants: none
+Edited Meeting: DEF company meeting Date and Time: 12 Dec 2020 12.00pm Duration:  30mins Location: Home Recurrence: Participants: none
 ```
 Change the title and duration of the second meeting in the currently displayed meeting list to `DEF company meeting` 
 and `30mins` respectively. Other attributes of the meeting remain unchanged. 
@@ -437,18 +454,29 @@ Examples:
 
 -   `findmeeting abc def` returns `abc meeting`, `def meeting`<br>
 
+Example Usage
+```
+findmeeting abc
+```
+
+Expected result
+```
+1 meeting listed
+```
+
 <div markdown="span" class="alert alert-primary">:framed_picture:
 
 **Visual Walkthrough Guide:**
 
 State of the app *BEFORE* the `findmeeting` command.
 
+<br></br>
    ![findMeetingBefore](images/findMeetingBefore.png)
-
+<br></br>
 State of the app *AFTER* the `findmeeting v1.3` command.
-
+<br></br>
    ![findMeetingAfter](images/findMeetingAfter.png)
-
+<br></br>
 </div>
 
 #### Deleting a meeting: `deletemeeting`
@@ -502,8 +530,9 @@ clearmeeting
 ```
 
 Expected result: 
-
-`Meetings has been cleared!`
+```
+Meetings has been cleared!
+```
 
 Remove all existing meeting from Recretary. You will now see an empty meeting list.
 // add a warning here
@@ -570,19 +599,19 @@ Undoes the previous command or previous `n` commands based on the given index.
 <div markdown="span" class="alert alert-primary">:framed_picture:
 
 **Visual Walkthrough Guide:**
-
+<br></br>
 1. State of the app *BEFORE* the `deletecontact` command that you entered by mistake and wish to undo.
-
+<br></br>
    ![undo1](images/undo1.png)
-
+<br></br>
 2. State of the app *AFTER* the `deletecontact` command that you entered by mistake and wish to undo.
-
+<br></br>
    ![undo2](images/undo2.png)
-
+<br></br>
 3. State of the app *AFTER* the `undo` command.
-
+<br></br>
    ![undo3](images/undo3.png)
-
+<br></br>
 </div>
 
 <div markdown="block" class="alert alert-info">
@@ -600,6 +629,14 @@ Format: `undo [INDEX]`
 #### Command Session History
 
 You can easily scroll up and down through the list of previous successful commands using the `UP` and `DOWN` key on your keyboard while in the command box.
+<div markdown="span" class="alert alert-primary">:framed_picture:
+
+**Visual Walkthrough Guide:**
+<br></br>
+   ![commandSessionGIF](images/commandSession.gif)
+<br></br>
+
+</div>
 
 <div markdown="block" class="alert alert-info">
 
