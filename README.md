@@ -6,7 +6,7 @@
 
 **Recretary is a tool that helps Executive Personal Secretaries manage their day-to-day tasks and take care of their executive's busy meeting schedule. The aim is to reduce the burden and the workload of the Executive Personal Secretaries.** While it has a GUI, most of the user interactions happen using a CLI (Command Line Interface).
 
-* If you are interested in using Recretary, head over to the [_Quick Start_ section of the **User Guide**](https://ay2021s1-cs2103t-w16-1.github.io/tp/UserGuide.html#quick-start).
+* If you are interested in using Recretary, head over to the [_Quick Start_ section of the **User Guide**](https://ay2021s1-cs2103t-w16-1.github.io/tp/UserGuide.html#3-quick-start).
 * If you are interested about developing Recretary, the [**Developer Guide**](https://ay2021s1-cs2103t-w16-1.github.io/tp/DeveloperGuide.html) is a good place to start.
 
 

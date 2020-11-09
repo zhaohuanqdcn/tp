@@ -67,8 +67,9 @@ This user guide was made taking in mind the ease of usability and navigation. Yo
 
 Here is a quick summary of relevant links you can take a look at if you wish to brush through the user guide.
 
-- Get up and running as soon as possible: [Quick Start](#quick-start)
-- For a summary of the features on this user guide: [Command Summary](#command-summary)
+- Get up and running as soon as possible: [Quick Start](#3-quick-start)
+- For a summary of the features on this user guide: [Command Summary](#7-command-summary)
+- For a summary of the prefixes of commands: [Prefix Summary](#8-prefix-summary)
 
 ## 3 Quick start
 
@@ -101,7 +102,7 @@ for you to get familiarise with Recretary.
 
     - **`exit`** : Exits the app.
 
-1. Refer to the [Features](#features) below for details of each command.
+1. Refer to the [Features](#4-features) below for details of each command.
 
 ## 4 Features
 
@@ -572,18 +573,17 @@ Meetings have been exported as .ics!
 
 Export all existing meetings into a .ics file that can be find in the same folder of Recretary.
 
----
-
 #### 4.2.11 Automatic meeting reminder
 
-A reminder will pop up when the earliest meeting will start 30 minutes later, even if there is no user interference. If the start time of the earliest future meeting is already within 30 minutes when the app starts, a popup reminder will be shown one minute later.
+A reminder will pop up when the earliest meeting is scheduled to start 30 minutes later, even if there is no user interference. If the start time of the earliest future meeting is already within 30 minutes when the app starts, a popup reminder will be shown one minute later.
 
-No command is needed to show the popup reminder, but in case you are not sure about future meetings, you can always use the remind meeting command in 4.2.9 to view upcoming meetings.
+No command is needed to show the popup reminder, but in case you are not sure about future meetings, you can always use the `remindmeeting` command in 4.2.9 to view upcoming meetings.
 
 Below is an illustration of the pop-up reminder:
 
 ![popup reminder](images/PopUpReminder.jpg)
 
+---
 
 ### 5 General
 
