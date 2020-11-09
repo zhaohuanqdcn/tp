@@ -84,4 +84,34 @@ public class DateTimeTest {
 
         assertNotEquals(expected, actual.getDate());
     }
+
+    @Test
+    public void getNextOccurrence() {
+        DateTime actual = new DateTime("31/12/20 1400");
+        DateTime expected1 = new DateTime("3/1/21 1400");
+        DateTime expected2 = new DateTime("31/12/21 1400");
+        DateTime expected3 = new DateTime("7/1/21 1400");
+        assertEquals(actual.getNextOccurrence(Recurrence.NONE, 0), actual);
+        assertEquals(actual.getNextOccurrence(Recurrence.DAILY, 0), actual);
+        assertEquals(actual.getNextOccurrence(Recurrence.DAILY, 3), expected1);
+        assertEquals(actual.getNextOccurrence(Recurrence.MONTHLY, 12), expected2);
+        assertEquals(actual.getNextOccurrence(Recurrence.WEEKLY, 1), expected3);
+    }
+
+    @Test
+    public void getStartTime() {
+        DateTime actual1 = new DateTime("31/12/20 1400");
+        DateTime actual2 = new DateTime("31/12/20 0700");
+        assertEquals(actual1.getStartTime(), "2:00pm");
+        assertEquals(actual2.getStartTime(), "7:00am");
+    }
+
+    @Test
+    public void getEndTime() {
+        DateTime actual = new DateTime("31/12/20 1401");
+        Duration duration1 = new Duration(1,59);
+        Duration duration2 = new Duration(9,0);
+        assertEquals(actual.getEndTime(duration1), "4:00pm");
+        assertEquals(actual.getEndTime(duration2), "1:01am");
+    }
 }
