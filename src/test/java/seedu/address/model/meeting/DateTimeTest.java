@@ -7,6 +7,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 import org.junit.jupiter.api.Test;
 
@@ -110,8 +112,11 @@ public class DateTimeTest {
     public void getEndTime() {
         DateTime actual = new DateTime("31/12/20 1401");
         Duration duration1 = new Duration(1, 59);
-        Duration duration2 = new Duration(9, 0);
-        assertEquals(actual.getEndTime(duration1), "4:00pm");
-        assertEquals(actual.getEndTime(duration2), "1:01am");
+        Duration duration2 = new Duration(11, 0);
+        Duration duration3 = new Duration(48, 0);
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mma");
+        assertEquals(actual.getEndTime(duration1), timeFormatter.format(LocalTime.of(16, 0)));
+        assertEquals(actual.getEndTime(duration2), timeFormatter.format(LocalTime.of(1, 1)));
+        assertEquals(actual.getEndTime(duration3), timeFormatter.format(LocalTime.of(14, 1)));
     }
 }
