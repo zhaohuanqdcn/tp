@@ -24,10 +24,9 @@ they work!
 
 ### Overview of the User Interface
 
-As you can see in Fig. 1, the user interface of the app is sleek and beautiful, but still gives you all the information that is required. The contacts are arranged in the left and the meetings are arranged in the right. All the meetings are always sorted according to time (earliest first). The meeting timeline draws your attention into the current time and the next meeting that is scheduled to take place.
+As you can see in in the figure below, the user interface of the app is sleek and beautiful, but still gives you all the information that is required. The contacts are arranged in the left and the meetings are arranged in the right. All the meetings are always sorted according to time (earliest first). The meeting timeline draws your attention into the current time and the next meeting that is scheduled to take place.
 
 ![Ui](images/Ui.png)
-<p align="center">Fig. 1: User Interface</p>
 
 To ensure maximum efficiency, we have made the app default to a full screen. The app has been made keeping full screen usage in mind.
 
