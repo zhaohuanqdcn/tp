@@ -860,38 +860,165 @@ testers are expected to do more *exploratory* testing.
 
    1. Download the jar file and copy into an empty folder
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   1. Double-click the jar file Expected: Shows the GUI with a set of sample data. The window size should be maximized to full screen. Users are expected to use the app at this window size for it to have the correct performance.
 
-1. Saving window preferences
+2. Shutdown
+    1. Simply enter the `exit` command to shutdown the app
 
-   1. Resize the window to an optimum size. Move the window to a different location. Close the window.
+### Add a contact
+1. Add a new contact to the addressbook
 
-   1. Re-launch the app by double-clicking the jar file.<br>
-       Expected: The most recent window size and location is retained.
+    1. Prerequisites: The new contact does not already exist in the addressbook. In case that a duplicate contact was added, Recretary will prompt the user about this exception.
+    
+    1. Test case: `addcontact n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 c/ABC Holdings Pte. Ltd`  
+       Expected: The contact is successfully added to the addressbook.
+       
+    1. Test case: `addcontact n/John Doe p/ e/johnd@example.com a/John street, block 123, #01-01 c/ABC Holdings Pte. Ltd`  
+       Expected: The contact is not added because `p/`. User should see the error message in the feedback box.
+       
+    1. Test case: `addcontact p/98765432 e/johnd@example.com a/John street, block 123, #01-01 c/ABC Holdings Pte. Ltd`  
+       Expected: The contact is not added to the addressbook because of the missing name field, eg:`n/John Doe`.
+       
+    1. Test case: `addcontact abcd n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 c/ABC Holdings Pte. Ltd`  
+       Expected: The contact is not added to the addressbook because of the random String `abcd`.
+         
+### Edit a contact
+1. Edit an existing contact in the addressbook
 
-1. _{ more test cases …​ }_
-
-### Deleting a person
+    1. Prerequisites: The new contact does not already exist in the addressbook. In case that a duplicate contact was added, Recretary will prompt the user about this exception. 
+    
+    1. Test case: `editcontact 1 t/`
+    Expected: The tag for the first contact after the `list` command has been cleared.
+    
+    1. Test case: `editcontact 1 `
+    Expected: An exception was shown the prompt user to enter at least one field to be edited.
+    
+### Deleting a contact
 
 1. Deleting a person while all persons are being shown
 
    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 
-   1. Test case: `delete 1`<br>
+   1. Test case: `deletecontact 1`<br>
       Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 
-   1. Test case: `delete 0`<br>
+   1. Test case: `deletecontact 0`<br>
       Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
 
    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
-1. _{ more test cases …​ }_
+### Add a meeting
+1. Add a new meeting to the addressbook 
+
+    1. Prerequisites: The meeting does not already exist in the addressbook or conflict with any other meetings in the addressbook. 
+    
+    1. Test cases:<br>`addmeeting title/roundtable discussion d/31/12/20 1200 dur/00 30 l/NUS SoC`<br>`addmeeting title/roundtable discussion two d/31/12/20 1201 dur/00 30 l/NUS SoC`<br>
+    Expected: An error being shown telling the user that the second meeting conflicts with the first meeting
+    
+    1. Test cases: `addmeeting d/31/12/20 1200 dur/00 30 l/NUS SoC`<br>
+    Expected: An error being shown because the command is missing the compulsory title field, eg: `title/roundtable discussion`
+    
+    1. Test cases: `addmeeting title/roundtable discussion d/31/12/20 1200 dur/00 30 l/NUS SoC rec/yearly/30`<br>
+    Expected: An error being shown indicating wrong recurrence format because there is no option for `yearly` and `/30` is greather than the maximum value allowed which is 20
+    
+    1. Other incorrect commands that have extra random String or invalid value for a specific prefix<br>
+    Expected: An error being shown indicating wrong command format and suggest a correct usage.
+    
+### Adding a participant into a meeting
+1. Add participant to an existing meeting in the addressbook
+    
+    1. Prerequisite: The meeting should already exist in the addressbook (the index should be valid).
+    
+    1. Test cases: `findcontact alice` followed by `addpart ci/1 mi/2`
+    Expected: Succesfully adds the first contact of the `findcontact` command's result into the 2nd meeting.
+    
+    1. Test cases: `addpart ci/-1 mi/-1`
+    Expected: An error being shown because the index for existing contact and meeting is invalid
+    
+    1. Test cases: `addpart ci/-1`
+    Expected: An error being shown because the compulsory meeting index filed is missing, eg: `mi/1`
+
+### Editing a meeting
+1. Edits an existing meeting in the meeting schedule
+
+    1. Prerequisite: The meeting should already exist in the addressbook (the index should be valid).
+    
+    1. Test cases: `editmeeting -1 d/10/11/20 1400 l/clementi`
+    Expected: An error being shown because the index is invalid or empty
+    
+    1. Test cases: "editmeeting 1"
+    Expected: An error being shown because at least one filed needs to be specify
+    
+    1. Other test cases that doesn't follow the prefix convention
+    Expected: An error being shown because it does not follow the correct format
+    
+    1. Other test cases that make an existing meeting identical to another meeting in the list
+    Expected: An error being shown because the edited meeting should be unique in the list
+    
+    1. Other test cases that make an existing meeting conflict with another meeting in the list
+    Expected: An error indicate this conflict issue being shown
+   
+### Locating a meeting
+1. Find meetings whose data (matches title, date in all natural formats, location) contain any of the given keywords.
+
+    1. Test cases: `findmeeting`
+    Expected: An error indicates invalid command format being shown because the arguments cannot be empty
+    
+    1. Test cases: `findmeeting abc def`
+    Expected: A list of meetings such as `abc meeting`, `def meeting` or 0 meeting being displayed.
+    
+### Deleting a meeting
+1. Deletes the specified item (and its recurrences) from the address book.
+
+    1. Prerequisites: The index should be a valid index (<= the largest meeting index). 
+    
+    1. Test cases: `deletemeeting 1`
+    Expected: The 1st meeting in the displayed meeting list being deleted or shows an error if the displayed meeting list is empty.
+    
+    1. Test cases: `deletemeeting 2 rec/true`
+    Expected: The 2nd meeting being displayed in meeting list and all its recurrences being deleted; or show an error if there is only one meeting being displayed in list.
+    
+    1. Test cases: `deletemeeting`
+    Expected: An invalid command format error being shown because meeting index can't be empty.
+
+### Remind a meeting
+1. Search and display all meetings that will occur within the hours specify by the user.
+
+    1. Test cases: `remindmeeting 1440`
+    Expected: All meeting within 1440 hours being displayed, empty display if 0 meeting is found
+    
+    1. Test cases: `remindmeeting 0`
+    Expected: An error being shown because the input value is not in the valid range
+    
+    1. Other test cases that contain random text
+    Expected: An error indicates Unknown command or Invalid command format being shown.
+    
+### Update user preference
+1.  Edit the value of interval between meetings.
+    
+    1. Test cases: `edituserpref 10`
+    Expected: The value for `intervalBetweenMeetings` stored inside `preferences.json` is changed to 10.
+        
+    1. Test cases: `edituserpref 0`
+    Expected: An error being shown because the input value is not in the valid range.
+    
+    1. Other test cases that contain random text
+    Expected: An error indicates Unknown command or Invalid command format being shown.
 
 ### Saving data
 
 1. Dealing with missing/corrupted data files
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+   1. Run Recretary without a `addressbook.json` inside the data folder.  
+   Expected: Recreatary will perform as per normal with sample data loaded.
+   
+   2. Run Recretary with a corrupted `addressbook.json` (data are stored in wrong format, random text somewhere,etc).  
+   Expected: Recreatry will perform as per normal with an empty addressbook.
+   
+   3. Run Recretary without a `preferences.json` inside the root directory.  
+   Expected: Recretary will perform as per normal with the default data loaded.
+   
+   4. Run Recretary with a corrupted `preferences.json` inside the root directory (data are stored in wrong format, random text somewhere,etc).  
+   Expected: Recretary will perform as per normal with the default data loaded.
 
-1. _{ more test cases …​ }_
