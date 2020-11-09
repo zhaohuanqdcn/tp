@@ -1,0 +1,25 @@
+@startuml
+!include style.puml
+show members
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR_T4
+skinparam classBackgroundColor LOGIC_COLOR
+skinparam classAttributeFontColor #FFFFFF
+Interface Predicate <<Interface>>
+
+Class Command {
+    {method} execute(Model)
+}
+Class MeetingWithinHoursPredicate {
+    {field} hour: int
+}
+Class RemindMeetingCommand
+Class Model MODEL_COLOR_T4
+
+RemindMeetingCommand : execute(Model)
+
+RemindMeetingCommand o-right-> "1" MeetingWithinHoursPredicate
+Command .left. Model
+RemindMeetingCommand -down-|> Command
+MeetingWithinHoursPredicate .down.|> Predicate
+@enduml
