@@ -17,5 +17,5 @@ History o-right-> "0..*" RecretaryState
 StateManager .left. Model
 StateManager -right-> History
 StateManager .right. RecretaryState
-UndoCommand .up. StateManager
+UndoCommand .up. Model
 @enduml
