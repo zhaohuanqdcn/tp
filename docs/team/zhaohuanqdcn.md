@@ -25,15 +25,18 @@ Given below are my contributions to the project.
 * **Code contributed**: [RepoSense link](https://nus-cs2103-ay2021s1.github.io/tp-dashboard/#breakdown=true&search=zhaohuanqdcn)
 
 * **Enhancements to existing features**:
-  * Updated the GUI color scheme (Pull requests [\#33](), [\#34]())
-  * Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests [\#36](), [\#38]())
+  * Updated the Model and AddressBook to accommodate classes related to Meeting
+  * Added tests for various features implemented by the team
 
 * **Documentation**:
   * User Guide:
     * Added documentation for the features `delete` and `find` [\#72]()
     * Did cosmetic tweaks to existing documentation of features `clear`, `exit`: [\#74]()
   * Developer Guide:
-    * Added implementation details of the `delete` feature.
+    * Updated user stories and use cases for some features.
+    * Added brief explanation of `list` and `clear` commands for both entities.
+    * Added implementation details of the `deletemeeting`, `deletecontact` and `system timer` features.
+
 
 * **Community**:
   * PRs reviewed (with non-trivial review comments): [\#12](), [\#32](), [\#19](), [\#42]()
