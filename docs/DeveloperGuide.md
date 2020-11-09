@@ -761,6 +761,22 @@ Use case ends.
 * 1a. No contact/ meeting has been added.
 
   Use case ends.
+  
+  **Use case: UC09 - Export all meetings**  
+
+  **MSS**
+
+  1.  User requests to export meetings.
+  2.  System indicates that the export is successful.
+  3. User finds the exported file in the `data` folder.
+
+      Use case ends.
+      
+  **Extensions**: 
+
+  * 1a. No contact/ meeting has been added.
+
+    Use case ends.
 
 **Use case: UC09 - Undo commands**  
 
@@ -799,6 +815,32 @@ Use case ends.
 * **Mainstream OS**: Windows, Linux, Unix, OS-X
 
 
+--------------------------------------------------------------------------------------------------------------------
+
+## **Appendix: Effort**
+
+Overall, we believe that compared to the difficulty level of AB3 at 10, the effort required for our project would be 15.
+
+### Difficulty Level
+
+Compared to AB3, our project is much more challenging. We added a new entity, Meeting, with its own function and command classes, by adapting code for AB3. In addition to that, we overhauled the entire UI, and added many new functionalities. For instance, command history, undo function, and meeting reminders. We also had to add elements to the pre-existing AB3 Person code to complement our new features. The new additions were much harder to implement as we had no basis to follow and had to hammer out the details and choose the most efficient implementation ourselves.
+
+### Challenges Faced
+Since the project began, we have overcome many challenges in implementation.
+- We realised our initial implementation of meeting participants would cause participants to be unlinked from the Contact class after restarting the app. After a long discussion, we decided to add unique identifiers to each contact and use that to refer to meeting participants, so that the information would be updated promptly even after restarting.
+- We implemented a completely new UI for our app that shows both contacts and meetings at the same time. However, the new implementation required the app to be fullscreen at all times. We realised the difficulty of implementing this as different implementations would not work on both Windows and Mac. Hence we realised the importance of cross-platform testing at every stage of implementation and were able to solve the problem eventually. 
+- We realised that the meetings class required a different way to add participants as the participants needed to be searched for as contacts. Hence we decided to use adding and deleting participants commands that are independent of the add meeting command.
+- We implemented our meeting schedule on a separate thread. However, the arguments accepted by that thread could not be modified after passing them, and it was thus unsuitable for using in the UI to display the meeting schedule. Hence, we decided to use the JavaFX default UI thread to solve the problem.
+
+### Effort Required
+We estimate that the effort required to code our new features is much higher than that of AB3. We were required to come up with new ways to implement associations between the many new classes that we added. We also had to overcome many obstacles during implementation that would hinder future functions, and had to come up with creative solutions for those problems. Hence our effort was above and beyond that needed for AB3.
+
+### Achievements
+- Implemented a new UI that is completely upgraded from the AB3 UI. 
+- Implemeneted new features to sort meetings by date and time and display the meeting schedule.
+- implemented a new type of instruction with two indexes (addpart and deletepart).
+- Implemented new features that improve user experience (command history, undo).
+- Implement a function to increase compatibility between our app and other apps (exportmeeting).
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Appendix: Instructions for manual testing**
