@@ -118,23 +118,27 @@ This section contains a step-by-step guide on how to install Recretary on your c
 This section contains detailed information of each of Recretary's commands, with relevant examples and images to guide you. 
 
 ### 4.1 Contact Management
+*done by: Koh Zhe Hao*
 
-Contact entries in Recretary contain multiple pieces of information: name, phone number, email, address and company. There are also optional entries company role and tags that may help you organize your contacts better. You can find contact information on the left-hand-side of the window.
+Storing and using contact entries in Recretary is similar to the way you store and call your friends' handphone number. However, Recretary improves upon traditional handphone usage by taking multiple pieces of information such as name, phone number, email, address and company into consideration. There are also optional entries company roles and tags(usually a short pharse used to describe someone) that may help you organize your contacts better. The commands listed below are various ways of how you can operate on these contacts. You can also find your list of contact information on the left-hand-side of the window as shown in the highlighted section from the picture below.
+**Note**: You can view all contacts by hovering your mouse at the highlighted section and simply scroll up or down to when you have more contacts in the list 
+![Ui](images/contacts.png)
 
 #### 4.1.1 Adding a person: `addcontact`
+*done by: Koh Zhe Hao*
 
-Adds a person to the address book.
-
+The most fundamental command for contact management in Recretary. It simply allows you to add a new contact into Recreatary. A contact here represents the collection of all information from a single person.<br> 
+**Note**: Do take note of the requirements on the fields listed below as specified by [Format](#2.1-format) and [Prefix Summary](#8-prefix-summary).<br>
 Format: `addcontact n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS c/COMPANY [r/COMPANY_ROLE]…​ [t/TAG]…​`
 
 <div markdown="span" class="alert alert-primary">:bulb:
 
 **Tip:**
-A person can have any number of tags and company roles (including 0)
+A person can have any number of tags and company roles (including 0). In other words, these two fields are optional.
 
 </div>
 
-Examples:
+Sample commands:
 
 -   `addcontact n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 c/ABC Holdings Pte. Ltd`
 -   `addcontact n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Mansion p/1234567 r/CEO c/DEF Company`
@@ -143,13 +147,25 @@ Example Usage
 ```
 addcontact n/Amanda Jo p/81234567 e/amanda@example.com a/PGP House c/Facebook t/friend
 ```
-Expected result: 
-```
-New person added: Amanda Jo Phone: 81234567 Email: amanda@example.com Company: Facebook Address: PGP House Tags: [friend] Company roles: 
-```
-#### 4.1.2 Listing all persons: `listcontact`
+Expected result:<br> 
+1. ```New person added: Amanda Jo Phone: 81234567 Email: amanda@example.com Company: Facebook Address: PGP House Tags: [friend] Company roles:  ``` being shown as a feedback.
+2. The newly added contact being displayed on screen. 
 
-Shows a list of all contacts in the address book. Any trailing words following the `listcontact` command will be ignored by the application.
+
+**Example Usage Visual Walkthrough Guide:**
+
+State of the app *BEFORE* the command.
+   ![addContatBefore](images/addBefore.png)
+
+State of the app *BEFORE* the command.
+
+   ![addContactAfter](images/addAfter.png)
+
+
+#### 4.1.2 Listing all persons: `listcontact`
+*done by: Koh Zhe Hao*
+
+One of the most basic commands that displays the list of all contacts in Recretary. 
 
 Format: `listcontact`
 
@@ -159,11 +175,10 @@ listcontact
 ```
 
 Expected result: 
-```
-Listed all persons
-```
+1. ```Listed all persons``` being shown as a feedback.
+2. All existing contacts being displayed.
 
-All existing contacts are listed.
+**Note**: Since this command's behavior is very simple and similar to `addcontact`, the Visual Walkthrough Guide is omitted here. 
 
 #### 4.1.3 Editing a person: `editcontact`
 
@@ -558,18 +573,17 @@ Remove all existing meeting from Recretary. You will now see an empty meeting li
 // add a warning here
 
 #### 4.2.9 Remind meetings: `remindmeeting`
+*done by: Koh Zhe Hao* <br>
 
-Search and display all meetings that will occur within the hours specify by the user. 
+One of the advanced commands in Recretary. It searches and displays all meetings that will occur within the hours specify by the user. 
 
 Format: `remindmeeting HOUR`
 
 -   HOUR must be a positive integer, the range of this value is from 1 - 2147483647 (user most likely won't have so many data to keep track of in a practical usage).
--   The reference point of time is the time on user's local machine when user entered the command.
 
 Examples:
-
 -   `remindmeeting 1440` returns `abc meeting` ,  `xyz meeting` <br> 
-**Remark**: 1440 = 2(months) * 30(days) * 24(hours) which is the total hours for two months; user can use this strategy to standardize the unit of time(hours) beforehand
+**Remark**: 1440 = 2(months) * 30(days) * 24(hours) which is the total hours for two months; user can use this strategy to standardize the unit of time(hours) beforehand. The example describes the situation where user wants to find all meetings that will occur within two months.
 <div markdown="span" class="alert alert-primary">:framed_picture:
 
 **Visual Walkthrough Guide:**
@@ -581,6 +595,8 @@ State of the app *BEFORE* the `remindmeeting` command.
 State of the app *AFTER* the `remindmeeting 1440` command.
 
    ![Picture for GUI after remind command](images/remind_meeting_after.png)
+   
+   **Note:** The abc company meeting get filtered out(not displayed) because it will occur in 2021 which is way more than two months.
 
 </div>
 
@@ -680,11 +696,12 @@ You can easily scroll up and down through the list of previous successful comman
 </div>
 
 #### 5.4 Update user preference : `edituserpref`
-
--   Edit the value of **interval** between meetings. The interval value is stored and remain valid when user open the app next time. 
+*done by: Koh Zhe Hao* <br>
+-   Edit the value of **interval**(check out glossary for more information) between meetings. The interval value is stored and remain valid when user open the app next time. 
 -   The dafault value(if user dont specify its value via this command) is 0 which means that interval is not considered. 
 -  `i/INTERVAL` indicates the **interval** between meetings. Note that there is a range restriction similar to the `remindmeeting` command. 
 -   Take note of the user feedback in the box *AFTER* the `edituserpref i/10` command.
+   ![undo1](images/edituserpref.png)
 
 #### 5.5 Viewing previous commands 
 
