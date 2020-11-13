@@ -127,6 +127,7 @@ This section contains detailed information of each of Recretary's commands, with
 *done by: Koh Zhe Hao*
 
 Storing and using contact entries in Recretary is similar to the way a phonebook stores your contacts' phone numbers. However, Recretary improves upon traditional phonebooks by taking multiple fields of information such as name, phone number, email, address and company into consideration. There are also optional entries, company roles and tags(usually a short phrase used to describe someone), that may help you organize your contacts better. The commands listed below are various methods you can manage your contacts. You can also find your list of contact information on the left-hand-side of the window as shown in the highlighted section from the picture below.
+
 **Note**: You can view all contacts by hovering your mouse at the highlighted section, and simply scrolling up or down to view more contacts in the list. 
 ![Ui](images/contacts.png)
 
