@@ -6,6 +6,8 @@ title: User Guide
 * Table of Contents
 {:toc}
 
+<div style="page-break-after: always;"></div>
+
 ## 1 Introduction
 
 ### 1.1 About Recretary
@@ -383,6 +385,7 @@ addmeeting title/v1.5 discussion d/12/12/20 1200 dur/02 00 l/Home
 Expected result:
 
 ![addMeeting](images/addMeeting.png)
+<center>Fig 4.2.1: After execution of command</center>
 
 ```
 New meeting added: v1.5 discussion Date and Time: 12 Dec 2020 12.00pm Duration: 2hrs Location: Home Recurrence: Participants: none 
@@ -422,6 +425,7 @@ addpart ci/1 mi/1
 Expected result:
 
 ![addfirstParticipant](images/addFirstParticipant.png)
+<center>Fig 4.2.2b: After execution of command</center>
 
 ```
 New participant added to meeting: NAME_OF_PARTICIPANT_ADDED
