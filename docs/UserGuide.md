@@ -8,6 +8,10 @@ title: User Guide
 
 ## 1 Introduction
 
+### 1.1 About Recretary
+
+_done by: Tan Xuan Zhi_
+
 Hello, fellow secretaries!
 
 Welcome to Recretary, a desktop application to help you manage contacts and meetings so that you can be freed from 
@@ -22,7 +26,7 @@ to manage your contacts and meetings much more efficiently on our sleek Graphica
 If you are new to CLI or Recretary, fret not! Explore our User Guide now to find out more on our amazing features and how
 they work!
 
-### 1.1 Overview of the User Interface
+### 1.2 Overview of the User Interface
 
 _done by: Adithya Narayan Rangarajan Sreenivasan_
 
@@ -121,6 +125,7 @@ This section contains detailed information of each of Recretary's commands, with
 *done by: Koh Zhe Hao*
 
 Storing and using contact entries in Recretary is similar to the way you store and call your friends' handphone number. However, Recretary improves upon traditional handphone usage by taking multiple pieces of information such as name, phone number, email, address and company into consideration. There are also optional entries company roles and tags(usually a short pharse used to describe someone) that may help you organize your contacts better. The commands listed below are various ways of how you can operate on these contacts. You can also find your list of contact information on the left-hand-side of the window as shown in the highlighted section from the picture below.
+
 **Note**: You can view all contacts by hovering your mouse at the highlighted section and simply scroll up or down to when you have more contacts in the list 
 ![Ui](images/contacts.png)
 
@@ -147,9 +152,11 @@ Example Usage
 ```
 addcontact n/Amanda Jo p/81234567 e/amanda@example.com a/PGP House c/Facebook t/friend
 ```
-Expected result:<br> 
-1. ```New person added: Amanda Jo Phone: 81234567 Email: amanda@example.com Company: Facebook Address: PGP House Tags: [friend] Company roles:  ``` being shown as a feedback.
-2. The newly added contact being displayed on screen. 
+Expected result:
+```
+New person added: Amanda Jo Phone: 81234567 Email: amanda@example.com Company: Facebook Address: PGP House Tags: [friend] Company roles:  
+``` 
+will be shown as a feedback. The newly added contact being displayed on screen. 
 
 
 **Example Usage Visual Walkthrough Guide:**
@@ -175,8 +182,10 @@ listcontact
 ```
 
 Expected result: 
-1. ```Listed all persons``` being shown as a feedback.
-2. All existing contacts being displayed.
+```
+Listed all persons
+``` 
+is shown as a feedback. All existing contacts will be displayed.
 
 **Note**: Since this command's behavior is very simple and similar to `addcontact`, the Visual Walkthrough Guide is omitted here. 
 
@@ -300,24 +309,22 @@ Remove all existing contacts from Recretary. You can now see an empty contact li
 
 ### 4.2 Meeting Management
 
-Meeting entries in Recretary have multiple attributes: date time, duration, title and location. You may declare the recurrence of a meeting to avoid repetitive input, 
-and you may also add contacts as participants of a meeting. All meeting information will be displayed on the right-hand-side of the window, 
+Meeting entries in Recretary have multiple attributes: date time, duration, title and location. You can declare the recurrence of a meeting to avoid repetitive input, 
+and you can also add contacts as participants of a meeting. All meeting information will be displayed on the right-hand-side of the window, 
 ordered by their starting time, with a green bar indicating the next upcoming meeting. When the next upcoming meeting starts, the green bar will move to the next meeting automatically, if any. 
 
 #### 4.2.1 Adding a meeting: `addmeeting`
 
-Adds a meeting into the meeting schedule. The existing list of meetings will be automatically sorted after the addition according to date and time. Conflict checking is also in place to prevent users from scheduling overlapping meetings.
+_done by: Tan Xuan Zhi_
+
+Adds a meeting into the meeting schedule. 
 
 Format: `addmeeting title/TITLE d/DATETIME dur/DURATION l/LOCATION [rec/RECURRENCE]`
 
-<div markdown="block" class="alert alert-info">
-
-**:information_source: Notes about the command format:**<br>
-
 -   The format for `DATETIME` is `d/M/yy HHmm`. <br>
-    e.g. `d/1/11/20 1430`.
-    e.g. `d/1/1/20 1430`.
-    e.g. `d/12/11/20 1430`.
+    e.g. `d/1/11/20 1430`
+    e.g. `d/1/1/20 1430`
+    e.g. `d/12/11/20 1430`
 
 -   The format for `DURATION` is `H mm`, where `H` and `mm` must be non-negative numbers and cannot both be zero. <br>
     e.g. `dur/1 30`.
@@ -329,9 +336,6 @@ Format: `addmeeting title/TITLE d/DATETIME dur/DURATION l/LOCATION [rec/RECURREN
     e.g. `weekly/20`,
     e.g. `monthly/5`
 
-
-</div>
-
 Example:
 - `addmeeting title/roundtable discussion d/31/12/20 1200 dur/00 30 l/NUS SoC`
 - `addmeeting title/abc company meeting d/31/12/20 1400 dur/00 50 l/John street, block 123, #01-01 rec/weekly/5`
@@ -342,35 +346,37 @@ addmeeting title/v1.5 discussion d/12/12/20 1200 dur/02 00 l/Home
 ```
 
 Expected result:
+
+![addMeeting](images/addMeeting.png)
+
 ```
 New meeting added: v1.5 discussion Date and Time: 12 Dec 2020 12.00pm Duration: 2hrs Location: Home Recurrence: Participants: none 
 Add participants with the addpart command now!
 ```
+Adds a new meeting on the meeting panel on the right. The existing list of meetings is automatically sorted after the addition according to date and time.
 
 <div markdown="span" class="alert alert-primary">:bulb:
 
 **Note:**
+<p>
 After adding a meeting, add new participants to it with the [addpart](#422-adding-a-participant-into-a-meeting-addpart) command described below.
 Only people in your contacts can be added as participants.
+</p>
 
-Conflict checking also considers **interval** (mentioned in glossary). It will not report an error if user supply new interval value that causes old meetings to conflict with each other. This is because interval should be different (and they passed the previous conflict check when added).
-
+A new meeting will be checked if it conflicts with any existing meeting before it is added.
+Conflict checking also considers **interval** (mentioned in [glossary](#9-glossary)).
 </div>
 
 #### 4.2.2 Adding a participant into a meeting: `addpart`
 
-Adds a participant with the specified `CONTACT_INDEX` in the currently viewable contact list into the meeting with the specified `MEETING_INDEX`.
+_done by: Tan Xuan Zhi_
+
+Adds a participant into a meeting.
 
 Format: `addpart ci/CONTACT_INDEX mi/MEETING_INDEX`
+- Add the participant at the specified `CONTACT_INDEX` to a meeting at the specified `MEETING_INDEX`
+  The `CONTACT_INDEX` and `MEETING_INDEX` refers to the index number shown in the currently displayed contact list and meeting list respectively.
 
-<div markdown="span" class="alert alert-primary">:bulb:
-
-**Tip:**
-Run a `findcontact` command before running an `addpart` to narrow the contact list so that you can easily add a contact instead of scrolling through the whole list!
-
-Likewise, run a `findmeeting` command before running an `addpart` to narrow the meeting list so that you can easily add a meeting instead of scrolling through the whole list!
-
-</div>
 
 Examples:
 
@@ -390,11 +396,28 @@ Expected result:
 New participant added to meeting: NAME_OF_PARTICIPANT_ADDED
 ```
 
+<div markdown="span" class="alert alert-primary">:bulb:
+
+**Tip:**
+
+<p>
+*Run a `findcontact` command before running an `addpart` to narrow the contact list so that you can easily add a contact instead of scrolling through the whole list!
+</p>
+
+<p>
+Likewise, run a `findmeeting` command before running an `addpart` to narrow the meeting list so that you can easily add a meeting without scrolling through the whole list!*
+</p>
+</div>
+
 #### 4.2.3 Delete a participant into a meeting: `deletepart`
 
-Deletes a participant with the specified `CONTACT_INDEX` in the currently displayed contact list into the meeting with the specified `MEETING_INDEX`.
+_done by: Tan Xuan Zhi_
+
+Deletes a participant from a meeting. 
 
 Format: `deletepart ci/CONTACT_INDEX mi/MEETING_INDEX`
+- Delete the participant at the specified `CONTACT_INDEX` from a meeting at the specified `MEETING_INDEX`
+  The `CONTACT_INDEX` refers to the index of the participant in the meeting and `MEETING_INDEX` refers to the index number shown in the currently displayed meeting list.
 
 Examples:
 
@@ -433,22 +456,17 @@ All existing meetings are listed.
 
 #### 4.2.5 Editing a meeting: `editmeeting`
 
-Edits an existing meeting in the meeting schedule. Similar to adding a meeting, the sorting and conflict checking will also take place automatically. The `RECURRENCE` field is not modifiable, and the edition of recurring meeting will only edit the specified instance. If the title of a recurring meeting is edited, it is no longer considered as an instance of recurrence.
+_done by: Tan Xuan Zhi_
+
+Edits an existing meeting in the meeting schedule.
 
 Format: `editmeeting INDEX [d/DATETIME] [title/TITLE] [l/LOCATION] ...`
-
-<div markdown="span" class="alert alert-primary">:bulb:
-
-**Tip:**
-You can add new participants to a meeting with the separate [addpart](#422-adding-a-participant-into-a-meeting-addpart) command or delete existing participants in the meeting
-with the [deletepart](#423-delete-a-participant-into-a-meeting-deletepart) command.
-
-</div>
-
--   Edits the meeting at the specified `INDEX`. The index refers to the index number shown in the displayed meeting list.
-    The index **must be a positive integer** 1, 2, 3, …​
--   At least one of the optional fields must be provided.
--   Existing values will be updated to the input values.
+-  Edits the meeting at the specified `INDEX`. The index refers to the index number shown in the displayed meeting list.
+   The index **must be a positive integer** 1, 2, 3, …​
+-  The `RECURRENCE` field of a meeting is not modifiable
+-  If a recurring meeting is edited, only the meeting at the specific `INDEX` will be modified.
+-  At least one of the optional fields must be provided.
+-  For the optional fields that have been omitted, the values will be unchanged.
 
 Examples:
 
@@ -467,6 +485,14 @@ Edited Meeting: DEF company meeting Date and Time: 12 Dec 2020 12.00pm Duration:
 Change the title and duration of the second meeting in the currently displayed meeting list to `DEF company meeting` 
 and `30mins` respectively. Other attributes of the meeting remain unchanged. 
     
+<div markdown="span" class="alert alert-primary">:bulb:
+
+**Tip:**
+You can add new participants to a meeting with the separate [addpart](#422-adding-a-participant-into-a-meeting-addpart) command or delete existing participants in the meeting
+with the [deletepart](#423-delete-a-participant-into-a-meeting-deletepart) command.
+
+</div>
+
 #### 4.2.6 Finding meetings: `findmeeting`
 
 _done by: Adithya Narayan Rangarajan Sreenivasan_
