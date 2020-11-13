@@ -24,17 +24,25 @@ they work!
 
 ### 1.1 Overview of the User Interface
 
-As you can see in in the figure below, the user interface of the app is sleek and beautiful, but still gives you all the information that is required. The contacts are arranged in the left and the meetings are arranged in the right. All the meetings are always sorted according to time (earliest first). The meeting timeline draws your attention into the current time and the next meeting that is scheduled to take place.
+_done by: Adithya Narayan Rangarajan Sreenivasan_
+
+As you can see in in the figure below (Fig 1.1a), the user interface of the app is sleek and beautiful, but still gives you all the information that is required. The contacts are arranged in the left and the meetings are arranged in the right. All the meetings are always sorted according to time (earliest first). The meeting timeline draws your attention into the current time and the next meeting that is scheduled to take place.
 
 ![Ui](images/Ui2.png)
+<center>Fig 1.1a: User Interface</center>
 
 To ensure maximum efficiency, we have made the app default to a full screen. The app has been made keeping full screen usage in mind.
 
 ## 2 Using the user guide
 
+_done by: Adithya Narayan Rangarajan Sreenivasan_
+
 This section will give you, the user, all the details required to interpret and understand the user guide and use it to your advantage. This guide encompasses all the features that the app provides with in-depth explanation on how to use them in the app with examples and illustrations.
 
 ### 2.1 Format
+
+_done by: Adithya Narayan Rangarajan Sreenivasan_
+
 
 | Symbol/Formatting | Explanation |
 |-------------------|-------------|
@@ -63,6 +71,8 @@ This section will give you, the user, all the details required to interpret and 
 
 ### 2.2 Navigation
 
+_done by: Adithya Narayan Rangarajan Sreenivasan_
+
 This user guide was made taking in mind the ease of usability and navigation. You can easily click on the headings and sub-headings in the table of contents (and also other parts where a heading is mentioned) and it will take you right into the required part of the guide. 
 
 Here is a quick summary of relevant links you can take a look at if you wish to brush through the user guide.
@@ -73,21 +83,20 @@ Here is a quick summary of relevant links you can take a look at if you wish to 
 
 ## 3 Quick start
 
-This section contains a step-by-step guide on how to install Recretary on your computer as well as some basic commands 
-for you to get familiarise with Recretary. 
+This section contains a step-by-step guide on how to install Recretary on your computer as well as some basic commands for you to get familiarise with Recretary. 
 
 ### 3.1 Installation
 
 1. Ensure you have Java `11` or above installed in your Computer.
 
-1. Download the latest `recretary.jar` from [here](https://github.com/AY2021S1-CS2103T-W16-1/tp/releases).
+2. Download the latest `recretary.jar` from [here](https://github.com/AY2021S1-CS2103T-W16-1/tp/releases).
 
-1. Copy the file to the folder you want to use as the _home folder_ for Recretary.
+3. Copy the file to the folder you want to use as the _home folder_ for Recretary.
 
-1. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data. You can get familiar with our app by following the simple instructions below and observe the changes in your GUI. You can also just type `clearcontact` and `clearmeeting` separately to clear all data.
+4. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data. You can get familiar with our app by following the simple instructions below and observe the changes in your GUI. You can also just type `clearcontact` and `clearmeeting` separately to clear all data.
    ![Ui](images/Ui.png)
 
-1. For you to get familiar with the app and to practice, type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.
+5. For you to get familiar with the app and to practice, type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.
    Some example commands you can try:
 
     - **`listcontact`** : Lists all contacts.
@@ -102,7 +111,7 @@ for you to get familiarise with Recretary.
 
     - **`exit`** : Exits the app.
 
-1. Refer to the [Features](#4-features) below for details of each command.
+6. Refer to the [Features](#4-features) below for details of each command.
 
 ## 4 Features
 
@@ -184,9 +193,11 @@ Expected result:
 ```
 Edited Person: Kelly Low Phone: 98764432 Email: kelly@example.com Company: ABC Holdings Pte. Ltd Address: John street, block 123, #01-01 Tags:  Company roles: 
 ```
-#### 4.1.4 Locating persons: `findcontact`
+#### 4.1.4 Finding persons: `findcontact`
 
-Find contacts whose names contain any of the given keywords.
+_done by: Adithya Narayan Rangarajan Sreenivasan_
+
+Reduce distractions and other unnecessary contacts and information by filtering the contact list using the `findcontact` command. This command narrows down the list to only contacts whose names contain any of the given keywords.
 
 Format: `findcontact KEYWORD [MORE_KEYWORDS]`
 
@@ -200,23 +211,33 @@ Format: `findcontact KEYWORD [MORE_KEYWORDS]`
 Examples:
 
 -   `findcontact John` returns `john chan` and `John Doe`
--   `findcontact bernice david` returns:
-    ![result for 'find bernice david'](images/findBerniceDavidResult.png)
+-   `findcontact bernice david` returns `Bernice Yu` and `David Li`
+
+Example Usage
+```
+findcontact abc
+```
+
+Expected result
+```
+1 persons listed!
+```
 
 <div markdown="span" class="alert alert-primary">:framed_picture:
 
 **Visual Walkthrough Guide:**
 
-State of the app *BEFORE* the `findcontact John` command.
-
-   ![findJohnBefore](images/findJohnBefore.png)
-
-State of the app *AFTER* the `findcontact John` command.
-
-   ![findJohnAfter](images/findJohnResult.png)
-
+State of the app *BEFORE* the `findcontact david` command.
+<br>
+   ![findJohnBefore](images/findContactBefore.png)
+   <center>Fig 4.1.4a: Before execution of command</center>
+<br>
+State of the app *AFTER* the `findcontact david` command.
+<br>
+   ![findJohnAfter](images/findContactAfter.png)
+   <center>Fig 4.1.4b: After execution of command</center>
+<br>
 </div>
-
 
 #### 4.1.5 Deleting a person: `deletecontact`
 
@@ -238,7 +259,7 @@ Example Usage
 deletecontact 1
 ```
 
-Expected result: 
+Expected result
 ```
 Deleted Person: Kelly Low Phone: 98765432 Email: kelly@example.com Company: ABC Holdings Pte. Ltd Address: John street, block 123, #01-01 Tags:  Company roles: 
 ```
@@ -431,9 +452,11 @@ Edited Meeting: DEF company meeting Date and Time: 12 Dec 2020 12.00pm Duration:
 Change the title and duration of the second meeting in the currently displayed meeting list to `DEF company meeting` 
 and `30mins` respectively. Other attributes of the meeting remain unchanged. 
     
-#### 4.2.6 Locating meetings: `findmeeting`
+#### 4.2.6 Finding meetings: `findmeeting`
 
-Find meetings whose data (matches title, date in all natural formats, location) contain any of the given keywords.
+_done by: Adithya Narayan Rangarajan Sreenivasan_
+
+Reduce distractions and other unnecessary contacts and information by filtering the contact list using the `findcontact` command. This command narrows down the list to only meetings whose data (matches title, date in all natural formats, location) contain any of the given keywords.
 
 Format: `findmeeting KEYWORD [MORE_KEYWORDS]`
 
@@ -442,6 +465,8 @@ Format: `findmeeting KEYWORD [MORE_KEYWORDS]`
 -   Most fields (title, date, time and location) are searched.
 -   Meetings matching at least one keyword will be returned (i.e. `OR` search).
     e.g. `Shareholder Meeting` will return `Shareholder Chat`, `Team Meeting`
+-   Date is matched using natural formatting. e.g. `Nov`, `November` and `11` will match meetings that take place in november.
+-   Participants are not considered while matching.
 
 Examples:
 
@@ -454,7 +479,7 @@ findmeeting abc
 
 Expected result
 ```
-1 meeting listed
+1 meeting listed!
 ```
 
 <div markdown="span" class="alert alert-primary">:framed_picture:
@@ -465,10 +490,12 @@ State of the app *BEFORE* the `findmeeting` command.
 
 <br>
    ![findMeetingBefore](images/findMeetingBefore.png)
+   <center>Fig 4.2.6a: Before execution of command</center>
 <br>
 State of the app *AFTER* the `findmeeting v1.3` command.
 <br>
    ![findMeetingAfter](images/findMeetingAfter.png)
+   <center>Fig 4.2.6a: After execution of command</center>
 <br>
 </div>
 
@@ -600,25 +627,11 @@ Shows a message explaining how to access the help page. Anything following the `
 
 #### 5.2 Undo : `undo`
 
+_done by: Adithya Narayan Rangarajan Sreenivasan_
+
 Undoes the previous command or previous `n` commands based on the given index.
 
-<div markdown="span" class="alert alert-primary">:framed_picture:
-
-**Visual Walkthrough Guide:**
-<br>
-1. State of the app *BEFORE* the `deletecontact` command that you entered by mistake and wish to undo.
-<br>
-   ![undo1](images/undo1.png)
-<br>
-2. State of the app *AFTER* the `deletecontact` command that you entered by mistake and wish to undo.
-<br>
-   ![undo2](images/undo2.png)
-<br>
-3. State of the app *AFTER* the `undo` command.
-<br>
-   ![undo3](images/undo3.png)
-<br>
-</div>
+Format: `undo [INDEX]`
 
 <div markdown="block" class="alert alert-info">
 
@@ -629,10 +642,31 @@ Undoes the previous command or previous `n` commands based on the given index.
 
 </div>
 
-Format: `undo [INDEX]`
+<div markdown="span" class="alert alert-primary">:framed_picture:
+
+**Visual Walkthrough Guide:**
+<br>
+1. State of the app *BEFORE* the `deletecontact` command that you entered by mistake and wish to undo.
+<br>
+   ![undo1](images/undo1.png)
+   <center>Fig 5.2a: Before execution of command to be undone</center>
+<br>
+2. State of the app *AFTER* the `deletecontact` command that you entered by mistake and wish to undo.
+<br>
+   ![undo2](images/undo2.png)
+   <center>Fig 4.1.4a: After execution of command to be undone</center>
+<br>
+3. State of the app *AFTER* the `undo` command.
+<br>
+   ![undo3](images/undo3.png)
+   <center>Fig 4.1.4a: After execution of undo command</center>
+<br>
+</div>
 
 
 #### 5.3 Command Session History
+
+_done by: Adithya Narayan Rangarajan Sreenivasan_
 
 You can easily scroll up and down through the list of previous successful commands using the `UP` and `DOWN` key on your keyboard while in the command box.
 
@@ -641,7 +675,7 @@ You can easily scroll up and down through the list of previous successful comman
 **:information_source: Notes about the command session history:**<br>
 
 - Only successful previous commands (commands that did not give an error), are stored in the command history. This decision was taken deliberately because of the fact that if there is an error in the command, the command doesn't disappear but it stays in the command box highlighted in red.
-- Be cautious as your current command is wiped out when you move up or down ( similar to the windows cli).
+- Be cautious as your current command is wiped out when you move up or down (similar to the windows command prompt).
 
 </div>
 
