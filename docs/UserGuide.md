@@ -561,7 +561,7 @@ Format: `deletemeeting INDEX [rec/RECURRING]`
 Examples:
 * `deletemeeting 2` deletes the 2nd meeting in the meeting schedule.
 * `deletemeeting 2 rec/true` deletes the 2nd meeting and all its recurrences in the address book.
-* `findmeeting Shareholder` followed by `deletemeeting 1` deletes the 1st meeting in the results of the `find` command.
+* `findmeeting Shareholder` followed by `deletemeeting 1` deletes the 1st meeting in the results of the `findmeeting` command.
 
 Example Usage
 ```
