@@ -285,7 +285,13 @@ Expected result:
 Contacts have been cleared!
 ```
 Remove all existing contacts from Recretary. You can now see an empty contact list.
-// add a warning here
+
+<div markdown="span" class="alert alert-primary">:bulb:
+
+**Tip:**
+You can undo this action with the  `undo` function!
+
+</div>
 
 ### 4.2 Meeting Management
 
@@ -559,7 +565,13 @@ Meetings has been cleared!
 ```
 
 Remove all existing meeting from Recretary. You will now see an empty meeting list.
-// add a warning here
+
+<div markdown="span" class="alert alert-primary">:bulb:
+
+**Tip:**
+You can undo this action with the  `undo` function!
+
+</div>
 
 #### 4.2.9 Remind meetings: `remindmeeting`
 
