@@ -119,7 +119,7 @@ This section contains detailed information of each of Recretary's commands, with
 
 ### 4.1 Contact Management
 
-Contact entries in Recretary contain multiple pieces of information: name, phone number, email, address and company. There are also optional entries company role and tags that may help you organize your contacts better. You can find contact information on the left-hand-side of the window.
+Contact entries in Recretary contain multiple pieces of information: name, phone number, email, address and company. There are also optional entries, company roles and tags, that may help you organize your contacts better. You can find contact information on the left-hand-side of the window.
 
 #### 4.1.1 Adding a person: `addcontact`
 
@@ -267,7 +267,9 @@ Deletes the first contact in the currently displayed contact list.
 
 #### 4.1.6 Clearing all contacts: `clearcontact`
 
-Clears all contacts from the address book. Anything following the `clearcontact` keyword will be ignored by the application.
+_done by: Liu Chuyue_
+
+Clears all contacts from the address book. If you enter anything following the `clearcontact` keyword, e.g. `clearcontact 2`, the extra input will be ignored by the application.
 
 Format: `clearcontact`
 
@@ -540,7 +542,7 @@ e.g. `rec/weekly/5` means the meeting added has recurs weekly for 5 times.
 
 #### 4.2.8 Clearing all meetings : `clearmeeting`
 
-Clears all meetings from the meeting schedule. Anything following the `clearmeeting` keyword will be ignored by the application.
+Clears all meetings from the meeting schedule. Clears all contacts from the address book. If you enter anything following the `clearmeeting` keyword, e.g. `clearmeeting 2`, the extra input will be ignored by the application.
 
 Format: `clearmeeting`
 
@@ -586,11 +588,13 @@ State of the app *AFTER* the `remindmeeting 1440` command.
 
 #### 4.2.10 Exporting meetings in .ics format : `exportmeeting`
 
-Exports all meetings as an iCalendar file that is compatible with other calendar apps such as Google Calendar. 
+_done by: Liu Chuyue_
+
+Exports all meetings as an iCalendar file that can be imported into other calendar apps such as Google Calendar. 
 
 Format: `exportmeeting`
 
-- Any trailing words following the command will be ignored. By default, the resulting file can be found in the `data` folder. Check the FAQ section to see how to change the save location.
+- If you enter anything after the command, such as `exportmeeting 2`, the extra input will be ignored. By default, the resulting file can be found in the `data` folder. Check the FAQ section to see how to change the save location.
 
 Example Usage
 ```
@@ -725,7 +729,7 @@ Format: `exit`
 
 Action | Format, Examples
 --------|------------------
-***Generals*** |
+***General Commands*** |
 **Help** | `help`
 **Exit** | `exit`
 **Undo** | `undo [INDEX]` <br> e.g., `undo 3` or `undo`
@@ -776,8 +780,12 @@ title/ | `addmeeting`, `editmeeting` | title of a meeting
 
 ## 9 Glossary
 
+_done by: Liu Chuyue_
+
 * **CLI**: Command Line Interface. A program that accepts text input to execute system functions.
+* **Company Role**: The position of a contact plays in their company. 
 * **GUI**: Graphic User Interface. A system of interactive visual components for computer software.
-* **Interval** This represents the minimum time gap between meetings. It is meant to simulate the travelling time or resting time in between meetings.
+* **iCalendar**: A file type that allows storing and accessing calendar and sheduling information. It usually has the file extension of `.ics`.
+* **Interval**: This represents the minimum time gap between meetings. It is meant to represent travelling time or resting time in between meetings.
   
 ---
