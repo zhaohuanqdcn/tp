@@ -313,8 +313,10 @@ Add participants with the addpart command now!
 
 <div markdown="span" class="alert alert-primary">:bulb:
 
-**Note:**  
-After adding a meeting, add new participants to it with the `addpart` command described below. Only people in your contacts can be added as participants.  
+**Note:**
+After adding a meeting, add new participants to it with the [addpart](#422-adding-a-participant-into-a-meeting-addpart) command described below.
+Only people in your contacts can be added as participants.
+
 Conflict checking also considers **interval** (mentioned in glossary). It will not report an error if user supply new interval value that causes old meetings to conflict with each other. This is because interval should be different (and they passed the previous conflict check when added).
 
 </div>
@@ -402,8 +404,8 @@ Format: `editmeeting INDEX [d/DATETIME] [title/TITLE] [l/LOCATION] ...`
 <div markdown="span" class="alert alert-primary">:bulb:
 
 **Tip:**
-You can add new participants to a meeting with the separate `addpart` command or delete existing participants in the meeting
-with the `deletepart` command.
+You can add new participants to a meeting with the separate [addpart](#422-adding-a-participant-into-a-meeting-addpart) command or delete existing participants in the meeting
+with the [deletepart](#423-delete-a-participant-into-a-meeting-deletepart) command.
 
 </div>
 
@@ -541,6 +543,7 @@ Examples:
 
 -   `remindmeeting 1440` returns `abc meeting` ,  `xyz meeting` <br> 
 **Remark**: 1440 = 2(months) * 30(days) * 24(hours) which is the total hours for two months; user can use this strategy to standardize the unit of time(hours) beforehand
+<div markdown="span" class="alert alert-primary">:framed_picture:
 
 **Visual Walkthrough Guide:**
 
@@ -551,6 +554,8 @@ State of the app *BEFORE* the `remindmeeting` command.
 State of the app *AFTER* the `remindmeeting 1440` command.
 
    ![Picture for GUI after remind command](images/remind_meeting_after.png)
+
+</div>
 
 #### 4.2.10 Exporting meetings in .ics format : `exportmeeting`
 
@@ -630,14 +635,6 @@ Format: `undo [INDEX]`
 #### 5.3 Command Session History
 
 You can easily scroll up and down through the list of previous successful commands using the `UP` and `DOWN` key on your keyboard while in the command box.
-<div markdown="span" class="alert alert-primary">:framed_picture:
-
-**Visual Walkthrough Guide:**
-<br>
-   ![commandSessionGIF](images/commandSession.gif)
-<br>
-
-</div>
 
 <div markdown="block" class="alert alert-info">
 
@@ -653,10 +650,7 @@ You can easily scroll up and down through the list of previous successful comman
 -   Edit the value of **interval** between meetings. The interval value is stored and remain valid when user open the app next time. 
 -   The dafault value(if user dont specify its value via this command) is 0 which means that interval is not considered. 
 -  `i/INTERVAL` indicates the **interval** between meetings. Note that there is a range restriction similar to the `remindmeeting` command. 
-
-**Visual Guide:**
-
-Take note of the user feedback in the box *AFTER* the `edituserpref i/10` command.
+-   Take note of the user feedback in the box *AFTER* the `edituserpref i/10` command.
 
 #### 5.5 Viewing previous commands 
 

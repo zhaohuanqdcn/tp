@@ -26,12 +26,14 @@ Given below are my contributions to the project.
 
 * **Enhancements to existing features**:
   * Updated the Model and AddressBook to accommodate classes related to Meeting
-  * Added tests for various features implemented
+  * Added tests for various features implemented by the team
 
 * **Documentation**:
   * User Guide:
-    * Added documentation for features implemented
+    * Added documentation for the basic commands implemented
+    * Added documentation for automatic pop up reminders
     * Added short intro, command and prefix summary
   * Developer Guide:
-    * Added implementation details of the `deletemeeting`, `clearmeeting` and `system timer` features.
-
+    * Updated user stories and use cases for some features.
+    * Added brief explanation of `list` and `clear` commands for both entities.
+    * Added implementation details of the `deletemeeting`, `deletecontact` and `system timer` features.
