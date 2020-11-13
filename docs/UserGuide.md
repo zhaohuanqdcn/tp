@@ -83,7 +83,9 @@ Here is a quick summary of relevant links you can take a look at if you wish to 
 
 ## 3 Quick start
 
-This section contains a step-by-step guide on how to install Recretary on your computer as well as some basic commands for you to get familiarise with Recretary. 
+_done by: Liu Chuyue_
+
+This section contains a step-by-step guide on how to install Recretary on your computer, as well as some basic commands for you to get familiarised with Recretary. 
 
 ### 3.1 Installation
 
@@ -93,7 +95,7 @@ This section contains a step-by-step guide on how to install Recretary on your c
 
 3. Copy the file to the folder you want to use as the _home folder_ for Recretary.
 
-4. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data. You can get familiar with our app by following the simple instructions below and observe the changes in your GUI. You can also just type `clearcontact` and `clearmeeting` separately to clear all data.
+4. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data. You can get familiar with our app by following the simple instructions below and observe the changes in your GUI. You can also just type `clearcontact` and `clearmeeting` separately to clear all data and immediately start using the app.
    ![Ui](images/Ui.png)
 
 5. For you to get familiar with the app and to practice, type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.
@@ -101,7 +103,7 @@ This section contains a step-by-step guide on how to install Recretary on your c
 
     - **`listcontact`** : Lists all contacts.
 
-    - **`addcontact`** `add_contact n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 c/ABC Holdings Pte. Ltd` : Adds a contact named `John Doe` to the Address Book.
+    - **`addcontact`** `add_contact n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 c/ABC Holdings Pte. Ltd` : Adds a contact named `John Doe` to the Contacts List.
 
     - **`deletemeeting`**`1` : Deletes the 1st meeting shown in the current list.
 
@@ -120,8 +122,8 @@ This section contains detailed information of each of Recretary's commands, with
 ### 4.1 Contact Management
 *done by: Koh Zhe Hao*
 
-Storing and using contact entries in Recretary is similar to the way you store and call your friends' handphone number. However, Recretary improves upon traditional handphone usage by taking multiple pieces of information such as name, phone number, email, address and company into consideration. There are also optional entries company roles and tags(usually a short pharse used to describe someone) that may help you organize your contacts better. The commands listed below are various ways of how you can operate on these contacts. You can also find your list of contact information on the left-hand-side of the window as shown in the highlighted section from the picture below.
-**Note**: You can view all contacts by hovering your mouse at the highlighted section and simply scroll up or down to when you have more contacts in the list 
+Storing and using contact entries in Recretary is similar to the way a phonebook stores your contacts' phone numbers. However, Recretary improves upon traditional phonebooks by taking multiple fields of information such as name, phone number, email, address and company into consideration. There are also optional entries, company roles and tags(usually a short phrase used to describe someone), that may help you organize your contacts better. The commands listed below are various methods you can manage your contacts. You can also find your list of contact information on the left-hand-side of the window as shown in the highlighted section from the picture below.
+**Note**: You can view all contacts by hovering your mouse at the highlighted section, and simply scrolling up or down to view more contacts in the list. 
 ![Ui](images/contacts.png)
 
 #### 4.1.1 Adding a person: `addcontact`
@@ -303,9 +305,9 @@ Deleted Person: Kelly Low Phone: 98765432 Email: kelly@example.com Company: ABC 
 
 #### 4.1.6 Clearing all contacts: `clearcontact`
 
-*done by: Zhao Huan*
+_done by: Liu Chuyue_
 
-Clears all contacts from the address book to start fresh using `clearcontact`. This command is convenient to clear all entries after playing around with different features. 
+Clears all contacts from the address book. If you enter anything following the `clearcontact` keyword, e.g. `clearcontact 2`, the extra input will be ignored by the application.
 
 Format: `clearcontact`
 
@@ -318,16 +320,14 @@ Expected result:
 ```
 Contacts have been cleared!
 ```
+Remove all existing contacts from Recretary. You can now see an empty contact list.
 
 <div markdown="span" class="alert alert-primary">:bulb:
 
-**Tip:** 
-
--   Anything following the `clearcontact` keyword will be ignored by the application.
--   This command empties **all contacts** rather than those being displayed! Please be careful when you use this command.
+**Tip:**
+You can undo this action with the  `undo` function!
 
 </div>
-
 
 ### 4.2 Meeting Management
 
@@ -587,9 +587,7 @@ e.g. `rec/weekly/5` means the meeting added has recurs weekly for 5 times.
 
 #### 4.2.8 Clearing all meetings : `clearmeeting`
 
-*done by: Zhao Huan*
-
-Clears all meetings from the address book to start fresh using `clearmeeting`. This command is convenient to clear all entries after playing around with different features. 
+Clears all meetings from the meeting schedule. Clears all contacts from the address book. If you enter anything following the `clearmeeting` keyword, e.g. `clearmeeting 2`, the extra input will be ignored by the application.
 
 Format: `clearmeeting`
 
@@ -603,15 +601,14 @@ Expected result:
 Meetings has been cleared!
 ```
 
+Remove all existing meeting from Recretary. You will now see an empty meeting list.
+
 <div markdown="span" class="alert alert-primary">:bulb:
 
-**Tip:** 
-
--   Anything following the `clearmeeting` keyword will be ignored by the application.
--   This command empties **all meetings** rather than those being displayed! Please be careful when you use this command.
+**Tip:**
+You can undo this action with the  `undo` function!
 
 </div>
-
 
 #### 4.2.9 Remind meetings: `remindmeeting`
 *done by: Koh Zhe Hao* <br>
@@ -643,11 +640,14 @@ State of the app *AFTER* the `remindmeeting 1440` command.
 
 #### 4.2.10 Exporting meetings in .ics format : `exportmeeting`
 
-Exports all meetings as an iCalendar file that is compatible with other calendar apps such as Google Calendar. 
+_done by: Liu Chuyue_
+
+Exports all meetings as an iCalendar file that can be imported into other calendar apps such as Google Calendar. 
 
 Format: `exportmeeting`
 
-- Any trailing words following the command will be ignored. By default, the resulting file can be found in the `data` folder. Check the FAQ section to see how to change the save location.
+- If you enter anything after the command, such as `exportmeeting 2`, the extra input will be ignored. By default, the resulting file can be found in the `data` folder. Check the FAQ section to see how to change the save location.
+- You can simply click to open the file to import your meeting schedule into the calendar app on your computer, or upload it on any online calendar site.
 
 Example Usage
 ```
@@ -779,11 +779,21 @@ Format: `exit`
 
 ## 6 FAQ
 
+_done by: Liu Chuyue_
+
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Recretary home folder.
+**A**: To transfer your data to another Computer:
+- Install the app in the other computer.
+- Transfer the following files to the other computer:
+1. The `data` folder in the same folder as the JAR file
+1. The file named  `config.json`
+1. The file named `preferences.json`
+- Place these files in the same folder as the Recretary.jar file in the new computer.
+- Run Recretary as normal.
+- Your data should be successfully transferred over.
 
 **Q**: Where is my Recretary data stored?<br>
-**A**: By default, a  `data` folder will be created in the same folder as the JAR file. After running the app for the first time, you can change the file path by editing preferences.json in the same folder directly. 
+**A**: By default, a  `data` folder will be created in the same folder as the Recretary.jar file. After running the app for the first time, you can change the file path by directly editing `preferences.json`, which will also be created in the same folder. 
 
 
 ---
@@ -792,7 +802,7 @@ Format: `exit`
 
 Action | Format, Examples
 --------|------------------
-***Generals*** |
+***General Commands*** |
 **Help** | `help`
 **Exit** | `exit`
 **Undo** | `undo [INDEX]` <br> e.g., `undo 3` or `undo`
@@ -843,8 +853,12 @@ title/ | `addmeeting`, `editmeeting` | title of a meeting
 
 ## 9 Glossary
 
+_done by: Liu Chuyue_
+
 * **CLI**: Command Line Interface. A program that accepts text input to execute system functions.
+* **Company Role**: The position of a contact plays in their company. 
 * **GUI**: Graphic User Interface. A system of interactive visual components for computer software.
-* **Interval** This represents the minimum time gap between meetings. It is meant to simulate the travelling time or resting time in between meetings.
+* **iCalendar**: A file type that allows storing and accessing calendar and sheduling information. It usually has the file extension of `.ics`.
+* **Interval**: This represents the minimum time gap between meetings. It is meant to represent travelling time or resting time in between meetings.
   
 ---
