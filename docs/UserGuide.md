@@ -135,7 +135,9 @@ Storing and using contact entries in Recretary is similar to the way a phonebook
 *done by: Koh Zhe Hao*
 
 The most fundamental command for contact management in Recretary. It simply allows you to add a new contact into Recreatary. A contact here represents the collection of all information from a single person.<br> 
+
 **Note**: Do take note of the requirements on the fields listed below as specified by [Format](#2.1-format) and [Prefix Summary](#8-prefix-summary).<br>
+
 Format: `addcontact n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS c/COMPANY [r/COMPANY_ROLE]…​ [t/TAG]…​`
 
 <div markdown="span" class="alert alert-primary">:bulb:
@@ -335,6 +337,8 @@ Format: `addmeeting title/TITLE d/DATETIME dur/DURATION l/LOCATION [rec/RECURREN
     e.g. `d/1/11/20 1430`
     e.g. `d/1/1/20 1430`
     e.g. `d/12/11/20 1430`
+    
+-   `DATETIME` cannot overlap with any of the existing meetings.
 
 -   The format for `DURATION` is `H mm`, where `H` and `mm` must be non-negative numbers and cannot both be zero. <br>
     e.g. `dur/1 30`.
@@ -368,13 +372,10 @@ Adds a new meeting on the meeting panel on the right. The existing list of meeti
 <div markdown="span" class="alert alert-primary">:bulb:
 
 **Note:**
-<p>
+
 After adding a meeting, add new participants to it with the [addpart](#422-adding-a-participant-into-a-meeting-addpart) command described below.
 Only people in your contacts can be added as participants.
-</p>
 
-A new meeting will be checked if it conflicts with any existing meeting before it is added.
-Conflict checking also considers **interval** (mentioned in [glossary](#9-glossary)).
 </div>
 
 #### 4.2.2 Adding a participant into a meeting: `addpart`
@@ -384,9 +385,8 @@ _done by: Tan Xuan Zhi_
 Adds a participant into a meeting.
 
 Format: `addpart ci/CONTACT_INDEX mi/MEETING_INDEX`
-- Add the participant at the specified `CONTACT_INDEX` to a meeting at the specified `MEETING_INDEX`
+- Add the participant at the specified `CONTACT_INDEX` to a meeting at the specified `MEETING_INDEX`.
   The `CONTACT_INDEX` and `MEETING_INDEX` refers to the index number shown in the currently displayed contact list and meeting list respectively.
-
 
 Examples:
 
@@ -410,13 +410,10 @@ New participant added to meeting: NAME_OF_PARTICIPANT_ADDED
 
 **Tip:**
 
-<p>
-*Run a `findcontact` command before running an `addpart` to narrow the contact list so that you can easily add a contact instead of scrolling through the whole list!
-</p>
+Run a `findcontact` command before running an `addpart` to narrow the contact list so that you can easily add a contact instead of scrolling through the whole list!
 
-<p>
-Likewise, run a `findmeeting` command before running an `addpart` to narrow the meeting list so that you can easily add a meeting without scrolling through the whole list!*
-</p>
+Likewise, run a `findmeeting` command before running an `addpart` to narrow the meeting list so that you can easily add a meeting without scrolling through the whole list!
+
 </div>
 
 #### 4.2.3 Delete a participant into a meeting: `deletepart`
@@ -426,7 +423,7 @@ _done by: Tan Xuan Zhi_
 Deletes a participant from a meeting. 
 
 Format: `deletepart ci/CONTACT_INDEX mi/MEETING_INDEX`
-- Delete the participant at the specified `CONTACT_INDEX` from a meeting at the specified `MEETING_INDEX`
+- Delete the participant at the specified `CONTACT_INDEX` from a meeting at the specified `MEETING_INDEX`.
   The `CONTACT_INDEX` refers to the index of the participant in the meeting and `MEETING_INDEX` refers to the index number shown in the currently displayed meeting list.
 
 Examples:
