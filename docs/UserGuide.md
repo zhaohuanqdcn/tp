@@ -138,7 +138,7 @@ A person can have any number of tags and company roles (including 0). In other w
 
 </div>
 
-Sample commands:
+Examples:
 
 -   `addcontact n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 c/ABC Holdings Pte. Ltd`
 -   `addcontact n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Mansion p/1234567 r/CEO c/DEF Company`
@@ -178,26 +178,39 @@ Expected result:
 1. ```Listed all persons``` being shown as a feedback.
 2. All existing contacts being displayed.
 
-**Note**: Since this command's behavior is very simple and similar to `addcontact`, the Visual Walkthrough Guide is omitted here. 
+**Note**: Since this command's behavior is very simple, the Visual Walkthrough Guide is omitted here. 
+
+<div markdown="span" class="alert alert-primary">:bulb:
+
+**Tip:** 
+
+-   Anything following the `listcontact` keyword will be ignored by the application.
+
+</div>
 
 #### 4.1.3 Editing a person: `editcontact`
 
-Edits an existing person in the address book.
+*done by: Zhao Huan*
+
+Ensure the validity of contacts' data by updating personal information using the `editcontact` command. You can easily manage all data fields of your contacts in Recretary, no need to remove it and add again! 
 
 Format: `editcontact INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [c/COMPANY] [t/TAG]… [r/COMPANY_ROLE]…`
 
--   Edits the person at the specified `INDEX`. The index refers to the index number
-    shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
--   At least one of the optional fields must be provided.
--   Existing values will be updated to the input values.
+-   This command edits the person at the specified `INDEX`. The index refers to the index number shown in the person list being displayed . The index **must be a positive integer** 1, 2, 3, …​
+-   At least one of the optional fields should be provided. Recretary may be confused if a contact remains changed after edition.
+-   Existing values of a contact, if any, will be updated to the input values. And all meetings the contact is participating, if any, will be updated accordingly.
+
+<div markdown="span" class="alert alert-primary">:bulb:
+
+**Tip:**   
 -   When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
--   You can remove all the person’s tags by typing `t/` without
-    specifying any tags after it.
+-   You can remove all the person’s tags by typing `t/` with no following tags.
+
+</div>
 
 Examples:
 
--   `editcontact 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be
-    `91234567` and `johndoe@example.com` respectively.
+-   `editcontact 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 -   `editcontact 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
 Example Usage
@@ -208,6 +221,9 @@ Expected result:
 ```
 Edited Person: Kelly Low Phone: 98764432 Email: kelly@example.com Company: ABC Holdings Pte. Ltd Address: John street, block 123, #01-01 Tags:  Company roles: 
 ```
+
+**Note**: Since this command's behavior is very similar to `addcontact`, the Visual Walkthrough Guide is omitted here. 
+
 #### 4.1.4 Finding persons: `findcontact`
 
 _done by: Adithya Narayan Rangarajan Sreenivasan_
@@ -256,18 +272,24 @@ State of the app *AFTER* the `findcontact david` command.
 
 #### 4.1.5 Deleting a person: `deletecontact`
 
-Deletes the specified person from the address book.
+*done by: Zhao Huan*
+
+Reduce distractions and tidy up the application by removing contacts that are no longer needed using the `deletecontact` command. This command deletes the specified contact from the address book.
 
 Format: `deletecontact INDEX`
 
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed list.
-* The index **must be a positive integer** 1, 2, 3, …​
+<div markdown="span" class="alert alert-primary">:bulb:
+
+**Tip:**   
+
+-   Deletes the person at the specified `INDEX`. The `INDEX` has a similar behavior as the one in [editcontact](#413-editing-a-person-editcontact), i.e. an positive index of a contact from the list being displayed.
+
+</div>
 
 Examples:
 * `deletecontact 2` deletes the 2nd contact in the address book.
 
-* `findcontact Betsy` followed by `deletecontact 1` deletes the 1st contact in the resulting displayed list of the `find` command.
+* `findcontact Betsy` followed by `deletecontact 1` deletes the 1st contact in the resulting displayed list of the `findcontact` command.
 
 Example Usage
 ```
@@ -278,11 +300,12 @@ Expected result
 ```
 Deleted Person: Kelly Low Phone: 98765432 Email: kelly@example.com Company: ABC Holdings Pte. Ltd Address: John street, block 123, #01-01 Tags:  Company roles: 
 ```
-Deletes the first contact in the currently displayed contact list. 
 
 #### 4.1.6 Clearing all contacts: `clearcontact`
 
-Clears all contacts from the address book. Anything following the `clearcontact` keyword will be ignored by the application.
+*done by: Zhao Huan*
+
+Clears all contacts from the address book to start fresh using `clearcontact`. This command is convenient to clear all entries after playing around with different features. 
 
 Format: `clearcontact`
 
@@ -295,8 +318,16 @@ Expected result:
 ```
 Contacts have been cleared!
 ```
-Remove all existing contacts from Recretary. You can now see an empty contact list.
-// add a warning here
+
+<div markdown="span" class="alert alert-primary">:bulb:
+
+**Tip:** 
+
+-   Anything following the `clearcontact` keyword will be ignored by the application.
+-   This command empties **all contacts rather** than those being displayed! Please be careful when you use this command.
+
+</div>
+
 
 ### 4.2 Meeting Management
 
@@ -516,14 +547,16 @@ State of the app *AFTER* the `findmeeting v1.3` command.
 
 #### 4.2.7 Deleting a meeting: `deletemeeting`
 
-Deletes the specified item (and its recurrences) from the address book.
+*done by: Zhao Huan*
+
+Reduce overhead by removing outdated or cancelled meetings to get better organized using the `deletemeeting` command! This command deletes the specified item (and its recurrences) from the address book.
 
 Format: `deletemeeting INDEX [rec/RECURRING]`
 
 * Deletes the meeting at the specified `INDEX`.
 * The index refers to the index number shown in the displayed list.
 * The index **must be a positive integer** 1, 2, 3, …​
-* The recurring must be either `true` or `false`.
+* The recurring must be either `true` or `false`. If it's `true`, the meeting specified and all its recurrences will be removed.
 
 Examples:
 * `deletemeeting 2` deletes the 2nd meeting in the meeting schedule.
@@ -539,7 +572,6 @@ Expected result:
 ```
 Deleted Meeting: Annual meeting Date and Time: 31 Dec 2020 2.00pm Duration:  50mins Location: John street, block 123, #01-01 Recurrence:  Participants: none
 ```
-Deletes the second meeting in the currently displayed meeting list. 
 
 <div markdown="block" class="alert alert-info">
 
@@ -623,13 +655,22 @@ Export all existing meetings into a .ics file that can be find in the same folde
 
 #### 4.2.11 Automatic meeting reminder
 
-A reminder will pop up when the earliest meeting is scheduled to start 30 minutes later, even if there is no user interference. If the start time of the earliest future meeting is already within 30 minutes when the app starts, a popup reminder will be shown one minute later.
+*done by: Zhao Huan*
 
-No command is needed to show the popup reminder, but in case you are not sure about future meetings, you can always use the `remindmeeting` command in 4.2.9 to view upcoming meetings.
+Pop up a meeting reminder if the earliest meeting is about to happen so that you can avoid forgetfulness! This is an automatic task and no command is needed to activate the reminder. However, in case you are not sure about future meetings, you can always use the `remindmeeting` command in [4.2.9](#429-remind-meetings-remindmeeting) to view upcoming meetings.
 
 Below is an illustration of the pop-up reminder:
 
 ![popup reminder](images/PopUpReminder.jpg)
+
+<div markdown="block" class="alert alert-info">
+
+**:information_source: About pop-up time:**<br>
+
+-   The reminder will pop up 30 minutes in advance for the start time of the ealiest upcoming meeting.
+-   If the start time of the earliest future meeting is already within 30 minutes when the app starts, a reminder will popup one minute later.
+
+</div>
 
 ---
 
