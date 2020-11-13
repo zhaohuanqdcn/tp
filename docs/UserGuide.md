@@ -324,7 +324,7 @@ Contacts have been cleared!
 **Tip:** 
 
 -   Anything following the `clearcontact` keyword will be ignored by the application.
--   This command empties **all contacts rather** than those being displayed! Please be careful when you use this command.
+-   This command empties **all contacts** rather than those being displayed! Please be careful when you use this command.
 
 </div>
 
@@ -587,7 +587,9 @@ e.g. `rec/weekly/5` means the meeting added has recurs weekly for 5 times.
 
 #### 4.2.8 Clearing all meetings : `clearmeeting`
 
-Clears all meetings from the meeting schedule. Anything following the `clearmeeting` keyword will be ignored by the application.
+*done by: Zhao Huan*
+
+Clears all meetings from the address book to start fresh using `clearmeeting`. This command is convenient to clear all entries after playing around with different features. 
 
 Format: `clearmeeting`
 
@@ -601,8 +603,15 @@ Expected result:
 Meetings has been cleared!
 ```
 
-Remove all existing meeting from Recretary. You will now see an empty meeting list.
-// add a warning here
+<div markdown="span" class="alert alert-primary">:bulb:
+
+**Tip:** 
+
+-   Anything following the `clearmeeting` keyword will be ignored by the application.
+-   This command empties **all meetings** rather than those being displayed! Please be careful when you use this command.
+
+</div>
+
 
 #### 4.2.9 Remind meetings: `remindmeeting`
 *done by: Koh Zhe Hao* <br>
