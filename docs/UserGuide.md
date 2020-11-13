@@ -83,7 +83,9 @@ Here is a quick summary of relevant links you can take a look at if you wish to 
 
 ## 3 Quick start
 
-This section contains a step-by-step guide on how to install Recretary on your computer as well as some basic commands for you to get familiarise with Recretary. 
+_done by: Liu Chuyue_
+
+This section contains a step-by-step guide on how to install Recretary on your computer, as well as some basic commands for you to get familiarised with Recretary. 
 
 ### 3.1 Installation
 
@@ -93,7 +95,7 @@ This section contains a step-by-step guide on how to install Recretary on your c
 
 3. Copy the file to the folder you want to use as the _home folder_ for Recretary.
 
-4. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data. You can get familiar with our app by following the simple instructions below and observe the changes in your GUI. You can also just type `clearcontact` and `clearmeeting` separately to clear all data.
+4. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data. You can get familiar with our app by following the simple instructions below and observe the changes in your GUI. You can also just type `clearcontact` and `clearmeeting` separately to clear all data and immediately start using the app.
    ![Ui](images/Ui.png)
 
 5. For you to get familiar with the app and to practice, type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.
@@ -101,7 +103,7 @@ This section contains a step-by-step guide on how to install Recretary on your c
 
     - **`listcontact`** : Lists all contacts.
 
-    - **`addcontact`** `add_contact n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 c/ABC Holdings Pte. Ltd` : Adds a contact named `John Doe` to the Address Book.
+    - **`addcontact`** `add_contact n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 c/ABC Holdings Pte. Ltd` : Adds a contact named `John Doe` to the Contacts List.
 
     - **`deletemeeting`**`1` : Deletes the 1st meeting shown in the current list.
 
@@ -595,6 +597,7 @@ Exports all meetings as an iCalendar file that can be imported into other calend
 Format: `exportmeeting`
 
 - If you enter anything after the command, such as `exportmeeting 2`, the extra input will be ignored. By default, the resulting file can be found in the `data` folder. Check the FAQ section to see how to change the save location.
+- You can simply click to open the file to import your meeting schedule into the calendar app on your computer, or upload it on any online calendar site.
 
 Example Usage
 ```
@@ -716,11 +719,21 @@ Format: `exit`
 
 ## 6 FAQ
 
+_done by: Liu Chuyue_
+
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Recretary home folder.
+**A**: To transfer your data to another Computer:
+- Install the app in the other computer.
+- Transfer the following files to the other computer:
+1. The `data` folder in the same folder as the JAR file
+1. The file named  `config.json`
+1. The file named `preferences.json`
+- Place these files in the same folder as the Recretary.jar file in the new computer.
+- Run Recretary as normal.
+- Your data should be successfully transferred over.
 
 **Q**: Where is my Recretary data stored?<br>
-**A**: By default, a  `data` folder will be created in the same folder as the JAR file. After running the app for the first time, you can change the file path by editing preferences.json in the same folder directly. 
+**A**: By default, a  `data` folder will be created in the same folder as the Recretary.jar file. After running the app for the first time, you can change the file path by directly editing `preferences.json`, which will also be created in the same folder. 
 
 
 ---
