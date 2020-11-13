@@ -510,7 +510,7 @@ State of the app *BEFORE* the `findmeeting` command.
 State of the app *AFTER* the `findmeeting v1.3` command.
 <br>
    ![findMeetingAfter](images/findMeetingAfter.png)
-   <center>Fig 4.2.6a: After execution of command</center>
+   <center>Fig 4.2.6b: After execution of command</center>
 <br>
 </div>
 
@@ -670,12 +670,12 @@ Format: `undo [INDEX]`
 2. State of the app *AFTER* the `deletecontact` command that you entered by mistake and wish to undo.
 <br>
    ![undo2](images/undo2.png)
-   <center>Fig 4.1.4a: After execution of command to be undone</center>
+   <center>Fig 5.2b: After execution of command to be undone</center>
 <br>
 3. State of the app *AFTER* the `undo` command.
 <br>
    ![undo3](images/undo3.png)
-   <center>Fig 4.1.4a: After execution of undo command</center>
+   <center>Fig 5.2c: After execution of undo command</center>
 <br>
 </div>
 
